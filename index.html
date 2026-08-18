@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monash B2026 — Accountancy Notes</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
             --bg: #0d1117;
@@ -19,6 +20,7 @@
             --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: var(--font);
             background: var(--bg);
@@ -26,27 +28,22 @@
             line-height: 1.7;
             font-size: 16px;
         }
-        .container { max-width: 920px; margin: 0 auto; padding: 40px 24px; }
+        .container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
         header {
             text-align: center;
-            padding: 60px 20px 40px;
+            padding: 50px 20px 30px;
             border-bottom: 1px solid var(--border);
-            margin-bottom: 40px;
+            margin-bottom: 24px;
         }
         header h1 {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 700;
             background: linear-gradient(90deg, var(--accent), var(--accent-2));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
-        header p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        header p { color: var(--text-secondary); font-size: 1rem; max-width: 600px; margin: 0 auto; }
         .badge {
             display: inline-block;
             background: var(--surface-2);
@@ -55,627 +52,255 @@
             padding: 4px 14px;
             font-size: 0.8rem;
             color: var(--accent);
-            margin-top: 16px;
+            margin-top: 12px;
         }
-        nav.toc {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px 28px;
-            margin-bottom: 40px;
+
+        /* TOC Bar */
+        .toc-bar {
             position: sticky;
-            top: 20px;
-            z-index: 10;
+            top: 0;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px;
+            z-index: 100;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
-        nav.toc h2 {
-            font-size: 1rem;
+        .toc-bar.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .toc-bar-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .toc-bar-label {
+            font-size: 0.75rem;
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 12px;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            white-space: nowrap;
         }
-        nav.toc ul {
+        .toc-bar-links {
+            display: flex;
+            gap: 8px 20px;
+            flex-wrap: wrap;
             list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 6px 20px;
         }
-        nav.toc a {
-            color: var(--text);
+        .toc-bar-links a {
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.92rem;
-            padding: 4px 0;
-            display: block;
-            border-bottom: 1px solid transparent;
-            transition: color 0.2s, border-color 0.2s;
+            font-size: 0.85rem;
+            transition: color 0.2s;
         }
-        nav.toc a:hover { color: var(--accent); border-bottom-color: var(--border); }
-        nav.toc a::before { content: "#"; color: var(--text-secondary); margin-right: 6px; font-family: var(--mono); }
-        h2 {
+        .toc-bar-links a:hover { color: var(--accent); }
+
+        /* Markdown content styling */
+        #content h2 {
             font-size: 1.6rem;
             margin: 48px 0 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid var(--accent);
-            display: inline-block;
         }
-        h3 {
+        #content h3 {
             font-size: 1.25rem;
-            color: var(--accent);
             margin: 32px 0 14px;
+            color: var(--accent);
         }
-        h4 {
+        #content h4 {
             font-size: 1.05rem;
-            color: var(--accent-2);
             margin: 24px 0 10px;
+            color: var(--accent-2);
         }
-        p { margin-bottom: 14px; }
-        ul, ol { margin: 12px 0 18px 24px; }
-        li { margin-bottom: 6px; }
-        strong { color: #e6edf3; }
-        code {
-            font-family: var(--mono);
+        #content p { margin-bottom: 14px; }
+        #content ul, #content ol {
+            margin: 12px 0 16px 24px;
+        }
+        #content li { margin-bottom: 6px; }
+        #content a { color: var(--accent); text-decoration: none; }
+        #content a:hover { text-decoration: underline; }
+        #content code {
             background: var(--surface-2);
             padding: 2px 6px;
             border-radius: 4px;
+            font-family: var(--mono);
             font-size: 0.9em;
-            color: var(--accent);
         }
-        .unit {
+        #content pre {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 32px;
-            margin-bottom: 32px;
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 16px 0;
         }
-        .lo-box {
-            background: var(--bg);
-            border-left: 3px solid var(--accent);
-            padding: 20px 24px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
+        #content pre code {
+            background: transparent;
+            padding: 0;
         }
-        .lo-box h4 { margin-top: 0; }
-        .why {
-            background: rgba(88, 166, 255, 0.08);
-            border-left: 3px solid var(--accent-2);
-            padding: 14px 18px;
-            margin: 14px 0;
-            border-radius: 0 8px 8px 0;
-            font-size: 0.95rem;
-        }
-        .why strong { color: var(--accent-2); }
-        table {
+        #content table {
             width: 100%;
             border-collapse: collapse;
-            margin: 24px 0;
-            font-size: 0.95rem;
+            margin: 20px 0;
+            font-size: 0.92rem;
         }
-        th, td {
-            padding: 12px 16px;
+        #content th, #content td {
+            border: 1px solid var(--border);
+            padding: 10px 12px;
             text-align: left;
-            border-bottom: 1px solid var(--border);
         }
-        th {
-            background: var(--surface-2);
+        #content th {
+            background: var(--surface);
             font-weight: 600;
             color: var(--accent);
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.04em;
         }
-        tr:hover td { background: rgba(255,255,255,0.02); }
-        .themes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin: 24px 0;
+        #content tr:nth-child(even) { background: var(--surface-2); }
+        #content blockquote {
+            border-left: 4px solid var(--accent);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: var(--text-secondary);
         }
-        .theme-card {
-            background: var(--surface-2);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 20px;
+        #content hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 32px 0;
         }
-        .theme-card strong {
-            display: block;
-            color: var(--accent);
-            margin-bottom: 6px;
-            font-size: 0.9rem;
+        #content strong { color: var(--text); }
+        #content img { max-width: 100%; border-radius: 8px; }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
         }
-        .theme-card span { color: var(--text-secondary); font-size: 0.9rem; }
-        .tips {
-            background: linear-gradient(135deg, rgba(88,166,255,0.1), rgba(63,185,80,0.1));
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 28px;
-            margin-top: 40px;
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
         }
-        .tips h3 { margin-top: 0; color: var(--accent); }
-        .tips ul { list-style: none; margin-left: 0; }
-        .tips li {
-            padding: 8px 0 8px 28px;
-            position: relative;
-        }
-        .tips li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: var(--accent-2);
-            font-weight: bold;
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
         footer {
             text-align: center;
             padding: 40px 20px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
             color: var(--text-secondary);
             font-size: 0.85rem;
-            border-top: 1px solid var(--border);
-            margin-top: 40px;
         }
-        a { color: var(--accent); }
-        @media (max-width: 640px) {
-            header h1 { font-size: 1.6rem; }
-            .unit { padding: 20px; }
-            nav.toc { position: static; }
+
+        /* Scroll-to-top */
+        .scroll-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--accent);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 50;
+            font-size: 1.2rem;
         }
+        .scroll-top.visible { opacity: 1; }
+        .scroll-top:hover { background: var(--surface); }
     </style>
 </head>
 <body>
     <header>
-        <h1>Monash B2026 — Accountancy Major</h1>
-        <p>Part A: Core Unit Notes & Learning Outcomes</p>
-        <span class="badge">Monash University Malaysia</span>
+        <h1>Monash B2026 — Accountancy Notes</h1>
+        <p>Enhanced study notes with definitions, worked examples, formulas & exam prep</p>
+        <span class="badge">Part A · 7 Core Units</span>
     </header>
-<div style="text-align:center; margin-top:20px;">
-            <a href="study.html" style="display:inline-block; background:linear-gradient(90deg, #58a6ff, #3fb950); color:#000; padding:12px 28px; border-radius:8px; text-decoration:none; font-weight:700; font-size:1rem;">📚 Open Exam Study Guide</a>
+
+    <nav class="toc-bar" id="tocBar">
+        <div class="toc-bar-inner">
+            <span class="toc-bar-label">Contents</span>
+            <ul class="toc-bar-links">
+                <li><a href="#unit-1-acw1120--financial-accounting-1">ACW1120</a></li>
+                <li><a href="#unit-2-bfw1001--foundations-of-finance">BFW1001</a></li>
+                <li><a href="#unit-3-btw1042--business-law">BTW1042</a></li>
+                <li><a href="#unit-4-ecm1953--economics">ECM1953</a></li>
+                <li><a href="#unit-5-etw1001--business-statistics">ETW1001</a></li>
+                <li><a href="#unit-6-mgw1010--introduction-to-management">MGW1010</a></li>
+                <li><a href="#unit-7-acw2220--management-accounting">ACW2220</a></li>
+                <li><a href="#exam-preparation-guide-by-unit">Exam Prep</a></li>
+            </ul>
         </div>
+    </nav>
 
     <div class="container">
-        <nav class="toc">
-            <h2>Contents</h2>
-            <ul>
-                <li><a href="#acw1120">ACW1120 — Financial Accounting 1</a></li>
-                <li><a href="#bfw1001">BFW1001 — Foundations of Finance</a></li>
-                <li><a href="#btw1042">BTW1042 — Business Law</a></li>
-                <li><a href="#ecm1953">ECM1953 — Economics</a></li>
-                <li><a href="#etw1001">ETW1001 — Business Statistics</a></li>
-                <li><a href="#mgw1010">MGW1010 — Introduction to Management</a></li>
-                <li><a href="#acw2220">ACW2220 — Management Accounting</a></li>
-                <li><a href="#integration">Integration & Study Tips</a></li>
-            </ul>
-        </nav>
-
-        <h2 id="acw1120">Unit 1: ACW1120 — Financial Accounting 1</h2>
-        <div class="unit">
-            <h3>LO1: Measurement Systems & Conceptual Framework</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>The Conceptual Framework for Financial Reporting (IFRS-based)</li>
-                    <li>Historical cost vs fair value measurement</li>
-                    <li>Assumptions: going concern, accrual basis, consistency</li>
-                    <li>Qualitative characteristics: relevance and faithful representation (fundamental); comparability, verifiability, timeliness, understandability (enhancing)</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Measurement systems determine how assets, liabilities, income, and expenses are valued and reported. Understanding the framework ensures financial statements are prepared on a theoretically sound basis.</div>
+        <div id="content">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Loading notes...</p>
             </div>
-
-            <h3>LO2: Double-Entry & Accrual Accounting</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Double-entry system: every debit has a corresponding credit</li>
-                    <li>Accounting equation: <code>Assets = Liabilities + Equity</code></li>
-                    <li>Accrual basis: transactions recorded when earned/incurred, not when cash moves</li>
-                    <li>Journal entries, ledger accounts, trial balance</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Double-entry bookkeeping is the foundation of all accounting systems. Accrual accounting provides a more accurate picture of financial performance than cash basis.</div>
-            </div>
-
-            <h3>LO3: Definitions & Recognition Criteria</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li><strong>Assets:</strong> Resources controlled by the entity from past events, expected to generate future economic benefits</li>
-                    <li><strong>Liabilities:</strong> Present obligations from past events, expected to result in outflow of resources</li>
-                    <li><strong>Income:</strong> Increases in economic benefits (inflows or enhancements of assets, decreases of liabilities)</li>
-                    <li><strong>Expenses:</strong> Decreases in economic benefits (outflows or depletions of assets, increases of liabilities)</li>
-                    <li>Recognition criteria: probable future economic benefit + reliably measurable</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Correct classification and recognition ensure financial statements faithfully represent the entity's position and performance.</div>
-            </div>
-
-            <h3>LO4: Accounting Standards & Financial Statements</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Selected IFRS/Accounting Standards applicable to introductory level</li>
-                    <li>Preparation of Statement of Profit or Loss, Statement of Financial Position, Statement of Changes in Equity</li>
-                    <li>Focus on service and retail organisations</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Practical ability to construct compliant financial statements is a core competency for accountants.</div>
-            </div>
-
-            <h3>LO5: Critical Thinking & Communication</h3>
-            <div class="lo-box">
-                <h4>Skills Developed</h4>
-                <ul>
-                    <li>Analysing complex business transactions</li>
-                    <li>Evaluating alternative accounting treatments</li>
-                    <li>Communicating financial information clearly to stakeholders</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Technical knowledge alone is insufficient; accountants must interpret and communicate financial data effectively.</div>
-            </div>
-        </div>
-
-        <h2 id="bfw1001">Unit 2: BFW1001 — Foundations of Finance</h2>
-        <div class="unit">
-            <h3>LO1: Fundamental Finance Concepts</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Time value of money (present value, future value, discounting, compounding)</li>
-                    <li>Risk and return trade-off</li>
-                    <li>Interest rates and their determinants</li>
-                    <li>Financial markets and institutions</li>
-                    <li>Personal finance: budgeting, saving, investing basics</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Finance fundamentals underpin all business decisions, from capital budgeting to personal wealth management.</div>
-            </div>
-
-            <h3>LO2: Financial Software & Problem Solving</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Spreadsheet modelling (Excel) for financial calculations</li>
-                    <li>Using financial calculators or software for NPV, IRR, annuity calculations</li>
-                    <li>Analysing financial scenarios and identifying optimal solutions</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Modern finance requires computational tools. Practical application bridges theory and real-world decision-making.</div>
-            </div>
-
-            <h3>LO3: Real-World Financial Scenarios</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Reading and interpreting financial market data</li>
-                    <li>Applying valuation techniques to real companies/assets</li>
-                    <li>Understanding market efficiency and information incorporation</li>
-                    <li>Practical investment analysis</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Finance is applied, not theoretical. Using real data develops market awareness and analytical capability.</div>
-            </div>
-        </div>
-
-        <h2 id="btw1042">Unit 3: BTW1042 — Business Law</h2>
-        <div class="unit">
-            <h3>LO1: Malaysian Legal System</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Sources of Malaysian law: Federal Constitution, legislation, delegated legislation, common law, equity, customary law (Adat), Islamic law (Syariah)</li>
-                    <li>Law-making institutions: Parliament, State Legislative Assemblies</li>
-                    <li>Statutory interpretation: literal, golden, mischief rules</li>
-                    <li>Dispute resolution: courts (hierarchy), arbitration, mediation, tribunals</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Understanding the legal system is essential for business compliance and risk management.</div>
-            </div>
-
-            <h3>LO2: Contract, Tort & Agency Law</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li><strong>Contract Law:</strong> Offer, acceptance, consideration, intention, capacity, consent, legality; terms (express, implied); breach and remedies</li>
-                    <li><strong>Tort Law:</strong> Negligence (duty of care, breach, causation, remoteness, defences); nuisance, defamation basics</li>
-                    <li><strong>Agency Law:</strong> Creation of agency (express, implied, ratification, estoppel); authority (actual, apparent); duties and liabilities of agent/principal</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Contracts form the basis of commercial transactions. Tort and agency law govern liability and representation in business.</div>
-            </div>
-
-            <h3>LO3: Partnerships vs Corporations</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li><strong>Partnership:</strong> Defined by Partnership Act 1961; unlimited liability (general partners); fiduciary duties; dissolution</li>
-                    <li><strong>Corporation (Company):</strong> Separate legal personality (Salomon principle); limited liability; perpetual succession; formal incorporation under Companies Act 2016</li>
-                    <li><strong>Comparison:</strong> Liability, taxation, management structure, capital raising, regulatory burden, continuity</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Choice of business structure affects liability exposure, tax obligations, and operational flexibility.</div>
-            </div>
-
-            <h3>LO4: Basic Legal Research</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Primary sources: statutes, case law, regulations</li>
-                    <li>Secondary sources: textbooks, journal articles, legal commentaries</li>
-                    <li>Legal databases and research methodology</li>
-                    <li>Citation conventions</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Legal research skills enable independent analysis of legal issues and informed business decision-making.</div>
-            </div>
-
-            <h3>LO5: Comparative Common Law</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Common Law tradition inherited from English legal system</li>
-                    <li>Doctrine of judicial precedent (stare decisis)</li>
-                    <li>Comparison with civil law jurisdictions (brief overview)</li>
-                    <li>Adaptation of Common Law in Malaysian context</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Malaysia's mixed legal system requires understanding how Common Law interacts with local statutes and customary law.</div>
-            </div>
-        </div>
-
-        <h2 id="ecm1953">Unit 4: ECM1953 — Economics</h2>
-        <div class="unit">
-            <h3>LO1: Demand, Supply & Market Structures</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Demand: law of demand, determinants, shifts vs movements</li>
-                    <li>Supply: law of supply, determinants, shifts vs movements</li>
-                    <li>Market equilibrium: price determination, shortages, surpluses</li>
-                    <li>Market structures: perfect competition, monopoly, monopolistic competition, oligopoly</li>
-                    <li>Profit maximisation: <code>MR = MC</code> rule</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Understanding market mechanics is fundamental to business strategy, pricing, and competitive analysis.</div>
-            </div>
-
-            <h3>LO2: Exogenous Factors & International Trade</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Exogenous shocks: policy changes, technology, consumer preferences, external events</li>
-                    <li>Price elasticity of demand and supply</li>
-                    <li>Consumer and producer surplus; deadweight loss</li>
-                    <li>International trade: comparative advantage, trade barriers, exchange rates</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Businesses operate in dynamic environments. Understanding external factor impacts enables proactive strategy adjustment.</div>
-            </div>
-
-            <h3>LO3: Macroeconomic Variables & Policy</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Macroeconomic indicators: GDP, inflation (CPI), unemployment, interest rates</li>
-                    <li>Fiscal policy: government spending, taxation, budget deficits/surpluses</li>
-                    <li>Monetary policy: central bank actions, money supply, interest rate targeting</li>
-                    <li>Data sources: World Bank, IMF, Department of Statistics Malaysia, BNM</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Macroeconomic conditions directly affect business operations, investment decisions, and forecasting.</div>
-            </div>
-
-            <h3>LO4: Interest Rates & Exchange Rates</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Interest rate determinants: inflation expectations, monetary policy, risk premium, liquidity preference</li>
-                    <li>Exchange rate systems: fixed, floating, managed float</li>
-                    <li>Purchasing power parity (PPP) and interest rate parity</li>
-                    <li>Factors affecting currency values: trade balances, capital flows, speculation, economic performance</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Interest rates affect borrowing costs and investment returns. Exchange rates impact international trade, remittances, and foreign investment.</div>
-            </div>
-        </div>
-
-        <h2 id="etw1001">Unit 5: ETW1001 — Business Statistics</h2>
-        <div class="unit">
-            <h3>LO1: Descriptive Statistics</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Data types: categorical vs numerical; discrete vs continuous</li>
-                    <li>Descriptive statistics: measures of central tendency (mean, median, mode)</li>
-                    <li>Measures of dispersion: range, variance, standard deviation, IQR</li>
-                    <li>Data visualisation: histograms, box plots, scatter plots, bar charts</li>
-                    <li>Frequency distributions and cross-tabulations</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Raw data is meaningless without summarisation. Descriptive statistics extract actionable insights from business and economic datasets.</div>
-            </div>
-
-            <h3>LO2: Probability & Sampling Distributions</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Probability: rules, conditional probability, independence, Bayes' theorem</li>
-                    <li>Probability distributions: normal, binomial, t-distribution</li>
-                    <li>Sampling distributions: Central Limit Theorem</li>
-                    <li>Confidence intervals for means and proportions</li>
-                    <li>Hypothesis testing: null/alternative hypotheses, Type I/II errors, p-values, z-tests, t-tests</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Business decisions are made under uncertainty. Inferential statistics allow evidence-based conclusions from sample data.</div>
-            </div>
-
-            <h3>LO3: Predictive Modelling</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Correlation vs causation</li>
-                    <li>Simple linear regression: least squares method, interpretation of coefficients, R-squared</li>
-                    <li>Multiple regression basics</li>
-                    <li>Forecasting applications: demand forecasting, sales projections, trend analysis</li>
-                    <li>Model limitations and assumptions</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Predictive modelling enables data-driven forecasting and strategic planning, reducing reliance on intuition alone.</div>
-            </div>
-
-            <h3>LO4: Communicating Statistical Results</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Translating statistical findings into plain language</li>
-                    <li>Report writing for non-technical audiences</li>
-                    <li>Visual communication of data insights</li>
-                    <li>Team collaboration on analytical projects</li>
-                    <li>Ethical presentation of data (avoiding misleading statistics)</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Statistical analysis has no value if findings cannot be communicated to decision-makers who lack technical training.</div>
-            </div>
-        </div>
-
-        <h2 id="mgw1010">Unit 6: MGW1010 — Introduction to Management</h2>
-        <div class="unit">
-            <h3>LO1: Management Theory</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Historical development: classical (Taylor, Fayol), behavioural (Mayo, McGregor), quantitative, contemporary approaches</li>
-                    <li>Management functions: planning, organising, leading, controlling (POLC framework)</li>
-                    <li>Management roles (Mintzberg): interpersonal, informational, decisional</li>
-                    <li>Management skills: technical, human, conceptual (Katz)</li>
-                    <li>Organisational structures and designs</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Management theory provides frameworks for understanding how organisations function and how managers create value.</div>
-            </div>
-
-            <h3>LO2: Critical Evaluation & Responsible Management</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Critical evaluation of management fads vs evidence-based practices</li>
-                    <li>Responsible management: ethics, sustainability, corporate social responsibility (CSR)</li>
-                    <li>Stakeholder theory vs shareholder primacy</li>
-                    <li>Applying research evidence to practical business problems</li>
-                    <li>Decision-making models and biases</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Effective managers don't just apply theories uncritically; they evaluate evidence and consider ethical implications of decisions.</div>
-            </div>
-
-            <h3>LO3: Communication Skills</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Managerial communication: upward, downward, lateral, external</li>
-                    <li>Verbal, written, and non-verbal communication</li>
-                    <li>Active listening and feedback</li>
-                    <li>Conflict resolution and negotiation</li>
-                    <li>Cross-cultural communication in global business</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Communication is the primary tool of management. Poor communication is consistently cited as a major cause of organisational failure.</div>
-            </div>
-        </div>
-
-        <h2 id="acw2220">Unit 7: ACW2220 — Management Accounting</h2>
-        <div class="unit">
-            <h3>LO1: Cost Classification</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>By behaviour: fixed, variable, semi-variable, step-fixed</li>
-                    <li>By traceability: direct vs indirect</li>
-                    <li>By function: manufacturing (direct materials, direct labour, manufacturing overhead) vs non-manufacturing</li>
-                    <li>By relevance: relevant vs irrelevant; sunk costs; opportunity costs</li>
-                    <li>Cost objects: products, services, departments, projects, customers</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Different decisions require different cost classifications. Misclassification leads to poor decision-making.</div>
-            </div>
-
-            <h3>LO2: Cost Behaviour & Estimation</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Cost behaviour patterns and cost drivers</li>
-                    <li>Methods of cost estimation: high-low method, scattergraph/visual fit method, regression analysis (least squares)</li>
-                    <li>Cost functions: <code>Y = a + bX</code></li>
-                    <li>Relevant range concept</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Understanding how costs behave with activity levels enables accurate budgeting, pricing, and forecasting.</div>
-            </div>
-
-            <h3>LO3: Costing Systems</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Job costing vs process costing vs activity-based costing (ABC)</li>
-                    <li>Overhead allocation: traditional (plant-wide, departmental rates) vs ABC (multiple cost pools and drivers)</li>
-                    <li>Costing system selection criteria: nature of production, information needs, cost-benefit trade-off</li>
-                    <li>Evaluation: accuracy, timeliness, behavioural impacts</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Costing systems determine product/service costs, which directly affect pricing, profitability analysis, and inventory valuation.</div>
-            </div>
-
-            <h3>LO4: Decision-Relevant Cost Information</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Special order decisions</li>
-                    <li>Make-or-buy (outsourcing) decisions</li>
-                    <li>Product mix decisions with constraints</li>
-                    <li>Sell-or-process-further decisions</li>
-                    <li>Add-or-drop product line/segment decisions</li>
-                    <li>Relevant cost analysis: focus on future, differential costs</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Management accountants provide decision-relevant information. Understanding what costs matter for specific decisions is a core skill.</div>
-            </div>
-
-            <h3>LO5: Communicating Cost Information</h3>
-            <div class="lo-box">
-                <h4>Key Concepts</h4>
-                <ul>
-                    <li>Budgeting: master budget components (operating, financial, capital)</li>
-                    <li>Variance analysis: flexible budgets, price and quantity variances</li>
-                    <li>Performance reporting: responsibility accounting, controllable vs non-controllable costs</li>
-                    <li>Communicating variances and recommendations to management</li>
-                    <li>Behavioural aspects of budgeting (budgetary slack, participation, motivation)</li>
-                </ul>
-                <div class="why"><strong>Why it matters:</strong> Management accounting is a service function. Cost information must be presented clearly and actionably to influence managerial behaviour positively.</div>
-            </div>
-        </div>
-
-        <h2 id="integration">Integration: How These Units Fit Together</h2>
-        <div class="unit">
-            <table>
-                <thead>
-                    <tr><th>Unit</th><th>Domain</th><th>Role in Accountancy</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>ACW1120</td><td>Financial Accounting</td><td>External reporting foundation — how accountants communicate with investors, regulators, and the public</td></tr>
-                    <tr><td>BFW1001</td><td>Finance</td><td>Capital allocation, investment appraisal, and understanding the financial environment</td></tr>
-                    <tr><td>BTW1042</td><td>Business Law</td><td>Legal compliance, contract management, and understanding business structures</td></tr>
-                    <tr><td>ECM1953</td><td>Economics</td><td>Understanding market forces, macroeconomic policy impacts, and global economic context</td></tr>
-                    <tr><td>ETW1001</td><td>Statistics</td><td>Data-driven decision making, risk analysis, and empirical research skills</td></tr>
-                    <tr><td>MGW1010</td><td>Management</td><td>Organisational context, leadership, and responsible management practice</td></tr>
-                    <tr><td>ACW2220</td><td>Management Accounting</td><td>Internal decision support — planning, control, and strategic cost management</td></tr>
-                </tbody>
-            </table>
-
-            <h3>Key Themes Across the Major</h3>
-            <div class="themes">
-                <div class="theme-card">
-                    <strong>Financial Reporting Chain</strong>
-                    <span>ACW1120 (foundations) → advanced financial accounting → external reporting</span>
-                </div>
-                <div class="theme-card">
-                    <strong>Decision Support Chain</strong>
-                    <span>ACW2220 (cost basics) → advanced management accounting → strategic business partnering</span>
-                </div>
-                <div class="theme-card">
-                    <strong>Analytical Foundation</strong>
-                    <span>ETW1001 (statistics) + ECM1953 (economics) → quantitative analysis in accounting and finance</span>
-                </div>
-                <div class="theme-card">
-                    <strong>Business Context</strong>
-                    <span>BTW1042 (legal) + MGW1010 (management) + BFW1001 (finance) → holistic understanding of organisational environment</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="tips">
-            <h3>Study Tips for Accountancy Major</h3>
-            <ul>
-                <li>Build the double-entry foundation early — ACW1120 concepts recur throughout the degree</li>
-                <li>Link accounting and finance — BFW1001 time value concepts connect to ACW2220 capital budgeting</li>
-                <li>Practise legal reasoning — BTW1042 requires case analysis, not just memorisation</li>
-                <li>Master Excel/spreadsheet skills — Essential for ETW1001, BFW1001, and ACW2220</li>
-                <li>Think about the "why" — Management accounting especially requires understanding decision context, not just calculations</li>
-                <li>Stay current — Follow Malaysian business news (The Edge, Bursa Malaysia announcements) to see accounting concepts in practice</li>
-            </ul>
         </div>
     </div>
 
+    <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
     <footer>
-        <p>Monash B2026 Accountancy Major Notes &middot; Compiled from Monash University Handbook learning outcomes</p>
-        <p style="margin-top:6px;">Last updated: 2026-08-18 | Deployed via GitHub Pages</p>
+        <p>Monash B2026 Accountancy Major Notes · Enhanced Edition</p>
+        <p style="margin-top:6px;">Last updated: 2026-08-18 · Deployed via GitHub Pages</p>
     </footer>
+
+    <script>
+        // Load and render markdown
+        fetch('monash_b2026_partA_accountancy.md')
+            .then(r => r.text())
+            .then(md => {
+                document.getElementById('content').innerHTML = marked.parse(md);
+            })
+            .catch(err => {
+                document.getElementById('content').innerHTML = '<p style="color:#f85149;text-align:center;padding:40px;">Failed to load notes. Please refresh.</p>';
+                console.error(err);
+            });
+
+        // Hide TOC on scroll down, show on scroll up
+        const tocBar = document.getElementById('tocBar');
+        const scrollTopBtn = document.getElementById('scrollTop');
+        let lastScroll = 0;
+        const hideThreshold = 300; // px to scroll before hiding
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            // Hide/show TOC
+            if (currentScroll > hideThreshold && currentScroll > lastScroll) {
+                tocBar.classList.add('hidden');
+            } else {
+                tocBar.classList.remove('hidden');
+            }
+
+            // Show/hide scroll-to-top button
+            if (currentScroll > 600) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+
+            lastScroll = currentScroll;
+        });
+    </script>
 </body>
 </html>
