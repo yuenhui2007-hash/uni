@@ -1,8 +1,5 @@
 services:
   - type: static
     name: uni
-    runtime: static
     buildCommand: ""
     staticPublishPath: .
-    branch: main
-    repo: https://github.com/yuenhui2007-hash/uni.git
