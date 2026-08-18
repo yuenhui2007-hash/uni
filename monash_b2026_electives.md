@@ -1,6 +1,6 @@
 # Monash B2026 — Elective: Business Analytics & Econometrics
 
-## Unit E1: ETC2440/ETC2410 — Business Analytics & Econometrics
+## Unit E1: ETC2440 — Business Analytics & Econometrics
 
 ### Learning Outcomes
 
