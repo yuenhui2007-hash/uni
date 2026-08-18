@@ -481,6 +481,8 @@
             { code: 'ETW1001', name: 'Business Statistics', emoji: '📉', c: '#f778ba', dim: 'rgba(247,120,186,0.1)', weak: 'rgba(247,120,186,0.2)', desc: 'Probability, hypothesis testing, regression, forecasting', tags: ['Probability', 'Confidence Int', 'Regression'] },
             { code: 'MGW1010', name: 'Introduction to Management', emoji: '🎯', c: '#f85149', dim: 'rgba(248,81,73,0.1)', weak: 'rgba(248,81,73,0.2)', desc: 'Management theories, POLC, leadership, ethics & CSR', tags: ['POLC', 'Leadership', 'CSR'] },
             { code: 'ACW2220', name: 'Management Accounting', emoji: '🧮', c: '#39c5cf', dim: 'rgba(57,197,207,0.1)', weak: 'rgba(57,197,207,0.2)', desc: 'Cost behaviour, ABC costing, budgeting, variance', tags: ['Cost Behavior', 'ABC', 'Budgeting'] },
+            { code: 'ETC2440', name: 'Business Analytics', emoji: '🔍', c: '#ff9b44', dim: 'rgba(255,155,68,0.1)', weak: 'rgba(255,155,68,0.2)', desc: 'Data analysis, predictive modelling, A/B testing, KPIs, ML basics', tags: ['Regression', 'A/B Testing', 'Dashboards'] },
+            { code: 'ETC2410', name: 'Introductory Econometrics', emoji: '📐', c: '#a371f7', dim: 'rgba(163,113,247,0.1)', weak: 'rgba(163,113,247,0.2)', desc: 'OLS regression, hypothesis testing, time series, causal inference', tags: ['OLS', 'Diagnostics', 'DiD', 'IV'] },
         ];
 
         let unitData = [];
@@ -559,30 +561,40 @@
             document.getElementById('emptyState').style.display = 'block';
         }
 
-        // Load markdown
-        fetch('monash_b2026_partA_accountancy.md?v=6')
-            .then(r => r.text())
-            .then(md => {
+        // Load both markdown files
+        Promise.all([
+            fetch('monash_b2026_partA_accountancy.md?v=6').then(r => r.text()),
+            fetch('monash_b2026_electives.md?v=1').then(r => r.text())
+        ])
+            .then(([coreMd, electiveMd]) => {
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('emptyState').style.display = 'block';
 
-                const lines = md.split('\n');
-                let current = null;
-                let content = [];
+                // Parse core units
+                function parseUnits(md) {
+                    const lines = md.split('\n');
+                    let current = null;
+                    let content = [];
+                    const units = [];
 
-                for (const line of lines) {
-                    const m = line.match(/^## Unit \d+:\s+([A-Z]{3}\d{4})\s+—\s+(.+)/);
-                    if (m) {
-                        if (current) unitData.push({ code: current.code, name: current.name, content: content.join('\n') });
-                        current = { code: m[1], name: m[2] };
-                        content = [];
-                    } else if (current) {
-                        content.push(line);
+                    for (const line of lines) {
+                        const m = line.match(/^## Unit [A-Z]?\d+:\s+([A-Z]{3}\d{4})\s+—\s+(.+)/);
+                        if (m) {
+                            if (current) units.push({ code: current.code, name: current.name, content: content.join('\n') });
+                            current = { code: m[1], name: m[2] };
+                            content = [];
+                        } else if (current) {
+                            content.push(line);
+                        }
                     }
+                    if (current) units.push({ code: current.code, name: current.name, content: content.join('\n') });
+                    return units;
                 }
-                if (current) unitData.push({ code: current.code, name: current.name, content: content.join('\n') });
 
-                const intMatch = md.match(/(## Integration[\s\S]*)/);
+                unitData = [...parseUnits(coreMd), ...parseUnits(electiveMd)];
+
+                // Add integration section from core
+                const intMatch = coreMd.match(/(## Integration[\s\S]*)/);
                 if (intMatch) unitData.push({ code: 'EXAM', name: 'Integration & Exam Prep', content: intMatch[1] });
 
                 buildDropdown();
