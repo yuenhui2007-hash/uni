@@ -55,7 +55,7 @@
             margin-top: 12px;
         }
 
-        /* TOC Bar — FIXED at top, never scrolls away */
+        /* TOC Bar — hides when scrolling down */
         .toc-bar {
             position: sticky;
             top: 0;
@@ -64,6 +64,12 @@
             border-bottom: 1px solid var(--border);
             padding: 12px 24px;
             z-index: 100;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .toc-bar.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
         }
         .toc-bar-inner {
             max-width: 960px;
@@ -281,14 +287,30 @@
                 console.error(err);
             });
 
-        // Scroll-to-top button only
+        // Hide TOC on scroll down, show on scroll up
+        const tocBar = document.getElementById('tocBar');
         const scrollTopBtn = document.getElementById('scrollTop');
+        let lastScroll = 0;
+        const hideThreshold = 200;
+
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 600) {
+            const currentScroll = window.pageYOffset;
+
+            // Hide/show TOC
+            if (currentScroll > hideThreshold && currentScroll > lastScroll) {
+                tocBar.classList.add('hidden');
+            } else {
+                tocBar.classList.remove('hidden');
+            }
+
+            // Show/hide scroll-to-top button
+            if (currentScroll > 600) {
                 scrollTopBtn.classList.add('visible');
             } else {
                 scrollTopBtn.classList.remove('visible');
             }
+
+            lastScroll = currentScroll;
         });
     </script>
 </body>
