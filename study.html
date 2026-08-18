@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monash B2026 — Exam Study Guide</title>
+    <style>
+        :root {
+            --bg: #0a0e14;
+            --surface: #111820;
+            --surface-2: #1c2430;
+            --border: #2a3441;
+            --text: #d1d5db;
+            --text-secondary: #8b949e;
+            --accent: #60a5fa;
+            --accent-2: #34d399;
+            --danger: #f87171;
+            --warning: #fbbf24;
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --mono: "SFMono-Regular", Consolas, monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            font-size: 15px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
+        header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        header p { color: var(--text-secondary); font-size: 1rem; }
+        .exam-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(96,165,250,0.15), rgba(52,211,153,0.15));
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Timer bar */
+        .timer-bar {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        .timer-bar button {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        /* Nav */
+        nav.toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin-bottom: 28px;
+            position: sticky;
+            top: 12px;
+            z-index: 10;
+        }
+        nav.toc h3 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 10px;
+        }
+        nav.toc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 4px 16px;
+        }
+        nav.toc a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.88rem;
+            padding: 3px 0;
+            display: block;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+            transition: 0.2s;
+        }
+        nav.toc a:hover { color: var(--accent); border-left-color: var(--accent); }
+        
+        /* Section headers */
+        h2 {
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin: 40px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        h3 {
+            font-size: 1.1rem;
+            color: var(--accent-2);
+            margin: 28px 0 12px;
+        }
+        h4 {
+            font-size: 1rem;
+            color: var(--warning);
+            margin: 20px 0 10px;
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .card-title {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .card-tag {
+            font-size: 0.75rem;
+            background: var(--surface-2);
+            padding: 3px 10px;
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+        
+        /* Formula boxes */
+        .formula {
+            background: rgba(96,165,250,0.08);
+            border-left: 3px solid var(--accent);
+            padding: 14px 18px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+            font-family: var(--mono);
+            font-size: 1rem;
+        }
+        .formula-label {
+            font-family: var(--font);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        
+        /* Definition boxes */
+        .def {
+            background: rgba(52,211,153,0.06);
+            border-left: 3px solid var(--accent-2);
+            padding: 14px 18px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .def-term {
+            font-weight: 700;
+            color: var(--accent-2);
+            font-size: 1.05rem;
+        }
+        .def-meaning {
+            margin-top: 6px;
+            color: var(--text);
+        }
+        
+        /* Exam traps */
+        .trap {
+            background: rgba(248,113,113,0.08);
+            border-left: 3px solid var(--danger);
+            padding: 14px 18px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .trap-label {
+            font-weight: 700;
+            color: var(--danger);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        
+        /* MCQ / Practice */
+        .mcq {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+        .mcq-question {
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .mcq-options {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .mcq-options li {
+            padding: 8px 12px;
+            margin: 4px 0;
+            background: var(--surface);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .mcq-options li:hover { background: rgba(96,165,250,0.1); }
+        .mcq-answer {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(52,211,153,0.1);
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-2);
+        }
+        .mcq-answer.show { display: block; }
+        .mcq-toggle {
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.92rem;
+        }
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: var(--surface-2);
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        
+        /* Quick ref grids */
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+            margin: 16px 0;
+        }
+        .quick-item {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+        }
+        .quick-item strong {
+            display: block;
+            color: var(--accent);
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+        .quick-item span {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+        }
+        
+        /* Cram mode toggle */
+        .cram-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(96,165,250,0.3);
+            z-index: 100;
+        }
+        
+        /* Print styles */
+        @media print {
+            body { background: #fff; color: #000; }
+            .cram-toggle, .timer-bar, nav.toc { display: none; }
+            .card { border: 1px solid #ccc; break-inside: avoid; }
+        }
+        
+        /* Cram mode */
+        body.cram-mode .card { padding: 12px; margin-bottom: 10px; }
+        body.cram-mode p, body.cram-mode li { font-size: 0.9rem; }
+        body.cram-mode h2 { font-size: 1.2rem; margin-top: 24px; }
+        
+        @media (max-width: 640px) {
+            header h1 { font-size: 1.4rem; }
+            .container { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Monash B2026 — Exam Study Guide</h1>
+        <p>Accountancy Major · Part A Core Units</p>
+        <span class="exam-badge">Exam Ready</span>
+    </header>
+
+    <div class="container">
+        <div class="timer-bar">
+            <span>📅 Exam season mode: Focus on highlighted sections</span>
+            <button onclick="toggleCram()">Toggle Cram Mode</button>
+        </div>
+
+        <nav class="toc">
+            <h3>Jump to Unit</h3>
+            <ul>
+                <li><a href="#acw1120">ACW1120 Financial Accounting</a></li>
+                <li><a href="#bfw1001">BFW1001 Foundations of Finance</a></li>
+                <li><a href="#btw1042">BTW1042 Business Law</a></li>
+                <li><a href="#ecm1953">ECM1953 Economics</a></li>
+                <li><a href="#etw1001">ETW1001 Business Statistics</a></li>
+                <li><a href="#mgw1010">MGW1010 Management</a></li>
+                <li><a href="#acw2220">ACW2220 Management Accounting</a></li>
+                <li><a href="#quickref">Quick Reference</a></li>
+            </ul>
+        </nav>
+
+        <!-- ACW1120 -->
+        <h2 id="acw1120">ACW1120 — Financial Accounting 1</h2>
+        
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Accounting Equation</span>
+                <span class="card-tag">Must Memorize</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Fundamental Equation</div>
+                Assets = Liabilities + Equity
+            </div>
+            <div class="formula">
+                <div class="formula-label">Expanded</div>
+                Assets = Liabilities + (Capital + Revenue - Expenses - Drawings)
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Double Entry Rules</span>
+                <span class="card-tag">Dr / Cr</span>
+            </div>
+            <table>
+                <tr><th>Account Type</th><th>Increase</th><th>Decrease</th></tr>
+                <tr><td>Assets</td><td>Debit (Dr)</td><td>Credit (Cr)</td></tr>
+                <tr><td>Liabilities</td><td>Credit (Cr)</td><td>Debit (Dr)</td></tr>
+                <tr><td>Equity / Capital</td><td>Credit (Cr)</td><td>Debit (Dr)</td></tr>
+                <tr><td>Revenue</td><td>Credit (Cr)</td><td>Debit (Dr)</td></tr>
+                <tr><td>Expenses</td><td>Debit (Dr)</td><td>Credit (Cr)</td></tr>
+            </table>
+            <div class="trap">
+                <div class="trap-label">⚠ Exam Trap</div>
+                <p>Drawings/Owner withdrawals are <strong>NOT expenses</strong> — they reduce equity directly. Debit Drawings, Credit Bank.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Key Definitions</span>
+                <span class="card-tag">IFRS Conceptual Framework</span>
+            </div>
+            <div class="def">
+                <div class="def-term">Asset</div>
+                <div class="def-meaning">Resource <strong>controlled</strong> by entity, from <strong>past event</strong>, expected <strong>future economic benefit</strong></div>
+            </div>
+            <div class="def">
+                <div class="def-term">Liability</div>
+                <div class="def-meaning"><strong>Present obligation</strong> from past event, expected <strong>outflow of resources</strong></div>
+            </div>
+            <div class="def">
+                <div class="def-term">Equity</div>
+                <div class="def-meaning">Residual interest: Assets minus Liabilities (claim after all liabilities settled)</div>
+            </div>
+            <div class="def">
+                <div class="def-term">Income</div>
+                <div class="def-meaning">Increases in economic benefits (inflows / enhancements of assets / decreases of liabilities)</div>
+            </div>
+            <div class="def">
+                <div class="def-term">Expenses</div>
+                <div class="def-meaning">Decreases in economic benefits (outflows / depletions of assets / increases of liabilities)</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Qualitative Characteristics</span>
+                <span class="card-tag">Framework</span>
+            </div>
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <strong>Fundamental</strong>
+                    <span>Relevance — material, has predictive/confirmatory value</span>
+                    <span>Faithful Representation — complete, neutral, free from error</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Enhancing</strong>
+                    <span>Comparability, Verifiability, Timeliness, Understandability</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Adjusting Entries</span>
+                <span class="card-tag">High-Yield</span>
+            </div>
+            <table>
+                <tr><th>Adjustment</th><th>Journal Entry</th></tr>
+                <tr><td>Accrued Expense</td><td>Dr Expense, Cr Payable/Accrued Expense</td></tr>
+                <tr><td>Accrued Revenue</td><td>Dr Receivable/Accrued Revenue, Cr Revenue</td></tr>
+                <tr><td>Prepaid Expense</td><td>Dr Prepaid Expense, Cr Expense (if initially expensed)</td></tr>
+                <tr><td>Unearned Revenue</td><td>Dr Revenue, Cr Unearned Revenue (if initially recognised)</td></tr>
+                <tr><td>Depreciation</td><td>Dr Depreciation Expense, Cr Accumulated Depreciation</td></tr>
+                <tr><td>Bad Debts</td><td>Dr Bad Debt Expense, Cr Allowance for Doubtful Debts</td></tr>
+            </table>
+        </div>
+
+        <div class="mcq">
+            <div class="mcq-question">Q1: A company receives $12,000 cash for services to be performed next month. What is the correct entry?</div>
+            <ul class="mcq-options">
+                <li>A) Dr Cash $12,000; Cr Revenue $12,000</li>
+                <li>B) Dr Cash $12,000; Cr Unearned Revenue $12,000</li>
+                <li>C) Dr Revenue $12,000; Cr Cash $12,000</li>
+                <li>D) Dr Prepaid Revenue $12,000; Cr Cash $12,000</li>
+            </ul>
+            <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+            <div class="mcq-answer">
+                <strong>Answer: B</strong><br>
+                Cash received before earning = liability (Unearned Revenue). Revenue recognition principle — recognise when earned, not when cash received.
+            </div>
+        </div>
+
+        <!-- BFW1001 -->
+        <h2 id="bfw1001">BFW1001 — Foundations of Finance</h2>
+        
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Time Value of Money</span>
+                <span class="card-tag">Calculators Allowed</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Future Value (Lump Sum)</div>
+                FV = PV × (1 + r)ⁿ
+            </div>
+            <div class="formula">
+                <div class="formula-label">Present Value (Lump Sum)</div>
+                PV = FV / (1 + r)ⁿ
+            </div>
+            <div class="formula">
+                <div class="formula-label">Future Value of Annuity</div>
+                FVA = PMT × [(1 + r)ⁿ - 1] / r
+            </div>
+            <div class="formula">
+                <div class="formula-label">Present Value of Annuity</div>
+                PVA = PMT × [1 - (1 + r)⁻ⁿ] / r
+            </div>
+            <div class="trap">
+                <div class="trap-label">⚠ Exam Trap</div>
+                <p>Always check if payments are at <strong>beginning</strong> (annuity due) or <strong>end</strong> (ordinary annuity) of period. Annuity due = multiply ordinary annuity result by (1+r).</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">NPV & IRR</span>
+                <span class="card-tag">Investment Appraisal</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Net Present Value</div>
+                NPV = Σ [CFₜ / (1 + r)ᵗ] - Initial Investment
+            </div>
+            <div class="formula">
+                <div class="formula-label">Decision Rule</div>
+                NPV > 0 → Accept; NPV < 0 → Reject
+            </div>
+            <div class="def">
+                <div class="def-term">IRR</div>
+                <div class="def-meaning">Discount rate where NPV = 0. If IRR > required return → Accept.</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Risk & Return</span>
+                <span class="card-tag">Conceptual</span>
+            </div>
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <strong>Systematic Risk</strong>
+                    <span>Market-wide, non-diversifiable. Measured by beta (β).</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Unsystematic Risk</strong>
+                    <span>Firm-specific, diversifiable. Reduced via portfolio diversification.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Required Return (CAPM)</strong>
+                    <span>E(R) = Rf + β × (Rm - Rf)</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Risk Premium</strong>
+                    <span>(Rm - Rf) — extra return demanded for bearing market risk</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mcq">
+            <div class="mcq-question">Q2: An investment costs $50,000 and generates $12,000/year for 5 years. Cost of capital is 8%. Should you accept?</div>
+            <ul class="mcq-options">
+                <li>A) Yes, payback is 4.17 years</li>
+                <li>B) No, NPV is negative</li>
+                <li>C) Yes, NPV ≈ $47,888 - $50,000 = -$2,112 → Reject</li>
+                <li>D) Cannot determine without IRR</li>
+            </ul>
+            <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+            <div class="mcq-answer">
+                <strong>Answer: C</strong><br>
+                PVA = $12,000 × [1 - (1.08)⁻⁵] / 0.08 = $12,000 × 3.9927 = $47,912. NPV = $47,912 - $50,000 = -$2,088 ≈ <strong>Reject</strong>.<br>
+                <em>Trick: Don't just look at payback. Always use NPV for decision.</em>
+            </div>
+        </div>
+
+        <!-- BTW1042 -->
+        <h2 id="btw1042">BTW1042 — Business Law</h2>
+        
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Elements of a Valid Contract</span>
+                <span class="card-tag">Essential — Essay Q</span>
+            </div>
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <strong>1. Offer</strong>
+                    <span>Clear, definite promise. Invitation to treat ≠ offer (e.g., advertisements, displays).</span>
+                </div>
+                <div class="quick-item">
+                    <strong>2. Acceptance</strong>
+                    <span>Unqualified agreement to terms. Must be communicated. Silence ≠ acceptance (Felthouse v Bindley).</span>
+                </div>
+                <div class="quick-item">
+                    <strong>3. Consideration</strong>
+                    <span>Something of value exchanged. Must be sufficient (not necessarily adequate). Past consideration is not valid.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>4. Intention</strong>
+                    <span>Social/domestic agreements — presumed no intention (Balfour v Balfour). Commercial — presumed intention exists.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>5. Capacity</strong>
+                    <span>Minors, mentally incapacitated, intoxicated persons may lack capacity.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>6. Legality</strong>
+                    <span>Purpose must be lawful. Illegal contracts are void.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Negligence — 4 Elements</span>
+                <span class="card-tag">Tort Law</span>
+            </div>
+            <table>
+                <tr><th>Element</th><th>Test</th><th>Key Case</th></tr>
+                <tr><td>1. Duty of Care</td><td>Reasonable foreseeability + proximity + fair, just, reasonable</td><td>Donoghue v Stevenson</td></tr>
+                <tr><td>2. Breach</td><td>Defendant fell below standard of reasonable person</td><td>Blyth v Birmingham Waterworks</td></tr>
+                <tr><td>3. Causation</td><td>"But for" test — would damage occur but for defendant's act?</td><td>Barnett v Chelsea Hospital</td></tr>
+                <tr><td>4. Remoteness</td><td>Was the kind of damage reasonably foreseeable?</td><td>The Wagon Mound (No 1)</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Partnership vs Company</span>
+                <span class="card-tag">Comparison Table</span>
+            </div>
+            <table>
+                <tr><th>Feature</th><th>Partnership (PA 1961)</th><th>Company (CA 2016)</th></tr>
+                <tr><td>Legal Status</td><td>No separate legal personality</td><td>Separate legal personality (Salomon v Salomon)</td></tr>
+                <tr><td>Liability</td><td>Unlimited (joint and several)</td><td>Limited (shareholders)</td></tr>
+                <tr><td>Perpetual Succession</td><td>No — dissolved on death/withdrawal</td><td>Yes — continues regardless of ownership changes</td></tr>
+                <tr><td>Transfer of Interest</td><td>Requires consent of all partners</td><td>Shares freely transferable (private: restricted)</td></tr>
+                <tr><td>Taxation</td><td>Partners taxed individually</td><td>Company taxed; dividends taxed in shareholders' hands</td></tr>
+                <tr><td>Formalities</td><td>Minimal — can be oral</td><td>Must register with SSM; constitutional documents</td></tr>
+            </table>
+        </div>
+
+        <div class="mcq">
+            <div class="mcq-question">Q3: Which case established the principle of separate legal personality?</div>
+            <ul class="mcq-options">
+                <li>A) Donoghue v Stevenson</li>
+                <li>B) Salomon v A Salomon & Co Ltd</li>
+                <li>C) Carlill v Carbolic Smoke Ball Co</li>
+                <li>D) Balfour v Balfour</li>
+            </ul>
+            <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+            <div class="mcq-answer">
+                <strong>Answer: B</strong><br>
+                Salomon v A Salomon & Co Ltd [1897] — Mr Salomon incorporated his business. When it failed, creditors tried to make him personally liable. House of Lords held company is separate legal person from its shareholders.
+            </div>
+        </div>
+
+        <!-- ECM1953 -->
+        <h2 id="ecm1953">ECM1953 — Economics</h2>
+        
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Elasticity Formulas</span>
+                <span class="card-tag">Calculations</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Price Elasticity of Demand (PED)</div>
+                PED = (% Change in Quantity Demanded) / (% Change in Price)
+            </div>
+            <div class="formula">
+                <div class="formula-label">Midpoint Formula (more accurate)</div>
+                PED = [(Q₂ - Q₁) / ((Q₁ + Q₂)/2)] / [(P₂ - P₁) / ((P₁ + P₂)/2)]
+            </div>
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <strong>PED > 1</strong>
+                    <span>Elastic — quantity responsive to price change. Luxury goods.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>PED < 1</strong>
+                    <span>Inelastic — quantity unresponsive. Necessities, addictions.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>PED = 1</strong>
+                    <span>Unit elastic — % change in Q = % change in P</span>
+                </div>
+                <div class="quick-item">
+                    <strong>PED = 0</strong>
+                    <span>Perfectly inelastic — vertical demand curve</span>
+                </div>
+            </div>
+            <div class="trap">
+                <div class="trap-label">⚠ Exam Trap</div>
+                <p>Total Revenue test: If demand is <strong>elastic</strong>, price increase → revenue <strong>decreases</strong>. If <strong>inelastic</strong>, price increase → revenue <strong>increases</strong>.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Market Structures Comparison</span>
+                <span class="card-tag">Table — Memorize</span>
+            </div>
+            <table>
+                <tr><th>Feature</th><th>Perfect Competition</th><th>Monopoly</th><th>Monopolistic Comp</th><th>Oligopoly</th></tr>
+                <tr><td>Firms</td><td>Many</td><td>One</td><td>Many</td><td>Few</td></tr>
+                <tr><td>Product</td><td>Homogeneous</td><td>Unique</td><td>Differentiated</td><td>Homo or Diff</td></tr>
+                <tr><td>Barriers</td><td>None</td><td>High</td><td>Low</td><td>High</td></tr>
+                <tr><td>Price Power</td><td>Price taker</td><td>Price maker</td><td>Some</td><td>Strategic interdependence</td></tr>
+                <tr><td>Profit (LR)</td><td>Normal only</td><td>Supernormal possible</td><td>Normal only</td><td>Supernormal possible</td></tr>
+                <tr><td>Efficiency</td><td>Productive + allocative</td><td>Neither (deadweight loss)</td><td>Excess capacity</td><td>Uncertain</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Macroeconomic Policy</span>
+                <span class="card-tag">Fiscal vs Monetary</span>
+            </div>
+            <table>
+                <tr><th>Policy</th><th>Tools</th><th>Expansionary</th><th>Contractionary</th></tr>
+                <tr><td>Fiscal</td><td>Government spending, Taxation</td><td>↑G, ↓T</td><td>↓G, ↑T</td></tr>
+                <tr><td>Monetary</td><td>Interest rates, Money supply, Reserve requirements</td><td>↓rates, ↑money supply</td><td>↑rates, ↓money supply</td></tr>
+            </table>
+        </div>
+
+        <!-- ETW1001 -->
+        <h2 id="etw1001">ETW1001 — Business Statistics</h2>
+        
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Descriptive Stats</span>
+                <span class="card-tag">Formulas</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Mean</div>
+                x̄ = Σx / n
+            </div>
+            <div class="formula">
+                <div class="formula-label">Sample Variance</div>
+                s² = Σ(x - x̄)² / (n - 1)
+            </div>
+            <div class="formula">
+                <div class="formula-label">Standard Deviation</div>
+                s = √s²
+            </div>
+            <div class="formula">
+                <div class="formula-label">Coefficient of Variation</div>
+                CV = (s / x̄) × 100%
+            </div>
+            <div class="trap">
+                <div class="trap-label">⚠ Exam Trap</div>
+                <p>Sample variance uses <strong>n-1</strong> (degrees of freedom). Population variance uses <strong>n</strong>. In exams, unless stated "population", assume sample.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Confidence Intervals</span>
+                <span class="card-tag">Interval Estimation</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">CI for Mean (σ known)</div>
+                x̄ ± Z(α/2) × (σ/√n)
+            </div>
+            <div class="formula">
+                <div class="formula-label">CI for Mean (σ unknown)</div>
+                x̄ ± t(α/2, n-1) × (s/√n)
+            </div>
+            <div class="formula">
+                <div class="formula-label">CI for Proportion</div>
+                p̂ ± Z(α/2) × √(p̂(1-p̂)/n)
+            </div>
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <strong>Z critical values</strong>
+                    <span>90%: 1.645 | 95%: 1.96 | 99%: 2.576</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Hypothesis Testing Steps</span>
+                <span class="card-tag">5-Step Process</span>
+            </div>
+            <ol style="margin-left: 20px;">
+                <li><strong>State H₀ and H₁</strong> — H₀ always has equality (=, ≤, ≥)</li>
+                <li><strong>Choose α</strong> — usually 0.05 (5%)</li>
+                <li><strong>Calculate test statistic</strong> — Z or t</li>
+                <li><strong>Find critical value / p-value</strong></li>
+                <li><strong>Decision:</strong> Reject H₀ if p < α OR test stat > critical value</li>
+            </ol>
+            <div class="formula">
+                <div class="formula-label">Z-test for Mean</div>
+                Z = (x̄ - μ₀) / (σ/√n)
+            </div>
+            <div class="formula">
+                <div class="formula-label">t-test for Mean</div>
+                t = (x̄ - μ₀) / (s/√n)
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Regression</span>
+                <span class="card-tag">Predictive Modelling</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Simple Linear Regression</div>
+                ŷ = b₀ + b₁x
+            </div>
+            <div class="formula">
+                <div class="formula-label">Slope (b₁)</div>
+                b₁ = Σ(x - x̄)(y - ȳ) / Σ(x - x̄)² = Cov(x,y) / Var(x)
+            </div>
+            <div class="formula">
+                <div class="formula-label">R-squared</div>
+                R² = SSR / SST = 1 - (SSE / SST)
+            </div>
+            <div class="def">
+                <div class="def-term">Interpretation of b₁</div>
+                <div class="def-meaning">For every 1-unit increase in x, y changes by b₁ units.</div>
+            </div>
+            <div class="def">
+                <div class="def-term">Interpretation of R²</div>
+                <div class="def-meaning">Percentage of variation in y explained by x. R² = 0.75 means 75% of y's variation is explained by the model.</div>
+            </div>
+        </div>
+
+        <!-- MGW1010 -->
+        <h2 id="mgw1010">MGW1010 — Introduction to Management</h2>
+        
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Management Functions (POLC)</span>
+                <span class="card-tag">Framework</span>
+            </div>
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <strong>Planning</strong>
+                    <span>Setting objectives, strategies, action plans. SWOT, forecasting, budgeting.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Organising</strong>
+                    <span>Arranging resources and tasks. Structure, delegation, coordination.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Leading</strong>
+                    <span>Motivating, directing, influencing. Communication, leadership styles.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Controlling</strong>
+                    <span>Monitoring performance, corrective action. Standards, measures, comparisons.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Management Theories</span>
+                <span class="card-tag">Historical Evolution</span>
+            </div>
+            <table>
+                <tr><th>Approach</th><th>Key Figures</th><th>Focus</th></tr>
+                <tr><td>Classical</td><td>Taylor (Scientific), Fayol (Administrative)</td><td>Efficiency, structure, hierarchy</td></tr>
+                <tr><td>Behavioural</td><td>Mayo (Hawthorne), McGregor (X & Y)</td><td>Human behaviour, motivation, groups</td></tr>
+                <tr><td>Quantitative</td><td>Operations researchers</td><td>Mathematical models, optimisation</td></tr>
+                <tr><td>Contemporary</td><td>Systems, Contingency, TQM</td><td>Adaptability, quality, global context</td></tr>
+            </table>
+            <div class="trap">
+                <div class="trap-label">⚠ Exam Trap</div>
+                <p>McGregor's <strong>Theory X</strong> = people dislike work, need coercion. <strong>Theory Y</strong> = people seek responsibility, self-directed. Don't mix them up!</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Mintzberg's Managerial Roles</span>
+                <span class="card-tag">10 Roles in 3 Categories</span>
+            </div>
+            <table>
+                <tr><th>Category</th><th>Roles</th></tr>
+                <tr><td>Interpersonal</td><td>Figurehead, Leader, Liaison</td></tr>
+                <tr><td>Informational</td><td>Monitor, Disseminator, Spokesperson</td></tr>
+                <tr><td>Decisional</td><td>Entrepreneur, Disturbance handler, Resource allocator, Negotiator</td></tr>
+            </table>
+        </div>
+
+        <!-- ACW2220 -->
+        <h2 id="acw2220">ACW2220 — Management Accounting</h2>
+        
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Cost Classifications</span>
+                <span class="card-tag">Foundation</span>
+            </div>
+            <table>
+                <tr><th>By Behaviour</th><th>By Traceability</th><th>By Relevance</th></tr>
+                <tr><td>Fixed — constant total</td><td>Direct — traceable to cost object</td><td>Relevant — future, differs</td></tr>
+                <tr><td>Variable — constant per unit</td><td>Indirect — allocated (overhead)</td><td>Irrelevant — sunk, same</td></tr>
+                <tr><td>Semi-variable — mixed</td><td></td><td>Opportunity cost — forgone benefit</td></tr>
+            </table>
+            <div class="formula">
+                <div class="formula-label">Total Cost (Linear)</div>
+                Y = a + bX
+                <br><span style="color: var(--text-secondary); font-size: 0.85rem;">a = total fixed cost | b = variable cost per unit | X = activity level</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Cost Estimation Methods</span>
+                <span class="card-tag">High-Low & Regression</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">High-Low Method</div>
+                Variable cost per unit (b) = (Cost at high - Cost at low) / (Activity high - Activity low)
+                <br>Fixed cost (a) = Total cost - (b × Activity level)
+            </div>
+            <div class="trap">
+                <div class="trap-label">⚠ Exam Trap</div>
+                <p>Use the <strong>highest and lowest activity levels</strong>, NOT highest and lowest costs. Outliers can distort results.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Overhead Allocation</span>
+                <span class="card-tag">Traditional vs ABC</span>
+            </div>
+            <table>
+                <tr><th>Traditional</th><th>Activity-Based Costing (ABC)</th></tr>
+                <tr><td>Single plant-wide rate or departmental rates</td><td>Multiple cost pools, multiple cost drivers</td></tr>
+                <tr><td>Based on volume (e.g., direct labour hours)</td><td>Based on activities that cause costs</td></tr>
+                <tr><td>Distorts product costs when overheads not driven by volume</td><td>More accurate but more expensive to implement</td></tr>
+            </table>
+            <div class="formula">
+                <div class="formula-label">Predetermined Overhead Rate</div>
+                POHR = Estimated Total Overhead / Estimated Total Allocation Base
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Short-Term Decision Making</span>
+                <span class="card-tag">Relevant Costing</span>
+            </div>
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <strong>Special Order</strong>
+                    <span>Accept if price > relevant cost. Consider spare capacity.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Make-or-Buy</strong>
+                    <span>Compare internal variable cost + avoidable fixed cost vs external purchase price.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Product Mix (Constraint)</strong>
+                    <span>Maximise contribution margin per unit of scarce resource.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Add/Drop Segment</strong>
+                    <span>Compare lost contribution margin vs avoidable fixed costs.</span>
+                </div>
+            </div>
+            <div class="trap">
+                <div class="trap-label">⚠ Exam Trap</div>
+                <p>Common fixed costs (allocated HQ costs) are <strong>NOT relevant</strong> — they don't change regardless of decision. Only include costs that actually change.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Variance Analysis</span>
+                <span class="card-tag">Flexible Budget</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Total Variance</div>
+                Actual Cost - Standard Cost
+            </div>
+            <div class="formula">
+                <div class="formula-label">Price Variance</div>
+                (Actual Price - Standard Price) × Actual Quantity
+            </div>
+            <div class="formula">
+                <div class="formula-label">Quantity/Efficiency Variance</div>
+                (Actual Quantity - Standard Quantity) × Standard Price
+            </div>
+            <div class="def">
+                <div class="def-term">Favourable vs Adverse</div>
+                <div class="def-meaning">Favourable (F) = actual cost < standard cost (good). Adverse (A) = actual cost > standard cost (bad).</div>
+            </div>
+        </div>
+
+        <div class="mcq">
+            <div class="mcq-question">Q4: A division has contribution margin of $50,000 and allocated fixed costs of $30,000. If the division is dropped, $20,000 of fixed costs are avoidable. Should the division be dropped?</div>
+            <ul class="mcq-options">
+                <li>A) Yes, saves $30,000</li>
+                <li>B) No, lose $50,000 CM but only save $20,000 → Net loss $30,000</li>
+                <li>C) Yes, profit increases by $10,000</li>
+                <li>D) Indifferent</li>
+            </ul>
+            <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+            <div class="mcq-answer">
+                <strong>Answer: B</strong><br>
+                Lost CM: $50,000. Avoidable FC saved: $20,000. Net effect: -$50,000 + $20,000 = <strong>-$30,000</strong> (profit decreases). <em>The $10,000 unavoidable fixed cost continues regardless — irrelevant to decision.</em>
+            </div>
+        </div>
+
+        <!-- Quick Reference -->
+        <h2 id="quickref">Quick Reference — Exam Day</h2>
+        
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">What to Bring</span>
+                <span class="card-tag">Checklist</span>
+            </div>
+            <ul>
+                <li>✓ Student ID</li>
+                <li>✓ Calculator (financial/scientific — check allowed models)</li>
+                <li>✓ Pen, pencil, eraser, ruler</li>
+                <li>✓ Formula sheet (if permitted)</li>
+                <li>✓ Watch (analog, no smart features)</li>
+                <li>✓ Water bottle (clear, no label)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Time Management</span>
+                <span class="card-tag">Strategy</span>
+            </div>
+            <ul>
+                <li><strong>Scan the whole paper first</strong> — know what's coming</li>
+                <li><strong>Start with questions you know best</strong> — builds confidence</li>
+                <li><strong>Allocate time per mark</strong> — e.g., 100 marks in 3 hours = 1.8 min/mark</li>
+                <li><strong>Leave 10 min at end</strong> for review</li>
+                <li><strong>Show workings</strong> — part marks save you</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Common Calculation Mistakes</span>
+                <span class="card-tag">Avoid These</span>
+            </div>
+            <ul>
+                <li>❌ Using n instead of n-1 for sample variance</li>
+                <li>❌ Forgetting to square root standard deviation</li>
+                <li>❌ Mixing up beginning vs end of period for annuities</li>
+                <li>❌ Using nominal rate instead of periodic rate (r/12 for monthly)</li>
+                <li>❌ Not converting percentages to decimals (10% = 0.10, not 0.10%)</li>
+                <li>❌ Including sunk costs in relevant cost analysis</li>
+                <li>❌ Forgetting that drawings reduce equity, not expenses</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Essay Question Structure</span>
+                <span class="card-tag">Law / Management</span>
+            </div>
+            <ol>
+                <li><strong>Introduction:</strong> Define key terms, state your position</li>
+                <li><strong>Body paragraphs:</strong> Point → Explain → Example → Link back to question</li>
+                <li><strong>Use cases:</strong> "In <em>Salomon v Salomon</em>, the court held that..."</li>
+                <li><strong>Critical analysis:</strong> "However, this principle has been criticised because..."</li>
+                <li><strong>Conclusion:</strong> Summarise, don't introduce new points</li>
+            </ol>
+        </div>
+    </div>
+
+    <button class="cram-toggle" onclick="toggleCram()">Cram Mode</button>
+
+    <script>
+        function toggleCram() {
+            document.body.classList.toggle('cram-mode');
+        }
+    </script>
+</body>
+</html>
