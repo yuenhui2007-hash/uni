@@ -353,6 +353,7 @@
                 <li><a href="#etw1001">ETW1001 Business Statistics</a></li>
                 <li><a href="#mgw1010">MGW1010 Management</a></li>
                 <li><a href="#acw2220">ACW2220 Management Accounting</a></li>
+                <li><a href="#etc2440">ETC2440 Analytics & Econometrics</a></li>
                 <li><a href="#quickref">Quick Reference</a></li>
             </ul>
         </nav>
@@ -991,6 +992,405 @@
                 <strong>Answer: B</strong><br>
                 Lost CM: $50,000. Avoidable FC saved: $20,000. Net effect: -$50,000 + $20,000 = <strong>-$30,000</strong> (profit decreases). <em>The $10,000 unavoidable fixed cost continues regardless — irrelevant to decision.</em>
             </div>
+        </div>
+
+        <!-- ETC2440 -->
+        <h2 id="etc2440">ETC2440 — Business Analytics & Econometrics</h2>
+        
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">The Analytical Spectrum</span>
+                <span class="card-tag">Framework</span>
+            </div>
+            <table>
+                <tr><th>Stage</th><th>Question</th><th>Business Analytics</th><th>Econometrics</th></tr>
+                <tr><td>Descriptive</td><td>What happened?</td><td>Dashboards, KPIs</td><td>Summary statistics</td></tr>
+                <tr><td>Diagnostic</td><td>Why did it happen?</td><td>Root-cause analysis</td><td>Hypothesis testing</td></tr>
+                <tr><td>Predictive</td><td>What will happen?</td><td>ML models</td><td>Regression, time series</td></tr>
+                <tr><td>Prescriptive</td><td>What should we do?</td><td>Optimisation</td><td>Policy simulation, causal inference</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Probability & Distributions</span>
+                <span class="card-tag">Foundations</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Conditional Probability</div>
+                P(A|B) = P(A ∩ B) / P(B)
+            </div>
+            <div class="formula">
+                <div class="formula-label">Bayes' Theorem</div>
+                P(A|B) = P(B|A) · P(A) / P(B)
+            </div>
+            <div class="formula">
+                <div class="formula-label">Z-Score (Standard Normal)</div>
+                Z = (X - μ) / σ
+            </div>
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <strong>Binomial</strong>
+                    <span>n trials, p success. Mean = np, Var = np(1-p)</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Poisson</strong>
+                    <span>Rare events. Mean = λ, Var = λ</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Normal</strong>
+                    <span>Symmetrical, bell-shaped. ~68% within ±1σ, ~95% within ±2σ</span>
+                </div>
+                <div class="quick-item">
+                    <strong>t-Distribution</strong>
+                    <span>Used when σ unknown, small n. Heavier tails than normal.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Sampling & Central Limit Theorem</span>
+                <span class="card-tag">Must Know</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Standard Error of Mean</div>
+                SE = σ / √n
+            </div>
+            <div class="formula">
+                <div class="formula-label">Confidence Interval (Mean, σ unknown)</div>
+                x̄ ± t(α/2, n-1) × (s / √n)
+            </div>
+            <div class="formula">
+                <div class="formula-label">Confidence Interval (Proportion)</div>
+                p̂ ± Z(α/2) × √(p̂(1-p̂)/n)
+            </div>
+            <div class="def">
+                <div class="def-term">Central Limit Theorem</div>
+                <div class="def-meaning">For n ≥ 30, the sampling distribution of x̄ is approximately normal regardless of population distribution.</div>
+            </div>
+            <div class="trap">
+                <div class="trap-label">⚠ Exam Trap</div>
+                <p>Always use <strong>n-1</strong> for sample variance. Use <strong>Z</strong> when σ is known or n is large; use <strong>t</strong> when σ is unknown and n is small.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Hypothesis Testing</span>
+                <span class="card-tag">5-Step Framework</span>
+            </div>
+            <ol style="margin-left: 20px;">
+                <li><strong>State H₀ and H₁</strong> — H₀ always has equality</li>
+                <li><strong>Choose α</strong> — usually 0.05</li>
+                <li><strong>Calculate test statistic</strong></li>
+                <li><strong>Find critical value or p-value</strong></li>
+                <li><strong>Decision:</strong> Reject H₀ if p < α or |test stat| > critical value</li>
+            </ol>
+            <div class="formula">
+                <div class="formula-label">t-Test for Mean</div>
+                t = (x̄ - μ₀) / (s/√n)
+            </div>
+            <div class="formula">
+                <div class="formula-label">Two-Sample t-Test</div>
+                t = (x̄₁ - x̄₂) / √(s₁²/n₁ + s₂²/n₂)
+            </div>
+            <table>
+                <tr><th>Error Type</th><th>Description</th><th>Probability</th></tr>
+                <tr><td>Type I</td><td>Reject H₀ when it's true (false positive)</td><td>α</td></tr>
+                <tr><td>Type II</td><td>Fail to reject H₀ when it's false (false negative)</td><td>β</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Simple Linear Regression</span>
+                <span class="card-tag">OLS Estimation</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Model</div>
+                y = β₀ + β₁x + ε
+            </div>
+            <div class="formula">
+                <div class="formula-label">Slope Estimate</div>
+                β̂₁ = Cov(x,y) / Var(x) = Σ(x-x̄)(y-ȳ) / Σ(x-x̄)²
+            </div>
+            <div class="formula">
+                <div class="formula-label">Intercept Estimate</div>
+                β̂₀ = ȳ - β̂₁x̄
+            </div>
+            <div class="formula">
+                <div class="formula-label">R² (Coefficient of Determination)</div>
+                R² = 1 - (SS_res / SS_tot) = Proportion of variance explained
+            </div>
+            <div class="def">
+                <div class="def-term">Interpretation of β̂₁</div>
+                <div class="def-meaning">For every 1-unit increase in x, y changes by β̂₁ units.</div>
+            </div>
+            <div class="trap">
+                <div class="trap-label">⚠ Exam Trap</div>
+                <p>High R² does NOT imply causation. Correlation ≠ Causation. Always consider omitted variable bias and research design.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Multiple Regression & Inference</span>
+                <span class="card-tag">Econometric</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Model</div>
+                Y = β₀ + β₁X₁ + β₂X₂ + ... + βₖXₖ + u
+            </div>
+            <div class="formula">
+                <div class="formula-label">t-Statistic (Individual Significance)</div>
+                t = β̂ⱼ / SE(β̂ⱼ) ~ t(n-k-1)
+            </div>
+            <div class="formula">
+                <div class="formula-label">F-Statistic (Overall Significance)</div>
+                F = (R²/k) / ((1-R²)/(n-k-1))
+            </div>
+            <div class="def">
+                <div class="def-term">Ceteris Paribus</div>
+                <div class="def-meaning">Each coefficient βⱼ represents the change in Y for a 1-unit change in Xⱼ, <strong>holding all other variables constant</strong>.</div>
+            </div>
+            <div class="trap">
+                <div class="trap-label">⚠ Exam Trap</div>
+                <p>Use <strong>F-test</strong> for joint hypotheses (testing multiple coefficients = 0 simultaneously). Do NOT use multiple t-tests — inflates Type I error (family-wise error).</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">CLRM Assumptions & Violations</span>
+                <span class="card-tag">Diagnostics</span>
+            </div>
+            <table>
+                <tr><th>#</th><th>Assumption</th><th>Violation</th><th>Consequence</th><th>Solution</th></tr>
+                <tr><td>1</td><td>Linearity</td><td>Wrong functional form</td><td>Biased estimates</td><td>Transform variables, polynomials</td></tr>
+                <tr><td>2</td><td>Random sampling</td><td>Clustered data</td><td>Invalid SEs</td><td>Cluster-robust SEs</td></tr>
+                <tr><td>3</td><td>No perfect collinearity</td><td>X constant or linear combo</td><td>Cannot estimate</td><td>Drop redundant variable</td></tr>
+                <tr><td>4</td><td>Zero conditional mean</td><td>Omitted variable bias</td><td>Biased estimates</td><td>Include omitted vars, IV</td></tr>
+                <tr><td>5</td><td>Homoskedasticity</td><td>Heteroskedasticity</td><td>Wrong SEs</td><td>Robust (White) SEs</td></tr>
+                <tr><td>6</td><td>Normality</td><td>Non-normal errors</td><td>Invalid small-sample inference</td><td>Larger n, bootstrap</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Advanced Regression Topics</span>
+                <span class="card-tag">Extensions</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Log-Log Model (Constant Elasticity)</div>
+                ln(Y) = β₀ + β₁ ln(X) + u → β₁ = elasticity
+            </div>
+            <div class="formula">
+                <div class="formula-label">Dummy Variable Model</div>
+                Y = β₀ + β₁X + β₂D + u → β₂ = difference in intercept for D=1 vs D=0
+            </div>
+            <div class="formula">
+                <div class="formula-label">Interaction Term</div>
+                Y = β₀ + β₁X₁ + β₂X₂ + β₃(X₁·X₂) + u → β₃ = how effect of X₁ changes with X₂
+            </div>
+            <div class="trap">
+                <div class="trap-label">⚠ Exam Trap</div>
+                <p><strong>Dummy Variable Trap:</strong> Never include dummies for ALL categories + intercept. Omit one category (reference group). If you have 3 regions, include 2 dummies.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Time Series Analysis</span>
+                <span class="card-tag">Economic Data</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">AR(1) Model</div>
+                Yₜ = φ₀ + φ₁Yₜ₋₁ + εₜ
+            </div>
+            <div class="formula">
+                <div class="formula-label">Dickey-Fuller Test</div>
+                H₀: γ = 0 (unit root / non-stationary) vs H₁: γ < 0 (stationary)
+            </div>
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <strong>Stationarity</strong>
+                    <span>Mean, variance, autocovariance constant over time.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Spurious Regression</strong>
+                    <span>Regressing two non-stationary series → high R², false significance.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Cointegration</strong>
+                    <span>Non-stationary series with a stationary linear combination.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Causal Inference Methods</span>
+                <span class="card-tag">Policy Evaluation</span>
+            </div>
+            <table>
+                <tr><th>Method</th><th>Key Assumption</th><th>When to Use</th></tr>
+                <tr><td>Randomised Control Trial (RCT)</td><td>Randomisation ensures balance</td><td>Gold standard when feasible</td></tr>
+                <tr><td>Difference-in-Differences (DiD)</td><td>Parallel trends</td><td>Policy changes, natural experiments</td></tr>
+                <tr><td>Instrumental Variables (IV)</td><td>Relevance + Exogeneity</td><td>Endogeneity, omitted variables</td></tr>
+                <tr><td>Regression Discontinuity (RD)</td><td>Smoothness at cutoff</td><td>Threshold-based policies</td></tr>
+                <tr><td>Fixed Effects (FE)</td><td>Time-invariant unobservables</td><td>Panel data</td></tr>
+            </table>
+            <div class="formula">
+                <div class="formula-label">Difference-in-Differences</div>
+                ATT = (Ȳ_treated,after - Ȳ_treated,before) - (Ȳ_control,after - Ȳ_control,before)
+            </div>
+            <div class="formula">
+                <div class="formula-label">2SLS — First Stage</div>
+                X = π₀ + π₁Z + v
+            </div>
+            <div class="formula">
+                <div class="formula-label">2SLS — Second Stage</div>
+                Y = β₀ + β₁X̂ + u
+            </div>
+            <div class="trap">
+                <div class="trap-label">⚠ Exam Trap</div>
+                <p><strong>First-stage F-stat must be > 10</strong> (Staiger-Stock rule) for valid IV. Weak instruments produce biased estimates.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">A/B Testing & Experimentation</span>
+                <span class="card-tag">Business</span>
+            </div>
+            <div class="formula">
+                <div class="formula-label">Two-Sample Z-Test (Proportions)</div>
+                Z = (p̂ₐ - p̂ʙ) / √(p̂(1-p̂)(1/nₐ + 1/nʙ))
+            </div>
+            <div class="formula">
+                <div class="formula-label">Sample Size (Per Group)</div>
+                n = 2(Z₁₋ₐ/₂ + Z₁₋ᵦ)² σ² / δ²
+            </div>
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <strong>Peeking Problem</strong>
+                    <span>Checking results repeatedly inflates Type I error. Use sequential testing or pre-specify analysis time.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Novelty Effect</strong>
+                    <span>Users react differently to new features initially. Run experiments for full business cycles.</span>
+                </div>
+                <div class="quick-item">
+                    <strong>Multiple Testing</strong>
+                    <span>Testing 20 metrics at α=0.05 → expect 1 false positive. Use Bonferroni correction: α* = α/m.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Business Metrics & KPIs</span>
+                <span class="card-tag">Scorecard</span>
+            </div>
+            <table>
+                <tr><th>Metric</th><th>Formula</th><th>Use Case</th></tr>
+                <tr><td>CAC</td><td>Marketing cost / New customers</td><td>Cost to acquire</td></tr>
+                <tr><td>Conversion Rate</td><td>Conversions / Visitors × 100%</td><td>Funnel efficiency</td></tr>
+                <tr><td>ROI</td><td>(Revenue - Cost) / Cost × 100%</td><td>Return on investment</td></tr>
+                <tr><td>NPS</td><td>% Promoters - % Detractors</td><td>Customer loyalty</td></tr>
+                <tr><td>Churn Rate</td><td>Customers lost / Total customers</td><td>Retention</td></tr>
+                <tr><td>CLV</td><td>Avg purchase × Frequency × Lifespan</td><td>Customer value</td></tr>
+            </table>
+            <div class="def">
+                <div class="def-term">Balanced Scorecard</div>
+                <div class="def-meaning">1. Financial (revenue, profit) · 2. Customer (satisfaction, retention) · 3. Internal Process (efficiency, quality) · 4. Learning & Growth (training, innovation)</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Machine Learning Basics</span>
+                <span class="card-tag">Predictive Analytics</span>
+            </div>
+            <table>
+                <tr><th>Algorithm</th><th>Type</th><th>Use Case</th></tr>
+                <tr><td>Linear Regression</td><td>Supervised</td><td>Continuous prediction</td></tr>
+                <tr><td>Logistic Regression</td><td>Supervised</td><td>Binary classification (churn, default)</td></tr>
+                <tr><td>Decision Trees</td><td>Supervised</td><td>Interpretable rules</td></tr>
+                <tr><td>Random Forest</td><td>Supervised</td><td>High accuracy</td></tr>
+                <tr><td>K-Means</td><td>Unsupervised</td><td>Customer segmentation</td></tr>
+            </table>
+            <div class="formula">
+                <div class="formula-label">Logistic Regression (Probability)</div>
+                P(Y=1|X) = 1 / (1 + e^{-(β₀ + β₁X₁ + ... + βₖXₖ)})
+            </div>
+            <div class="def">
+                <div class="def-term">Bias-Variance Tradeoff</div>
+                <div class="def-meaning">Expected Test Error = Bias² + Variance + Irreducible Error. Simple models = high bias, low variance. Complex models = low bias, high variance.</div>
+            </div>
+        </div>
+
+        <div class="mcq">
+            <div class="mcq-question">Q5: In a multiple regression, the coefficient on Price is -2.5 with a standard error of 0.8. What is the t-statistic and is it significant at 5%?</div>
+            <ul class="mcq-options">
+                <li>A) t = -2.0; Not significant</li>
+                <li>B) t = -3.125; Significant (|t| > ~1.96)</li>
+                <li>C) t = -2.5; Marginally significant</li>
+                <li>D) Cannot determine without sample size</li>
+            </ul>
+            <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+            <div class="mcq-answer">
+                <strong>Answer: B</strong><br>
+                t = -2.5 / 0.8 = <strong>-3.125</strong>. For large samples, critical value ≈ 1.96. |−3.125| > 1.96 → <strong>Significant at 5%</strong>. We reject H₀: β_price = 0. Each $1 price increase is associated with a 2.5 unit decrease in quantity demanded, holding other factors constant.
+            </div>
+        </div>
+
+        <div class="mcq">
+            <div class="mcq-question">Q6: A state introduces a minimum wage policy. Employment was 100 before and 115 after in the treated state, and 100 → 105 in the control state. What is the DiD estimate?</div>
+            <ul class="mcq-options">
+                <li>A) 15</li>
+                <li>B) 5</li>
+                <li>C) 10</li>
+                <li>D) Cannot determine</li>
+            </ul>
+            <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+            <div class="mcq-answer">
+                <strong>Answer: C</strong><br>
+                Treated change = 115 - 100 = +15. Control change = 105 - 100 = +5. DiD = 15 - 5 = <strong>10</strong>. The policy increased employment by 10 units net of trends. Key assumption: parallel trends (both states would have followed same trend absent treatment).
+            </div>
+        </div>
+
+        <div class="mcq">
+            <div class="mcq-question">Q7: You run an A/B test with 1,000 users in each group. Group A converts at 12%, Group B at 15%. Is this significant at 5%?</div>
+            <ul class="mcq-options">
+                <li>A) Yes, Z ≈ 1.96 → significant</li>
+                <li>B) No, need larger sample</li>
+                <li>C) Yes, but only at 10%</li>
+                <li>D) Cannot tell without standard deviation</li>
+            </ul>
+            <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+            <div class="mcq-answer">
+                <strong>Answer: A</strong><br>
+                Pooled p̂ = (120+150)/2000 = 0.135. SE = √(0.135×0.865×(1/1000+1/1000)) = 0.0153. Z = (0.15-0.12)/0.0153 ≈ <strong>1.96</strong>. At 5% two-tailed, critical Z = 1.96. Result is <strong>just significant</strong>.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Regression Output Checklist</span>
+                <span class="card-tag">Exam Strategy</span>
+            </div>
+            <ol>
+                <li>✅ Check sign and magnitude of coefficients — do they make economic sense?</li>
+                <li>✅ Check statistical significance — p-value < 0.05?</li>
+                <li>✅ Check economic significance — is the effect size practically important?</li>
+                <li>✅ Check overall model fit — R², F-test significant?</li>
+                <li>✅ Check sample size — is it large enough for reliable inference?</li>
+                <li>✅ Consider CLRM assumptions — any violations?</li>
+                <li>✅ Consider causality — is the design causal or just correlational?</li>
+                <li>✅ Use adjusted R² when comparing models with different numbers of predictors</li>
+            </ol>
         </div>
 
         <!-- Quick Reference -->
