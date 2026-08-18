@@ -5,119 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monash B2026 — Accountancy Notes</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <style>
         :root {
-            --bg: #0a0e17;
-            --surface: #111827;
-            --surface-2: #1e293b;
-            --surface-3: #273449;
+            --bg: #070b14;
+            --bg-elevated: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #273449;
             --border: #334155;
-            --text: #e2e8f0;
+            --border-light: #475569;
+            --text: #f1f5f9;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
-            --accent: #38bdf8;
-            --accent-2: #34d399;
-            --accent-3: #f472b6;
-            --accent-4: #a78bfa;
-            --accent-5: #fbbf24;
-            --accent-6: #fb7185;
-            --accent-7: #2dd4bf;
-            --danger: #ef4444;
-            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --accent-blue: #38bdf8;
+            --accent-green: #4ade80;
+            --accent-purple: #c084fc;
+            --accent-amber: #fbbf24;
+            --accent-pink: #f472b6;
+            --accent-rose: #fb7185;
+            --accent-teal: #2dd4bf;
+            --accent-indigo: #818cf8;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
         }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
+
         body {
             font-family: var(--font);
             background: var(--bg);
             color: var(--text);
-            line-height: 1.7;
+            line-height: 1.65;
             font-size: 15px;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Header */
-        .site-header {
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            padding: 60px 24px 40px;
             text-align: center;
-            padding: 50px 20px 30px;
-            background: linear-gradient(180deg, rgba(56,189,248,0.08) 0%, transparent 100%);
-            border-bottom: 1px solid var(--border);
+            overflow: hidden;
         }
-        .site-header h1 {
-            font-size: 2rem;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(56,189,248,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(56,189,248,0.1);
+            border: 1px solid rgba(56,189,248,0.2);
+            color: var(--accent-blue);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+            letter-spacing: 0.02em;
+        }
+        .hero h1 {
+            font-size: 2.4rem;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
         }
-        .site-header p {
+        .hero p {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            max-width: 500px;
-            margin: 0 auto;
+            font-size: 1.05rem;
+            max-width: 480px;
+            margin: 0 auto 24px;
+            line-height: 1.6;
         }
-        .badge-row {
+        .hero-stats {
             display: flex;
-            gap: 8px;
             justify-content: center;
-            margin-top: 14px;
+            gap: 32px;
             flex-wrap: wrap;
         }
-        .badge {
-            background: var(--surface-2);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 4px 14px;
-            font-size: 0.78rem;
-            color: var(--accent);
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat .num {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            display: block;
+            line-height: 1;
+        }
+        .hero-stat .lbl {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 4px;
         }
 
-        /* Search */
-        .search-bar {
-            max-width: 500px;
-            margin: 24px auto;
+        /* ===== SEARCH ===== */
+        .search-wrap {
+            max-width: 520px;
+            margin: 0 auto 40px;
             padding: 0 20px;
+            position: relative;
         }
-        .search-bar input {
+        .search-wrap input {
             width: 100%;
-            padding: 12px 18px 12px 44px;
-            border-radius: 12px;
+            padding: 14px 20px 14px 48px;
+            border-radius: 14px;
             border: 1px solid var(--border);
-            background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") no-repeat 14px center;
+            background: var(--bg-elevated) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") no-repeat 18px center;
             color: var(--text);
             font-size: 0.95rem;
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
         }
-        .search-bar input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(56,189,248,0.15);
+        .search-wrap input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(56,189,248,0.1), 0 4px 20px rgba(0,0,0,0.2);
         }
-        .search-bar input::placeholder { color: var(--text-muted); }
+        .search-wrap input::placeholder { color: var(--text-muted); }
 
-        /* Subject Cards Grid */
-        .subjects-grid {
-            max-width: 960px;
+        /* ===== SUBJECT CARDS ===== */
+        .cards-wrap {
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 0 20px 40px;
+            padding: 0 20px 20px;
+        }
+        .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 16px;
         }
+
         .subject-card {
-            background: var(--surface);
+            background: var(--bg-elevated);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 24px;
             cursor: pointer;
-            transition: all 0.25s ease;
             position: relative;
             overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .subject-card::before {
             content: '';
@@ -126,92 +168,127 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: var(--card-color);
-            border-radius: 16px 16px 0 0;
+            background: var(--c);
+            opacity: 0.8;
+        }
+        .subject-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--c-glow) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
         }
         .subject-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--card-color);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px var(--card-color);
+            transform: translateY(-4px);
+            border-color: var(--c);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px var(--c);
         }
+        .subject-card:hover::after { opacity: 0.06; }
         .subject-card.active {
-            border-color: var(--card-color);
-            box-shadow: 0 0 0 2px var(--card-color), 0 8px 32px rgba(0,0,0,0.4);
+            border-color: var(--c);
+            box-shadow: 0 0 0 2px var(--c), 0 12px 40px rgba(0,0,0,0.4);
         }
-        .subject-card .icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+        .subject-card.active::after { opacity: 0.1; }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
-            margin-bottom: 14px;
-            background: var(--card-bg);
-        }
-        .subject-card .code {
-            font-family: var(--mono);
-            font-size: 0.75rem;
-            color: var(--card-color);
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .subject-card .title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 6px;
-        }
-        .subject-card .desc {
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-        .subject-card .topics {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-        .subject-card .topics span {
-            font-size: 0.7rem;
-            background: var(--surface-2);
-            color: var(--text-muted);
-            padding: 3px 10px;
-            border-radius: 20px;
-        }
-        .subject-card .expand-hint {
-            position: absolute;
-            bottom: 16px;
-            right: 16px;
-            font-size: 1.2rem;
-            color: var(--text-muted);
+            font-size: 1.5rem;
+            background: var(--c-glow);
+            border: 1px solid var(--c);
             transition: transform 0.3s;
         }
-        .subject-card.active .expand-hint {
+        .subject-card:hover .card-icon { transform: scale(1.1) rotate(-4deg); }
+        .card-arrow {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+        .subject-card.active .card-arrow {
+            background: var(--c);
+            color: var(--bg);
             transform: rotate(180deg);
         }
 
-        /* Note Panel */
+        .card-code {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--c);
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+        .card-desc {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+        .card-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .card-tag {
+            font-size: 0.7rem;
+            background: var(--surface);
+            color: var(--text-muted);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        /* ===== NOTE PANEL ===== */
         .note-panel {
-            max-width: 960px;
+            max-width: 1000px;
             margin: 0 auto 40px;
             padding: 0 20px;
             display: none;
         }
         .note-panel.open {
             display: block;
-            animation: slideDown 0.35s ease;
+            animation: panelIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes panelIn {
+            from { opacity: 0; transform: translateY(-12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
+
         .note-panel-inner {
-            background: var(--surface);
+            background: var(--bg-elevated);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
+            border-radius: 20px;
+            overflow: hidden;
             position: relative;
         }
         .note-panel-inner::before {
@@ -221,376 +298,457 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: var(--panel-color);
-            border-radius: 16px 16px 0 0;
+            background: var(--panel-c);
         }
-        .note-panel-header {
+
+        .panel-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
+            justify-content: space-between;
+            padding: 20px 28px;
             border-bottom: 1px solid var(--border);
+            background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
         }
-        .note-panel-header h2 {
+        .panel-header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .panel-header-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.3rem;
-            color: var(--panel-color);
+            background: var(--panel-c-glow);
+            border: 1px solid var(--panel-c);
+        }
+        .panel-header-text h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text);
             margin: 0;
         }
-        .close-panel {
-            background: var(--surface-2);
+        .panel-header-text span {
+            font-size: 0.78rem;
+            color: var(--panel-c);
+            font-family: var(--mono);
+            font-weight: 600;
+        }
+        .panel-close {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface);
             border: 1px solid var(--border);
             color: var(--text-secondary);
             padding: 8px 16px;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 0.85rem;
+            font-weight: 500;
             transition: all 0.2s;
         }
-        .close-panel:hover {
-            background: var(--danger);
-            color: white;
-            border-color: var(--danger);
+        .panel-close:hover {
+            background: rgba(251,113,133,0.15);
+            border-color: var(--accent-rose);
+            color: var(--accent-rose);
         }
 
-        /* Markdown inside panel */
-        .note-content h2 {
-            font-size: 1.4rem;
+        .panel-body {
+            padding: 28px 32px 32px;
+            max-height: 70vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+        .panel-body::-webkit-scrollbar { width: 6px; }
+        .panel-body::-webkit-scrollbar-track { background: transparent; }
+        .panel-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+        /* ===== MARKDOWN STYLING ===== */
+        .md h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
             margin: 32px 0 16px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--panel-color);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--panel-c);
             color: var(--text);
+            letter-spacing: -0.01em;
         }
-        .note-content h3 {
-            font-size: 1.15rem;
+        .md h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
             margin: 24px 0 12px;
-            color: var(--panel-color);
+            color: var(--panel-c);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .note-content h4 {
-            font-size: 1rem;
+        .md h3::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: var(--panel-c);
+            border-radius: 2px;
+            opacity: 0.7;
+        }
+        .md h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
             margin: 18px 0 10px;
-            color: var(--accent-2);
+            color: var(--accent-green);
         }
-        .note-content p { margin-bottom: 12px; }
-        .note-content ul, .note-content ol {
-            margin: 10px 0 14px 22px;
-        }
-        .note-content li { margin-bottom: 5px; }
-        .note-content a { color: var(--accent); }
-        .note-content code {
-            background: var(--surface-2);
-            padding: 2px 6px;
-            border-radius: 4px;
+        .md p { margin-bottom: 12px; color: var(--text-secondary); }
+        .md p strong { color: var(--text); }
+        .md ul, .md ol { margin: 10px 0 14px 20px; }
+        .md li { margin-bottom: 6px; color: var(--text-secondary); }
+        .md li::marker { color: var(--panel-c); }
+        .md a { color: var(--accent-blue); text-decoration: none; }
+        .md a:hover { text-decoration: underline; }
+
+        .md code {
+            background: rgba(56,189,248,0.1);
+            color: var(--accent-blue);
+            padding: 2px 7px;
+            border-radius: 5px;
             font-family: var(--mono);
-            font-size: 0.88em;
+            font-size: 0.87em;
+            border: 1px solid rgba(56,189,248,0.15);
         }
-        .note-content pre {
-            background: #0d1117;
+        .md pre {
+            background: #020617;
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 16px;
+            border-radius: 12px;
+            padding: 18px;
             overflow-x: auto;
-            margin: 14px 0;
+            margin: 16px 0;
         }
-        .note-content pre code {
+        .md pre code {
             background: transparent;
             padding: 0;
-            font-size: 0.85em;
+            color: var(--text-secondary);
+            border: none;
+            font-size: 0.84em;
+            line-height: 1.6;
         }
-        .note-content table {
+
+        .md table {
             width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-            font-size: 0.88rem;
-            border-radius: 8px;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 18px 0;
+            font-size: 0.87rem;
+            border-radius: 10px;
             overflow: hidden;
-        }
-        .note-content th, .note-content td {
             border: 1px solid var(--border);
-            padding: 10px 12px;
-            text-align: left;
         }
-        .note-content th {
-            background: var(--surface-2);
+        .md th {
+            background: var(--surface);
             font-weight: 600;
-            color: var(--panel-color);
+            color: var(--panel-c);
+            padding: 11px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
         }
-        .note-content tr:nth-child(even) { background: rgba(30,41,59,0.5); }
-        .note-content blockquote {
-            border-left: 3px solid var(--panel-color);
-            padding: 12px 16px;
-            margin: 14px 0;
-            background: var(--surface-2);
-            border-radius: 0 8px 8px 0;
+        .md td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
             color: var(--text-secondary);
         }
-        .note-content blockquote p { margin-bottom: 8px; }
-        .note-content blockquote p:last-child { margin-bottom: 0; }
-        .note-content hr {
+        .md tr:last-child td { border-bottom: none; }
+        .md tr:nth-child(even) { background: rgba(30,41,59,0.4); }
+
+        .md blockquote {
+            border-left: 3px solid var(--panel-c);
+            padding: 14px 18px;
+            margin: 14px 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
+            border-radius: 0 10px 10px 0;
+            color: var(--text-secondary);
+        }
+        .md blockquote p { margin-bottom: 8px; }
+        .md blockquote p:last-child { margin-bottom: 0; }
+        .md blockquote strong { color: var(--panel-c); }
+
+        .md hr {
             border: none;
-            border-top: 1px solid var(--border);
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
             margin: 28px 0;
         }
-        .note-content strong { color: var(--text); }
-        .note-content img { max-width: 100%; border-radius: 8px; }
 
-        /* Highlight search matches */
-        .highlight {
-            background: rgba(251,191,36,0.3);
-            padding: 1px 3px;
-            border-radius: 3px;
+        /* Definition callout */
+        .md p strong:first-child {
+            color: var(--text);
         }
 
-        /* Loading */
-        .loading-wrap {
+        /* ===== LOADING ===== */
+        .loading {
             text-align: center;
-            padding: 80px 20px;
+            padding: 100px 20px;
         }
-        .spinner {
-            width: 36px;
-            height: 36px;
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
             border: 3px solid var(--border);
-            border-top-color: var(--accent);
+            border-top-color: var(--accent-blue);
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+            animation: spin 0.9s linear infinite;
             margin: 0 auto 16px;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Scroll top */
+        /* ===== EMPTY / NO RESULTS ===== */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        /* ===== SCROLL TOP ===== */
         .scroll-top {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--surface-2);
-            border: 1px solid var(--border);
-            color: var(--accent);
-            width: 42px;
-            height: 42px;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--accent-blue);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 50;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            z-index: 100;
             font-size: 1.1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
-        .scroll-top.visible { opacity: 1; }
+        .scroll-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .scroll-top:hover {
+            background: var(--accent-blue);
+            color: var(--bg);
+            border-color: var(--accent-blue);
+        }
 
-        /* Footer */
+        /* ===== FOOTER ===== */
         footer {
             text-align: center;
-            padding: 30px 20px;
+            padding: 32px 20px;
             border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        footer p {
             color: var(--text-muted);
             font-size: 0.8rem;
+            margin-bottom: 4px;
         }
 
-        /* No results */
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-muted);
-            display: none;
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 1.7rem; }
+            .hero-stats { gap: 20px; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .panel-body { padding: 20px; max-height: 65vh; }
+            .panel-header { padding: 16px 20px; }
+            .md h2 { font-size: 1.15rem; }
+            .md h3 { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
-    <header class="site-header">
-        <h1>Monash B2026 — Accountancy Notes</h1>
-        <p>Enhanced study notes with definitions, worked examples, formulas & exam prep</p>
-        <div class="badge-row">
-            <span class="badge">📚 7 Core Units</span>
-            <span class="badge">✏️ 26 Worked Examples</span>
-            <span class="badge">📝 Exam Prep</span>
+    <header class="hero">
+        <div class="hero-badge">🎓 Monash University Malaysia</div>
+        <h1>Accountancy Notes</h1>
+        <p>Complete study guide with definitions, worked examples, formulas & exam strategies</p>
+        <div class="hero-stats">
+            <div class="hero-stat"><span class="num">7</span><span class="lbl">Units</span></div>
+            <div class="hero-stat"><span class="num">26</span><span class="lbl">Examples</span></div>
+            <div class="hero-stat"><span class="num">50+</span><span class="lbl">Formulas</span></div>
         </div>
     </header>
 
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search topics, formulas, definitions...">
+    <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search topics, definitions, formulas...">
     </div>
 
-    <div class="loading-wrap" id="loading">
-        <div class="spinner"></div>
-        <p style="color:var(--text-secondary)">Loading notes...</p>
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+        <p style="color:var(--text-secondary)">Loading your notes...</p>
     </div>
 
-    <div class="subjects-grid" id="subjectsGrid" style="display:none">
-        <!-- Cards injected by JS -->
+    <div class="cards-wrap" id="cardsWrap" style="display:none">
+        <div class="cards-grid" id="cardsGrid"></div>
     </div>
 
-    <div class="no-results" id="noResults">No subjects match your search.</div>
+    <div class="no-results" id="noResults">
+        <p style="font-size:1.2rem; margin-bottom:8px">🔍 No matches</p>
+        <p>Try a different search term</p>
+    </div>
 
     <div class="note-panel" id="notePanel">
         <div class="note-panel-inner">
-            <div class="note-panel-header">
-                <h2 id="panelTitle">Unit Notes</h2>
-                <button class="close-panel" onclick="closePanel()">✕ Close</button>
+            <div class="panel-header">
+                <div class="panel-header-left">
+                    <div class="panel-header-icon" id="panelIcon">📊</div>
+                    <div class="panel-header-text">
+                        <h2 id="panelTitle">Unit Notes</h2>
+                        <span id="panelCode">CODE</span>
+                    </div>
+                </div>
+                <button class="panel-close" onclick="closePanel()">
+                    <span>✕</span> Close
+                </button>
             </div>
-            <div class="note-content" id="panelContent"></div>
+            <div class="panel-body">
+                <div class="md" id="panelContent"></div>
+            </div>
         </div>
     </div>
 
     <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
     <footer>
-        <p>Monash B2026 Accountancy Major Notes · Enhanced Edition</p>
-        <p>Last updated: 2026-08-18</p>
+        <p>Monash B2026 Accountancy Major · Enhanced Edition</p>
+        <p>Built for serious students</p>
     </footer>
 
     <script>
         const subjects = [
-            { code: 'ACW1120', name: 'Financial Accounting 1', icon: '📊', color: '#38bdf8', bg: 'rgba(56,189,248,0.12)', desc: 'Double-entry, accrual accounting, financial statements, IFRS framework', topics: ['Journal Entries', 'Trial Balance', 'SOFP', 'P&L'] },
-            { code: 'BFW1001', name: 'Foundations of Finance', icon: '💰', color: '#34d399', bg: 'rgba(52,211,153,0.12)', desc: 'Time value of money, risk-return, NPV, IRR, valuation', topics: ['TVM', 'Annuities', 'Risk', 'Excel'] },
-            { code: 'BTW1042', name: 'Business Law', icon: '⚖️', color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', desc: 'Contract law, tort, agency, Malaysian legal system', topics: ['Contracts', 'Negligence', 'Companies Act', 'Precedent'] },
-            { code: 'ECM1953', name: 'Economics', icon: '📈', color: '#fbbf24', bg: 'rgba(251,191,36,0.12)', desc: 'Demand/supply, market structures, macroeconomics, trade', topics: ['Elasticity', 'Market Structures', 'GDP', 'Fiscal Policy'] },
-            { code: 'ETW1001', name: 'Business Statistics', icon: '📉', color: '#f472b6', bg: 'rgba(244,114,182,0.12)', desc: 'Descriptive stats, probability, hypothesis testing, regression', topics: ['Normal Dist', 'Confidence Int', 'Hypothesis', 'Regression'] },
-            { code: 'MGW1010', name: 'Introduction to Management', icon: '🎯', color: '#fb7185', bg: 'rgba(251,113,133,0.12)', desc: 'Management theories, POLC, communication, ethics', topics: ['POLC', 'Leadership', 'CSR', 'Motivation'] },
-            { code: 'ACW2220', name: 'Management Accounting', icon: '🧮', color: '#2dd4bf', bg: 'rgba(45,212,191,0.12)', desc: 'Cost classification, ABC, budgeting, variance analysis', topics: ['Cost Behav', 'ABC', 'Budgeting', 'Variance'] },
+            { code: 'ACW1120', name: 'Financial Accounting 1', icon: '📊', c: '#38bdf8', glow: 'rgba(56,189,248,0.12)', desc: 'Double-entry bookkeeping, accrual accounting, financial statements, IFRS Conceptual Framework', tags: ['Journal Entries', 'Trial Balance', 'SOFP & P&L', 'Adjusting Entries'] },
+            { code: 'BFW1001', name: 'Foundations of Finance', icon: '💰', c: '#4ade80', glow: 'rgba(74,222,128,0.12)', desc: 'Time value of money, risk-return trade-off, NPV, IRR, valuation techniques', tags: ['TVM', 'Annuities', 'Risk Analysis', 'Excel Functions'] },
+            { code: 'BTW1042', name: 'Business Law', icon: '⚖️', c: '#c084fc', glow: 'rgba(192,132,252,0.12)', desc: 'Malaysian legal system, contract law, tort, agency, company law', tags: ['Contracts', 'Negligence', 'Companies Act', 'Precedent'] },
+            { code: 'ECM1953', name: 'Economics', icon: '📈', c: '#fbbf24', glow: 'rgba(251,191,36,0.12)', desc: 'Demand & supply, market structures, macroeconomics, international trade', tags: ['Elasticity', 'Market Structures', 'GDP & Policy', 'Exchange Rates'] },
+            { code: 'ETW1001', name: 'Business Statistics', icon: '📉', c: '#f472b6', glow: 'rgba(244,114,182,0.12)', desc: 'Descriptive statistics, probability, hypothesis testing, regression analysis', tags: ['Probability', 'Confidence Int', 'Hypothesis', 'Regression'] },
+            { code: 'MGW1010', name: 'Introduction to Management', icon: '🎯', c: '#fb7185', glow: 'rgba(251,113,133,0.12)', desc: 'Management theories, POLC framework, leadership, ethics & CSR', tags: ['POLC', 'Leadership', 'CSR', 'Communication'] },
+            { code: 'ACW2220', name: 'Management Accounting', icon: '🧮', c: '#2dd4bf', glow: 'rgba(45,212,191,0.12)', desc: 'Cost behaviour, ABC costing, budgeting, variance analysis, decisions', tags: ['Cost Behavior', 'ABC', 'Budgeting', 'Variance'] },
         ];
 
-        let unitSections = [];
-        let currentOpen = null;
+        let unitData = [];
+        let activeCode = null;
 
-        // Render subject cards
         function renderCards(filter = '') {
-            const grid = document.getElementById('subjectsGrid');
+            const grid = document.getElementById('cardsGrid');
             const noRes = document.getElementById('noResults');
+            const wrap = document.getElementById('cardsWrap');
             grid.innerHTML = '';
 
             const filtered = subjects.filter(s =>
                 s.name.toLowerCase().includes(filter) ||
                 s.code.toLowerCase().includes(filter) ||
                 s.desc.toLowerCase().includes(filter) ||
-                s.topics.some(t => t.toLowerCase().includes(filter))
+                s.tags.some(t => t.toLowerCase().includes(filter))
             );
 
             if (filtered.length === 0) {
                 noRes.style.display = 'block';
+                wrap.style.display = 'none';
                 return;
             }
             noRes.style.display = 'none';
+            wrap.style.display = 'block';
 
-            filtered.forEach((s, i) => {
+            filtered.forEach(s => {
                 const card = document.createElement('div');
-                card.className = 'subject-card';
-                card.style.setProperty('--card-color', s.color);
-                card.style.setProperty('--card-bg', s.bg);
-                card.dataset.index = i;
+                card.className = 'subject-card' + (activeCode === s.code ? ' active' : '');
+                card.style.cssText = `--c:${s.c};--c-glow:${s.glow}`;
                 card.innerHTML = `
-                    <div class="icon">${s.icon}</div>
-                    <div class="code">${s.code}</div>
-                    <div class="title">${s.name}</div>
-                    <div class="desc">${s.desc}</div>
-                    <div class="topics">${s.topics.map(t => `<span>${t}</span>`).join('')}</div>
-                    <div class="expand-hint">▼</div>
+                    <div class="card-top">
+                        <div class="card-icon">${s.icon}</div>
+                        <div class="card-arrow">▼</div>
+                    </div>
+                    <div class="card-code">${s.code}</div>
+                    <div class="card-title">${s.name}</div>
+                    <div class="card-desc">${s.desc}</div>
+                    <div class="card-tags">${s.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}</div>
                 `;
-                card.onclick = () => openUnit(s.code, s.name, s.color);
+                card.onclick = () => openUnit(s);
                 grid.appendChild(card);
             });
         }
 
-        // Load markdown and parse into units
-        fetch('monash_b2026_partA_accountancy.md?v=3')
-            .then(r => r.text())
-            .then(md => {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('subjectsGrid').style.display = 'grid';
-
-                // Split markdown by Unit headers (## Unit X: CODE — Name)
-                const lines = md.split('\n');
-                let currentUnit = null;
-                let currentContent = [];
-                const units = [];
-                let inOverview = true;
-
-                for (const line of lines) {
-                    const unitMatch = line.match(/^## Unit \d+:\s+([A-Z]{3}\d{4})\s+—\s+(.+)/);
-                    if (unitMatch) {
-                        if (currentUnit) {
-                            units.push({ code: currentUnit.code, name: currentUnit.name, content: currentContent.join('\n') });
-                        }
-                        currentUnit = { code: unitMatch[1], name: unitMatch[2] };
-                        currentContent = [];
-                        inOverview = false;
-                    } else if (!inOverview && currentUnit) {
-                        currentContent.push(line);
-                    }
-                }
-                if (currentUnit) {
-                    units.push({ code: currentUnit.code, name: currentUnit.name, content: currentContent.join('\n') });
-                }
-
-                // Also add Integration & Exam Prep section
-                const integrationMatch = md.match(/(## Integration[\s\S]*)/);
-                if (integrationMatch) {
-                    units.push({ code: 'EXAM', name: 'Integration & Exam Prep', content: integrationMatch[1] });
-                }
-
-                unitSections = units;
-                renderCards();
-            })
-            .catch(err => {
-                document.getElementById('loading').innerHTML = '<p style="color:#ef4444">Failed to load notes. Please refresh.</p>';
-                console.error(err);
-            });
-
-        function openUnit(code, name, color) {
+        function openUnit(subject) {
             const panel = document.getElementById('notePanel');
-            const panelTitle = document.getElementById('panelTitle');
-            const panelContent = document.getElementById('panelContent');
-            const panelInner = panel.querySelector('.note-panel-inner');
-
-            // Find unit content
-            const unit = unitSections.find(u => u.code === code);
+            const unit = unitData.find(u => u.code === subject.code);
             if (!unit) return;
 
-            // Highlight active card
-            document.querySelectorAll('.subject-card').forEach(c => c.classList.remove('active'));
-            const card = [...document.querySelectorAll('.subject-card')].find(c => {
-                const cCode = c.querySelector('.code')?.textContent;
-                return cCode === code;
-            });
-            if (card) card.classList.add('active');
+            activeCode = subject.code;
+            renderCards(document.getElementById('searchInput').value.toLowerCase());
 
-            // Set panel color
-            panelInner.style.setProperty('--panel-color', color);
+            document.getElementById('panelIcon').textContent = subject.icon;
+            document.getElementById('panelTitle').textContent = subject.name;
+            document.getElementById('panelCode').textContent = subject.code;
+            document.getElementById('panelContent').innerHTML = marked.parse(unit.content);
 
-            panelTitle.textContent = `${code} — ${name}`;
-            panelContent.innerHTML = marked.parse(unit.content);
-
-            // Highlight code blocks
-            panelContent.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightElement(block);
-            });
+            const inner = panel.querySelector('.note-panel-inner');
+            inner.style.cssText = `--panel-c:${subject.c};--panel-c-glow:${subject.glow}`;
 
             panel.classList.add('open');
-            currentOpen = code;
-
-            // Scroll to panel
-            setTimeout(() => {
-                panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 50);
+            setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
         }
 
         function closePanel() {
             document.getElementById('notePanel').classList.remove('open');
-            document.querySelectorAll('.subject-card').forEach(c => c.classList.remove('active'));
-            currentOpen = null;
+            activeCode = null;
+            renderCards(document.getElementById('searchInput').value.toLowerCase());
         }
+
+        // Load markdown
+        fetch('monash_b2026_partA_accountancy.md?v=4')
+            .then(r => r.text())
+            .then(md => {
+                document.getElementById('loading').style.display = 'none';
+
+                // Parse units
+                const lines = md.split('\n');
+                let current = null;
+                let content = [];
+
+                for (const line of lines) {
+                    const m = line.match(/^## Unit \d+:\s+([A-Z]{3}\d{4})\s+—\s+(.+)/);
+                    if (m) {
+                        if (current) unitData.push({ code: current.code, name: current.name, content: content.join('\n') });
+                        current = { code: m[1], name: m[2] };
+                        content = [];
+                    } else if (current) {
+                        content.push(line);
+                    }
+                }
+                if (current) unitData.push({ code: current.code, name: current.name, content: content.join('\n') });
+
+                // Integration section
+                const intMatch = md.match(/(## Integration[\s\S]*)/);
+                if (intMatch) {
+                    unitData.push({ code: 'EXAM', name: 'Integration & Exam Prep', content: intMatch[1] });
+                }
+
+                renderCards();
+            })
+            .catch(() => {
+                document.getElementById('loading').innerHTML = '<p style="color:#fb7185">Failed to load notes.</p>';
+            });
 
         // Search
         document.getElementById('searchInput').addEventListener('input', (e) => {
             renderCards(e.target.value.toLowerCase());
-            if (currentOpen) closePanel();
+            if (activeCode && !subjects.find(s => s.code === activeCode)?.name.toLowerCase().includes(e.target.value.toLowerCase())) {
+                closePanel();
+            }
         });
 
-        // Scroll top button
+        // Scroll top
         window.addEventListener('scroll', () => {
-            const btn = document.getElementById('scrollTop');
-            btn.classList.toggle('visible', window.pageYOffset > 500);
+            document.getElementById('scrollTop').classList.toggle('visible', window.pageYOffset > 500);
         });
     </script>
 </body>
