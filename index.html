@@ -439,12 +439,17 @@
                 <span>Accountancy Notes</span>
             </a>
 
-            <div class="dropdown" id="subjectDropdown">
-                <button class="dropdown-trigger" onclick="toggleDropdown()">
-                    <span>📚 Subjects</span>
-                    <span class="arrow">▼</span>
+            <div style="display:flex;align-items:center;gap:10px">
+                <div class="dropdown" id="subjectDropdown">
+                    <button class="dropdown-trigger" onclick="toggleDropdown()">
+                        <span>📚 Subjects</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu"></div>
+                </div>
+                <button class="dropdown-trigger" onclick="selectSubject('ETC2440')" style="--c:#ff9b44">
+                    <span>🔍 Analytics</span>
                 </button>
-                <div class="dropdown-menu" id="dropdownMenu"></div>
             </div>
         </div>
     </nav>
@@ -473,7 +478,7 @@
     </footer>
 
     <script>
-        const subjects = [
+        const coreSubjects = [
             { code: 'ACW1120', name: 'Financial Accounting 1', emoji: '📊', c: '#58a6ff', dim: 'rgba(88,166,255,0.1)', weak: 'rgba(88,166,255,0.2)', desc: 'Double-entry, accrual accounting, financial statements, IFRS framework', tags: ['Journal Entries', 'Trial Balance', 'SOFP & P&L'] },
             { code: 'BFW1001', name: 'Foundations of Finance', emoji: '💰', c: '#3fb950', dim: 'rgba(63,185,80,0.1)', weak: 'rgba(63,185,80,0.2)', desc: 'Time value of money, risk-return, NPV, IRR, valuation', tags: ['TVM', 'Annuities', 'Risk Analysis'] },
             { code: 'BTW1042', name: 'Business Law', emoji: '⚖️', c: '#bc8cff', dim: 'rgba(188,140,255,0.1)', weak: 'rgba(188,140,255,0.2)', desc: 'Contract law, tort, agency, Malaysian legal system', tags: ['Contracts', 'Negligence', 'Companies Act'] },
@@ -481,16 +486,19 @@
             { code: 'ETW1001', name: 'Business Statistics', emoji: '📉', c: '#f778ba', dim: 'rgba(247,120,186,0.1)', weak: 'rgba(247,120,186,0.2)', desc: 'Probability, hypothesis testing, regression, forecasting', tags: ['Probability', 'Confidence Int', 'Regression'] },
             { code: 'MGW1010', name: 'Introduction to Management', emoji: '🎯', c: '#f85149', dim: 'rgba(248,81,73,0.1)', weak: 'rgba(248,81,73,0.2)', desc: 'Management theories, POLC, leadership, ethics & CSR', tags: ['POLC', 'Leadership', 'CSR'] },
             { code: 'ACW2220', name: 'Management Accounting', emoji: '🧮', c: '#39c5cf', dim: 'rgba(57,197,207,0.1)', weak: 'rgba(57,197,207,0.2)', desc: 'Cost behaviour, ABC costing, budgeting, variance', tags: ['Cost Behavior', 'ABC', 'Budgeting'] },
-            { code: 'ETC2440', name: 'Business Analytics & Econometrics', emoji: '🔍', c: '#ff9b44', dim: 'rgba(255,155,68,0.1)', weak: 'rgba(255,155,68,0.2)', desc: 'Data analysis, regression, causal inference, A/B testing, policy evaluation', tags: ['Regression', 'DiD', 'A/B Testing', 'KPIs'] },
         ];
+
+        const electiveSubject = { code: 'ETC2440', name: 'Business Analytics & Econometrics', emoji: '🔍', c: '#ff9b44', dim: 'rgba(255,155,68,0.1)', weak: 'rgba(255,155,68,0.2)', desc: 'Data analysis, regression, causal inference, A/B testing, policy evaluation', tags: ['Regression', 'DiD', 'A/B Testing', 'KPIs'] };
+
+        const subjects = [...coreSubjects, electiveSubject];
 
         let unitData = [];
         let activeCode = null;
 
-        // Build dropdown menu
+        // Build dropdown menu (core subjects only)
         function buildDropdown() {
             const menu = document.getElementById('dropdownMenu');
-            menu.innerHTML = subjects.map(s => `
+            menu.innerHTML = coreSubjects.map(s => `
                 <button class="dropdown-item" data-code="${s.code}" onclick="selectSubject('${s.code}')" style="--c:${s.c};--c-dim:${s.dim};--c-weak:${s.weak}">
                     <div class="item-emoji">${s.emoji}</div>
                     <div class="item-info">
