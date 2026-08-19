@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📝 Monash B2026 — Exercise & Past Papers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0b14;
+            --bg-2: #121420;
+            --bg-3: #1a1d2e;
+            --surface: #222636;
+            --surface-hover: #2d3147;
+            --border: #2e3350;
+            --border-light: #3d4266;
+            --text: #f0f2ff;
+            --text-secondary: #a0a8cc;
+            --text-muted: #5a6080;
+            --blue: #6b8cff;
+            --blue-glow: rgba(107,140,255,0.3);
+            --green: #5ce6a0;
+            --green-glow: rgba(92,230,160,0.3);
+            --purple: #c084fc;
+            --purple-glow: rgba(192,132,252,0.3);
+            --yellow: #fbbf24;
+            --pink: #f472b6;
+            --red: #f87171;
+            --teal: #2dd4bf;
+            --orange: #fb923c;
+            --font: 'Inter', -apple-system, sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 14.5px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            height: 56px;
+            background: rgba(10,11,20,0.85);
+            backdrop-filter: blur(20px) saturate(1.5);
+            -webkit-backdrop-filter: blur(20px) saturate(1.5);
+            border-bottom: 1px solid rgba(46,51,80,0.5);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .navbar-brand:hover { color: var(--blue); }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            padding: 6px 16px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: var(--font);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn:hover {
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        .nav-btn.active {
+            background: rgba(107,140,255,0.15);
+            border-color: rgba(107,140,255,0.3);
+            color: var(--blue);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 100px 24px 40px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-emoji { font-size: 48px; margin-bottom: 12px; }
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p { color: var(--text-secondary); font-size: 15px; }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+        }
+
+        /* Subject Cards */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .subject-card {
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-card:hover {
+            border-color: var(--border-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue), var(--purple));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .subject-card:hover::before { opacity: 1; }
+
+        .subject-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .subject-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .subject-info h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .subject-info .code {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .paper-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .paper-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: var(--bg-3);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .paper-item:hover {
+            border-color: var(--border-light);
+            background: var(--surface);
+        }
+
+        .paper-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .paper-year {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .paper-type {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .paper-links {
+            display: flex;
+            gap: 6px;
+        }
+
+        .paper-link {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .paper-link.question {
+            background: rgba(107,140,255,0.15);
+            color: var(--blue);
+            border: 1px solid rgba(107,140,255,0.3);
+        }
+
+        .paper-link.question:hover {
+            background: rgba(107,140,255,0.25);
+        }
+
+        .paper-link.ms {
+            background: rgba(92,230,160,0.15);
+            color: var(--green);
+            border: 1px solid rgba(92,230,160,0.3);
+        }
+
+        .paper-link.ms:hover {
+            background: rgba(92,230,160,0.25);
+        }
+
+        .paper-link.soon {
+            background: rgba(90,96,128,0.15);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            cursor: not-allowed;
+        }
+
+        /* Exam Tips Section */
+        .tips-section {
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-top: 20px;
+        }
+
+        .tips-section h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .tip-card {
+            padding: 16px;
+            background: var(--bg-3);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .tip-card h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--yellow);
+        }
+
+        .tip-card p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--text-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        .footer a { color: var(--blue); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .subjects-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 24px; }
+            .navbar-nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <span>🎓</span>
+            <span>Monash B2026</span>
+        </a>
+        <div class="navbar-nav">
+            <a href="index.html" class="nav-btn">📚 Study</a>
+            <a href="exercise.html" class="nav-btn active">📝 Exercise</a>
+            <a href="study.html" class="nav-btn">📖 Guide</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-emoji">📝</div>
+        <h1>Exercise & Past Papers</h1>
+        <p>Practice with past year papers, exam questions, and mark schemes to ace your exams.</p>
+    </div>
+
+    <div class="container">
+        <div class="subjects-grid">
+            <!-- ACW1120 -->
+            <div class="subject-card">
+                <div class="subject-header">
+                    <div class="subject-icon" style="background:rgba(107,140,255,0.15)">📊</div>
+                    <div class="subject-info">
+                        <h3>Financial Accounting</h3>
+                        <span class="code">ACW1120</span>
+                    </div>
+                </div>
+                <div class="paper-list">
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">2024 Semester 2</span>
+                            <span class="paper-type">Final Exam</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="https://learning.monash.edu/course/view.php?id=1234" class="paper-link question" target="_blank">Paper</a>
+                            <span class="paper-link soon">MS</span>
+                        </div>
+                    </div>
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">2024 Semester 1</span>
+                            <span class="paper-type">Final Exam</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="https://learning.monash.edu" class="paper-link question" target="_blank">Paper</a>
+                            <span class="paper-link soon">MS</span>
+                        </div>
+                    </div>
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">2023 Semester 2</span>
+                            <span class="paper-type">Final Exam</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="https://learning.monash.edu" class="paper-link question" target="_blank">Paper</a>
+                            <span class="paper-link soon">MS</span>
+                        </div>
+                    </div>
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">Built-in Questions</span>
+                            <span class="paper-type">5 Exam-Style Questions + Solutions</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="study.html#acw1120" class="paper-link question">View</a>
+                            <a href="monash_b2026_partA_accountancy.md" class="paper-link ms" target="_blank">MS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACW2220 -->
+            <div class="subject-card">
+                <div class="subject-header">
+                    <div class="subject-icon" style="background:rgba(192,132,252,0.15)">📈</div>
+                    <div class="subject-info">
+                        <h3>Management Accounting</h3>
+                        <span class="code">ACW2220</span>
+                    </div>
+                </div>
+                <div class="paper-list">
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">2024 Semester 2</span>
+                            <span class="paper-type">Final Exam</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="https://learning.monash.edu" class="paper-link question" target="_blank">Paper</a>
+                            <span class="paper-link soon">MS</span>
+                        </div>
+                    </div>
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">2024 Semester 1</span>
+                            <span class="paper-type">Final Exam</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="https://learning.monash.edu" class="paper-link question" target="_blank">Paper</a>
+                            <span class="paper-link soon">MS</span>
+                        </div>
+                    </div>
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">Built-in Questions</span>
+                            <span class="paper-type">MCQs + Exam Traps</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="study.html#acw2220" class="paper-link question">View</a>
+                            <a href="study.html#acw2220" class="paper-link ms">MS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BFW1001 -->
+            <div class="subject-card">
+                <div class="subject-header">
+                    <div class="subject-icon" style="background:rgba(92,230,160,0.15)">💰</div>
+                    <div class="subject-info">
+                        <h3>Foundations of Finance</h3>
+                        <span class="code">BFW1001</span>
+                    </div>
+                </div>
+                <div class="paper-list">
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">2024 Semester 2</span>
+                            <span class="paper-type">Final Exam</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="https://learning.monash.edu" class="paper-link question" target="_blank">Paper</a>
+                            <span class="paper-link soon">MS</span>
+                        </div>
+                    </div>
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">Built-in Questions</span>
+                            <span class="paper-type">NPV, IRR, WACC Problems</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="study.html#bfw1001" class="paper-link question">View</a>
+                            <a href="study.html#bfw1001" class="paper-link ms">MS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BTW1042 -->
+            <div class="subject-card">
+                <div class="subject-header">
+                    <div class="subject-icon" style="background:rgba(248,113,113,0.15)">⚖️</div>
+                    <div class="subject-info">
+                        <h3>Business Law</h3>
+                        <span class="code">BTW1042</span>
+                    </div>
+                </div>
+                <div class="paper-list">
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">2024 Semester 2</span>
+                            <span class="paper-type">Final Exam</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="https://learning.monash.edu" class="paper-link question" target="_blank">Paper</a>
+                            <span class="paper-link soon">MS</span>
+                        </div>
+                    </div>
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">Built-in Questions</span>
+                            <span class="paper-type">Case Studies + MCQs</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="study.html#btw1042" class="paper-link question">View</a>
+                            <a href="study.html#btw1042" class="paper-link ms">MS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ECM1953 -->
+            <div class="subject-card">
+                <div class="subject-header">
+                    <div class="subject-icon" style="background:rgba(251,146,60,0.15)">📉</div>
+                    <div class="subject-info">
+                        <h3>Economics</h3>
+                        <span class="code">ECM1953</span>
+                    </div>
+                </div>
+                <div class="paper-list">
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">2024 Semester 2</span>
+                            <span class="paper-type">Final Exam</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="https://learning.monash.edu" class="paper-link question" target="_blank">Paper</a>
+                            <span class="paper-link soon">MS</span>
+                        </div>
+                    </div>
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">Built-in Questions</span>
+                            <span class="paper-type">Supply/Demand, Market Structures</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="study.html#ecm1953" class="paper-link question">View</a>
+                            <a href="study.html#ecm1953" class="paper-link ms">MS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ETW1001 -->
+            <div class="subject-card">
+                <div class="subject-header">
+                    <div class="subject-icon" style="background:rgba(45,212,191,0.15)">📐</div>
+                    <div class="subject-info">
+                        <h3>Intro to Econometrics</h3>
+                        <span class="code">ETW1001</span>
+                    </div>
+                </div>
+                <div class="paper-list">
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">2024 Semester 2</span>
+                            <span class="paper-type">Final Exam</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="https://learning.monash.edu" class="paper-link question" target="_blank">Paper</a>
+                            <span class="paper-link soon">MS</span>
+                        </div>
+                    </div>
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">Built-in Questions</span>
+                            <span class="paper-type">Regression, Hypothesis Testing</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="study.html#etw1001" class="paper-link question">View</a>
+                            <a href="study.html#etw1001" class="paper-link ms">MS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MGW1010 -->
+            <div class="subject-card">
+                <div class="subject-header">
+                    <div class="subject-icon" style="background:rgba(251,191,36,0.15)">🎯</div>
+                    <div class="subject-info">
+                        <h3>Management</h3>
+                        <span class="code">MGW1010</span>
+                    </div>
+                </div>
+                <div class="paper-list">
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">2024 Semester 2</span>
+                            <span class="paper-type">Final Exam</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="https://learning.monash.edu" class="paper-link question" target="_blank">Paper</a>
+                            <span class="paper-link soon">MS</span>
+                        </div>
+                    </div>
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">Built-in Questions</span>
+                            <span class="paper-type">SWOT, PESTLE, Case Studies</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="study.html#mgw1010" class="paper-link question">View</a>
+                            <a href="study.html#mgw1010" class="paper-link ms">MS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ETC2440 -->
+            <div class="subject-card">
+                <div class="subject-header">
+                    <div class="subject-icon" style="background:rgba(255,155,68,0.15)">🔍</div>
+                    <div class="subject-info">
+                        <h3>Business Analytics</h3>
+                        <span class="code">ETC2440</span>
+                    </div>
+                </div>
+                <div class="paper-list">
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">2024 Semester 2</span>
+                            <span class="paper-type">Final Exam</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="https://learning.monash.edu" class="paper-link question" target="_blank">Paper</a>
+                            <span class="paper-link soon">MS</span>
+                        </div>
+                    </div>
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <span class="paper-year">Built-in Questions</span>
+                            <span class="paper-type">A/B Testing, Causal Inference</span>
+                        </div>
+                        <div class="paper-links">
+                            <a href="study.html#etc2440" class="paper-link question">View</a>
+                            <a href="study.html#etc2440" class="paper-link ms">MS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-section">
+            <h2>💡 Exam Strategy & Tips</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4>⏰ Time Management</h4>
+                    <p>Allocate time proportionally to marks. Don't spend 20 minutes on a 5-mark question.</p>
+                </div>
+                <div class="tip-card">
+                    <h4>📝 Read Carefully</h4>
+                    <p>Watch for "except", "not", "always", "never" in MCQs. Underline key terms.</p>
+                </div>
+                <div class="tip-card">
+                    <h4>✅ Show Working</h4>
+                    <p>Even if your final answer is wrong, you may get partial marks for correct method.</p>
+                </div>
+                <div class="tip-card">
+                    <h4>🔄 Check Balance</h4>
+                    <p>Financial statements must balance. If they don't, recheck your calculations.</p>
+                </div>
+                <div class="tip-card">
+                    <h4>📚 Definitions Matter</h4>
+                    <p>Memorise key definitions verbatim. Short-answer questions test precise language.</p>
+                </div>
+                <div class="tip-card">
+                    <h4>🎯 Start Strong</h4>
+                    <p>Begin with questions you know best to build confidence and secure marks early.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Monash B2026 Study HQ — Built for exam success</p>
+        <p>Past papers available via <a href="https://learning.monash.edu" target="_blank">Moodle</a> | <a href="https://www.monash.edu/library" target="_blank">Library</a></p>
+    </div>
+</body>
+</html>
