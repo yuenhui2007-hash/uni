@@ -47,7 +47,6 @@
             overflow-x: hidden;
         }
 
-        /* Animated background grid */
         body::before {
             content: '';
             position: fixed;
@@ -60,7 +59,6 @@
             z-index: 0;
         }
 
-        /* Floating particles */
         .particles {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -148,33 +146,12 @@
             font-weight: 700;
             font-size: 0.85rem;
             animation: glow 2s infinite alternate;
+            cursor: pointer;
         }
         @keyframes glow {
             from { box-shadow: 0 0 5px rgba(251,191,36,0.2); }
             to { box-shadow: 0 0 20px rgba(251,191,36,0.4); }
         }
-        .progress-mini {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-        .progress-mini-bar {
-            width: 60px;
-            height: 6px;
-            background: var(--surface);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        .progress-mini-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--green), var(--teal));
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        /* Dropdown */
         .dropdown { position: relative; }
         .dropdown-trigger {
             display: flex;
@@ -242,8 +219,7 @@
             border: 1px solid rgba(107,140,255,0.25);
         }
         .dropdown-item .item-emoji {
-            width: 36px;
-            height: 36px;
+            width: 36px; height: 36px;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -267,29 +243,16 @@
             font-size: 0.9rem;
             color: var(--text);
         }
-        .dropdown-item .item-progress {
-            width: 40px;
-            height: 4px;
-            background: var(--surface);
-            border-radius: 2px;
-            overflow: hidden;
-            margin-top: 4px;
-        }
-        .dropdown-item .item-progress-fill {
-            height: 100%;
-            background: var(--green);
-            border-radius: 2px;
-        }
 
-        /* ===== HERO / WELCOME ===== */
+        /* ===== HERO ===== */
         .hero {
             text-align: center;
-            padding: 60px 24px 40px;
+            padding: 50px 24px 30px;
             position: relative;
         }
         .hero-emoji {
-            font-size: 4rem;
-            margin-bottom: 16px;
+            font-size: 3.5rem;
+            margin-bottom: 12px;
             display: inline-block;
             animation: bounce 2s infinite;
         }
@@ -298,19 +261,18 @@
             50% { transform: translateY(-10px); }
         }
         .hero h1 {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 900;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             background: linear-gradient(135deg, #fff, var(--blue), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.02em;
         }
         .hero p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: 1rem;
             max-width: 500px;
-            margin: 0 auto 24px;
+            margin: 0 auto 20px;
         }
         .motivational-quote {
             display: inline-block;
@@ -321,10 +283,44 @@
             color: var(--text-secondary);
             font-size: 0.9rem;
             font-style: italic;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
-        /* ===== SUBJECT CARDS GRID ===== */
+        /* ===== DASHBOARD STATS ===== */
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .dash-card {
+            background: linear-gradient(135deg, var(--bg-2), var(--bg-3));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .dash-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--border-light);
+        }
+        .dash-card-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--blue);
+            margin-bottom: 4px;
+        }
+        .dash-card-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== SUBJECT CARDS ===== */
         .subjects-grid {
             max-width: 1200px;
             margin: 0 auto;
@@ -365,8 +361,7 @@
             margin-bottom: 16px;
         }
         .subject-card-icon {
-            width: 48px;
-            height: 48px;
+            width: 48px; height: 48px;
             border-radius: 14px;
             display: flex;
             align-items: center;
@@ -410,6 +405,17 @@
             border-radius: 20px;
             border: 1px solid var(--border);
         }
+        .subject-card-tag.flashcard-btn {
+            background: rgba(107,140,255,0.15);
+            color: var(--blue);
+            border-color: rgba(107,140,255,0.3);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .subject-card-tag.flashcard-btn:hover {
+            background: rgba(107,140,255,0.25);
+            transform: scale(1.05);
+        }
         .subject-card-progress {
             margin-top: auto;
         }
@@ -449,11 +455,6 @@
             font-size: 0.75rem;
             color: var(--text-muted);
         }
-        .subject-card-stat {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
 
         /* ===== CONTENT AREA ===== */
         .content-wrap {
@@ -464,7 +465,6 @@
             z-index: 1;
         }
 
-        /* Subject Header */
         .subject-header {
             margin-bottom: 32px;
             padding: 24px;
@@ -488,8 +488,7 @@
             margin-bottom: 12px;
         }
         .subject-icon {
-            width: 56px;
-            height: 56px;
+            width: 56px; height: 56px;
             border-radius: 16px;
             display: flex;
             align-items: center;
@@ -497,11 +496,6 @@
             font-size: 1.8rem;
             background: var(--c-dim);
             border: 1px solid var(--c-weak);
-            animation: float-icon 3s ease-in-out infinite;
-        }
-        @keyframes float-icon {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
         }
         .subject-title-wrap h1 {
             font-size: 1.8rem;
@@ -540,53 +534,131 @@
             color: var(--c);
             border-color: var(--c-weak);
         }
+        .study-action-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .study-btn {
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .study-btn:hover {
+            background: var(--surface-hover);
+            transform: translateY(-2px);
+        }
+        .study-btn.primary {
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            border: none;
+            color: #fff;
+        }
+        .study-btn.primary:hover {
+            box-shadow: 0 4px 15px var(--blue-glow);
+        }
 
         /* ===== FLASHCARD MODE ===== */
         .flashcard-mode {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(10, 11, 20, 0.95);
+            background: rgba(10, 11, 20, 0.97);
             backdrop-filter: blur(20px);
             z-index: 1000;
-            padding: 40px 24px;
+            padding: 30px 24px;
             overflow-y: auto;
         }
         .flashcard-mode.active { display: block; }
         .flashcard-container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
         }
+        .flashcard-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .flashcard-header h2 {
+            color: var(--text);
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .flashcard-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        .flashcard-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--surface);
+            border-radius: 3px;
+            margin: 16px 0;
+            overflow: hidden;
+        }
+        .flashcard-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--green), var(--teal));
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+        .flashcard-scene {
+            perspective: 1000px;
+            margin-bottom: 24px;
+        }
         .flashcard {
+            width: 100%;
+            min-height: 280px;
+            position: relative;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            min-height: 280px;
+            backface-visibility: hidden;
             background: linear-gradient(135deg, var(--bg-2), var(--bg-3));
             border: 1px solid var(--border);
             border-radius: 24px;
             padding: 40px;
-            min-height: 300px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            cursor: pointer;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            position: relative;
         }
-        .flashcard.flipped { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back {
-            backface-visibility: hidden;
-        }
-        .flashcard-back {
-            position: absolute;
+        .flashcard-face.back {
             transform: rotateY(180deg);
-            padding: 40px;
+        }
+        .flashcard-subject {
+            font-size: 0.75rem;
+            color: var(--c);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
         }
         .flashcard-term {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: var(--text);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         .flashcard-hint {
             color: var(--text-muted);
@@ -604,19 +676,62 @@
             margin-top: 24px;
         }
         .flashcard-btn {
-            padding: 12px 24px;
-            border-radius: 12px;
+            padding: 14px 28px;
+            border-radius: 14px;
             border: none;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s;
         }
-        .flashcard-btn-know { background: var(--green); color: #000; }
-        .flashcard-btn-again { background: var(--red); color: #fff; }
+        .flashcard-btn-know {
+            background: linear-gradient(135deg, var(--green), var(--teal));
+            color: #000;
+        }
+        .flashcard-btn-again {
+            background: linear-gradient(135deg, var(--red), #ef4444);
+            color: #fff;
+        }
         .flashcard-btn:hover { transform: scale(1.05); }
+        .flashcard-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
 
-        /* ===== MARKDOWN STYLING ===== */
+        /* Session complete screen */
+        .session-complete {
+            display: none;
+            text-align: center;
+            padding: 60px 24px;
+        }
+        .session-complete.active { display: block; }
+        .session-complete-emoji { font-size: 4rem; margin-bottom: 16px; }
+        .session-complete h2 {
+            font-size: 2rem;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+        .session-complete-stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin: 24px 0;
+        }
+        .session-complete-stat {
+            text-align: center;
+        }
+        .session-complete-stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--green);
+        }
+        .session-complete-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== MARKDOWN ===== */
         .md h2 {
             font-size: 1.5rem;
             font-weight: 800;
@@ -626,7 +741,6 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             color: var(--text);
-            letter-spacing: -0.01em;
             position: relative;
             overflow: hidden;
         }
@@ -669,7 +783,6 @@
         .md li::marker { color: var(--c); font-size: 1.2rem; }
         .md a { color: var(--blue); text-decoration: none; font-weight: 600; }
         .md a:hover { text-decoration: underline; color: var(--purple); }
-
         .md code {
             background: rgba(107,140,255,0.1);
             color: var(--blue);
@@ -704,7 +817,6 @@
             font-size: 0.85em;
             line-height: 1.7;
         }
-
         .md table {
             width: 100%;
             border-collapse: separate;
@@ -734,7 +846,6 @@
         .md tr:last-child td { border-bottom: none; }
         .md tr:nth-child(even) { background: rgba(34, 38, 54, 0.4); }
         .md tr:hover { background: rgba(107,140,255,0.05); }
-
         .md blockquote {
             border-left: 4px solid var(--c);
             padding: 16px 20px;
@@ -756,46 +867,11 @@
         .md blockquote p { margin-bottom: 8px; }
         .md blockquote p:last-child { margin-bottom: 0; }
         .md blockquote strong { color: var(--c); }
-
         .md hr {
             border: none;
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--border), var(--c), var(--border), transparent);
             margin: 32px 0;
-        }
-
-        /* Collapsible sections */
-        .md details {
-            background: var(--bg-2);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            margin: 16px 0;
-            overflow: hidden;
-        }
-        .md summary {
-            padding: 16px 20px;
-            font-weight: 700;
-            cursor: pointer;
-            color: var(--text);
-            transition: all 0.2s;
-            list-style: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .md summary::before {
-            content: '▶';
-            color: var(--c);
-            transition: transform 0.2s;
-            font-size: 0.8rem;
-        }
-        .md details[open] summary::before { transform: rotate(90deg); }
-        .md summary:hover { background: var(--surface); }
-        .md details > *:not(summary) { padding: 0 20px 16px; }
-
-        /* Exam question highlight */
-        .md h4:has(+ p) {
-            color: var(--yellow);
         }
 
         /* ===== LOADING / EMPTY ===== */
@@ -813,10 +889,9 @@
             margin: 0 auto 20px;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-
         .empty-state {
             text-align: center;
-            padding: 80px 24px;
+            padding: 60px 24px;
             color: var(--text-muted);
         }
         .empty-state h2 {
@@ -833,22 +908,6 @@
             margin-right: auto;
             font-size: 1rem;
         }
-        .empty-state .hint {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 14px 24px;
-            border-radius: 14px;
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            animation: pulse-soft 2s infinite;
-        }
-        @keyframes pulse-soft {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(107,140,255,0.1); }
-            50% { box-shadow: 0 0 20px 5px rgba(107,140,255,0.1); }
-        }
 
         /* ===== FOOTER ===== */
         footer {
@@ -863,19 +922,6 @@
             color: var(--text-muted);
             font-size: 0.8rem;
         }
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            margin-bottom: 16px;
-        }
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.2s;
-        }
-        .footer-links a:hover { color: var(--blue); }
 
         /* ===== MOBILE ===== */
         @media (max-width: 640px) {
@@ -884,20 +930,18 @@
             .navbar-stats { display: none; }
             .dropdown-menu { right: -60px; min-width: 280px; }
             .hero h1 { font-size: 1.8rem; }
+            .dashboard { grid-template-columns: repeat(2, 1fr); }
             .subjects-grid { grid-template-columns: 1fr; padding: 0 16px; }
             .content-wrap { padding: 24px 16px 40px; }
-            .subject-title-wrap h1 { font-size: 1.4rem; }
-            .subject-icon { width: 44px; height: 44px; font-size: 1.4rem; }
-            .flashcard { padding: 24px; }
+            .flashcard-face { padding: 24px; min-height: 240px; }
+            .flashcard-term { font-size: 1.3rem; }
+            .session-complete-stats { gap: 16px; }
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--surface); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--border-light); }
-
-        /* Selection */
         ::selection {
             background: rgba(107,140,255,0.3);
             color: var(--text);
@@ -905,33 +949,22 @@
     </style>
 </head>
 <body>
-    <!-- Floating particles -->
     <div class="particles" id="particles"></div>
 
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="navbar-inner">
             <a href="#" class="navbar-brand" onclick="showHome(); return false;">
                 <div class="logo">🎓</div>
                 <span>Study HQ</span>
             </a>
-
             <div class="navbar-stats">
-                <div class="streak-badge">🔥 <span id="streakCount">3</span> day streak</div>
-                <div class="progress-mini">
-                    <span>Overall</span>
-                    <div class="progress-mini-bar">
-                        <div class="progress-mini-fill" style="width: 42%"></div>
-                    </div>
-                    <span>42%</span>
-                </div>
+                <div class="streak-badge" onclick="showStreakInfo()">🔥 <span id="streakCount">0</span> day streak</div>
             </div>
-
             <div style="display:flex;align-items:center;gap:10px">
                 <div class="dropdown" id="subjectDropdown">
                     <button class="dropdown-trigger" onclick="toggleDropdown()">
                         <span>📚 Subjects</span>
-                        <span class="arrow">▼</span>
+                        <span>▼</span>
                     </button>
                     <div class="dropdown-menu" id="dropdownMenu"></div>
                 </div>
@@ -942,154 +975,405 @@
         </div>
     </nav>
 
-    <!-- Hero / Welcome -->
     <div class="hero" id="heroSection">
         <div class="hero-emoji">🚀</div>
         <h1>Monash B2026 Study HQ</h1>
-        <p>Your personal command centre for acing every exam. Definitions, formulas, and practice questions — all in one place.</p>
-        <div class="motivational-quote" id="quote">"The future belongs to those who believe in the beauty of their dreams." — Eleanor Roosevelt</div>
+        <p>Your personal command centre for acing every exam.</p>
+        <div class="motivational-quote" id="quote">"The future belongs to those who believe in the beauty of their dreams."</div>
     </div>
 
-    <!-- Subject Cards Grid -->
+    <div class="dashboard" id="dashboard">
+        <div class="dash-card">
+            <div class="dash-card-value" id="dashTotalTerms">0</div>
+            <div class="dash-card-label">Terms Learned</div>
+        </div>
+        <div class="dash-card">
+            <div class="dash-card-value" id="dashFlashcards">0</div>
+            <div class="dash-card-label">Flashcards Done</div>
+        </div>
+        <div class="dash-card">
+            <div class="dash-card-value" id="dashSubjects">0</div>
+            <div class="dash-card-label">Subjects Started</div>
+        </div>
+        <div class="dash-card">
+            <div class="dash-card-value" id="dashTime">0m</div>
+            <div class="dash-card-label">Study Time</div>
+        </div>
+    </div>
+
     <div class="subjects-grid" id="subjectsGrid"></div>
 
-    <!-- Content Area -->
     <main class="content-wrap" id="contentArea">
         <div class="loading" id="loading">
             <div class="loading-ring"></div>
             <p style="color:var(--text-secondary)">Loading your notes...</p>
         </div>
-
         <div class="empty-state" id="emptyState" style="display:none">
             <h2>Ready to Study? 📚</h2>
             <p>Pick a subject card above or use the dropdown to dive into detailed notes, definitions, and exam questions.</p>
-            <div class="hint">👆 Click any card to start learning</div>
         </div>
-
         <div id="subjectContent" style="display:none">
             <div class="subject-header" id="subjectHeader"></div>
             <div class="md" id="markdownContent"></div>
         </div>
     </main>
 
-    <!-- Flashcard Mode Overlay -->
+    <!-- Flashcard Mode -->
     <div class="flashcard-mode" id="flashcardMode">
         <div class="flashcard-container">
-            <div style="text-align:center;margin-bottom:24px">
-                <h2 style="color:var(--text)">🧠 Flashcard Mode</h2>
-                <p style="color:var(--text-secondary)">Click the card to reveal the answer</p>
-            </div>
-            <div class="flashcard" id="flashcard" onclick="flipFlashcard()">
-                <div class="flashcard-front">
-                    <div class="flashcard-term" id="flashcardTerm">Loading...</div>
-                    <div class="flashcard-hint">Tap to reveal definition</div>
+            <div class="flashcard-header">
+                <h2>🧠 Flashcard Mode</h2>
+                <div class="flashcard-stats">
+                    <span>Card <span id="fcCurrent">1</span> of <span id="fcTotal">0</span></span>
+                    <span style="color:var(--green)">✓ <span id="fcKnown">0</span></span>
+                    <span style="color:var(--red)">↻ <span id="fcAgain">0</span></span>
                 </div>
-                <div class="flashcard-back">
-                    <div class="flashcard-definition" id="flashcardDef">Loading...</div>
+                <div class="flashcard-progress-bar">
+                    <div class="flashcard-progress-fill" id="fcProgress" style="width:0%"></div>
                 </div>
             </div>
-            <div class="flashcard-controls">
-                <button class="flashcard-btn flashcard-btn-again" onclick="nextFlashcard(false)">🔄 Need Practice</button>
-                <button class="flashcard-btn flashcard-btn-know" onclick="nextFlashcard(true)">✅ Got It</button>
+
+            <div class="flashcard-scene">
+                <div class="flashcard" id="flashcard" onclick="flipFlashcard()">
+                    <div class="flashcard-face front">
+                        <div class="flashcard-subject" id="fcSubject">Subject</div>
+                        <div class="flashcard-term" id="fcTerm">Term</div>
+                        <div class="flashcard-hint">Tap to reveal definition</div>
+                    </div>
+                    <div class="flashcard-face back">
+                        <div class="flashcard-subject" id="fcSubjectBack">Subject</div>
+                        <div class="flashcard-definition" id="fcDef">Definition</div>
+                    </div>
+                </div>
             </div>
-            <div style="text-align:center;margin-top:20px">
-                <button class="dropdown-trigger" onclick="closeFlashcards()">Close Flashcards</button>
+
+            <div class="flashcard-controls" id="fcControls">
+                <button class="flashcard-btn flashcard-btn-again" onclick="handleCard(false)">🔄 Need Practice</button>
+                <button class="flashcard-btn flashcard-btn-know" onclick="handleCard(true)">✅ Got It</button>
+            </div>
+
+            <div class="session-complete" id="sessionComplete">
+                <div class="session-complete-emoji">🎉</div>
+                <h2>Session Complete!</h2>
+                <p style="color:var(--text-secondary)">Great job studying today!</p>
+                <div class="session-complete-stats">
+                    <div class="session-complete-stat">
+                        <div class="session-complete-stat-value" id="scKnown">0</div>
+                        <div class="session-complete-stat-label">Known</div>
+                    </div>
+                    <div class="session-complete-stat">
+                        <div class="session-complete-stat-value" id="scAgain">0</div>
+                        <div class="session-complete-stat-label">Need Practice</div>
+                    </div>
+                    <div class="session-complete-stat">
+                        <div class="session-complete-stat-value" id="scTotal">0</div>
+                        <div class="session-complete-stat-label">Total</div>
+                    </div>
+                </div>
+                <button class="dropdown-trigger" onclick="closeFlashcards()" style="margin-top:20px">Back to Home</button>
+            </div>
+
+            <div style="text-align:center;margin-top:16px">
+                <button class="dropdown-trigger" onclick="closeFlashcards()">Close</button>
             </div>
         </div>
     </div>
 
     <footer>
-        <div class="footer-links">
-            <a href="#" onclick="showHome(); return false;">Home</a>
-            <a href="study.html">Exam Guide</a>
-            <a href="https://github.com/yuenhui2007-hash/uni" target="_blank">GitHub</a>
-        </div>
-        <p>Monash B2026 Accountancy Major · Enhanced Edition · Made with ☕ and 💤</p>
+        <p>Monash B2026 · Your progress is saved automatically 💾</p>
     </footer>
 
     <script>
+        // ===== LOCALSTORAGE STUDY TRACKER =====
+        const StudyTracker = {
+            getData() {
+                const raw = localStorage.getItem('monash_study_data');
+                if (raw) return JSON.parse(raw);
+                return {
+                    streak: 0,
+                    lastStudyDate: null,
+                    totalTermsLearned: 0,
+                    totalFlashcardsDone: 0,
+                    totalStudyMinutes: 0,
+                    subjectsStarted: [],
+                    flashcardResults: {},
+                    dailyStats: {}
+                };
+            },
+            saveData(data) {
+                localStorage.setItem('monash_study_data', JSON.stringify(data));
+            },
+            recordStudySession(minutes) {
+                const data = this.getData();
+                const today = new Date().toDateString();
+                
+                // Update streak
+                if (data.lastStudyDate) {
+                    const last = new Date(data.lastStudyDate);
+                    const now = new Date();
+                    const diffDays = Math.floor((now - last) / (1000 * 60 * 60 * 24));
+                    if (diffDays === 1) {
+                        data.streak++;
+                    } else if (diffDays > 1) {
+                        data.streak = 1;
+                    }
+                } else {
+                    data.streak = 1;
+                }
+                
+                data.lastStudyDate = today;
+                data.totalStudyMinutes += minutes;
+                
+                // Daily stats
+                if (!data.dailyStats[today]) data.dailyStats[today] = { minutes: 0, flashcards: 0 };
+                data.dailyStats[today].minutes += minutes;
+                
+                this.saveData(data);
+                return data;
+            },
+            recordFlashcard(subjectCode, known) {
+                const data = this.getData();
+                const today = new Date().toDateString();
+                
+                if (!data.flashcardResults[subjectCode]) {
+                    data.flashcardResults[subjectCode] = { known: 0, again: 0 };
+                }
+                data.flashcardResults[subjectCode][known ? 'known' : 'again']++;
+                data.totalFlashcardsDone++;
+                
+                if (!data.dailyStats[today]) data.dailyStats[today] = { minutes: 0, flashcards: 0 };
+                data.dailyStats[today].flashcards++;
+                
+                this.saveData(data);
+            },
+            markSubjectStarted(code) {
+                const data = this.getData();
+                if (!data.subjectsStarted.includes(code)) {
+                    data.subjectsStarted.push(code);
+                    this.saveData(data);
+                }
+            },
+            getProgress(code) {
+                const data = this.getData();
+                const results = data.flashcardResults[code];
+                if (!results) return 0;
+                const total = results.known + results.again;
+                if (total === 0) return 0;
+                // Weight known cards more heavily
+                return Math.min(100, Math.round((results.known / total) * 100));
+            }
+        };
+
+        // ===== FLASHCARD DECKS =====
+        const flashcardDecks = {
+            ACW1120: [
+                { term: 'Asset', def: 'A present economic resource controlled by the entity as a result of past events, with the potential to produce economic benefits.' },
+                { term: 'Liability', def: 'A present obligation of the entity to transfer an economic resource as a result of past events.' },
+                { term: 'Equity', def: 'The residual interest in the assets of the entity after deducting all its liabilities. Equity = Assets − Liabilities.' },
+                { term: 'Revenue Recognition', def: 'Revenue is recognised when control of goods/services transfers to the customer, not when cash is received.' },
+                { term: 'Matching Principle', def: 'Expenses are recognised in the same period as the revenues they help generate.' },
+                { term: 'Going Concern', def: 'The assumption that the entity will continue operating for the foreseeable future (typically at least 12 months).' },
+                { term: 'Accrual Basis', def: 'Transactions and events are recognised when they occur, not when cash is received or paid.' },
+                { term: 'Double-Entry System', def: 'Every transaction affects at least two accounts with equal debits and credits. Total debits always equal total credits.' },
+                { term: 'Depreciation', def: 'Systematic allocation of the cost of a depreciable asset over its useful life.' },
+                { term: 'Provision', def: 'A liability of uncertain timing or amount. Recognised when: present obligation exists, probable outflow, reliable estimate.' }
+            ],
+            BFW1001: [
+                { term: 'Time Value of Money', def: 'Money available today is worth more than the same amount in the future due to its earning potential.' },
+                { term: 'Net Present Value (NPV)', def: 'The sum of present values of all cash inflows minus the sum of present values of all cash outflows.' },
+                { term: 'Internal Rate of Return (IRR)', def: 'The discount rate that makes NPV = 0. If IRR > required return → Accept.' },
+                { term: 'CAPM', def: 'E(Ri) = Rf + βi[E(Rm) − Rf]. Describes relationship between systematic risk and expected return.' },
+                { term: 'Beta (β)', def: 'Measures sensitivity of an asset\'s return to market returns. β = 1: moves with market. β > 1: more volatile.' },
+                { term: 'Systematic Risk', def: 'Market-wide, non-diversifiable risk. Measured by beta. Cannot be eliminated through diversification.' },
+                { term: 'Unsystematic Risk', def: 'Firm-specific risk that can be eliminated by holding a well-diversified portfolio.' },
+                { term: 'WACC', def: 'Weighted Average Cost of Capital. The average rate of return required by all of a company\'s investors.' },
+                { term: 'Annuity', def: 'A series of equal cash flows occurring at regular intervals for a fixed period.' },
+                { term: 'Perpetuity', def: 'An annuity with infinite life. PV = C/r.' }
+            ],
+            BTW1042: [
+                { term: 'Offer', def: 'A clear and definite promise to be bound on specific terms, made with the intention that it shall become binding upon acceptance.' },
+                { term: 'Acceptance', def: 'An unqualified agreement to the terms of an offer. Must be communicated to the offeror.' },
+                { term: 'Consideration', def: 'Something of value exchanged between parties to a contract. Must be sufficient (not necessarily adequate).' },
+                { term: 'Negligence', def: 'A tort involving breach of a duty of care owed to another, causing damage. Four elements: duty, breach, causation, remoteness.' },
+                { term: 'Duty of Care', def: 'A legal obligation to avoid causing harm. Established by the neighbour principle (Donoghue v Stevenson).' },
+                { term: 'Separate Legal Personality', def: 'A company is distinct from its shareholders (Salomon v Salomon). Can own property, sue and be sued.' },
+                { term: 'Vicarious Liability', def: 'An employer is liable for torts committed by employees in the course of employment.' },
+                { term: 'Misrepresentation', def: 'A false statement of fact made by one party to another, inducing the contract.' },
+                { term: 'Frustration', def: 'Where an unforeseen event renders contract performance impossible, illegal, or radically different.' },
+                { term: 'Ultra Vires', def: 'Acting beyond the powers granted in the company\'s constitution.' }
+            ],
+            ECM1953: [
+                { term: 'Price Elasticity of Demand', def: 'Responsiveness of quantity demanded to a change in price. PED = (%ΔQd)/(%ΔP).' },
+                { term: 'Consumer Surplus', def: 'The difference between what consumers are willing to pay and what they actually pay.' },
+                { term: 'Deadweight Loss', def: 'The loss of economic efficiency when equilibrium is not achieved.' },
+                { term: 'Externality', def: 'A cost or benefit affecting a party who did not choose to incur it.' },
+                { term: 'Public Good', def: 'Non-excludable and non-rivalrous (e.g., national defence, street lighting).' },
+                { term: 'GDP', def: 'Total market value of all final goods and services produced within a country in a given period.' },
+                { term: 'Inflation', def: 'Sustained increase in the general price level. Measured by CPI.' },
+                { term: 'Fiscal Policy', def: 'Government use of spending and taxation to influence the economy.' },
+                { term: 'Monetary Policy', def: 'Central bank use of interest rates and money supply to influence the economy.' },
+                { term: 'Comparative Advantage', def: 'Ability to produce a good at a lower opportunity cost than another producer.' }
+            ],
+            ETW1001: [
+                { term: 'Central Limit Theorem', def: 'For large n (≥30), the sampling distribution of the mean is approximately normal regardless of population distribution.' },
+                { term: 'Confidence Interval', def: 'A range of values within which a population parameter is estimated to lie, with a specified level of confidence.' },
+                { term: 'p-value', def: 'The probability of obtaining a test statistic at least as extreme as the one observed, assuming H₀ is true.' },
+                { term: 'Type I Error', def: 'Rejecting H₀ when it is actually true (false positive). Probability = α.' },
+                { term: 'Type II Error', def: 'Failing to reject H₀ when it is actually false (false negative). Probability = β.' },
+                { term: 'R-squared', def: 'The proportion of variance in the dependent variable explained by the independent variable(s).' },
+                { term: 'Correlation', def: 'A statistical measure of association between two variables. Range: −1 to +1. Does NOT imply causation.' },
+                { term: 'Standard Deviation', def: 'The square root of variance. Measures typical distance from mean.' },
+                { term: 'Null Hypothesis (H₀)', def: 'A statement of no effect, no difference, or no relationship. Always contains equality.' },
+                { term: 'Sampling Distribution', def: 'The probability distribution of a statistic computed from all possible samples of size n.' }
+            ],
+            MGW1010: [
+                { term: 'POLC Framework', def: 'Planning, Organising, Leading, Controlling — the four functions of management.' },
+                { term: 'SWOT Analysis', def: 'Strategic planning tool examining Strengths, Weaknesses, Opportunities, Threats.' },
+                { term: 'Scientific Management', def: 'Taylor\'s approach: use scientific methods to determine the "one best way" to do a job.' },
+                { term: 'Theory X', def: 'McGregor\'s view that people dislike work and must be coerced, controlled, or threatened.' },
+                { term: 'Theory Y', def: 'McGregor\'s view that people seek responsibility and are self-directed when committed to objectives.' },
+                { term: 'Maslow\'s Hierarchy', def: 'Physiological → Safety → Social → Esteem → Self-actualisation. Lower needs must be satisfied first.' },
+                { term: 'Transformational Leadership', def: 'Leaders inspire followers to transcend self-interest for the good of the organisation.' },
+                { term: 'Empowerment', def: 'Giving employees authority, resources, and support to make decisions.' },
+                { term: 'Corporate Culture', def: 'The shared values, beliefs, and practices that characterise an organisation.' },
+                { term: 'CSR', def: 'Corporate Social Responsibility — a business\'s obligation to pursue policies that benefit society.' }
+            ],
+            ACW2220: [
+                { term: 'Contribution Margin', def: 'Sales revenue minus variable costs. CM = S − VC.' },
+                { term: 'Break-Even Point', def: 'The level of sales at which total revenue equals total costs (profit = 0).' },
+                { term: 'Margin of Safety', def: 'The excess of actual or budgeted sales over break-even sales.' },
+                { term: 'Relevant Cost', def: 'A cost that differs between alternatives and will be incurred in the future.' },
+                { term: 'Sunk Cost', def: 'A cost already incurred that cannot be changed by any present or future decision.' },
+                { term: 'Absorption Costing', def: 'All manufacturing costs (fixed and variable) are included in product costs.' },
+                { term: 'Variable Costing', def: 'Only variable manufacturing costs are included in product costs. Fixed costs are period costs.' },
+                { term: 'Activity-Based Costing', def: 'A costing method that assigns costs to products based on the activities required to produce them.' },
+                { term: 'Favourable Variance', def: 'Actual cost < Standard cost (or actual revenue > standard revenue).' },
+                { term: 'ROI', def: 'Return on Investment. Net operating income divided by average operating assets.' }
+            ],
+            ETC2440: [
+                { term: 'Ordinary Least Squares (OLS)', def: 'A method for estimating regression coefficients by minimising the sum of squared residuals.' },
+                { term: 'R-squared', def: 'The proportion of variance in Y explained by the model. R² = 1 − (SSR/SST).' },
+                { term: 'Heteroskedasticity', def: 'Non-constant variance of error terms. Violates CLRM assumption #5.' },
+                { term: 'Causality', def: 'A relationship where one variable directly affects another. Requires careful research design.' },
+                { term: 'Difference-in-Differences', def: 'A quasi-experimental method comparing changes over time between treatment and control groups.' },
+                { term: 'Instrumental Variable', def: 'A variable correlated with the endogenous X but uncorrelated with the error term.' },
+                { term: 'A/B Testing', def: 'A controlled experiment comparing two versions to determine which performs better.' },
+                { term: 'KPI', def: 'Key Performance Indicator — a measurable value demonstrating how effectively objectives are achieved.' },
+                { term: 'Overfitting', def: 'When a model captures noise rather than the underlying pattern, performing poorly on new data.' },
+                { term: 'Central Limit Theorem', def: 'For sufficiently large samples, the sampling distribution of the mean is approximately normal.' }
+            ]
+        };
+
+        // ===== SUBJECT DATA =====
         const coreSubjects = [
-            { code: 'ACW1120', name: 'Financial Accounting 1', emoji: '📊', c: '#6b8cff', cDim: 'rgba(107,140,255,0.1)', cGlow: 'rgba(107,140,255,0.3)', cWeak: 'rgba(107,140,255,0.2)', desc: 'Double-entry, accrual accounting, financial statements, IFRS framework', tags: ['Journal Entries', 'Trial Balance', 'SOFP & P&L'], progress: 65, terms: 70 },
-            { code: 'BFW1001', name: 'Foundations of Finance', emoji: '💰', c: '#5ce6a0', cDim: 'rgba(92,230,160,0.1)', cGlow: 'rgba(92,230,160,0.3)', cWeak: 'rgba(92,230,160,0.2)', desc: 'Time value of money, risk-return, NPV, IRR, valuation', tags: ['TVM', 'Annuities', 'Risk Analysis'], progress: 40, terms: 60 },
-            { code: 'BTW1042', name: 'Business Law', emoji: '⚖️', c: '#c084fc', cDim: 'rgba(192,132,252,0.1)', cGlow: 'rgba(192,132,252,0.3)', cWeak: 'rgba(192,132,252,0.2)', desc: 'Contract law, tort, agency, Malaysian legal system', tags: ['Contracts', 'Negligence', 'Companies Act'], progress: 30, terms: 60 },
-            { code: 'ECM1953', name: 'Economics', emoji: '📈', c: '#fbbf24', cDim: 'rgba(251,191,36,0.1)', cGlow: 'rgba(251,191,36,0.3)', cWeak: 'rgba(251,191,36,0.2)', desc: 'Demand & supply, market structures, macroeconomics', tags: ['Elasticity', 'Market Structures', 'GDP'], progress: 55, terms: 150 },
-            { code: 'ETW1001', name: 'Business Statistics', emoji: '📉', c: '#f472b6', cDim: 'rgba(244,114,182,0.1)', cGlow: 'rgba(244,114,182,0.3)', cWeak: 'rgba(244,114,182,0.2)', desc: 'Probability, hypothesis testing, regression, forecasting', tags: ['Probability', 'Confidence Int', 'Regression'], progress: 45, terms: 40 },
-            { code: 'MGW1010', name: 'Introduction to Management', emoji: '🎯', c: '#f87171', cDim: 'rgba(248,113,113,0.1)', cGlow: 'rgba(248,113,113,0.3)', cWeak: 'rgba(248,113,113,0.2)', desc: 'Management theories, POLC, leadership, ethics & CSR', tags: ['POLC', 'Leadership', 'CSR'], progress: 35, terms: 30 },
-            { code: 'ACW2220', name: 'Management Accounting', emoji: '🧮', c: '#2dd4bf', cDim: 'rgba(45,212,191,0.1)', cGlow: 'rgba(45,212,191,0.3)', cWeak: 'rgba(45,212,191,0.2)', desc: 'Cost behaviour, ABC costing, budgeting, variance', tags: ['Cost Behavior', 'ABC', 'Budgeting'], progress: 50, terms: 25 },
+            { code: 'ACW1120', name: 'Financial Accounting 1', emoji: '📊', c: '#6b8cff', cDim: 'rgba(107,140,255,0.1)', cGlow: 'rgba(107,140,255,0.3)', cWeak: 'rgba(107,140,255,0.2)', desc: 'Double-entry, accrual accounting, financial statements, IFRS framework', tags: ['Journal Entries', 'Trial Balance', 'SOFP & P&L'], terms: 70 },
+            { code: 'BFW1001', name: 'Foundations of Finance', emoji: '💰', c: '#5ce6a0', cDim: 'rgba(92,230,160,0.1)', cGlow: 'rgba(92,230,160,0.3)', cWeak: 'rgba(92,230,160,0.2)', desc: 'Time value of money, risk-return, NPV, IRR, valuation', tags: ['TVM', 'Annuities', 'Risk Analysis'], terms: 60 },
+            { code: 'BTW1042', name: 'Business Law', emoji: '⚖️', c: '#c084fc', cDim: 'rgba(192,132,252,0.1)', cGlow: 'rgba(192,132,252,0.3)', cWeak: 'rgba(192,132,252,0.2)', desc: 'Contract law, tort, agency, Malaysian legal system', tags: ['Contracts', 'Negligence', 'Companies Act'], terms: 60 },
+            { code: 'ECM1953', name: 'Economics', emoji: '📈', c: '#fbbf24', cDim: 'rgba(251,191,36,0.1)', cGlow: 'rgba(251,191,36,0.3)', cWeak: 'rgba(251,191,36,0.2)', desc: 'Demand & supply, market structures, macroeconomics', tags: ['Elasticity', 'Market Structures', 'GDP'], terms: 150 },
+            { code: 'ETW1001', name: 'Business Statistics', emoji: '📉', c: '#f472b6', cDim: 'rgba(244,114,182,0.1)', cGlow: 'rgba(244,114,182,0.3)', cWeak: 'rgba(244,114,182,0.2)', desc: 'Probability, hypothesis testing, regression, forecasting', tags: ['Probability', 'Confidence Int', 'Regression'], terms: 40 },
+            { code: 'MGW1010', name: 'Introduction to Management', emoji: '🎯', c: '#f87171', cDim: 'rgba(248,113,113,0.1)', cGlow: 'rgba(248,113,113,0.3)', cWeak: 'rgba(248,113,113,0.2)', desc: 'Management theories, POLC, leadership, ethics & CSR', tags: ['POLC', 'Leadership', 'CSR'], terms: 30 },
+            { code: 'ACW2220', name: 'Management Accounting', emoji: '🧮', c: '#2dd4bf', cDim: 'rgba(45,212,191,0.1)', cGlow: 'rgba(45,212,191,0.3)', cWeak: 'rgba(45,212,191,0.2)', desc: 'Cost behaviour, ABC costing, budgeting, variance', tags: ['Cost Behavior', 'ABC', 'Budgeting'], terms: 25 },
         ];
-
-        const electiveSubject = { code: 'ETC2440', name: 'Business Analytics & Econometrics', emoji: '🔍', c: '#fb923c', cDim: 'rgba(251,146,60,0.1)', cGlow: 'rgba(251,146,60,0.3)', cWeak: 'rgba(251,146,60,0.2)', desc: 'Data analysis, regression, causal inference, A/B testing, policy evaluation', tags: ['Regression', 'DiD', 'A/B Testing', 'KPIs'], progress: 60, terms: 35 };
-
+        const electiveSubject = { code: 'ETC2440', name: 'Business Analytics & Econometrics', emoji: '🔍', c: '#fb923c', cDim: 'rgba(251,146,60,0.1)', cGlow: 'rgba(251,146,60,0.3)', cWeak: 'rgba(251,146,60,0.2)', desc: 'Data analysis, regression, causal inference, A/B testing, policy evaluation', tags: ['Regression', 'DiD', 'A/B Testing', 'KPIs'], terms: 35 };
         const subjects = [...coreSubjects, electiveSubject];
 
         const quotes = [
-            "\"The future belongs to those who believe in the beauty of their dreams.\" — Eleanor Roosevelt",
-            "\"Success is the sum of small efforts, repeated day in and day out.\" — Robert Collier",
-            "\"The only way to do great work is to love what you do.\" — Steve Jobs",
-            "\"Don't watch the clock; do what it does. Keep going.\" — Sam Levenson",
-            "\"The expert in anything was once a beginner.\" — Helen Hayes",
-            "\"Believe you can and you're halfway there.\" — Theodore Roosevelt",
-            "\"It always seems impossible until it's done.\" — Nelson Mandela",
-            "\"Study hard, for the well is deep.\" — Chinese Proverb"
+            "\"The future belongs to those who believe in the beauty of their dreams.\"",
+            "\"Success is the sum of small efforts, repeated day in and day out.\"",
+            "\"The only way to do great work is to love what you do.\"",
+            "\"Don't watch the clock; do what it does. Keep going.\"",
+            "\"The expert in anything was once a beginner.\"",
+            "\"Believe you can and you're halfway there.\"",
+            "\"It always seems impossible until it's done.\""
         ];
 
         let unitData = [];
         let activeCode = null;
-        let flashcardTerms = [];
-        let currentFlashcard = 0;
+        let currentDeck = [];
+        let currentCardIndex = 0;
+        let sessionKnown = 0;
+        let sessionAgain = 0;
+        let studySessionStart = null;
 
-        // Create floating particles
+        // ===== INIT =====
+        function init() {
+            createParticles();
+            setRandomQuote();
+            updateDashboard();
+            updateStreakDisplay();
+        }
+
         function createParticles() {
             const container = document.getElementById('particles');
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 15; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
                 p.style.left = Math.random() * 100 + '%';
                 p.style.animationDelay = Math.random() * 20 + 's';
                 p.style.animationDuration = (15 + Math.random() * 10) + 's';
-                p.style.width = (2 + Math.random() * 4) + 'px';
-                p.style.height = p.style.width;
                 container.appendChild(p);
             }
         }
 
-        // Random quote
         function setRandomQuote() {
             document.getElementById('quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
         }
 
-        // Build subject cards
-        function buildSubjectCards() {
-            const grid = document.getElementById('subjectsGrid');
-            grid.innerHTML = subjects.map(s => `
-                <div class="subject-card" onclick="selectSubject('${s.code}')" style="--c:${s.c};--c-dim:${s.cDim};--c-glow:${s.cGlow};--c-weak:${s.cWeak}">
-                    <div class="subject-card-header">
-                        <div class="subject-card-icon" style="background:${s.cDim};border-color:${s.cWeak}">${s.emoji}</div>
-                        <div>
-                            <div class="subject-card-title">${s.name}</div>
-                            <div class="subject-card-code">${s.code}</div>
-                        </div>
-                    </div>
-                    <div class="subject-card-desc">${s.desc}</div>
-                    <div class="subject-card-tags">${s.tags.map(t => `<span class="subject-card-tag">${t}</span>`).join('')}</div>
-                    <div class="subject-card-progress">
-                        <div class="subject-card-progress-label">
-                            <span>Study Progress</span>
-                            <span>${s.progress}%</span>
-                        </div>
-                        <div class="subject-card-progress-bar">
-                            <div class="subject-card-progress-fill" style="width:${s.progress}%;background:linear-gradient(90deg,${s.c},${s.cGlow})"></div>
-                        </div>
-                    </div>
-                    <div class="subject-card-stats">
-                        <div class="subject-card-stat">📚 ${s.terms} terms</div>
-                        <div class="subject-card-stat">📝 ${s.progress > 50 ? 'Exam ready' : 'In progress'}</div>
-                    </div>
-                </div>
-            `).join('');
+        function updateDashboard() {
+            const data = StudyTracker.getData();
+            document.getElementById('dashTotalTerms').textContent = data.totalFlashcardsDone;
+            document.getElementById('dashFlashcards').textContent = data.totalFlashcardsDone;
+            document.getElementById('dashSubjects').textContent = data.subjectsStarted.length;
+            document.getElementById('dashTime').textContent = data.totalStudyMinutes + 'm';
         }
 
-        // Build dropdown menu
+        function updateStreakDisplay() {
+            const data = StudyTracker.getData();
+            document.getElementById('streakCount').textContent = data.streak;
+        }
+
+        function showStreakInfo() {
+            const data = StudyTracker.getData();
+            const msg = data.streak === 0 
+                ? "Start studying today to build your streak! 🔥" 
+                : `You're on a ${data.streak}-day study streak! Keep it up! 🔥`;
+            alert(msg);
+        }
+
+        // ===== BUILD UI =====
+        function buildSubjectCards() {
+            const grid = document.getElementById('subjectsGrid');
+            grid.innerHTML = subjects.map(s => {
+                const progress = StudyTracker.getProgress(s.code);
+                return `
+                <div class="subject-card" style="--c:${s.c};--c-dim:${s.cDim};--c-glow:${s.cGlow};--c-weak:${s.cWeak}">
+                    <div onclick="selectSubject('${s.code}')" style="flex:1">
+                        <div class="subject-card-header">
+                            <div class="subject-card-icon" style="background:${s.cDim};border-color:${s.cWeak}">${s.emoji}</div>
+                            <div>
+                                <div class="subject-card-title">${s.name}</div>
+                                <div class="subject-card-code">${s.code}</div>
+                            </div>
+                        </div>
+                        <div class="subject-card-desc">${s.desc}</div>
+                        <div class="subject-card-tags">${s.tags.map(t => `<span class="subject-card-tag">${t}</span>`).join('')}</div>
+                        <div class="subject-card-progress">
+                            <div class="subject-card-progress-label">
+                                <span>Mastery</span>
+                                <span>${progress}%</span>
+                            </div>
+                            <div class="subject-card-progress-bar">
+                                <div class="subject-card-progress-fill" style="width:${progress}%;background:linear-gradient(90deg,${s.c},${s.cGlow})"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subject-card-tags" style="margin-top:12px">
+                        <span class="subject-card-tag flashcard-btn" onclick="event.stopPropagation();startFlashcards('${s.code}')">🧠 Flashcards</span>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
         function buildDropdown() {
             const menu = document.getElementById('dropdownMenu');
             menu.innerHTML = subjects.map(s => `
@@ -1098,9 +1382,6 @@
                     <div class="item-info">
                         <div class="item-name">${s.name}</div>
                         <div class="item-code">${s.code}</div>
-                        <div class="item-progress">
-                            <div class="item-progress-fill" style="width:${s.progress}%"></div>
-                        </div>
                     </div>
                 </button>
             `).join('');
@@ -1109,15 +1390,14 @@
         function toggleDropdown() {
             document.getElementById('subjectDropdown').classList.toggle('open');
         }
-
         function closeDropdown() {
             document.getElementById('subjectDropdown').classList.remove('open');
         }
-
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.dropdown')) closeDropdown();
         });
 
+        // ===== SUBJECT CONTENT =====
         function selectSubject(code) {
             closeDropdown();
             const subject = subjects.find(s => s.code === code);
@@ -1125,20 +1405,21 @@
             if (!subject || !unit) return;
 
             activeCode = code;
+            StudyTracker.markSubjectStarted(code);
+            studySessionStart = Date.now();
 
-            // Hide hero and grid, show content
             document.getElementById('heroSection').style.display = 'none';
             document.getElementById('subjectsGrid').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'none';
             document.getElementById('emptyState').style.display = 'none';
             document.getElementById('loading').style.display = 'none';
             document.getElementById('subjectContent').style.display = 'block';
 
-            // Highlight active in dropdown
             document.querySelectorAll('.dropdown-item').forEach(item => {
                 item.classList.toggle('active', item.dataset.code === code);
             });
 
-            // Build header
+            const progress = StudyTracker.getProgress(code);
             document.getElementById('subjectHeader').innerHTML = `
                 <div class="subject-header-top">
                     <div class="subject-icon" style="background:${subject.cDim};border-color:${subject.cWeak}">${subject.emoji}</div>
@@ -1150,58 +1431,79 @@
                 <p class="subject-desc">${subject.desc}</p>
                 <div class="subject-tags">
                     ${subject.tags.map(t => `<span class="subject-tag">${t}</span>`).join('')}
-                    <span class="subject-tag" style="background:${subject.cDim};color:${subject.c};border-color:${subject.cWeak}">📚 ${subject.terms} terms defined</span>
-                    <span class="subject-tag" style="cursor:pointer;" onclick="startFlashcards('${code}')">🧠 Flashcards</span>
+                    <span class="subject-tag" style="background:${subject.cDim};color:${subject.c};border-color:${subject.cWeak}">📚 ${subject.terms} terms</span>
+                    <span class="subject-tag" style="background:${progress > 0 ? 'rgba(92,230,160,0.15)' : ''};color:${progress > 0 ? 'var(--green)' : ''}">${progress}% mastered</span>
+                </div>
+                <div class="study-action-bar">
+                    <button class="study-btn primary" onclick="startFlashcards('${code}')">🧠 Study Flashcards</button>
+                    <button class="study-btn" onclick="showHome()">🏠 Back to Home</button>
                 </div>
             `;
 
-            // Render markdown
             document.getElementById('markdownContent').innerHTML = marked.parse(unit.content);
             document.getElementById('markdownContent').style.setProperty('--c', subject.c);
-
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function showHome() {
+            // Record session time when going home
+            if (studySessionStart && activeCode) {
+                const minutes = Math.round((Date.now() - studySessionStart) / 60000);
+                if (minutes > 0) {
+                    StudyTracker.recordStudySession(minutes);
+                    updateDashboard();
+                    updateStreakDisplay();
+                }
+                studySessionStart = null;
+            }
+
             activeCode = null;
             document.querySelectorAll('.dropdown-item').forEach(item => item.classList.remove('active'));
             document.getElementById('subjectContent').style.display = 'none';
             document.getElementById('heroSection').style.display = 'block';
             document.getElementById('subjectsGrid').style.display = 'grid';
+            document.getElementById('dashboard').style.display = 'grid';
             document.getElementById('emptyState').style.display = 'block';
+            buildSubjectCards(); // Refresh progress
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Flashcards
+        // ===== FLASHCARDS =====
         function startFlashcards(code) {
-            const unit = unitData.find(u => u.code === code);
-            if (!unit) return;
-            
-            // Extract definitions from content
-            flashcardTerms = [];
-            const lines = unit.content.split('\n');
-            for (let i = 0; i < lines.length; i++) {
-                const match = lines[i].match(/\*\*Definition —?\s*(.+?):\*\*\s*(.+)/);
-                if (match) {
-                    flashcardTerms.push({ term: match[1], def: match[2] });
-                }
-            }
-            
-            if (flashcardTerms.length === 0) {
-                alert('No flashcards available for this subject yet!');
+            const deck = flashcardDecks[code];
+            if (!deck || deck.length === 0) {
+                alert('Flashcards coming soon for this subject!');
                 return;
             }
-            
-            currentFlashcard = 0;
+
+            const subject = subjects.find(s => s.code === code);
+            currentDeck = deck.map(c => ({...c, subject: subject.name, code: code}));
+            currentCardIndex = 0;
+            sessionKnown = 0;
+            sessionAgain = 0;
+
+            // Reset UI
+            document.getElementById('sessionComplete').classList.remove('active');
+            document.getElementById('fcControls').style.display = 'flex';
+            document.querySelector('.flashcard-scene').style.display = 'block';
+            document.getElementById('flashcard').classList.remove('flipped');
+
+            document.getElementById('fcTotal').textContent = currentDeck.length;
+            document.getElementById('fcKnown').textContent = '0';
+            document.getElementById('fcAgain').textContent = '0';
+            updateFCProgress();
+
             document.getElementById('flashcardMode').classList.add('active');
-            showFlashcard();
+            showCard();
         }
 
-        function showFlashcard() {
-            const card = flashcardTerms[currentFlashcard];
-            document.getElementById('flashcardTerm').textContent = card.term;
-            document.getElementById('flashcardDef').textContent = card.def;
+        function showCard() {
+            const card = currentDeck[currentCardIndex];
+            document.getElementById('fcCurrent').textContent = currentCardIndex + 1;
+            document.getElementById('fcSubject').textContent = card.subject;
+            document.getElementById('fcSubjectBack').textContent = card.subject;
+            document.getElementById('fcTerm').textContent = card.term;
+            document.getElementById('fcDef').textContent = card.def;
             document.getElementById('flashcard').classList.remove('flipped');
         }
 
@@ -1209,24 +1511,54 @@
             document.getElementById('flashcard').classList.toggle('flipped');
         }
 
-        function nextFlashcard(known) {
-            currentFlashcard++;
-            if (currentFlashcard >= flashcardTerms.length) {
-                alert(`🎉 Done! You reviewed ${flashcardTerms.length} terms.`);
-                closeFlashcards();
-                return;
+        function handleCard(known) {
+            const card = currentDeck[currentCardIndex];
+            
+            if (known) sessionKnown++;
+            else sessionAgain++;
+            
+            StudyTracker.recordFlashcard(card.code, known);
+            
+            document.getElementById('fcKnown').textContent = sessionKnown;
+            document.getElementById('fcAgain').textContent = sessionAgain;
+            updateFCProgress();
+
+            currentCardIndex++;
+            if (currentCardIndex >= currentDeck.length) {
+                showSessionComplete();
+            } else {
+                showCard();
             }
-            showFlashcard();
+        }
+
+        function updateFCProgress() {
+            const pct = ((currentCardIndex) / currentDeck.length) * 100;
+            document.getElementById('fcProgress').style.width = pct + '%';
+        }
+
+        function showSessionComplete() {
+            document.querySelector('.flashcard-scene').style.display = 'none';
+            document.getElementById('fcControls').style.display = 'none';
+            document.getElementById('sessionComplete').classList.add('active');
+            document.getElementById('scKnown').textContent = sessionKnown;
+            document.getElementById('scAgain').textContent = sessionAgain;
+            document.getElementById('scTotal').textContent = currentDeck.length;
+            
+            // Update streak
+            StudyTracker.recordStudySession(5); // Minimum 5 min for flashcard session
+            updateDashboard();
+            updateStreakDisplay();
         }
 
         function closeFlashcards() {
             document.getElementById('flashcardMode').classList.remove('active');
+            buildSubjectCards(); // Refresh progress
         }
 
-        // Load both markdown files
+        // ===== LOAD DATA =====
         Promise.all([
-            fetch('monash_b2026_partA_accountancy.md?v=7').then(r => r.text()),
-            fetch('monash_b2026_electives.md?v=2').then(r => r.text())
+            fetch('monash_b2026_partA_accountancy.md?v=8').then(r => r.text()),
+            fetch('monash_b2026_electives.md?v=3').then(r => r.text())
         ])
             .then(([coreMd, electiveMd]) => {
                 document.getElementById('loading').style.display = 'none';
@@ -1237,7 +1569,6 @@
                     let current = null;
                     let content = [];
                     const units = [];
-
                     for (const line of lines) {
                         const m = line.match(/^## Unit [A-Z]?\d+:\s+([A-Z]{3}\d{4})\s+—\s+(.+)/);
                         if (m) {
@@ -1253,14 +1584,12 @@
                 }
 
                 unitData = [...parseUnits(coreMd), ...parseUnits(electiveMd)];
-
                 const intMatch = coreMd.match(/(## Integration[\s\S]*)/);
                 if (intMatch) unitData.push({ code: 'EXAM', name: 'Integration & Exam Prep', content: intMatch[1] });
 
                 buildDropdown();
                 buildSubjectCards();
-                createParticles();
-                setRandomQuote();
+                init();
             })
             .catch(() => {
                 document.getElementById('loading').innerHTML = '<p style="color:var(--red)">Failed to load notes. Try refreshing!</p>';
