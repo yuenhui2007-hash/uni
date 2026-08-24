@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monash B2026 — Visual Study Portal</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface-2: #1e1e2a;
+      --surface-3: #e8e4df;
+      --text: #e2e2e8;
+      --text-dim: #9ca3af;
+      --text-muted: #6b7280;
+      --accent: #60a5fa;
+      --accent-2: #e8d5c8;
+      --accent-glow: rgba(107, 140, 255, 0.15);
+      --green: #9ca3af;
+      --green-glow: rgba(74, 222, 128, 0.15);
+      --orange: #f87171;
+      --orange-glow: rgba(251, 146, 60, 0.15);
+      --red: #f87171;
+      --red-glow: rgba(248, 113, 113, 0.15);
+      --purple: #fbbf24;
+      --purple-glow: rgba(192, 132, 252, 0.15);
+      --cyan: #22d3ee;
+      --cyan-glow: rgba(34, 211, 238, 0.15);
+      --yellow: #fbbf24;
+      --yellow-glow: rgba(250, 204, 21, 0.15);
+      --border: rgba(107, 140, 255, 0.12);
+      --radius: 14px;
+      --radius-sm: 8px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.6);
+      --transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* Navigation */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,11,20,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1400px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between; height: 60px;
+    }
+    .logo { font-weight: 700; font-size: 1.15rem; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: grid; place-items: center; font-size: 0.85rem; color: var(--bg); font-weight: 800; }
+    .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+    .nav-links a {
+      padding: 6px 14px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 500;
+      color: var(--text-dim); text-decoration: none; transition: var(--transition);
+      border: 1px solid transparent;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); background: var(--accent-glow); border-color: var(--border); }
+
+    /* Hero */
+    .hero {
+      padding: 120px 24px 60px; text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, var(--accent-glow) 0%, transparent 60%);
+    }
+    .hero h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--text-dim); font-size: 1.1rem; max-width: 600px; margin: 0 auto 28px; }
+    .hero-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .badge { padding: 6px 16px; border-radius: 100px; font-size: 0.78rem; font-weight: 600; background: var(--surface); border: 1px solid var(--border); }
+    .badge.accent { background: var(--accent-glow); color: var(--accent); border-color: rgba(107,140,255,0.25); }
+    .badge.green { background: var(--green-glow); color: var(--green); border-color: rgba(74,222,128,0.25); }
+    .badge.orange { background: var(--orange-glow); color: var(--orange); border-color: rgba(251,146,60,0.25); }
+    .badge.purple { background: var(--purple-glow); color: var(--purple); border-color: rgba(192,132,252,0.25); }
+    .badge.cyan { background: var(--cyan-glow); color: var(--cyan); border-color: rgba(34,211,238,0.25); }
+
+    /* Layout */
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+    section { margin-bottom: 60px; }
+    .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .section-header .icon { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; font-size: 1.1rem; }
+    .section-header h2 { font-size: 1.5rem; font-weight: 700; }
+    .section-header p { color: var(--text-dim); font-size: 0.9rem; margin-top: 2px; }
+
+    /* Cards */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 20px; }
+    .card-grid.wide { grid-template-columns: 1fr; }
+    .card-grid.three { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--accent); opacity: 0; transition: var(--transition);
+    }
+    .card:hover::before { opacity: 1; }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: rgba(107,140,255,0.2); }
+    .card-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .card-title .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* Mermaid */
+    .mermaid-container { background: var(--surface-2); border-radius: var(--radius-sm); padding: 20px; overflow-x: auto; }
+    .mermaid { display: flex; justify-content: center; }
+    .mermaid svg { max-width: 100%; height: auto; }
+
+    /* Charts */
+    .chart-container { position: relative; height: 320px; }
+    .chart-container.tall { height: 400px; }
+    .chart-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; justify-content: center; }
+    .chart-legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-dim); }
+    .chart-legend-item .color { width: 12px; height: 12px; border-radius: 3px; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; border-radius: var(--radius-sm); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th { background: var(--surface-2); color: var(--accent); font-weight: 600; text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-dim); }
+    tr:hover td { background: var(--surface-2); }
+    .bar-cell { display: flex; align-items: center; gap: 12px; }
+    .bar-track { flex: 1; height: 8px; background: var(--surface-3); border-radius: 4px; overflow: hidden; max-width: 200px; }
+    .bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+    .bar-label { font-size: 0.8rem; color: var(--text); font-weight: 600; min-width: 36px; text-align: right; }
+
+    /* Formulas */
+    .formula-box {
+      background: var(--surface-2); border-radius: var(--radius-sm); padding: 20px 24px;
+      border-left: 3px solid var(--accent); margin-bottom: 16px;
+    }
+    .formula-title { font-size: 0.85rem; font-weight: 600; color: var(--accent); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .formula { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: var(--text); line-height: 1.8; }
+    .formula .var { color: var(--accent); font-weight: 600; }
+    .formula .op { color: var(--text-muted); }
+    .formula .num { color: var(--green); }
+    .formula .fn { color: var(--purple); font-style: italic; }
+    .formula-step { display: flex; align-items: flex-start; gap: 12px; margin-top: 10px; }
+    .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--accent-glow); color: var(--accent); display: grid; place-items: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+    .step-body { font-size: 0.88rem; color: var(--text-dim); }
+    .step-body code { font-family: 'JetBrains Mono', monospace; color: var(--text); background: var(--surface-3); padding: 2px 6px; border-radius: 4px; font-size: 0.82rem; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: var(--surface-3); }
+    .timeline-item { position: relative; padding-bottom: 28px; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot { position: absolute; left: -28px; top: 2px; width: 20px; height: 20px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); display: grid; place-items: center; font-size: 0.65rem; font-weight: 700; }
+    .timeline-item.active .timeline-dot { background: var(--accent); color: var(--bg); }
+    .timeline-item.complete .timeline-dot { background: var(--green); border-color: var(--green); color: var(--bg); }
+    .timeline-content { background: var(--surface-2); border-radius: var(--radius-sm); padding: 16px 20px; border: 1px solid var(--border); }
+    .timeline-content h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .timeline-content p { font-size: 0.85rem; color: var(--text-dim); }
+
+    /* Process Flow */
+    .process-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .process-step {
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 14px 18px; text-align: center; min-width: 140px; position: relative;
+    }
+    .process-step .num { font-size: 0.75rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    .process-step .label { font-size: 0.85rem; font-weight: 600; }
+    .process-arrow { color: var(--accent); font-size: 1.2rem; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab {
+      padding: 8px 18px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; border: 1px solid transparent; color: var(--text-dim); transition: var(--transition);
+      background: transparent;
+    }
+    .tab:hover { color: var(--text); background: var(--surface-2); }
+    .tab.active { color: var(--accent); background: var(--accent-glow); border-color: var(--border); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Misc */
+    .tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 600; margin-right: 4px; }
+    .tag-outline { border: 1px solid var(--border); color: var(--text-dim); }
+    .highlight-box { background: var(--accent-glow); border: 1px solid rgba(107,140,255,0.2); border-radius: var(--radius-sm); padding: 16px 20px; margin: 16px 0; }
+    .highlight-box.green { background: var(--green-glow); border-color: rgba(74,222,128,0.2); }
+    .highlight-box.orange { background: var(--orange-glow); border-color: rgba(251,146,60,0.2); }
+    .highlight-box h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .highlight-box p { font-size: 0.85rem; color: var(--text-dim); margin: 0; }
+
+    /* Footer */
+    footer { text-align: center; padding: 40px 24px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 40px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .process-flow { flex-direction: column; }
+      .process-arrow { transform: rotate(90deg); }
+    }
+
+    /* Mermaid dark theme overrides */
+    .mermaid .node rect, .mermaid .node circle, .mermaid .node polygon { fill: var(--surface-2) !important; stroke: var(--accent) !important; stroke-width: 1.5px !important; }
+    .mermaid .node .label { color: var(--text) !important; font-family: 'Inter', sans-serif !important; }
+    .mermaid .edgePath .path { stroke: var(--accent) !important; stroke-width: 1.5px !important; }
+    .mermaid .edgeLabel { background: var(--surface) !important; color: var(--text-dim) !important; }
+    .mermaid .cluster rect { fill: var(--surface) !important; stroke: var(--border) !important; }
+    .mermaid g.classGroup rect { fill: var(--surface-2) !important; stroke: var(--accent) !important; }
+    .mermaid .actor { fill: var(--surface-2) !important; stroke: var(--accent) !important; }
+    .mermaid text { fill: var(--text) !important; font-family: 'Inter', sans-serif !important; }
+    .mermaid .timeline-section { fill: var(--surface) !important; stroke: var(--border) !important; }
+    .mermaid .cScale0 { fill: var(--accent) !important; }
+    .mermaid .cScale1 { fill: var(--green) !important; }
+    .mermaid .cScale2 { fill: var(--orange) !important; }
+    .mermaid .cScale3 { fill: var(--purple) !important; }
+    .mermaid .cScale4 { fill: var(--cyan) !important; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">
+        <div class="logo-icon">M</div>
+        Monash B2026 Visual Portal
+      </div>
+      <div class="nav-links">
+    <a href="index.html" class="nav-link" style="font-weight:700">← Back</a>
+        <a href="#mindmaps" class="active">Mind Maps</a>
+        <a href="#charts">Charts</a>
+        <a href="#tables">Tables</a>
+        <a href="#formulas">Formulas</a>
+        <a href="#timelines">Timelines</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Visual <span>Learning Aids</span></h1>
+    <p>Interactive diagrams, charts, and visualisations for Accounting, Finance, Economics & Statistics — all in one place.</p>
+    <div class="hero-badges">
+      <span class="badge accent">📊 Interactive Charts</span>
+      <span class="badge green">🧠 Mind Maps</span>
+      <span class="badge orange">📐 Formulas</span>
+      <span class="badge purple">⏱️ Timelines</span>
+      <span class="badge cyan">🔬 Statistics</span>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- ========== MIND MAPS ========== -->
+    <section id="mindmaps">
+      <div class="section-header">
+        <div class="icon" style="background: var(--purple-glow); color: var(--purple);">🧠</div>
+        <div>
+          <h2>Mind Maps & Diagrams</h2>
+          <p>Conceptual frameworks and decision trees rendered with Mermaid.js</p>
+        </div>
+      </div>
+
+      <div class="tabs" id="mindmap-tabs">
+        <div class="tab active" data-tab="cf">Conceptual Framework</div>
+        <div class="tab" data-tab="fa-process">FA Process Flow</div>
+        <div class="tab" data-tab="ma-decision">MA Decision Tree</div>
+        <div class="tab" data-tab="tvm">Time Value of Money</div>
+        <div class="tab" data-tab="market">Market Structures</div>
+        <div class="tab" data-tab="hypo">Hypothesis Testing</div>
+      </div>
+
+      <div id="mindmap-cf" class="tab-content active">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--purple);"></span>Accounting Conceptual Framework</div>
+          <div class="mermaid-container">
+            <div class="mermaid">
+graph TD
+    A[Conceptual Framework] --> B[Objective of Financial Reporting]
+    A --> C[Qualitative Characteristics]
+    A --> D[Elements of Financial Statements]
+    A --> E[Recognition & Measurement]
+    A --> F[Concepts of Capital]
+
+    B --> B1[Provide useful information<br/>to capital providers]
+
+    C --> C1[Fundamental]
+    C --> C2[Enhancing]
+    C1 --> C1a[Relevance]
+    C1 --> C1b[Faithful Representation]
+    C1a --> C1a1[Predictive Value]
+    C1a --> C1a2[Confirmatory Value]
+    C1a --> C1a3[Materiality]
+    C1b --> C1b1[Complete]
+    C1b --> C1b2[Neutral]
+    C1b --> C1b3[Free from Error]
+    C2 --> C2a[Comparability]
+    C2 --> C2b[Verifiability]
+    C2 --> C2c[Timeliness]
+    C2 --> C2d[Understandability]
+
+    D --> D1[Assets]
+    D --> D2[Liabilities]
+    D --> D3[Equity]
+    D --> D4[Income]
+    D --> D5[Expenses]
+
+    E --> E1[Recognition Criteria]
+    E --> E2[Measurement Bases]
+    E1 --> E1a[Probable future<br/>economic benefit]
+    E1 --> E1b[Can be measured<br/>reliably]
+    E2 --> E2a[Historical Cost]
+    E2 --> E2b[Current Cost]
+    E2 --> E2c[Realisable Value]
+    E2 --> E2d[Present Value]
+    E2 --> E2e[Fair Value]
+
+    style A fill:#1e1e2a,stroke:#fbbf24,stroke-width:2px,color:#e2e2e8
+    style B fill:#111118,stroke:#60a5fa,color:#e2e2e8
+    style C fill:#111118,stroke:#60a5fa,color:#e2e2e8
+    style D fill:#111118,stroke:#60a5fa,color:#e2e2e8
+    style E fill:#111118,stroke:#60a5fa,color:#e2e2e8
+    style F fill:#111118,stroke:#60a5fa,color:#e2e2e8
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="mindmap-fa-process" class="tab-content">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--accent);"></span>Financial Accounting Process Flow</div>
+          <div class="mermaid-container">
+            <div class="mermaid">
+flowchart LR
+    A[Transaction<br/>Occurs] --> B[Source Document]
+    B --> C[Journal Entry]
+    C --> D[General Ledger]
+    D --> E[Trial Balance]
+    E --> F[Adjusting<br/>Entries]
+    F --> G[Adjusted<br/>Trial Balance]
+    G --> H[Financial<br/>Statements]
+    H --> I[Closing<br/>Entries]
+    I --> J[Post-Closing<br/>Trial Balance]
+
+    style A fill:#111118,stroke:#60a5fa,color:#e2e2e8
+    style B fill:#111118,stroke:#60a5fa,color:#e2e2e8
+    style C fill:#111118,stroke:#60a5fa,color:#e2e2e8
+    style D fill:#111118,stroke:#60a5fa,color:#e2e2e8
+    style E fill:#111118,stroke:#f87171,color:#e2e2e8
+    style F fill:#111118,stroke:#f87171,color:#e2e2e8
+    style G fill:#111118,stroke:#f87171,color:#e2e2e8
+    style H fill:#111118,stroke:#9ca3af,color:#e2e2e8
+    style I fill:#111118,stroke:#fbbf24,color:#e2e2e8
+    style J fill:#111118,stroke:#fbbf24,color:#e2e2e8
+            </div>
+          </div>
+          <div class="highlight-box" style="margin-top:16px;">
+            <h4>💡 Key Point</h4>
+            <p>The accounting cycle is a continuous process. Closing entries reset temporary accounts (revenues, expenses, dividends) to zero for the next period, while permanent accounts (assets, liabilities, equity) carry forward.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="mindmap-ma-decision" class="tab-content">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--orange);"></span>Management Accounting Decision Tree</div>
+          <div class="mermaid-container">
+            <div class="mermaid">
+graph TD
+    A[Management<br/>Decision] --> B{Type of<br/>Decision?}
+    B -->|Short-term| C[Relevant Costing]
+    B -->|Long-term| D[Capital Budgeting]
+    B -->|Pricing| E[Pricing Decisions]
+    B -->|Performance| F[Performance Evaluation]
+
+    C --> C1[Special Orders]
+    C --> C2[Make vs Buy]
+    C --> C3[Product Mix]
+    C --> C4[Continue vs Discontinue]
+    C1 --> C1a[Revenue > Relevant Costs?<br/>Accept if yes]
+    C2 --> C2a[Buy price < Relevant<br/>manufacturing cost?]
+    C3 --> C3a[Maximise contribution<br/>per limiting factor]
+    C4 --> C4a[Lost contribution <br/>< Avoidable fixed costs?]
+
+    D --> D1[NPV Analysis]
+    D --> D2[IRR Method]
+    D --> D3[Payback Period]
+    D --> D4[Accounting Rate<br/>of Return]
+    D1 --> D1a[Accept if NPV > 0]
+    D2 --> D2a[Accept if IRR > WACC]
+
+    E --> E1[Cost-plus pricing]
+    E --> E2[Target costing]
+    E --> E3[Transfer pricing]
+
+    F --> F1[Financial measures]
+    F --> F2[Non-financial measures]
+    F1 --> F1a[ROI, RI, EVA]
+    F2 --> F2a[Balanced Scorecard]
+
+    style A fill:#1e1e2a,stroke:#f87171,stroke-width:2px,color:#e2e2e8
+    style B fill:#111118,stroke:#f87171,color:#e2e2e8
+    style C fill:#111118,stroke:#22d3ee,color:#e2e2e8
+    style D fill:#111118,stroke:#22d3ee,color:#e2e2e8
+    style E fill:#111118,stroke:#22d3ee,color:#e2e2e8
+    style F fill:#111118,stroke:#22d3ee,color:#e2e2e8
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="mindmap-tvm" class="tab-content">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--green);"></span>Finance: Time Value of Money Flow</div>
+          <div class="mermaid-container">
+            <div class="mermaid">
+flowchart TD
+    A[Time Value of Money] --> B[Future Value]
+    A --> C[Present Value]
+    A --> D[Annuities]
+    A --> E[Perpetuities]
+    A --> F[Applications]
+
+    B --> B1[FV = PV × 1+r^n]
+    B --> B2[Compounding]
+    B1 --> B3[More frequent compounding<br/>= higher FV]
+
+    C --> C1[PV = FV / 1+r^n]
+    C --> C2[Discounting]
+    C1 --> C3[Higher discount rate<br/>= lower PV]
+
+    D --> D1[Ordinary Annuity<br/>end-of-period payments]
+    D --> D2[Annuity Due<br/>beginning-of-period]
+    D1 --> D3[FVA = PMT × 1+r^n - 1 / r]
+    D2 --> D4[FVA due = FVA ord × 1+r]
+
+    E --> E1[PV perpetuity = C / r]
+    E --> E2[Growing perpetuity = C / r-g]
+
+    F --> F1[Bond Valuation]
+    F --> F2[Share Valuation]
+    F --> F3[Capital Budgeting]
+    F --> F4[Loan Amortisation]
+
+    style A fill:#1e1e2a,stroke:#9ca3af,stroke-width:2px,color:#e2e2e8
+    style B fill:#111118,stroke:#9ca3af,color:#e2e2e8
+    style C fill:#111118,stroke:#9ca3af,color:#e2e2e8
+    style D fill:#111118,stroke:#9ca3af,color:#e2e2e8
+    style E fill:#111118,stroke:#9ca3af,color:#e2e2e8
+    style F fill:#111118,stroke:#f87171,color:#e2e2e8
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="mindmap-market" class="tab-content">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--cyan);"></span>Economics: Market Structures Comparison</div>
+          <div class="mermaid-container">
+            <div class="mermaid">
+graph LR
+    A[Market<br/>Structures] --> B[Perfect<br/>Competition]
+    A --> C[Monopolistic<br/>Competition]
+    A --> D[Oligopoly]
+    A --> E[Monopoly]
+
+    B --> B1[Many sellers<br/>Homogeneous product<br/>Free entry/exit<br/>Price taker<br/>P = MC = MR<br/>Normal profit LR]
+    C --> C1[Many sellers<br/>Differentiated product<br/>Some market power<br/>Downward sloping D<br/>P > MC<br/>Excess capacity]
+    D --> D1[Few sellers<br/>Interdependence<br/>Barriers to entry<br/>Strategic behaviour<br/>Game theory<br/>Kinked demand curve]
+    E --> E1[One seller<br/>No close substitutes<br/>High barriers<br/>Price maker<br/>MR < P<br/>Deadweight loss]
+
+    style A fill:#1e1e2a,stroke:#22d3ee,stroke-width:2px,color:#e2e2e8
+    style B fill:#111118,stroke:#9ca3af,color:#e2e2e8
+    style C fill:#111118,stroke:#60a5fa,color:#e2e2e8
+    style D fill:#111118,stroke:#f87171,color:#e2e2e8
+    style E fill:#111118,stroke:#f87171,color:#e2e2e8
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="mindmap-hypo" class="tab-content">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--yellow);"></span>Statistics: Hypothesis Testing Decision Tree</div>
+          <div class="mermaid-container">
+            <div class="mermaid">
+flowchart TD
+    A[Hypothesis Testing] --> B[Step 1: State H0 & H1]
+    B --> C[Step 2: Choose<br/>significance level α]
+    C --> D[Step 3: Identify<br/>test statistic]
+    D --> E[Step 4: Determine<br/>critical value]
+    E --> F[Step 5: Calculate<br/>test statistic]
+    F --> G[Step 6: Compare &<br/>make decision]
+    G --> H{Reject H0?}
+
+    D --> D1[z-test: σ known<br/>n large]
+    D --> D2[t-test: σ unknown<br/>n small]
+    D --> D3[χ² test: variance<br/>goodness of fit]
+    D --> D4[F-test: compare<br/>two variances]
+
+    H -->|Yes| I[p-value < α<br/>Test stat in rejection region<br/>→ Significant result]
+    H -->|No| J[p-value ≥ α<br/>Test stat not in rejection region<br/>→ Not significant]
+
+    I --> K[Type I Error risk: α<br/>False positive]
+    J --> L[Type II Error risk: β<br/>False negative<br/>Power = 1-β]
+
+    style A fill:#1e1e2a,stroke:#fbbf24,stroke-width:2px,color:#e2e2e8
+    style B fill:#111118,stroke:#fbbf24,color:#e2e2e8
+    style C fill:#111118,stroke:#fbbf24,color:#e2e2e8
+    style D fill:#111118,stroke:#fbbf24,color:#e2e2e8
+    style E fill:#111118,stroke:#fbbf24,color:#e2e2e8
+    style F fill:#111118,stroke:#fbbf24,color:#e2e2e8
+    style G fill:#111118,stroke:#fbbf24,color:#e2e2e8
+    style H fill:#111118,stroke:#f87171,color:#e2e2e8
+    style I fill:#111118,stroke:#9ca3af,color:#e2e2e8
+    style J fill:#111118,stroke:#f87171,color:#e2e2e8
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CHARTS ========== -->
+    <section id="charts">
+      <div class="section-header">
+        <div class="icon" style="background: var(--accent-glow); color: var(--accent);">📊</div>
+        <div>
+          <h2>Interactive Charts</h2>
+          <p>Explore key concepts with dynamic Chart.js visualisations</p>
+        </div>
+      </div>
+
+      <div class="tabs" id="chart-tabs">
+        <div class="tab active" data-tab="cvp">CVP / Break-even</div>
+        <div class="tab" data-tab="sd">Supply & Demand</div>
+        <div class="tab" data-tab="normal">Normal Distribution</div>
+        <div class="tab" data-tab="equation">Accounting Equation</div>
+        <div class="tab" data-tab="npv">NPV / IRR</div>
+      </div>
+
+      <div id="chart-cvp" class="tab-content active">
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--accent);"></span>Cost-Volume-Profit Analysis</div>
+            <div class="chart-container">
+              <canvas id="cvpChart"></canvas>
+            </div>
+            <div class="chart-legend">
+              <div class="chart-legend-item"><div class="color" style="background:#60a5fa;"></div>Total Revenue</div>
+              <div class="chart-legend-item"><div class="color" style="background:#f87171;"></div>Total Costs</div>
+              <div class="chart-legend-item"><div class="color" style="background:#9ca3af;"></div>Fixed Costs</div>
+              <div class="chart-legend-item"><div class="color" style="background:#f87171;"></div>Profit Area</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--green);"></span>Break-even Calculations</div>
+            <div class="formula-box">
+              <div class="formula-title">Break-even Point (Units)</div>
+              <div class="formula"><span class="var">BE Units</span> <span class="op">=</span> <span class="var">Fixed Costs</span> <span class="op">÷</span> <span class="op">(</span><span class="var">SP</span> <span class="op">−</span> <span class="var">VC</span><span class="op">)</span></div>
+            </div>
+            <div class="formula-box">
+              <div class="formula-title">Contribution Margin Ratio</div>
+              <div class="formula"><span class="var">CM Ratio</span> <span class="op">=</span> <span class="op">(</span><span class="var">SP</span> <span class="op">−</span> <span class="var">VC</span><span class="op">)</span> <span class="op">÷</span> <span class="var">SP</span></div>
+            </div>
+            <div class="formula-box">
+              <div class="formula-title">Target Profit Sales</div>
+              <div class="formula"><span class="var">Sales</span> <span class="op">=</span> <span class="op">(</span><span class="var">FC</span> <span class="op">+</span> <span class="var">Target Profit</span><span class="op">)</span> <span class="op">÷</span> <span class="var">CM Ratio</span></div>
+            </div>
+            <div class="highlight-box green">
+              <h4>✅ From the Chart</h4>
+              <p>SP = $50, VC = $30, FC = $10,000. Break-even = 500 units. At 1,000 units, profit = $10,000. Margin of safety = 500 units (50%).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="chart-sd" class="tab-content">
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--cyan);"></span>Supply & Demand Equilibrium</div>
+            <div class="chart-container">
+              <canvas id="sdChart"></canvas>
+            </div>
+            <div class="chart-legend">
+              <div class="chart-legend-item"><div class="color" style="background:#60a5fa;"></div>Demand (D)</div>
+              <div class="chart-legend-item"><div class="color" style="background:#f87171;"></div>Supply (S)</div>
+              <div class="chart-legend-item"><div class="color" style="background:#f87171;"></div>Consumer Surplus</div>
+              <div class="chart-legend-item"><div class="color" style="background:#9ca3af;"></div>Producer Surplus</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--orange);"></span>Market Shifts</div>
+            <div class="mermaid-container">
+              <div class="mermaid">
+graph LR
+    subgraph "Demand Shifters"
+    D1[Income ↑] --> D2[D shifts right]
+    D3[Price of substitutes ↑] --> D2
+    D4[Tastes/preferences ↑] --> D2
+    D5[Population ↑] --> D2
+    D6[Expectations of<br/>future price ↑] --> D2
+    end
+
+    subgraph "Supply Shifters"
+    S1[Input costs ↓] --> S2[S shifts right]
+    S3[Technology ↑] --> S2
+    S4[Number of sellers ↑] --> S2
+    S5[Expectations of<br/>future price ↓] --> S2
+    S6[Government subsidies] --> S2
+    end
+
+    style D2 fill:#111118,stroke:#60a5fa,color:#e2e2e8
+    style S2 fill:#111118,stroke:#f87171,color:#e2e2e8
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="chart-normal" class="tab-content">
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--purple);"></span>Normal Distribution & Empirical Rule</div>
+            <div class="chart-container tall">
+              <canvas id="normalChart"></canvas>
+            </div>
+            <div class="chart-legend">
+              <div class="chart-legend-item"><div class="color" style="background:#60a5fa;"></div>68% within 1σ</div>
+              <div class="chart-legend-item"><div class="color" style="background:#9ca3af;"></div>95% within 2σ</div>
+              <div class="chart-legend-item"><div class="color" style="background:#f87171;"></div>99.7% within 3σ</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--yellow);"></span>Z-Score & Probabilities</div>
+            <div class="formula-box">
+              <div class="formula-title">Z-Score Formula</div>
+              <div class="formula"><span class="var">z</span> <span class="op">=</span> <span class="op">(</span><span class="var">x</span> <span class="op">−</span> <span class="var">μ</span><span class="op">)</span> <span class="op">÷</span> <span class="var">σ</span></div>
+            </div>
+            <div class="formula-step">
+              <div class="step-num">1</div>
+              <div class="step-body">For <code>μ = 100, σ = 15, x = 130</code>:<br><code>z = (130 − 100) ÷ 15 = 2.0</code></div>
+            </div>
+            <div class="formula-step">
+              <div class="step-num">2</div>
+              <div class="step-body">From z-table, <code>P(Z &lt; 2.0) ≈ 0.9772</code></div>
+            </div>
+            <div class="formula-step">
+              <div class="step-num">3</div>
+              <div class="step-body">So <code>P(X &gt; 130) = 1 − 0.9772 = 2.28%</code></div>
+            </div>
+            <div class="highlight-box" style="margin-top:14px;">
+              <h4>📌 Empirical Rule</h4>
+              <p>μ ± 1σ = 68% &nbsp;|&nbsp; μ ± 2σ = 95% &nbsp;|&nbsp; μ ± 3σ = 99.7%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="chart-equation" class="tab-content">
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--accent);"></span>Accounting Equation Balance</div>
+            <div class="chart-container tall">
+              <canvas id="equationChart"></canvas>
+            </div>
+            <div class="chart-legend">
+              <div class="chart-legend-item"><div class="color" style="background:#60a5fa;"></div>Assets</div>
+              <div class="chart-legend-item"><div class="color" style="background:#f87171;"></div>Liabilities</div>
+              <div class="chart-legend-item"><div class="color" style="background:#9ca3af;"></div>Equity</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--green);"></span>Equation Variations</div>
+            <div class="formula-box">
+              <div class="formula-title">Fundamental Equation</div>
+              <div class="formula"><span class="var">Assets</span> <span class="op">=</span> <span class="var">Liabilities</span> <span class="op">+</span> <span class="var">Equity</span></div>
+            </div>
+            <div class="formula-box">
+              <div class="formula-title">Expanded Equation</div>
+              <div class="formula"><span class="var">Assets</span> <span class="op">=</span> <span class="var">Liabilities</span> <span class="op">+</span> <span class="var">Capital</span> <span class="op">−</span> <span class="var">Drawings</span> <span class="op">+</span> <span class="var">Revenue</span> <span class="op">−</span> <span class="var">Expenses</span></div>
+            </div>
+            <div class="formula-box">
+              <div class="formula-title">Net Assets</div>
+              <div class="formula"><span class="var">Equity</span> <span class="op">=</span> <span class="var">Assets</span> <span class="op">−</span> <span class="var">Liabilities</span></div>
+            </div>
+            <div class="highlight-box green">
+              <h4>💡 Every transaction affects at least 2 accounts</h4>
+              <p>Debit = Credit always. Assets ↑ on debit, Liabilities & Equity ↑ on credit.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="chart-npv" class="tab-content">
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--green);"></span>NPV Profile & IRR</div>
+            <div class="chart-container tall">
+              <canvas id="npvChart"></canvas>
+            </div>
+            <div class="chart-legend">
+              <div class="chart-legend-item"><div class="color" style="background:#9ca3af;"></div>NPV Curve</div>
+              <div class="chart-legend-item"><div class="color" style="background:#f87171;"></div>IRR (where NPV=0)</div>
+              <div class="chart-legend-item"><div class="color" style="background:#f87171;"></div>WACC</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--purple);"></span>NPV Calculation Walkthrough</div>
+            <div class="formula-box">
+              <div class="formula-title">NPV Formula</div>
+              <div class="formula"><span class="var">NPV</span> <span class="op">=</span> <span class="var">Σ</span> <span class="var">CF<sub>t</sub></span> <span class="op">÷</span> <span class="op">(</span><span class="num">1</span> <span class="op">+</span> <span class="var">r</span><span class="op">)</span><span class="var"><sup>t</sup></span> <span class="op">−</span> <span class="var">Initial Investment</span></div>
+            </div>
+            <div class="formula-step">
+              <div class="step-num">1</div>
+              <div class="step-body">Initial Investment: <code>$50,000</code></div>
+            </div>
+            <div class="formula-step">
+              <div class="step-num">2</div>
+              <div class="step-body">Cash flows: Y1=<code>$15k</code>, Y2=<code>$20k</code>, Y3=<code>$18k</code>, Y4=<code>$12k</code></div>
+            </div>
+            <div class="formula-step">
+              <div class="step-num">3</div>
+              <div class="step-body">Discount rate <code>r = 10%</code></div>
+            </div>
+            <div class="formula-step">
+              <div class="step-num">4</div>
+              <div class="step-body">PV = 13,636 + 16,529 + 13,523 + 8,196 = <code>$51,884</code></div>
+            </div>
+            <div class="formula-step">
+              <div class="step-num">5</div>
+              <div class="step-body">NPV = 51,884 − 50,000 = <code style="color:#9ca3af;">$1,884</code> → <strong style="color:#9ca3af;">Accept</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== COMPARISON TABLES ========== -->
+    <section id="tables">
+      <div class="section-header">
+        <div class="icon" style="background: var(--orange-glow); color: var(--orange);">📋</div>
+        <div>
+          <h2>Comparison Tables</h2>
+          <p>Side-by-side comparisons with visual strength indicators</p>
+        </div>
+      </div>
+
+      <div class="tabs" id="table-tabs">
+        <div class="tab active" data-tab="acct-vs-ma">Accounting vs MA</div>
+        <div class="tab" data-tab="fin-vs-man">Financial vs Managerial</div>
+        <div class="tab" data-tab="markets">Market Structures</div>
+        <div class="tab" data-tab="distributions">Distributions</div>
+      </div>
+
+      <div id="table-acct-vs-ma" class="tab-content active">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--accent);"></span>Financial Accounting vs Management Accounting</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Characteristic</th><th>Financial Accounting</th><th>Management Accounting</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Primary Users</strong></td>
+                  <td>External (investors, creditors, regulators)</td>
+                  <td>Internal (managers, executives)</td>
+                </tr>
+                <tr>
+                  <td><strong>Regulation</strong></td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:95%;background:var(--green);"></div></div><span class="bar-label">95%</span></div>Strict (IFRS/AASB)</td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:15%;background:var(--red);"></div></div><span class="bar-label">15%</span></div>No mandatory standards</td>
+                </tr>
+                <tr>
+                  <td><strong>Time Orientation</strong></td>
+                  <td>Historical — past performance</td>
+                  <td>Forward-looking — planning & forecasting</td>
+                </tr>
+                <tr>
+                  <td><strong>Report Frequency</strong></td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--orange);"></div></div><span class="bar-label">Low</span></div>Quarterly / Annual</td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:90%;background:var(--green);"></div></div><span class="bar-label">High</span></div>As needed (daily/weekly)</td>
+                </tr>
+                <tr>
+                  <td><strong>Level of Detail</strong></td>
+                  <td>Aggregated — whole organisation</td>
+                  <td>Detailed — by product, department, region</td>
+                </tr>
+                <tr>
+                  <td><strong>Verifiability</strong></td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:95%;background:var(--green);"></div></div><span class="bar-label">95%</span></div>Auditable & objective</td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--orange);"></div></div><span class="bar-label">50%</span></div>Often includes estimates</td>
+                </tr>
+                <tr>
+                  <td><strong>Focus</strong></td>
+                  <td>Accuracy & compliance</td>
+                  <td>Relevance & timeliness for decisions</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="table-fin-vs-man" class="tab-content">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--cyan);"></span>Financial Decisions vs Managerial Decisions</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Decision Type</th><th>Financial Perspective</th><th>Managerial Perspective</th><th>Key Tool</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Investment</strong></td>
+                  <td>NPV, IRR, maximise shareholder wealth</td>
+                  <td>Strategic fit, capacity, risk appetite</td>
+                  <td><span class="tag tag-outline">Capital Budgeting</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Financing</strong></td>
+                  <td>Minimise WACC, maintain credit rating</td>
+                  <td>Flexibility, covenant constraints</td>
+                  <td><span class="tag tag-outline">CAPM / WACC</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Dividend</strong></td>
+                  <td>Signal strength, agency costs</td>
+                  <td>Reinvestment opportunities, cash needs</td>
+                  <td><span class="tag tag-outline">Dividend Policy</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Pricing</strong></td>
+                  <td>Market-based, competitive position</td>
+                  <td>Cost-plus, target costing, contribution</td>
+                  <td><span class="tag tag-outline">CVP Analysis</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Make vs Buy</strong></td>
+                  <td>Total cost of ownership</td>
+                  <td>Relevant costs, capacity, quality control</td>
+                  <td><span class="tag tag-outline">Relevant Costing</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Performance</strong></td>
+                  <td>ROE, EPS, share price</td>
+                  <td>ROI, RI, EVA, balanced scorecard</td>
+                  <td><span class="tag tag-outline">Performance Metrics</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="table-markets" class="tab-content">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--purple);"></span>Market Structures Comparison</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Feature</th><th>Perfect Competition</th><th>Monopolistic</th><th>Oligopoly</th><th>Monopoly</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Firms</strong></td>
+                  <td>Many</td><td>Many</td><td>Few</td><td>One</td>
+                </tr>
+                <tr>
+                  <td><strong>Product</strong></td>
+                  <td>Homogeneous</td><td>Differentiated</td><td>Homogeneous or diff.</td><td>Unique, no subs.</td>
+                </tr>
+                <tr>
+                  <td><strong>Barriers to Entry</strong></td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:5%;background:var(--green);"></div></div><span class="bar-label">None</span></div></td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--green);"></div></div><span class="bar-label">Low</span></div></td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:75%;background:var(--orange);"></div></div><span class="bar-label">High</span></div></td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--red);"></div></div><span class="bar-label">Blocked</span></div></td>
+                </tr>
+                <tr>
+                  <td><strong>Price Power</strong></td>
+                  <td>Price taker</td><td>Some</td><td>Significant</td><td>Price maker</td>
+                </tr>
+                <tr>
+                  <td><strong>Non-price Competition</strong></td>
+                  <td>None</td><td>Heavy (branding)</td><td>Heavy (ads, R&D)</td><td>Little needed</td>
+                </tr>
+                <tr>
+                  <td><strong>Long-run Profit</strong></td>
+                  <td>Normal only</td><td>Normal only</td><td>Supernormal possible</td><td>Supernormal sustained</td>
+                </tr>
+                <tr>
+                  <td><strong>Efficiency</strong></td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:95%;background:var(--green);"></div></div><span class="bar-label">Allocative</span></div></td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--orange);"></div></div><span class="bar-label">Some loss</span></div></td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:40%;background:var(--orange);"></div></div><span class="bar-label">Uncertain</span></div></td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:15%;background:var(--red);"></div></div><span class="bar-label">Deadweight loss</span></div></td>
+                </tr>
+                <tr>
+                  <td><strong>Examples</strong></td>
+                  <td>Agriculture, forex</td><td>Restaurants, retail</td><td>Airlines, telecom, banks</td><td>Local utilities, patents</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="table-distributions" class="tab-content">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--yellow);"></span>Probability Distributions Comparison</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Distribution</th><th>Type</th><th>Mean</th><th>Variance</th><th>Shape</th><th>Use Case</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Normal</strong></td>
+                  <td>Continuous</td>
+                  <td>μ</td>
+                  <td>σ²</td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--accent);border-radius:50% 50% 0 0;"></div></div><span class="bar-label">Bell</span></div></td>
+                  <td>Heights, test scores, returns</td>
+                </tr>
+                <tr>
+                  <td><strong>Binomial</strong></td>
+                  <td>Discrete</td>
+                  <td>np</td>
+                  <td>np(1−p)</td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:70%;background:var(--green);"></div></div><span class="bar-label">n bars</span></div></td>
+                  <td>Success/failure trials</td>
+                </tr>
+                <tr>
+                  <td><strong>Poisson</strong></td>
+                  <td>Discrete</td>
+                  <td>λ</td>
+                  <td>λ</td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:45%;background:var(--orange);"></div></div><span class="bar-label">Right skew</span></div></td>
+                  <td>Events in fixed interval</td>
+                </tr>
+                <tr>
+                  <td><strong>Uniform</strong></td>
+                  <td>Continuous</td>
+                  <td>(a+b)/2</td>
+                  <td>(b−a)²/12</td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--purple);"></div></div><span class="bar-label">Flat</span></div></td>
+                  <td>Equal likelihood outcomes</td>
+                </tr>
+                <tr>
+                  <td><strong>t-Distribution</strong></td>
+                  <td>Continuous</td>
+                  <td>0</td>
+                  <td>ν/(ν−2)</td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:55%;background:var(--cyan);border-radius:40% 40% 0 0;"></div></div><span class="bar-label">Fat tails</span></div></td>
+                  <td>Small samples, σ unknown</td>
+                </tr>
+                <tr>
+                  <td><strong>Chi-Square</strong></td>
+                  <td>Continuous</td>
+                  <td>k</td>
+                  <td>2k</td>
+                  <td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--red);"></div></div><span class="bar-label">Right skew</span></div></td>
+                  <td>Variance tests, goodness of fit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FORMULAS ========== -->
+    <section id="formulas">
+      <div class="section-header">
+        <div class="icon" style="background: var(--green-glow); color: var(--green);">📐</div>
+        <div>
+          <h2>Formula Visualisations</h2>
+          <p>Key formulas with colour-coded variables and step-by-step calculations</p>
+        </div>
+      </div>
+
+      <div class="tabs" id="formula-tabs">
+        <div class="tab active" data-tab="f-accounting">Accounting</div>
+        <div class="tab" data-tab="f-finance">Finance</div>
+        <div class="tab" data-tab="f-economics">Economics</div>
+        <div class="tab" data-tab="f-stats">Statistics</div>
+      </div>
+
+      <div id="formula-f-accounting" class="tab-content active">
+        <div class="card-grid three">
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--accent);"></span>Depreciation — Straight Line</div>
+            <div class="formula-box">
+              <div class="formula-title">Formula</div>
+              <div class="formula"><span class="var">D</span> <span class="op">=</span> <span class="op">(</span><span class="var">Cost</span> <span class="op">−</span> <span class="var">Residual</span><span class="op">)</span> <span class="op">÷</span> <span class="var">Useful Life</span></div>
+            </div>
+            <div class="formula-step"><div class="step-num">1</div><div class="step-body">Asset cost: <code>$50,000</code></div></div>
+            <div class="formula-step"><div class="step-num">2</div><div class="step-body">Residual value: <code>$5,000</code></div></div>
+            <div class="formula-step"><div class="step-num">3</div><div class="step-body">Useful life: <code>5 years</code></div></div>
+            <div class="formula-step"><div class="step-num">4</div><div class="step-body"><code>D = (50,000 − 5,000) ÷ 5 = <strong style="color:var(--green);">$9,000/year</strong></code></div></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--purple);"></span>Bad Debts — Allowance Method</div>
+            <div class="formula-box">
+              <div class="formula-title">Percentage of Receivables</div>
+              <div class="formula"><span class="var">Bad Debt Expense</span> <span class="op">=</span> <span class="var">AR</span> <span class="op">×</span> <span class="var">%</span> <span class="op">−</span> <span class="var">Existing Allowance</span></div>
+            </div>
+            <div class="formula-step"><div class="step-num">1</div><div class="step-body">AR balance: <code>$200,000</code></div></div>
+            <div class="formula-step"><div class="step-num">2</div><div class="step-body">Estimated uncollectible: <code>5%</code></div></div>
+            <div class="formula-step"><div class="step-num">3</div><div class="step-body">Required allowance: <code>$10,000</code></div></div>
+            <div class="formula-step"><div class="step-num">4</div><div class="step-body">Existing allowance (credit): <code>$2,000</code></div></div>
+            <div class="formula-step"><div class="step-num">5</div><div class="step-body">Expense = 10,000 − 2,000 = <strong style="color:var(--green);">$8,000</strong></div></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--orange);"></span>Inventory — Weighted Average</div>
+            <div class="formula-box">
+              <div class="formula-title">Weighted Average Cost</div>
+              <div class="formula"><span class="var">WAC</span> <span class="op">=</span> <span class="var">COGAS</span> <span class="op">÷</span> <span class="var">Units Available</span></div>
+            </div>
+            <div class="formula-step"><div class="step-num">1</div><div class="step-body">Beg. inventory: <code>100 units @ $10 = $1,000</code></div></div>
+            <div class="formula-step"><div class="step-num">2</div><div class="step-body">Purchase: <code>200 units @ $12 = $2,400</code></div></div>
+            <div class="formula-step"><div class="step-num">3</div><div class="step-body">COGAS = $3,400, Units = 300</div></div>
+            <div class="formula-step"><div class="step-num">4</div><div class="step-body"><code>WAC = 3,400 ÷ 300 = <strong style="color:var(--green);">$11.33/unit</strong></code></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="formula-f-finance" class="tab-content">
+        <div class="card-grid three">
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--green);"></span>WACC</div>
+            <div class="formula-box">
+              <div class="formula-title">Weighted Average Cost of Capital</div>
+              <div class="formula"><span class="var">WACC</span> <span class="op">=</span> <span class="op">(</span><span class="var">E/V</span> <span class="op">×</span> <span class="var">r<sub>e</sub></span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="var">D/V</span> <span class="op">×</span> <span class="var">r<sub>d</sub></span> <span class="op">×</span> <span class="op">(</span><span class="num">1</span><span class="op">−</span><span class="var">T</span><span class="op">)</span><span class="op">)</span></div>
+            </div>
+            <div class="formula-step"><div class="step-num">1</div><div class="step-body">Equity: <code>$600k</code>, Debt: <code>$400k</code>, V = $1,000k</div></div>
+            <div class="formula-step"><div class="step-num">2</div><div class="step-body">r<sub>e</sub> = <code>12%</code>, r<sub>d</sub> = <code>6%</code>, T = <code>30%</code></div></div>
+            <div class="formula-step"><div class="step-num">3</div><div class="step-body">WACC = (0.6 × 12%) + (0.4 × 6% × 0.7)</div></div>
+            <div class="formula-step"><div class="step-num">4</div><div class="step-body">= 7.2% + 1.68% = <strong style="color:var(--green);">8.88%</strong></div></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--accent);"></span>Gordon Growth Model</div>
+            <div class="formula-box">
+              <div class="formula-title">Share Valuation</div>
+              <div class="formula"><span class="var">P<sub>0</sub></span> <span class="op">=</span> <span class="var">D<sub>1</sub></span> <span class="op">÷</span> <span class="op">(</span><span class="var">r</span> <span class="op">−</span> <span class="var">g</span><span class="op">)</span></div>
+            </div>
+            <div class="formula-step"><div class="step-num">1</div><div class="step-body">D<sub>0</sub> = <code>$2.00</code>, g = <code>5%</code></div></div>
+            <div class="formula-step"><div class="step-num">2</div><div class="step-body">D<sub>1</sub> = 2.00 × 1.05 = <code>$2.10</code></div></div>
+            <div class="formula-step"><div class="step-num">3</div><div class="step-body">Required return r = <code>10%</code></div></div>
+            <div class="formula-step"><div class="step-num">4</div><div class="step-body">P<sub>0</sub> = 2.10 ÷ (0.10 − 0.05) = <strong style="color:var(--green);">$42.00</strong></div></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--cyan);"></span>DuPont Analysis</div>
+            <div class="formula-box">
+              <div class="formula-title">ROE Decomposition</div>
+              <div class="formula"><span class="var">ROE</span> <span class="op">=</span> <span class="var">Net Margin</span> <span class="op">×</span> <span class="var">Asset Turnover</span> <span class="op">×</span> <span class="var">Equity Multiplier</span></div>
+            </div>
+            <div class="formula-step"><div class="step-num">1</div><div class="step-body">Net Margin = 10%, Asset Turnover = 2.0×</div></div>
+            <div class="formula-step"><div class="step-num">2</div><div class="step-body">Equity Multiplier = Assets/Equity = <code>1.5×</code></div></div>
+            <div class="formula-step"><div class="step-num">3</div><div class="step-body">ROE = 10% × 2.0 × 1.5</div></div>
+            <div class="formula-step"><div class="step-num">4</div><div class="step-body">= <strong style="color:var(--green);">30%</strong></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="formula-f-economics" class="tab-content">
+        <div class="card-grid three">
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--orange);"></span>Price Elasticity of Demand</div>
+            <div class="formula-box">
+              <div class="formula-title">Midpoint Formula</div>
+              <div class="formula"><span class="var">E<sub>d</sub></span> <span class="op">=</span> <span class="op">(</span><span class="var">ΔQ</span> <span class="op">÷</span> <span class="var">Avg Q</span><span class="op">)</span> <span class="op">÷</span> <span class="op">(</span><span class="var">ΔP</span> <span class="op">÷</span> <span class="var">Avg P</span><span class="op">)</span></div>
+            </div>
+            <div class="formula-step"><div class="step-num">1</div><div class="step-body">P<sub>1</sub>=$10, Q<sub>1</sub>=100 → P<sub>2</sub>=$8, Q<sub>2</sub>=140</div></div>
+            <div class="formula-step"><div class="step-num">2</div><div class="step-body">ΔQ/Avg Q = 40/120 = 0.333</div></div>
+            <div class="formula-step"><div class="step-num">3</div><div class="step-body">ΔP/Avg P = −2/9 = −0.222</div></div>
+            <div class="formula-step"><div class="step-num">4</div><div class="step-body">E<sub>d</sub> = 0.333 ÷ (−0.222) = <strong style="color:var(--green);">−1.5</strong> (Elastic)</div></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--red);"></span>Marginal Revenue Product</div>
+            <div class="formula-box">
+              <div class="formula-title">MRP of Labour</div>
+              <div class="formula"><span class="var">MRP<sub>L</sub></span> <span class="op">=</span> <span class="var">MP<sub>L</sub></span> <span class="op">×</span> <span class="var">MR</span></div>
+            </div>
+            <div class="formula-step"><div class="step-num">1</div><div class="step-body">MP<sub>L</sub> (marginal product) = <code>5 units</code></div></div>
+            <div class="formula-step"><div class="step-num">2</div><div class="step-body">MR (price for competitive firm) = <code>$20</code></div></div>
+            <div class="formula-step"><div class="step-num">3</div><div class="step-body">MRP<sub>L</sub> = 5 × 20 = <strong style="color:var(--green);">$100</strong></div></div>
+            <div class="formula-step"><div class="step-num">4</div><div class="step-body">Hire more labour if wage &lt; MRP<sub>L</sub></div></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--cyan);"></span>GDP Expenditure Approach</div>
+            <div class="formula-box">
+              <div class="formula-title">GDP Formula</div>
+              <div class="formula"><span class="var">GDP</span> <span class="op">=</span> <span class="var">C</span> <span class="op">+</span> <span class="var">I</span> <span class="op">+</span> <span class="var">G</span> <span class="op">+</span> <span class="op">(</span><span class="var">X</span> <span class="op">−</span> <span class="var">M</span><span class="op">)</span></div>
+            </div>
+            <div class="formula-step"><div class="step-num">1</div><div class="step-body"><code>C</code> = Consumption = $800b</div></div>
+            <div class="formula-step"><div class="step-num">2</div><div class="step-body"><code>I</code> = Investment = $200b, <code>G</code> = Gov = $300b</div></div>
+            <div class="formula-step"><div class="step-num">3</div><div class="step-body">X = $150b, M = $180b → NX = −$30b</div></div>
+            <div class="formula-step"><div class="step-num">4</div><div class="step-body">GDP = 800 + 200 + 300 − 30 = <strong style="color:var(--green);">$1,270b</strong></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="formula-f-stats" class="tab-content">
+        <div class="card-grid three">
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--yellow);"></span>Confidence Interval</div>
+            <div class="formula-box">
+              <div class="formula-title">Mean CI (σ known)</div>
+              <div class="formula"><span class="var">CI</span> <span class="op">=</span> <span class="var">x̄</span> <span class="op">±</span> <span class="var">z<sub>α/2</sub></span> <span class="op">×</span> <span class="op">(</span><span class="var">σ</span> <span class="op">÷</span> <span class="var">√n</span><span class="op">)</span></div>
+            </div>
+            <div class="formula-step"><div class="step-num">1</div><div class="step-body">x̄ = 50, σ = 10, n = 100, 95% CI</div></div>
+            <div class="formula-step"><div class="step-num">2</div><div class="step-body">z<sub>0.025</sub> = <code>1.96</code></div></div>
+            <div class="formula-step"><div class="step-num">3</div><div class="step-body">SE = 10 ÷ √100 = <code>1.0</code></div></div>
+            <div class="formula-step"><div class="step-num">4</div><div class="step-body">CI = 50 ± 1.96 → <strong style="color:var(--green);">[48.04, 51.96]</strong></div></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--purple);"></span>Regression — OLS Slope</div>
+            <div class="formula-box">
+              <div class="formula-title">Slope Coefficient</div>
+              <div class="formula"><span class="var">b<sub>1</sub></span> <span class="op">=</span> <span class="var">Σ(x<sub>i</sub>−x̄)(y<sub>i</sub>−ȳ)</span> <span class="op">÷</span> <span class="var">Σ(x<sub>i</sub>−x̄)²</span></div>
+            </div>
+            <div class="formula-step"><div class="step-num">1</div><div class="step-body">Calculate means x̄ and ȳ</div></div>
+            <div class="formula-step"><div class="step-num">2</div><div class="step-body">Compute deviations for each observation</div></div>
+            <div class="formula-step"><div class="step-num">3</div><div class="step-body">Sum of cross-products ÷ Sum of squared x-deviations</div></div>
+            <div class="formula-step"><div class="step-num">4</div><div class="step-body">Intercept: <code>b₀ = ȳ − b₁x̄</code></div></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background: var(--accent);"></span>Coefficient of Variation</div>
+            <div class="formula-box">
+              <div class="formula-title">Relative Dispersion</div>
+              <div class="formula"><span class="var">CV</span> <span class="op">=</span> <span class="op">(</span><span class="var">σ</span> <span class="op">÷</span> <span class="var">μ</span><span class="op">)</span> <span class="op">×</span> <span class="num">100%</span></div>
+            </div>
+            <div class="formula-step"><div class="step-num">1</div><div class="step-body">Investment A: μ=10%, σ=5% → CV=50%</div></div>
+            <div class="formula-step"><div class="step-num">2</div><div class="step-body">Investment B: μ=15%, σ=6% → CV=40%</div></div>
+            <div class="formula-step"><div class="step-num">3</div><div class="step-body">Lower CV = better risk-return trade-off</div></div>
+            <div class="formula-step"><div class="step-num">4</div><div class="step-body">B has <strong style="color:var(--green);">lower relative risk</strong> per unit return</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TIMELINES ========== -->
+    <section id="timelines">
+      <div class="section-header">
+        <div class="icon" style="background: var(--cyan-glow); color: var(--cyan);">⏱️</div>
+        <div>
+          <h2>Timelines & Process Flows</h2>
+          <p>Step-by-step visual guides for accounting cycles and business processes</p>
+        </div>
+      </div>
+
+      <div class="tabs" id="timeline-tabs">
+        <div class="tab active" data-tab="tl-accounting">Accounting Cycle</div>
+        <div class="tab" data-tab="tl-revenue">Revenue Recognition</div>
+        <div class="tab" data-tab="tl-capital">Capital Budgeting</div>
+      </div>
+
+      <div id="timeline-tl-accounting" class="tab-content active">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--accent);"></span>The Accounting Cycle</div>
+          <div class="timeline">
+            <div class="timeline-item complete">
+              <div class="timeline-dot">1</div>
+              <div class="timeline-content">
+                <h4>Identify & Analyse Transactions</h4>
+                <p>Events that affect the entity's financial position. Source documents (invoices, receipts) provide evidence.</p>
+              </div>
+            </div>
+            <div class="timeline-item complete">
+              <div class="timeline-dot">2</div>
+              <div class="timeline-content">
+                <h4>Record in Journal (Journalising)</h4>
+                <p>Chronological record of transactions. Debit one or more accounts, credit one or more accounts. Total debits = total credits.</p>
+              </div>
+            </div>
+            <div class="timeline-item complete">
+              <div class="timeline-dot">3</div>
+              <div class="timeline-content">
+                <h4>Post to Ledger</h4>
+                <p>Transfer journal entries to individual accounts in the general ledger. Update T-account balances.</p>
+              </div>
+            </div>
+            <div class="timeline-item active">
+              <div class="timeline-dot">4</div>
+              <div class="timeline-content">
+                <h4>Prepare Unadjusted Trial Balance</h4>
+                <p>List all accounts and their balances. Verify that total debits = total credits. Catches recording errors.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot">5</div>
+              <div class="timeline-content">
+                <h4>Adjusting Entries</h4>
+                <p>Accruals (revenues earned/expenses incurred, not yet recorded) and deferrals (prepayments, unearned revenue). Estimates (depreciation, bad debts).</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot">6</div>
+              <div class="timeline-content">
+                <h4>Adjusted Trial Balance</h4>
+                <p>Verify debits = credits after adjustments. Used to prepare financial statements.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot">7</div>
+              <div class="timeline-content">
+                <h4>Financial Statements</h4>
+                <p>Income Statement → Statement of Changes in Equity → Balance Sheet → Statement of Cash Flows → Notes.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot">8</div>
+              <div class="timeline-content">
+                <h4>Closing Entries</h4>
+                <p>Reset temporary accounts (revenue, expense, dividend) to zero. Transfer net income/loss to retained earnings.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot">9</div>
+              <div class="timeline-content">
+                <h4>Post-Closing Trial Balance</h4>
+                <p>Verify only permanent accounts remain. Debits = Credits. Ready for next period.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="timeline-tl-revenue" class="tab-content">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--green);"></span>Revenue Recognition — 5-Step Model (AASB 15)</div>
+          <div class="process-flow" style="margin-bottom:28px;">
+            <div class="process-step">
+              <div class="num">STEP 1</div>
+              <div class="label">Identify the<br><strong>Contract</strong></div>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step">
+              <div class="num">STEP 2</div>
+              <div class="label">Identify<br><strong>Performance<br>Obligations</strong></div>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step">
+              <div class="num">STEP 3</div>
+              <div class="label">Determine<br><strong>Transaction<br>Price</strong></div>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step">
+              <div class="num">STEP 4</div>
+              <div class="label">Allocate Price<br>to <strong>POs</strong></div>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step">
+              <div class="num">STEP 5</div>
+              <div class="label">Recognise<br><strong>Revenue</strong><br>when satisfied</div>
+            </div>
+          </div>
+
+          <div class="card-grid three">
+            <div class="card" style="padding:18px;">
+              <h4 style="color:var(--accent);margin-bottom:8px;font-size:1rem;">Step 1: Contract</h4>
+              <p style="font-size:0.95rem;color:var(--text-dim);">Must have approval, rights identified, payment terms, commercial substance, and collectability is probable.</p>
+            </div>
+            <div class="card" style="padding:18px;">
+              <h4 style="color:var(--accent);margin-bottom:8px;font-size:1rem;">Step 2: Performance Obligations</h4>
+              <p style="font-size:0.95rem;color:var(--text-dim);">A promise to transfer a distinct good/service. Bundle if not distinct. Example: phone + service plan = 2 POs.</p>
+            </div>
+            <div class="card" style="padding:18px;">
+              <h4 style="color:var(--accent);margin-bottom:8px;font-size:1rem;">Step 3: Transaction Price</h4>
+              <p style="font-size:0.95rem;color:var(--text-dim);">Consideration expected. Adjust for: variable consideration, significant financing, non-cash consideration, consideration payable.</p>
+            </div>
+            <div class="card" style="padding:18px;">
+              <h4 style="color:var(--accent);margin-bottom:8px;font-size:1rem;">Step 4: Allocate Price</h4>
+              <p style="font-size:0.95rem;color:var(--text-dim);">Based on standalone selling prices. Use adjusted market assessment, expected cost plus margin, or residual approach.</p>
+            </div>
+            <div class="card" style="padding:18px;">
+              <h4 style="color:var(--accent);margin-bottom:8px;font-size:1rem;">Step 5: Recognise Revenue</h4>
+              <p style="font-size:0.95rem;color:var(--text-dim);">Over time (if criteria met: customer simultaneously receives/consumes, creates asset with no alternative use) or at a point in time.</p>
+            </div>
+            <div class="card" style="padding:18px;">
+              <h4 style="color:var(--green);margin-bottom:8px;font-size:1rem;">Key Principle</h4>
+              <p style="font-size:0.95rem;color:var(--text-dim);">Recognise revenue to depict the transfer of promised goods/services in an amount reflecting consideration entitled.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="timeline-tl-capital" class="tab-content">
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background: var(--purple);"></span>Capital Budgeting Process</div>
+          <div class="timeline">
+            <div class="timeline-item complete">
+              <div class="timeline-dot">1</div>
+              <div class="timeline-content">
+                <h4>Identify Investment Opportunities</h4>
+                <p>Strategic planning, market research, operational needs. Generate ideas from all levels of the organisation.</p>
+              </div>
+            </div>
+            <div class="timeline-item complete">
+              <div class="timeline-dot">2</div>
+              <div class="timeline-content">
+                <h4>Estimate Cash Flows</h4>
+                <p>Initial outlay, operating cash flows, terminal value. Ignore sunk costs. Include opportunity costs and externalities. Use after-tax cash flows.</p>
+              </div>
+            </div>
+            <div class="timeline-item active">
+              <div class="timeline-dot">3</div>
+              <div class="timeline-content">
+                <h4>Assess Risk</h4>
+                <p>Standalone risk (sensitivity analysis, scenario analysis, simulation). Market risk (beta for CAPM). Adjust discount rate or cash flows.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot">4</div>
+              <div class="timeline-content">
+                <h4>Evaluate using Decision Criteria</h4>
+                <p>NPV (accept if &gt;0), IRR (accept if &gt; WACC), Payback Period, Profitability Index, Accounting Rate of Return. Prefer NPV for mutually exclusive projects.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot">5</div>
+              <div class="timeline-content">
+                <h4>Make the Decision</h4>
+                <p>Board/investment committee approval. Consider strategic fit, capital constraints, risk appetite, and non-financial factors.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot">6</div>
+              <div class="timeline-content">
+                <h4>Implement & Monitor</h4>
+                <p>Project execution, track actual vs budgeted cash flows. Post-audit review to improve future estimates and decision-making.</p>
+              </div>
+            </div>
+          </div>
+          <div class="highlight-box" style="margin-top:20px;">
+            <h4>⚠️ Important Note on NPV vs IRR Conflict</h4>
+            <p>For mutually exclusive projects, NPV and IRR may give different rankings due to differing scale or cash flow timing. <strong>Always trust NPV</strong> — it directly measures value added to shareholders.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Monash B2026 Visual Study Portal · Built for interactive learning · No data is stored or transmitted</p>
+      <p style="margin-top:6px;font-size:0.88rem;color:var(--text-muted);">Mermaid.js · Chart.js · Dark Theme</p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Initialize Mermaid
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        primaryColor: '#111118',
+        primaryTextColor: '#e2e2e8',
+        primaryBorderColor: '#60a5fa',
+        lineColor: '#60a5fa',
+        secondaryColor: '#1e1e2a',
+        tertiaryColor: '#e8e4df',
+        fontFamily: 'Inter, sans-serif'
+      },
+      flowchart: { curve: 'basis', padding: 16 },
+      mindmap: { padding: 16 }
+    });
+
+    // Tab switching
+    document.querySelectorAll('.tabs').forEach(tabGroup => {
+      tabGroup.addEventListener('click', e => {
+        const tab = e.target.closest('.tab');
+        if (!tab) return;
+        const group = tab.closest('.tabs');
+        const tabId = tab.dataset.tab;
+        const section = group.nextElementSibling;
+        while (section && !section.classList.contains('tab-content') && !section.querySelector('.tab-content')) {
+          // find the container with tab contents
+        }
+        // Find all tabs in this group
+        group.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        // Find parent section and hide/show contents
+        const parent = group.parentElement;
+        parent.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+        const target = parent.querySelector(`#${group.id.replace('-tabs','')}-${tabId}`);
+        if (target) target.classList.add('active');
+      });
+    });
+
+    // Chart.js defaults
+    Chart.defaults.color = '#9ca3af';
+    Chart.defaults.borderColor = 'rgba(107, 140, 255, 0.1)';
+    Chart.defaults.font.family = "'Inter', sans-serif";
+
+    // CVP Chart
+    const cvpCtx = document.getElementById('cvpChart');
+    if (cvpCtx) {
+      const units = Array.from({length:21},(_,i)=>i*100);
+      const sp=50, vc=30, fc=10000;
+      new Chart(cvpCtx, {
+        type: 'line',
+        data: {
+          labels: units,
+          datasets: [
+            { label: 'Total Revenue', data: units.map(u=>u*sp), borderColor:'#60a5fa', backgroundColor:'rgba(107,140,255,0.08)', fill:false, tension:0.3, pointRadius:0 },
+            { label: 'Total Costs', data: units.map(u=>fc+u*vc), borderColor:'#f87171', backgroundColor:'rgba(248,113,113,0.08)', fill:false, tension:0.3, pointRadius:0 },
+            { label: 'Fixed Costs', data: units.map(()=>fc), borderColor:'#9ca3af', borderDash:[5,5], pointRadius:0 },
+            { label: 'Profit Area', data: units.map(u=>u*sp - (fc+u*vc)), borderColor:'transparent', backgroundColor: (ctx)=>{const v=ctx.raw;return v>0?'rgba(74,222,128,0.12)':'rgba(248,113,113,0.08)';}, fill:true, pointRadius:0, tension:0.3 }
+          ]
+        },
+        options: { responsive:true, maintainAspectRatio:false, interaction:{mode:'index',intersect:false}, plugins:{legend:{display:false}}, scales:{x:{title:{display:true,text:'Units Sold'}},y:{title:{display:true,text:'$'}}}, elements:{point:{hitRadius:8}} }
+      });
+    }
+
+    // Supply & Demand Chart
+    const sdCtx = document.getElementById('sdChart');
+    if (sdCtx) {
+      const prices = Array.from({length:21},(_,i)=>20-i);
+      new Chart(sdCtx, {
+        type: 'line',
+        data: {
+          labels: prices,
+          datasets: [
+            { label: 'Demand', data: prices.map(p=>100-p*3), borderColor:'#60a5fa', backgroundColor:'rgba(107,140,255,0.1)', fill:true, tension:0.3, pointRadius:0 },
+            { label: 'Supply', data: prices.map(p=>p*3-20), borderColor:'#f87171', backgroundColor:'rgba(248,113,113,0.1)', fill:true, tension:0.3, pointRadius:0 }
+          ]
+        },
+        options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{title:{display:true,text:'Quantity'},type:'linear',position:'bottom'},y:{title:{display:true,text:'Price'},min:0,max:22}}, elements:{point:{hitRadius:8}} }
+      });
+    }
+
+    // Normal Distribution Chart
+    const normalCtx = document.getElementById('normalChart');
+    if (normalCtx) {
+      function normalPDF(x, mu, sigma) { return (1/(sigma*Math.sqrt(2*Math.PI))) * Math.exp(-0.5*Math.pow((x-mu)/sigma,2)); }
+      const xs = Array.from({length:101},(_,i)=>i-50);
+      const mu=0, sigma=15;
+      const ys = xs.map(x=>normalPDF(x,mu,sigma));
+      const within1 = xs.map(x=>Math.abs(x-mu)<=sigma?normalPDF(x,mu,sigma):0);
+      const within2 = xs.map(x=>Math.abs(x-mu)<=2*sigma?normalPDF(x,mu,sigma):0);
+      const within3 = xs.map(x=>Math.abs(x-mu)<=3*sigma?normalPDF(x,mu,sigma):0);
+      new Chart(normalCtx, {
+        type: 'line',
+        data: {
+          labels: xs,
+          datasets: [
+            { label: '99.7% (3σ)', data: within3, borderColor:'transparent', backgroundColor:'rgba(251,146,60,0.15)', fill:true, pointRadius:0 },
+            { label: '95% (2σ)', data: within2, borderColor:'transparent', backgroundColor:'rgba(74,222,128,0.15)', fill:true, pointRadius:0 },
+            { label: '68% (1σ)', data: within1, borderColor:'transparent', backgroundColor:'rgba(107,140,255,0.2)', fill:true, pointRadius:0 },
+            { label: 'PDF', data: ys, borderColor:'#e2e2e8', borderWidth:2, fill:false, pointRadius:0, tension:0.4 }
+          ]
+        },
+        options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},annotation:{annotations:{line1:{type:'line',xMin:0,xMax:0,borderColor:'#60a5fa',borderWidth:2,label:{content:'μ',enabled:true,position:'top'}}}}}, scales:{x:{title:{display:true,text:'x'}},y:{display:false}} }
+      });
+    }
+
+    // Accounting Equation Chart
+    const eqCtx = document.getElementById('equationChart');
+    if (eqCtx) {
+      new Chart(eqCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Initial','Loan Taken','Revenue','Expense','Drawings'],
+          datasets: [
+            { label: 'Assets', data: [50000,65000,80000,75000,70000], backgroundColor:'#60a5fa', borderRadius:6 },
+            { label: 'Liabilities', data: [20000,35000,35000,35000,35000], backgroundColor:'#f87171', borderRadius:6 },
+            { label: 'Equity', data: [30000,30000,45000,40000,35000], backgroundColor:'#9ca3af', borderRadius:6 }
+          ]
+        },
+        options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}}, scales:{x:{stacked:true},y:{stacked:true,title:{display:true,text:'$'}}}, interaction:{mode:'index'} }
+      });
+    }
+
+    // NPV / IRR Chart
+    const npvCtx = document.getElementById('npvChart');
+    if (npvCtx) {
+      const rates = Array.from({length:21},(_,i)=>i);
+      function npvAtRate(r) { const cfs=[-50000,15000,20000,18000,12000]; return cfs.reduce((acc,cf,i)=>acc+cf/Math.pow(1+r/100,i),0); }
+      const npvs = rates.map(r=>npvAtRate(r));
+      new Chart(npvCtx, {
+        type: 'line',
+        data: {
+          labels: rates.map(r=>r+'%'),
+          datasets: [
+            { label: 'NPV', data: npvs, borderColor:'#9ca3af', backgroundColor:'rgba(74,222,128,0.1)', fill:{target:{value:0},above:'rgba(74,222,128,0.12)',below:'rgba(248,113,113,0.12)'}, tension:0.4, pointRadius:3 },
+            { label: 'Zero Line', data: rates.map(()=>0), borderColor:'rgba(240,242,255,0.3)', borderDash:[5,5], pointRadius:0 },
+            { label: 'WACC', data: rates.map(r=>r===10?Math.max(...npvs):null), borderColor:'#f87171', backgroundColor:'#f87171', pointRadius:6, showLine:false }
+          ]
+        },
+        options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>c.dataset.label+': $'+Math.round(c.raw).toLocaleString()}}}, scales:{x:{title:{display:true,text:'Discount Rate'}},y:{title:{display:true,text:'NPV ($)'}}}, elements:{point:{hitRadius:10}} }
+      });
+    }
+
+    // Navigation scroll spy
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (scrollY >= s.offsetTop - 80) current = s.id; });
+      navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href')==='#'+current); });
+    });
+  </script>
+</body>
+</html>

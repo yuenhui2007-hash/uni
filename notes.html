@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monash B2026 — Comprehensive Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   🎨 THEME: Warm Neutral — Adobe Color Palette
+   C0C4B6  EADFDB  AEAFB1  D8C2B5  FFFFFF
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#0a0a0f;
+  --bg-2:#111118;
+  --bg-3:#1e1e2a;
+  --surface:#e8e4df;
+  --surface-hover:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.08);
+  --border-light:#c4bdb5;
+  --text:#e2e2e8;
+  --text-secondary:#9ca3af;
+  --text-muted:#6b7280;
+  --accent:#60a5fa;
+  --accent-glow:rgba(216,194,181,0.25);
+  --sage:#9ca3af;
+  --sage-glow:rgba(192,196,182,0.25);
+  --cream:#fbbf24;
+  --cream-glow:rgba(234,223,219,0.25);
+  --warm-grey:#22d3ee;
+  --muted-warm:#f87171;
+  --font:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:16px;line-height:1.65;min-height:100vh}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 20%,rgba(216,194,181,0.04) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(192,196,182,0.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+
+/* ── Navbar ── */
+.navbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px}
+.navbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px;flex-wrap:wrap}
+.navbar-brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.22rem;color:var(--text);text-decoration:none}
+.navbar-brand .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--sage));display:flex;align-items:center;justify-content:center;font-size:1.22rem;box-shadow:0 4px 15px var(--accent-glow)}
+.navbar-brand span{background:linear-gradient(135deg,#fff 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap}
+.nav-link{padding:8px 16px;border-radius:10px;color:var(--text-secondary);text-decoration:none;font-size:1rem;font-weight:600;transition:all .2s;white-space:nowrap}
+.nav-link:hover{background:var(--surface);color:var(--text)}
+.nav-link.active{background:rgba(216,194,181,0.12);color:var(--accent)}
+
+/* ── Search Bar ── */
+.search-wrap{max-width:600px;margin:0 auto 24px;padding:0 24px;position:relative;z-index:1}
+.search-input{width:100%;padding:12px 20px 12px 44px;background:var(--bg-2);border:1px solid var(--border);border-radius:14px;color:var(--text);font-size:1.05rem;outline:none;transition:all .3s}
+.search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(216,194,181,0.1)}
+.search-wrap::before{content:'🔍';position:absolute;left:40px;top:50%;transform:translateY(-50%);font-size:1.12rem;opacity:.6}
+.search-input::placeholder{color:var(--text-muted)}
+
+/* ── Hero ── */
+.hero{text-align:center;padding:36px 24px 16px;position:relative;z-index:1}
+.hero h1{font-size:2.25rem;font-weight:900;background:linear-gradient(135deg,#fff,var(--accent),var(--sage));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.hero p{color:var(--text-secondary);font-size:1.12rem;max-width:500px;margin:0 auto}
+
+/* ── TOC ── */
+.toc{position:sticky;top:80px;max-width:260px;float:left;margin-left:24px;background:var(--bg-2);border:1px solid var(--border);border-radius:16px;padding:16px;max-height:calc(100vh - 120px);overflow-y:auto}
+.toc h3{font-size:.8rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.toc a{display:block;color:var(--text-secondary);text-decoration:none;font-size:.82rem;padding:5px 8px;border-radius:6px;transition:.2s;border-left:2px solid transparent;margin-bottom:2px}
+.toc a:hover{color:var(--accent);border-left-color:var(--accent);background:var(--surface)}
+.toc a.unit{color:var(--text);font-weight:700;font-size:.85rem;margin-top:8px}
+
+/* ── Content ── */
+.content-wrap{max-width:850px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1;margin-left:300px;margin-right:24px}
+
+.unit-section{margin-bottom:48px}
+.unit-header{display:flex;align-items:center;gap:16px;padding:24px;background:linear-gradient(135deg,var(--bg-2),var(--bg-3));border:1px solid var(--border);border-radius:20px;margin-bottom:24px;position:relative;overflow:hidden;transition:all .3s}
+.unit-header::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--c),var(--c-glow))}
+.unit-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.65rem;background:var(--c-dim);border:1px solid var(--c-weak)}
+.unit-title{font-size:1.45rem;font-weight:800}
+.unit-code{font-family:var(--mono);font-size:.8rem;color:var(--c);font-weight:600}
+.unit-progress{position:absolute;right:24px;top:50%;transform:translateY(-50%);text-align:right}
+.unit-progress-bar{width:120px;height:6px;background:var(--surface);border-radius:3px;overflow:hidden;margin-bottom:4px}
+.unit-progress-fill{height:100%;background:var(--c);border-radius:3px;transition:width 1s ease}
+.unit-progress-label{font-size:.75rem;color:var(--text-muted)}
+
+/* ── Collapsible Section ── */
+.collapsible-header{cursor:pointer;display:flex;align-items:center;gap:10px;user-select:none;transition:color .2s}
+.collapsible-header:hover{color:var(--accent)}
+.collapsible-header .chevron{transition:transform .3s;font-size:.85rem;color:var(--text-muted)}
+.collapsible-header.open .chevron{transform:rotate(90deg)}
+.collapsible-content{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s;opacity:0}
+.collapsible-content.open{max-height:20000px;opacity:1}
+
+/* ── Cards ── */
+.card{background:var(--bg-2);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px;transition:all .3s}
+.card:hover{border-color:var(--border-light)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.card-title{font-weight:700;color:var(--accent);font-size:1.12rem}
+.card-tag{font-size:.72rem;background:var(--surface);padding:3px 10px;border-radius:20px;color:var(--text-secondary);border:1px solid var(--border)}
+
+/* ── Flip Cards (Definitions) ── */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:16px 0}
+.flip-card{perspective:800px;height:160px;cursor:pointer}
+.flip-card-inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
+.flip-card-front,.flip-card-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--border)}
+.flip-card-front{background:linear-gradient(135deg,var(--bg-2),var(--bg-3))}
+.flip-card-back{background:linear-gradient(135deg,var(--surface),var(--bg-3));transform:rotateY(180deg)}
+.flip-card-term{font-weight:700;color:var(--accent);font-size:1.22rem;margin-bottom:6px}
+.flip-card-meaning{color:var(--text-secondary);font-size:.88rem;line-height:1.5}
+.flip-card-hint{font-size:.75rem;color:var(--text-muted);margin-top:8px;font-style:italic}
+
+/* ── Formula Box ── */
+.formula{background:rgba(216,194,181,0.06);border-left:3px solid var(--accent);padding:14px 18px;margin:12px 0;border-radius:0 8px 8px 0;font-family:var(--mono);font-size:1.12rem;overflow-x:auto;transition:all .3s}
+.formula:hover{background:rgba(216,194,181,0.1);border-left-width:4px}
+.formula-label{font-family:var(--font);font-size:.78rem;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+
+/* ── Alert Boxes ── */
+.def{background:rgba(192,196,182,0.06);border-left:3px solid var(--sage);padding:14px 18px;margin:12px 0;border-radius:0 8px 8px 0;transition:all .2s}
+.def:hover{background:rgba(192,196,182,0.1)}
+.def-term{font-weight:700;color:var(--sage);font-size:1.18rem}
+.def-meaning{margin-top:6px;color:var(--text)}
+
+.trap{background:rgba(184,144,128,0.08);border-left:3px solid var(--muted-warm);padding:14px 18px;margin:12px 0;border-radius:0 8px 8px 0}
+.trap-label{font-weight:700;color:var(--muted-warm);font-size:.85rem;text-transform:uppercase}
+
+.tip{background:rgba(234,223,219,0.06);border-left:3px solid var(--cream);padding:14px 18px;margin:12px 0;border-radius:0 8px 8px 0}
+.tip-label{font-weight:700;color:var(--cream);font-size:.85rem;text-transform:uppercase}
+
+/* ── Table ── */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.9rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+th{background:var(--surface);font-weight:600;color:var(--accent);font-size:.78rem;text-transform:uppercase}
+tr:hover{background:rgba(216,194,181,0.03)}
+
+/* ── Quick Grid ── */
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:16px 0}
+.quick-item{background:var(--bg-3);border:1px solid var(--border);border-radius:10px;padding:14px;transition:all .2s}
+.quick-item:hover{border-color:var(--accent);transform:translateY(-2px)}
+.quick-item strong{display:block;color:var(--accent);margin-bottom:4px;font-size:.9rem}
+.quick-item span{color:var(--text-secondary);font-size:.85rem}
+
+/* ── MCQ ── */
+.mcq{background:var(--bg-3);border:1px solid var(--border);border-radius:12px;padding:18px;margin:14px 0;transition:all .3s}
+.mcq:hover{border-color:var(--border-light)}
+.mcq-question{font-weight:600;margin-bottom:12px;color:var(--text)}
+.mcq-options{list-style:none;margin:0;padding:0}
+.mcq-options li{padding:10px 14px;margin:6px 0;background:var(--bg-2);border-radius:8px;cursor:pointer;transition:all .2s;border:1px solid transparent;display:flex;align-items:center;gap:10px}
+.mcq-options li::before{content:'○';color:var(--text-muted);font-size:1.22rem;transition:all .2s}
+.mcq-options li:hover{background:rgba(216,194,181,0.08);border-color:var(--accent)}
+.mcq-options li.selected{background:rgba(216,194,181,0.12);border-color:var(--accent)}
+.mcq-options li.selected::before{content:'●';color:var(--accent)}
+.mcq-options li.correct{background:rgba(192,196,182,0.15);border-color:var(--sage)}
+.mcq-options li.correct::before{content:'✓';color:var(--sage)}
+.mcq-options li.wrong{background:rgba(184,144,128,0.12);border-color:var(--muted-warm)}
+.mcq-options li.wrong::before{content:'✗';color:var(--muted-warm)}
+.mcq-answer{display:none;margin-top:14px;padding:14px;background:rgba(192,196,182,0.08);border-radius:8px;border-left:3px solid var(--sage)}
+.mcq-answer.show{display:block}
+.mcq-toggle{color:var(--accent);cursor:pointer;font-size:.9rem;margin-top:12px;display:inline-block;padding:6px 14px;background:var(--surface);border-radius:8px;transition:all .2s}
+.mcq-toggle:hover{background:var(--surface-hover)}
+.mcq-score{font-size:.85rem;color:var(--text-muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+
+/* ── Diagram Styles ── */
+.svg-diagram{width:100%;max-width:720px;margin:16px auto;display:block}
+.chart-wrap{background:var(--bg-2);border:1px solid var(--border);border-radius:16px;padding:20px;margin:16px 0;text-align:center;transition:all .3s}
+.chart-wrap:hover{border-color:var(--border-light)}
+.chart-title{font-weight:700;color:var(--accent);margin-bottom:12px;font-size:1.12rem}
+
+/* ── T-Account ── */
+.t-account{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;max-width:400px;margin:12px auto;text-align:center;font-family:var(--mono)}
+.t-account .t-head{background:var(--surface);padding:8px;font-weight:700;font-size:.85rem;color:var(--accent);border-bottom:1px solid var(--border)}
+.t-account .t-side{padding:10px;font-size:.85rem;border-right:1px solid var(--border)}
+.t-account .t-side:last-child{border-right:none}
+.t-account .t-entry{padding:4px 0;border-bottom:1px solid var(--bg-3);color:var(--text-secondary)}
+.t-account .t-total{font-weight:700;color:var(--text);padding-top:6px;border-top:2px solid var(--border-light)}
+
+/* ── Flowchart ── */
+.flowchart{display:flex;flex-wrap:wrap;align-items:center;gap:8px;justify-content:center;margin:16px 0}
+.flow-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-size:.85rem;font-weight:600;text-align:center;transition:all .2s}
+.flow-box:hover{border-color:var(--accent);transform:translateY(-2px)}
+.flow-arrow{color:var(--text-muted);font-size:1.35rem}
+
+/* ── SWOT ── */
+.swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.swot-cell{padding:16px;border-radius:12px;border:1px solid var(--border);transition:all .2s}
+.swot-cell:hover{border-color:var(--accent)}
+.swot-cell .swot-label{font-weight:800;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.swot-s{border-color:rgba(192,196,182,.3);background:rgba(192,196,182,.06)}
+.swot-s .swot-label{color:var(--sage)}
+.swot-w{border-color:rgba(184,144,128,.3);background:rgba(184,144,128,.06)}
+.swot-w .swot-label{color:var(--muted-warm)}
+.swot-o{border-color:rgba(216,194,181,.3);background:rgba(216,194,181,.06)}
+.swot-o .swot-label{color:var(--accent)}
+.swot-t{border-color:rgba(234,223,219,.3);background:rgba(234,223,219,.06)}
+.swot-t .swot-label{color:var(--cream)}
+
+/* ── Hierarchy / Pyramid ── */
+.pyramid{display:flex;flex-direction:column;align-items:center;gap:6px;margin:16px 0}
+.pyramid-layer{padding:10px 20px;border-radius:8px;font-weight:700;font-size:.85rem;color:var(--bg)}
+.hierarchy-step{padding:10px 16px;border-radius:10px;font-weight:700;font-size:.85rem;text-align:center;margin:6px auto;color:var(--bg)}
+
+/* ── Timeline ── */
+.timeline-wrap{position:relative;padding-left:24px;margin:16px 0}
+.timeline-wrap::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(var(--accent),var(--sage))}
+.timeline-item{position:relative;margin-bottom:16px;padding-left:16px}
+.timeline-item::before{content:'';position:absolute;left:-20px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.timeline-item strong{display:block;color:var(--accent);font-size:.9rem}
+.timeline-item span{color:var(--text-secondary);font-size:.85rem}
+
+/* ── Porter's 5 Forces ── */
+.porter-forces{display:grid;grid-template-columns:1fr 2fr 1fr;grid-template-rows:auto auto auto;gap:10px;max-width:560px;margin:16px auto;align-items:center;justify-items:center}
+.porter-center{background:var(--surface);border:2px solid var(--border-light);border-radius:16px;padding:20px;text-align:center;font-weight:700}
+.porter-force{background:var(--bg-3);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;font-size:.82rem;font-weight:600;transition:all .2s}
+.porter-force:hover{border-color:var(--accent)}
+
+/* ── Hide on Search ── */
+.hidden-search{display:none !important}
+
+/* ── Back to top ── */
+.back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--surface);border:1px solid var(--border);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:.3s;z-index:1000}
+.back-to-top.visible{opacity:1}
+.back-to-top:hover{background:var(--accent);color:var(--bg)}
+
+/* ── Headings ── */
+h2{font-size:1.45rem;color:var(--accent);margin:36px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+h3{font-size:1.22rem;color:var(--sage);margin:24px 0 10px}
+h4{font-size:1.12rem;color:var(--cream);margin:18px 0 8px}
+
+/* ── Responsive ── */
+@media(max-width:900px){.toc{display:none}.content-wrap{margin-left:24px}}
+@media(max-width:600px){.porter-forces{grid-template-columns:1fr}.swot-grid{grid-template-columns:1fr}.flip-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="index.html" class="navbar-brand"><div class="logo">🎓</div><span>Monash B2026</span></a>
+<div class="nav-links">
+    <a href="index.html" class="nav-link" style="font-weight:700">← Back</a>
+<a href="index.html" class="nav-link">🏠 Home</a>
+<a href="notes.html" class="nav-link active">📝 Notes</a>
+<a href="visual.html" class="nav-link">📊 Visual</a>
+<a href="study.html" class="nav-link">📖 Guide</a>
+<a href="exercise.html" class="nav-link">🧪 Exercise</a>
+<a href="planner.html" class="nav-link">📅 Planner</a>
+</div>
+</div>
+</nav>
+
+<div class="hero">
+<h1>📚 Comprehensive Notes</h1>
+<p>Complete unit notes with interactive flip cards, search, and progress tracking.</p>
+</div>
+
+<div class="search-wrap">
+<input type="text" class="search-input" id="searchInput" placeholder="Search definitions, formulas, concepts...">
+</div>
+
+<nav class="toc">
+<h3>Units</h3>
+<a href="#acw1120" class="unit">📊 ACW1120 — Financial Accounting</a>
+<a href="#bfw1001" class="unit">💰 BFW1001 — Finance</a>
+<a href="#btw1042" class="unit">⚖️ BTW1042 — Business Law</a>
+<a href="#ecm1953" class="unit">📉 ECM1953 — Economics</a>
+<a href="#etw1001" class="unit">📈 ETW1001 — Statistics</a>
+<a href="#mgw1010" class="unit">👔 MGW1010 — Management</a>
+<a href="#acw2220" class="unit">📈 ACW2220 — Management Acct</a>
+<a href="#etc2440" class="unit">🔬 ETC2440 — Analytics</a>
+</nav>
+
+<div class="content-wrap">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ACW1120 — FINANCIAL ACCOUNTING -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="acw1120" data-unit="ACW1120">
+<div class="unit-header" style="--c:var(--accent);--c-glow:var(--accent-glow);--c-dim:rgba(216,194,181,0.12);--c-weak:rgba(216,194,181,0.25)">
+<div class="unit-icon">📊</div>
+<div>
+<div class="unit-title">ACW1120 — Financial Accounting 1</div>
+<div class="unit-code">Part A Core | Financial Reporting Foundation</div>
+</div>
+<div class="unit-progress">
+<div class="unit-progress-bar"><div class="unit-progress-fill" style="width:0%" data-width="78"></div></div>
+<div class="unit-progress-label">78% Complete</div>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Accounting Equation & Cycle</h3>
+<div class="collapsible-content">
+<div class="chart-wrap">
+<div class="chart-title">The Accounting Equation</div>
+<svg viewBox="0 0 640 220" class="svg-diagram" style="max-width:560px">
+<rect x="20" y="60" width="140" height="50" rx="10" fill="rgba(216,194,181,0.12)" stroke="var(--accent)" stroke-width="2"/>
+<text x="90" y="90" text-anchor="middle" fill="var(--accent)" font-weight="700" font-size="16">ASSETS</text>
+<text x="90" y="108" text-anchor="middle" fill="var(--text-muted)" font-size="10">Economic Resources</text>
+<text x="180" y="85" fill="var(--text)" font-size="22" font-weight="800">=</text>
+<rect x="220" y="20" width="160" height="50" rx="10" fill="rgba(184,144,128,0.12)" stroke="var(--muted-warm)" stroke-width="2"/>
+<text x="300" y="45" text-anchor="middle" fill="var(--muted-warm)" font-weight="700" font-size="14">LIABILITIES</text>
+<text x="300" y="61" text-anchor="middle" fill="var(--text-muted)" font-size="9">Obligations to others</text>
+<text x="300" y="82" fill="var(--text)" font-size="18" font-weight="800">+</text>
+<rect x="220" y="95" width="160" height="50" rx="10" fill="rgba(192,196,182,0.12)" stroke="var(--sage)" stroke-width="2"/>
+<text x="300" y="120" text-anchor="middle" fill="var(--sage)" font-weight="700" font-size="14">EQUITY</text>
+<text x="300" y="136" text-anchor="middle" fill="var(--text-muted)" font-size="9">Owner's residual claim</text>
+<text x="400" y="85" fill="var(--text-muted)" font-size="14">→</text>
+<rect x="430" y="60" width="180" height="100" rx="10" fill="var(--bg-3)" stroke="var(--border)" stroke-width="1"/>
+<text x="520" y="85" text-anchor="middle" fill="var(--cream)" font-weight="700" font-size="12">Expanded Equity</text>
+<text x="520" y="105" text-anchor="middle" fill="var(--text-secondary)" font-size="10">Capital + Revenue</text>
+<text x="520" y="120" text-anchor="middle" fill="var(--text-secondary)" font-size="10">− Expenses − Drawings</text>
+<text x="520" y="140" text-anchor="middle" fill="var(--text-muted)" font-size="9">= Owner's claim after operations</text>
+</svg>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions — Click cards to flip</h3>
+<div class="collapsible-content open">
+<div class="flip-grid" id="acw1120-defs"></div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
+<div class="collapsible-content">
+<div class="card" id="acw1120-formulas"></div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Double Entry Rules</h3>
+<div class="collapsible-content">
+<div class="card">
+<table>
+<tr><th>Account Type</th><th>Increase</th><th>Decrease</th></tr>
+<tr><td>Assets</td><td>Debit (Dr)</td><td>Credit (Cr)</td></tr>
+<tr><td>Liabilities</td><td>Credit (Cr)</td><td>Debit (Dr)</td></tr>
+<tr><td>Equity / Capital</td><td>Credit (Cr)</td><td>Debit (Dr)</td></tr>
+<tr><td>Revenue</td><td>Credit (Cr)</td><td>Debit (Dr)</td></tr>
+<tr><td>Expenses</td><td>Debit (Dr)</td><td>Credit (Cr)</td></tr>
+</table>
+<div class="trap"><div class="trap-label">⚠ Exam Trap</div>Drawings/Owner withdrawals are <strong>NOT expenses</strong> — they reduce equity directly. Debit Drawings, Credit Bank.</div>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Practice MCQs</h3>
+<div class="collapsible-content">
+<div id="acw1120-mcqs"></div>
+<div class="mcq-score" id="acw1120-score" style="display:none"></div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- BFW1001 — FOUNDATIONS OF FINANCE -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="bfw1001" data-unit="BFW1001">
+<div class="unit-header" style="--c:var(--sage);--c-glow:var(--sage-glow);--c-dim:rgba(192,196,182,0.12);--c-weak:rgba(192,196,182,0.25)">
+<div class="unit-icon">💰</div>
+<div>
+<div class="unit-title">BFW1001 — Foundations of Finance</div>
+<div class="unit-code">Part A Core | Corporate Finance</div>
+</div>
+<div class="unit-progress">
+<div class="unit-progress-bar"><div class="unit-progress-fill" style="width:0%" data-width="65"></div></div>
+<div class="unit-progress-label">65% Complete</div>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Time Value of Money</h3>
+<div class="collapsible-content">
+<div class="chart-wrap">
+<div class="chart-title">Future Value Growth Over Time (10%, $1,000)</div>
+<svg viewBox="0 0 640 260" class="svg-diagram">
+<line x1="60" y1="220" x2="600" y2="220" stroke="var(--text-muted)" stroke-width="1"/>
+<line x1="60" y1="220" x2="60" y2="30" stroke="var(--text-muted)" stroke-width="1"/>
+<text x="50" y="225" text-anchor="end" fill="var(--text-muted)" font-size="11">0</text>
+<text x="50" y="170" text-anchor="end" fill="var(--text-muted)" font-size="11">$500</text>
+<text x="50" y="115" text-anchor="end" fill="var(--text-muted)" font-size="11">$1,000</text>
+<text x="50" y="60" text-anchor="end" fill="var(--text-muted)" font-size="11">$1,500</text>
+<text x="60" y="240" text-anchor="middle" fill="var(--text-muted)" font-size="11">Today</text>
+<text x="195" y="240" text-anchor="middle" fill="var(--text-muted)" font-size="11">Year 1</text>
+<text x="330" y="240" text-anchor="middle" fill="var(--text-muted)" font-size="11">Year 2</text>
+<text x="465" y="240" text-anchor="middle" fill="var(--text-muted)" font-size="11">Year 3</text>
+<text x="600" y="240" text-anchor="middle" fill="var(--text-muted)" font-size="11">Year 4</text>
+<line x1="60" y1="165" x2="600" y2="165" stroke="var(--border)" stroke-width="1" stroke-dasharray="3,3"/>
+<line x1="60" y1="110" x2="600" y2="110" stroke="var(--border)" stroke-width="1" stroke-dasharray="3,3"/>
+<line x1="60" y1="55" x2="600" y2="55" stroke="var(--border)" stroke-width="1" stroke-dasharray="3,3"/>
+<polyline points="60,220 195,190 330,155 465,118 600,78" fill="none" stroke="var(--sage)" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="60" cy="220" r="5" fill="var(--sage)" stroke="var(--bg)" stroke-width="2"/>
+<circle cx="195" cy="190" r="5" fill="var(--sage)" stroke="var(--bg)" stroke-width="2"/>
+<circle cx="330" cy="155" r="5" fill="var(--sage)" stroke="var(--bg)" stroke-width="2"/>
+<circle cx="465" cy="118" r="5" fill="var(--sage)" stroke="var(--bg)" stroke-width="2"/>
+<circle cx="600" cy="78" r="5" fill="var(--sage)" stroke="var(--bg)" stroke-width="2"/>
+<text x="60" y="210" text-anchor="middle" fill="var(--sage)" font-size="10" font-weight="700">$1,000</text>
+<text x="195" y="180" text-anchor="middle" fill="var(--sage)" font-size="10" font-weight="700">$1,100</text>
+<text x="330" y="145" text-anchor="middle" fill="var(--sage)" font-size="10" font-weight="700">$1,210</text>
+<text x="465" y="108" text-anchor="middle" fill="var(--sage)" font-size="10" font-weight="700">$1,331</text>
+<text x="600" y="68" text-anchor="middle" fill="var(--sage)" font-size="10" font-weight="700">$1,464</text>
+<text x="320" y="25" text-anchor="middle" fill="var(--text-muted)" font-size="11">FV = PV × (1 + r)ⁿ  (r = 10%, PV = $1,000)</text>
+</svg>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions — Click cards to flip</h3>
+<div class="collapsible-content open">
+<div class="flip-grid" id="bfw1001-defs"></div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
+<div class="collapsible-content">
+<div class="card" id="bfw1001-formulas"></div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- BTW1042 — BUSINESS LAW -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="btw1042" data-unit="BTW1042">
+<div class="unit-header" style="--c:var(--muted-warm);--c-glow:rgba(184,144,128,0.25);--c-dim:rgba(184,144,128,0.12);--c-weak:rgba(184,144,128,0.25)">
+<div class="unit-icon">⚖️</div>
+<div>
+<div class="unit-title">BTW1042 — Business Law</div>
+<div class="unit-code">Part A Core | Australian Legal Framework</div>
+</div>
+<div class="unit-progress">
+<div class="unit-progress-bar"><div class="unit-progress-fill" style="width:0%" data-width="92"></div></div>
+<div class="unit-progress-label">92% Complete</div>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Contract Formation Flow</h3>
+<div class="collapsible-content">
+<div class="chart-wrap">
+<div class="chart-title">Elements of a Valid Contract</div>
+<div class="flowchart">
+<div class="flow-box" style="border-color:var(--accent)">Offer</div>
+<div class="flow-arrow">→</div>
+<div class="flow-box" style="border-color:var(--accent)">Acceptance</div>
+<div class="flow-arrow">→</div>
+<div class="flow-box" style="border-color:var(--accent)">Consideration</div>
+<div class="flow-arrow">→</div>
+<div class="flow-box" style="border-color:var(--accent)">Intention</div>
+<div class="flow-arrow">→</div>
+<div class="flow-box" style="border-color:var(--accent)">Capacity</div>
+<div class="flow-arrow">→</div>
+<div class="flow-box" style="border-color:var(--accent)">Legality</div>
+<div class="flow-arrow">→</div>
+<div class="flow-box" style="border-color:var(--sage);background:rgba(192,196,182,0.1)">Valid<br>Contract</div>
+</div>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions — Click cards to flip</h3>
+<div class="collapsible-content open">
+<div class="flip-grid" id="btw1042-defs"></div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Remedies for Breach</h3>
+<div class="collapsible-content">
+<div class="card">
+<table>
+<tr><th>Remedy</th><th>When Awarded</th><th>Key Point</th></tr>
+<tr><td>Damages</td><td>Standard remedy for all breaches</td><td>Put injured party in position as if contract performed</td></tr>
+<tr><td>Liquidated Damages</td><td>Genuine pre-estimate in contract</td><td>Not a penalty — must reflect actual loss estimate</td></tr>
+<tr><td>Specific Performance</td><td>Unique subject matter (land, art)</td><td>Discretionary; not for personal services</td></tr>
+<tr><td>Injunction</td><td>Restraining party from breach</td><td>Negative specific performance</td></tr>
+<tr><td>Rescission</td><td>Voidable contract (misrep, duress)</td><td>Parties restored to pre-contract position</td></tr>
+</table>
+<div class="trap"><div class="trap-label">⚠ Exam Trap</div>Invitation to treat (advertisements, shop displays) is <strong>NOT an offer</strong>. Customer makes the offer when presenting goods at checkout.</div>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ECM1953 — ECONOMICS -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="ecm1953" data-unit="ECM1953">
+<div class="unit-header" style="--c:var(--cream);--c-glow:var(--cream-glow);--c-dim:rgba(234,223,219,0.12);--c-weak:rgba(234,223,219,0.25)">
+<div class="unit-icon">📉</div>
+<div>
+<div class="unit-title">ECM1953 — Economics</div>
+<div class="unit-code">Part A Core | Micro & Macro</div>
+</div>
+<div class="unit-progress">
+<div class="unit-progress-bar"><div class="unit-progress-fill" style="width:0%" data-width="54"></div></div>
+<div class="unit-progress-label">54% Complete</div>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Supply & Demand Equilibrium</h3>
+<div class="collapsible-content">
+<div class="chart-wrap">
+<div class="chart-title">Market Equilibrium — Price Determination</div>
+<svg viewBox="0 0 560 300" class="svg-diagram" style="max-width:480px">
+<line x1="60" y1="260" x2="520" y2="260" stroke="var(--text-muted)" stroke-width="1"/>
+<line x1="60" y1="260" x2="60" y2="30" stroke="var(--text-muted)" stroke-width="1"/>
+<path d="M 120 50 Q 280 130 480 240" fill="none" stroke="var(--muted-warm)" stroke-width="2.5"/>
+<text x="480" y="255" fill="var(--muted-warm)" font-size="11" font-weight="700">D</text>
+<path d="M 120 240 Q 280 160 480 50" fill="none" stroke="var(--sage)" stroke-width="2.5"/>
+<text x="480" y="45" fill="var(--sage)" font-size="11" font-weight="700">S</text>
+<circle cx="300" cy="145" r="6" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"/>
+<line x1="300" y1="145" x2="300" y2="260" stroke="var(--accent)" stroke-width="1" stroke-dasharray="4,3"/>
+<line x1="60" y1="145" x2="300" y2="145" stroke="var(--accent)" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="300" y="275" text-anchor="middle" fill="var(--accent)" font-size="11" font-weight="700">Q*</text>
+<text x="45" y="150" text-anchor="end" fill="var(--accent)" font-size="11" font-weight="700">P*</text>
+<path d="M 120 50 Q 280 130 300 145 L 60 145 L 60 50 Z" fill="var(--accent)" opacity="0.12"/>
+<text x="140" y="100" fill="var(--accent)" font-size="10" font-weight="700">Consumer Surplus</text>
+<path d="M 120 240 Q 280 160 300 145 L 60 145 L 60 240 Z" fill="var(--sage)" opacity="0.12"/>
+<text x="140" y="190" fill="var(--sage)" font-size="10" font-weight="700">Producer Surplus</text>
+<text x="290" y="295" text-anchor="middle" fill="var(--text-muted)" font-size="12">Quantity (Q) →</text>
+<text x="15" y="145" text-anchor="middle" fill="var(--text-muted)" font-size="12" transform="rotate(-90 15 145)">Price (P) →</text>
+</svg>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions — Click cards to flip</h3>
+<div class="collapsible-content open">
+<div class="flip-grid" id="ecm1953-defs"></div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ETW1001 — STATISTICS -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="etw1001" data-unit="ETW1001">
+<div class="unit-header" style="--c:var(--accent);--c-glow:var(--accent-glow);--c-dim:rgba(216,194,181,0.12);--c-weak:rgba(216,194,181,0.25)">
+<div class="unit-icon">📈</div>
+<div>
+<div class="unit-title">ETW1001 — Business Statistics</div>
+<div class="unit-code">Part A Core | Data Analysis</div>
+</div>
+<div class="unit-progress">
+<div class="unit-progress-bar"><div class="unit-progress-fill" style="width:0%" data-width="70"></div></div>
+<div class="unit-progress-label">70% Complete</div>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Normal Distribution</h3>
+<div class="collapsible-content">
+<div class="chart-wrap">
+<div class="chart-title">Standard Normal Distribution — Key Areas</div>
+<svg viewBox="0 0 600 240" class="svg-diagram">
+<line x1="50" y1="180" x2="560" y2="180" stroke="var(--text-muted)" stroke-width="1"/>
+<path d="M 50 180 Q 150 175 200 160 Q 250 130 305 40 Q 360 130 410 160 Q 460 175 560 180" fill="rgba(216,194,181,0.12)" stroke="var(--accent)" stroke-width="2"/>
+<line x1="305" y1="40" x2="305" y2="180" stroke="var(--cream)" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="305" y="195" text-anchor="middle" fill="var(--cream)" font-size="11" font-weight="700">μ = 0</text>
+<line x1="200" y1="160" x2="200" y2="180" stroke="var(--text-muted)" stroke-width="1"/>
+<text x="200" y="195" text-anchor="middle" fill="var(--text-muted)" font-size="10">-1σ</text>
+<line x1="410" y1="160" x2="410" y2="180" stroke="var(--text-muted)" stroke-width="1"/>
+<text x="410" y="195" text-anchor="middle" fill="var(--text-muted)" font-size="10">+1σ</text>
+<line x1="120" y1="175" x2="120" y2="180" stroke="var(--text-muted)" stroke-width="1"/>
+<text x="120" y="195" text-anchor="middle" fill="var(--text-muted)" font-size="10">-2σ</text>
+<line x1="490" y1="175" x2="490" y2="180" stroke="var(--text-muted)" stroke-width="1"/>
+<text x="490" y="195" text-anchor="middle" fill="var(--text-muted)" font-size="10">+2σ</text>
+<text x="250" y="110" text-anchor="middle" fill="var(--sage)" font-size="10" font-weight="700">68%</text>
+<text x="160" y="145" text-anchor="middle" fill="var(--cream)" font-size="9" font-weight="700">13.5%</text>
+<text x="450" y="145" text-anchor="middle" fill="var(--cream)" font-size="9" font-weight="700">13.5%</text>
+<text x="85" y="165" text-anchor="middle" fill="var(--muted-warm)" font-size="9" font-weight="700">2.5%</text>
+<text x="525" y="165" text-anchor="middle" fill="var(--muted-warm)" font-size="9" font-weight="700">2.5%</text>
+</svg>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
+<div class="collapsible-content">
+<div class="card">
+<div class="formula"><div class="formula-label">Mean</div>x̄ = Σxi ÷ n</div>
+<div class="formula"><div class="formula-label">Standard Deviation</div>s = √[Σ(xi − x̄)² ÷ (n−1)]</div>
+<div class="formula"><div class="formula-label">Z-Score</div>Z = (X − μ) ÷ σ</div>
+<div class="formula"><div class="formula-label">Confidence Interval (Mean)</div>x̄ ± z(α/2) × (σ/√n)</div>
+<div class="formula"><div class="formula-label">Correlation</div>r = Cov(X,Y) ÷ (sX × sY)</div>
+<div class="formula"><div class="formula-label">Regression Slope</div>b = Σ(x−x̄)(y−ȳ) ÷ Σ(x−x̄)²</div>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- MGW1010 — MANAGEMENT -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="mgw1010" data-unit="MGW1010">
+<div class="unit-header" style="--c:var(--sage);--c-glow:var(--sage-glow);--c-dim:rgba(192,196,182,0.12);--c-weak:rgba(192,196,182,0.25)">
+<div class="unit-icon">👔</div>
+<div>
+<div class="unit-title">MGW1010 — Management</div>
+<div class="unit-code">Part A Core | Principles of Management</div>
+</div>
+<div class="unit-progress">
+<div class="unit-progress-bar"><div class="unit-progress-fill" style="width:0%" data-width="60"></div></div>
+<div class="unit-progress-label">60% Complete</div>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> SWOT Analysis</h3>
+<div class="collapsible-content">
+<div class="card">
+<div class="swot-grid">
+<div class="swot-cell swot-s">
+<div class="swot-label">✅ Strengths</div>
+<p style="font-size:.85rem;color:var(--text-secondary)">Internal positive attributes the organization possesses. Strong brand, skilled workforce, proprietary technology, good cash flow.</p>
+</div>
+<div class="swot-cell swot-w">
+<div class="swot-label">⚠️ Weaknesses</div>
+<p style="font-size:.85rem;color:var(--text-secondary)">Internal negative attributes. High debt, outdated systems, skill gaps, poor location.</p>
+</div>
+<div class="swot-cell swot-o">
+<div class="swot-label">🔵 Opportunities</div>
+<p style="font-size:.85rem;color:var(--text-secondary)">External factors to exploit. Market growth, new technology, competitor weakness, regulatory changes.</p>
+</div>
+<div class="swot-cell swot-t">
+<div class="swot-label">🔴 Threats</div>
+<p style="font-size:.85rem;color:var(--text-secondary)">External factors that could harm. New competitors, economic downturn, changing consumer tastes, supply chain risks.</p>
+</div>
+</div>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Maslow's Hierarchy</h3>
+<div class="collapsible-content">
+<div class="chart-wrap">
+<div class="chart-title">Motivation Pyramid</div>
+<div class="pyramid">
+<div class="hierarchy-step" style="background:linear-gradient(90deg,var(--cream),#d4c4b8);width:200px">🌟 Self-Actualisation</div>
+<div class="hierarchy-step" style="background:linear-gradient(90deg,var(--accent),#c4b0a0);width:260px">🏆 Esteem — Recognition, Status</div>
+<div class="hierarchy-step" style="background:linear-gradient(90deg,var(--sage),#a8ac9e);width:320px">🤝 Social — Belonging, Relationships</div>
+<div class="hierarchy-step" style="background:linear-gradient(90deg,var(--muted-warm),#a08070);width:380px">🛡️ Safety — Security, Stability</div>
+<div class="hierarchy-step" style="background:linear-gradient(90deg,var(--muted-warm),#8a6a5a);width:440px">🍞 Physiological — Food, Shelter, Water</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ACW2220 — MANAGEMENT ACCOUNTING -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="acw2220" data-unit="ACW2220">
+<div class="unit-header" style="--c:var(--cream);--c-glow:var(--cream-glow);--c-dim:rgba(234,223,219,0.12);--c-weak:rgba(234,223,219,0.25)">
+<div class="unit-icon">📈</div>
+<div>
+<div class="unit-title">ACW2220 — Management Accounting</div>
+<div class="unit-code">Part A Core | Internal Decision-Making</div>
+</div>
+<div class="unit-progress">
+<div class="unit-progress-bar"><div class="unit-progress-fill" style="width:0%" data-width="45"></div></div>
+<div class="unit-progress-label">45% Complete</div>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Cost-Volume-Profit Graph</h3>
+<div class="collapsible-content">
+<div class="chart-wrap">
+<div class="chart-title">Break-Even Analysis</div>
+<svg viewBox="0 0 600 280" class="svg-diagram">
+<line x1="60" y1="240" x2="560" y2="240" stroke="var(--text-muted)" stroke-width="1"/>
+<line x1="60" y1="240" x2="60" y2="30" stroke="var(--text-muted)" stroke-width="1"/>
+<line x1="60" y1="180" x2="560" y2="180" stroke="var(--muted-warm)" stroke-width="2" stroke-dasharray="5,3"/>
+<text x="540" y="175" fill="var(--muted-warm)" font-size="10" font-weight="700">Fixed Costs</text>
+<line x1="60" y1="180" x2="560" y2="60" stroke="var(--cream)" stroke-width="2"/>
+<text x="540" y="55" fill="var(--cream)" font-size="10" font-weight="700">Total Costs</text>
+<line x1="60" y1="240" x2="560" y2="40" stroke="var(--sage)" stroke-width="2"/>
+<text x="540" y="35" fill="var(--sage)" font-size="10" font-weight="700">Total Revenue</text>
+<circle cx="310" cy="120" r="6" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"/>
+<line x1="310" y1="120" x2="310" y2="240" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3,2"/>
+<text x="310" y="255" text-anchor="middle" fill="var(--accent)" font-size="11" font-weight="700">Break-Even Volume</text>
+<polygon points="310,120 560,40 560,60" fill="var(--sage)" opacity="0.12"/>
+<text x="480" y="80" fill="var(--sage)" font-size="10" font-weight="700">Profit Zone</text>
+<polygon points="60,240 310,120 310,240" fill="var(--muted-warm)" opacity="0.08"/>
+<text x="150" y="200" fill="var(--muted-warm)" font-size="10" font-weight="700">Loss Zone</text>
+<text x="310" y="275" text-anchor="middle" fill="var(--text-muted)" font-size="12">Volume (Units) →</text>
+<text x="15" y="130" text-anchor="middle" fill="var(--text-muted)" font-size="12" transform="rotate(-90 15 130)">Dollars ($) →</text>
+</svg>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions — Click cards to flip</h3>
+<div class="collapsible-content open">
+<div class="flip-grid" id="acw2220-defs"></div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ETC2440 — ANALYTICS -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="etc2440" data-unit="ETC2440">
+<div class="unit-header" style="--c:var(--accent);--c-glow:var(--accent-glow);--c-dim:rgba(216,194,181,0.12);--c-weak:rgba(216,194,181,0.25)">
+<div class="unit-icon">🔬</div>
+<div>
+<div class="unit-title">ETC2440 — Business Analytics & Econometrics</div>
+<div class="unit-code">Part A Core | Data & Modelling</div>
+</div>
+<div class="unit-progress">
+<div class="unit-progress-bar"><div class="unit-progress-fill" style="width:0%" data-width="30"></div></div>
+<div class="unit-progress-label">30% Complete</div>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Analytics Maturity</h3>
+<div class="collapsible-content">
+<div class="chart-wrap">
+<div class="chart-title">From Descriptive to Prescriptive</div>
+<div class="pyramid">
+<div class="hierarchy-step" style="background:linear-gradient(90deg,var(--cream),#d4c4b8);width:240px">🔮 Prescriptive — What SHOULD we do?</div>
+<div class="hierarchy-step" style="background:linear-gradient(90deg,var(--accent),#c4b0a0);width:300px">🔮 Predictive — What WILL happen?</div>
+<div class="hierarchy-step" style="background:linear-gradient(90deg,var(--sage),#a8ac9e);width:360px">📊 Diagnostic — Why DID it happen?</div>
+<div class="hierarchy-step" style="background:linear-gradient(90deg,var(--muted-warm),#a08070);width:420px">📋 Descriptive — What HAPPENED?</div>
+</div>
+</div>
+</div>
+
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions — Click cards to flip</h3>
+<div class="collapsible-content open">
+<div class="flip-grid" id="etc2440-defs"></div>
+</div>
+</div>
+
+</div>
+
+<button class="back-to-top" id="btt" onclick="window.scrollTo(0,0)">↑</button>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   📝 USER CONFIG — EDIT EVERYTHING HERE
+   ═══════════════════════════════════════════════════════════════ */
+
+const NOTES_CONFIG = {
+  // Progress bars for each unit (0-100)
+  progress: {
+    ACW1120: 78,
+    BFW1001: 65,
+    BTW1042: 92,
+    ECM1953: 54,
+    ETW1001: 70,
+    MGW1010: 60,
+    ACW2220: 45,
+    ETC2440: 30
+  },
+
+  // Flip-card definitions per unit
+  // Each: { term, meaning, examNote? }
+  definitions: {
+    acw1120: [
+      { term: "Asset", meaning: "Present economic resource controlled by entity from past events, expected future economic benefit.", examNote: "Must have control + past event + future benefit" },
+      { term: "Liability", meaning: "Present obligation to transfer economic resource from past events.", examNote: "Legal OR constructive obligation" },
+      { term: "Equity", meaning: "Residual interest: Assets minus Liabilities.", examNote: "Claim after all liabilities settled" },
+      { term: "Revenue", meaning: "Income from ordinary activities.", examNote: "Recognised when performance obligation satisfied (IFRS 15)" },
+      { term: "Expense", meaning: "Decreases in economic benefits.", examNote: "Includes losses; matching principle" },
+      { term: "Accrual", meaning: "Revenue/expense recognised when earned/incurred, not when cash moves.", examNote: "Core of accrual accounting" },
+      { term: "Deferred Revenue", meaning: "Cash received before revenue earned.", examNote: "Liability until performance" },
+      { term: "Depreciation", meaning: "Systematic allocation of depreciable amount over useful life.", examNote: "Cost allocation, NOT valuation" },
+      { term: "Materiality", meaning: "Omitting/misstating could influence decisions.", examNote: "Entity-specific; part of relevance" }
+    ],
+    bfw1001: [
+      { term: "Time Value of Money", meaning: "A dollar today is worth more than a dollar in the future due to earning potential." },
+      { term: "Present Value (PV)", meaning: "Current worth of future cash flows discounted at appropriate rate." },
+      { term: "Future Value (FV)", meaning: "Value of current amount at a future date given growth rate." },
+      { term: "Annuity", meaning: "Series of equal cash flows at regular intervals." },
+      { term: "Perpetuity", meaning: "Annuity with infinite life." },
+      { term: "NPV", meaning: "Sum of discounted future cash flows minus initial investment." },
+      { term: "IRR", meaning: "Discount rate where NPV = 0." },
+      { term: "WACC", meaning: "Weighted average cost of capital — firm's blended cost of financing." },
+      { term: "Beta", meaning: "Measure of systematic risk relative to market." },
+      { term: "CAPM", meaning: "Expected return = Rf + β(Rm − Rf)." }
+    ],
+    btw1042: [
+      { term: "Offer", meaning: "Clear indication of willingness to enter a contract on specified terms, with intention to be bound if accepted." },
+      { term: "Acceptance", meaning: "Unqualified agreement to the terms of an offer. Must be communicated to the offeror." },
+      { term: "Consideration", meaning: "Something of value exchanged between parties. Must be sufficient but need not be adequate." },
+      { term: "Intention to Create Legal Relations", meaning: "Presumed in commercial agreements; presumed NOT in domestic/social agreements." },
+      { term: "Capacity", meaning: "Legal ability to enter contract. Minors, mentally impaired may lack full capacity." },
+      { term: "Misrepresentation", meaning: "False statement of fact inducing contract. Types: fraudulent, negligent, innocent." },
+      { term: "Duress", meaning: "Illegitimate pressure/violence/threats forcing entry into contract. Makes contract voidable." },
+      { term: "Undue Influence", meaning: "Abuse of special relationship of trust to influence contractual decision." }
+    ],
+    ecm1953: [
+      { term: "Law of Demand", meaning: "As price increases, quantity demanded decreases (ceteris paribus). Downward sloping demand curve." },
+      { term: "Law of Supply", meaning: "As price increases, quantity supplied increases (ceteris paribus). Upward sloping supply curve." },
+      { term: "Equilibrium", meaning: "Price where quantity demanded = quantity supplied. No inherent pressure to change." },
+      { term: "Elasticity", meaning: "Responsiveness of quantity to price change. Ed > 1 = elastic; Ed < 1 = inelastic." },
+      { term: "GDP", meaning: "Total market value of all final goods/services produced within a country in a period." },
+      { term: "Inflation", meaning: "Sustained increase in general price level. Measured by CPI." },
+      { term: "Unemployment", meaning: "Those actively seeking work but unable to find employment." }
+    ],
+    acw2220: [
+      { term: "Variable Cost", meaning: "Changes in direct proportion to activity level (e.g., direct materials, direct labour)." },
+      { term: "Fixed Cost", meaning: "Remains constant regardless of activity level within relevant range (e.g., rent, salaries)." },
+      { term: "Contribution Margin", meaning: "Sales revenue minus variable costs. Amount available to cover fixed costs and profit." },
+      { term: "Break-even Point", meaning: "Output level where total revenue = total costs (profit = 0)." },
+      { term: "Relevant Cost", meaning: "Future cost that differs between alternatives. Sunk costs are NEVER relevant." },
+      { term: "Opportunity Cost", meaning: "Benefit foregone by choosing one alternative over another. Always relevant." }
+    ],
+    etc2440: [
+      { term: "Descriptive Analytics", meaning: "What happened? Summary statistics, dashboards, visualisation." },
+      { term: "Predictive Analytics", meaning: "What will happen? Regression, time-series, machine learning." },
+      { term: "Prescriptive Analytics", meaning: "What should we do? Optimisation, simulation." },
+      { term: "OLS Regression", meaning: "Ordinary Least Squares — minimises sum of squared residuals." },
+      { term: "R-squared", meaning: "Proportion of variance in dependent variable explained by model." },
+      { term: "Heteroskedasticity", meaning: "Non-constant variance of error terms. Violates CLRM assumption 5." },
+      { term: "Multicollinearity", meaning: "High correlation between independent variables. Inflates standard errors." }
+    ]
+  },
+
+  // Formulas per unit
+  formulas: {
+    acw1120: [
+      { label: "Accounting Equation", formula: "Assets = Liabilities + Equity" },
+      { label: "Expanded", formula: "Assets = Liabilities + (Capital + Revenue − Expenses − Drawings)" },
+      { label: "Straight-Line Depreciation", formula: "(Cost − Residual Value) ÷ Useful Life" },
+      { label: "Gross Profit", formula: "Revenue − Cost of Sales" },
+      { label: "Operating Profit", formula: "Gross Profit − Operating Expenses" },
+      { label: "Working Capital", formula: "Current Assets − Current Liabilities" },
+      { label: "Cost of Sales", formula: "Opening Inventory + Purchases − Closing Inventory" }
+    ],
+    bfw1001: [
+      { label: "Future Value", formula: "FV = PV × (1 + r)^n" },
+      { label: "Present Value", formula: "PV = FV ÷ (1 + r)^n" },
+      { label: "Annuity PV", formula: "PV = PMT × [1 − (1 + r)^−n] ÷ r" },
+      { label: "Perpetuity PV", formula: "PV = PMT ÷ r" },
+      { label: "Growing Perpetuity", formula: "PV = PMT ÷ (r − g)" },
+      { label: "NPV", formula: "NPV = −Initial Investment + Σ[CFt ÷ (1 + r)^t]" },
+      { label: "CAPM", formula: "E(R) = Rf + β × (Rm − Rf)" },
+      { label: "WACC", formula: "WACC = (E/V) × Re + (D/V) × Rd × (1 − Tc)" }
+    ]
+  },
+
+  // MCQs per unit
+  // Each: { question, options: ["A) ...", "B) ..."], correct: 1 (0-based index), explanation: "..." }
+  mcqs: {
+    acw1120: [
+      {
+        question: "A company receives $12,000 cash for services to be performed next month. Correct entry?",
+        options: ["Dr Cash $12,000; Cr Revenue $12,000", "Dr Cash $12,000; Cr Unearned Revenue $12,000", "Dr Revenue $12,000; Cr Cash $12,000", "Dr Prepaid Revenue $12,000; Cr Cash $12,000"],
+        correct: 1,
+        explanation: "Cash received before earning = liability (Unearned Revenue). Revenue recognition principle — recognise when earned, not when cash received."
+      },
+      {
+        question: "Which qualitative characteristic requires information to be complete, neutral, and free from error?",
+        options: ["Relevance", "Comparability", "Faithful Representation", "Timeliness"],
+        correct: 2,
+        explanation: "Faithful representation = complete, neutral, and free from error. Must reflect economic substance, not merely legal form."
+      },
+      {
+        question: "On 1 June, XYZ pays $24,000 for a 12-month insurance policy. Adjusting entry on 30 June?",
+        options: ["Dr Insurance Expense $24,000; Cr Prepaid Insurance $24,000", "Dr Insurance Expense $2,000; Cr Prepaid Insurance $2,000", "Dr Prepaid Insurance $2,000; Cr Insurance Expense $2,000", "No entry needed"],
+        correct: 1,
+        explanation: "$24,000 ÷ 12 = $2,000 per month. One month has expired. Prepaid Insurance was debited on 1 June; now reduce it by $2,000 and recognise expense."
+      }
+    ]
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   🔧 RENDERING ENGINE — DO NOT EDIT BELOW
+   ═══════════════════════════════════════════════════════════════ */
+
+// Render progress bars
+function renderProgress() {
+  document.querySelectorAll('.unit-progress-fill').forEach(bar => {
+    const w = bar.dataset.width;
+    setTimeout(() => { bar.style.width = w + '%'; }, 300);
+  });
+}
+
+// Render flip cards
+function renderFlipCards(unitId, defs) {
+  const container = document.getElementById(unitId + '-defs');
+  if (!container || !defs) return;
+  container.innerHTML = defs.map((d, i) => `
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="flip-card-term">${d.term}</div>
+          <div class="flip-card-hint">Click to reveal definition →</div>
+        </div>
+        <div class="flip-card-back">
+          <div class="flip-card-meaning">${d.meaning}</div>
+          ${d.examNote ? `<div class="flip-card-hint" style="color:var(--muted-warm);margin-top:10px">💡 Exam: ${d.examNote}</div>` : ''}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Render formulas
+function renderFormulas(unitId, formulas) {
+  const container = document.getElementById(unitId + '-formulas');
+  if (!container || !formulas) return;
+  container.innerHTML = formulas.map(f => `
+    <div class="formula">
+      <div class="formula-label">${f.label}</div>
+      ${f.formula}
+    </div>
+  `).join('');
+}
+
+// Render MCQs with scoring
+const mcqState = {};
+function renderMCQs(unitId, mcqs) {
+  const container = document.getElementById(unitId + '-mcqs');
+  if (!container || !mcqs) return;
+  container.innerHTML = mcqs.map((q, qi) => {
+    const qid = `${unitId}-${qi}`;
+    mcqState[qid] = { answered: false, correct: false };
+    return `
+      <div class="mcq" data-qid="${qid}">
+        <div class="mcq-question">Q${qi + 1}: ${q.question}</div>
+        <ul class="mcq-options">
+          ${q.options.map((opt, oi) => `
+            <li onclick="selectOption('${qid}', ${oi}, ${q.correct}, '${unitId}')">${opt}</li>
+          `).join('')}
+        </ul>
+        <div class="mcq-answer" id="ans-${qid}">
+          <strong>Answer: ${String.fromCharCode(65 + q.correct)}</strong><br>
+          ${q.explanation}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function selectOption(qid, selected, correct, unitId) {
+  if (mcqState[qid].answered) return;
+  mcqState[qid].answered = true;
+  mcqState[qid].correct = (selected === correct);
+
+  const mcqEl = document.querySelector(`.mcq[data-qid="${qid}"]`);
+  const options = mcqEl.querySelectorAll('.mcq-options li');
+  options[selected].classList.add(selected === correct ? 'correct' : 'wrong');
+  if (selected !== correct) options[correct].classList.add('correct');
+
+  document.getElementById('ans-' + qid).classList.add('show');
+  updateMCQScore(unitId);
+}
+
+function updateMCQScore(unitId) {
+  const prefix = unitId + '-';
+  const keys = Object.keys(mcqState).filter(k => k.startsWith(prefix));
+  const answered = keys.filter(k => mcqState[k].answered);
+  const correct = answered.filter(k => mcqState[k].correct);
+  if (answered.length === 0) return;
+
+  const scoreEl = document.getElementById(unitId + '-score');
+  if (scoreEl) {
+    scoreEl.style.display = 'block';
+    scoreEl.innerHTML = `📊 Score: <strong>${correct.length} / ${answered.length}</strong> correct (${Math.round(correct.length / answered.length * 100)}%)`;
+  }
+}
+
+// Collapsible sections
+function toggleSection(header) {
+  header.classList.toggle('open');
+  const content = header.nextElementSibling;
+  content.classList.toggle('open');
+}
+
+// Search functionality
+function initSearch() {
+  const input = document.getElementById('searchInput');
+  input.addEventListener('input', e => {
+    const term = e.target.value.toLowerCase().trim();
+    document.querySelectorAll('.unit-section').forEach(section => {
+      const text = section.textContent.toLowerCase();
+      if (term === '' || text.includes(term)) {
+        section.classList.remove('hidden-search');
+      } else {
+        section.classList.add('hidden-search');
+      }
+    });
+  });
+}
+
+// Back to top
+function initBackToTop() {
+  const btt = document.getElementById('btt');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) btt.classList.add('visible');
+    else btt.classList.remove('visible');
+  });
+}
+
+// Initialize
+ document.addEventListener('DOMContentLoaded', () => {
+  renderProgress();
+  initSearch();
+  initBackToTop();
+
+  // Render all definitions
+  Object.keys(NOTES_CONFIG.definitions).forEach(unit => {
+    renderFlipCards(unit, NOTES_CONFIG.definitions[unit]);
+  });
+
+  // Render all formulas
+  Object.keys(NOTES_CONFIG.formulas).forEach(unit => {
+    renderFormulas(unit, NOTES_CONFIG.formulas[unit]);
+  });
+
+  // Render all MCQs
+  Object.keys(NOTES_CONFIG.mcqs).forEach(unit => {
+    renderMCQs(unit, NOTES_CONFIG.mcqs[unit]);
+  });
+});
+</script>
+</body>
+</html>

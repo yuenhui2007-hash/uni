@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monash B2026 Study Portal - Practice Questions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0a0a0f',
+                        surface: '#111118',
+                        text: '#e2e2e8',
+                        accent: '#60a5fa',
+                        green: '#9ca3af',
+                        purple: '#fbbf24',
+                        yellow: '#fbbf24',
+                        red: '#f87171',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0f;
+            color: #e2e2e8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(107, 140, 255, 0.1);
+        }
+        .subject-card {
+            transition: all 0.3s ease;
+        }
+        .subject-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(107, 140, 255, 0.15);
+        }
+        .question-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .question-card:hover {
+            border-left-color: #60a5fa;
+        }
+        .difficulty-easy { border-left-color: #9ca3af; }
+        .difficulty-medium { border-left-color: #fbbf24; }
+        .difficulty-hard { border-left-color: #f87171; }
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+        .answer-hidden {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+        }
+        .answer-visible {
+            max-height: 2000px;
+            padding: 1.5rem;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+        }
+        .mcq-option {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .mcq-option:hover {
+            background: rgba(107, 140, 255, 0.1);
+        }
+        .mcq-selected {
+            background: rgba(107, 140, 255, 0.2) !important;
+            border-color: #60a5fa !important;
+        }
+        .mcq-correct {
+            background: rgba(92, 230, 160, 0.2) !important;
+            border-color: #9ca3af !important;
+        }
+        .mcq-wrong {
+            background: rgba(248, 113, 113, 0.2) !important;
+            border-color: #f87171 !important;
+        }
+        .bookmark-btn {
+            transition: all 0.2s ease;
+        }
+        .bookmark-btn.bookmarked {
+            color: #fbbf24;
+        }
+        .review-btn {
+            transition: all 0.2s ease;
+        }
+        .review-btn.marked {
+            color: #fbbf24;
+        }
+        .tag {
+            transition: all 0.2s ease;
+        }
+        .tag:hover {
+            transform: scale(1.05);
+        }
+        .chart-container {
+            position: relative;
+            height: 200px;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(107, 140, 255, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(107, 140, 255, 0.6); }
+        }
+        .timer-active {
+            animation: pulse-glow 2s infinite;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="glass sticky top-0 z-50 border-b border-accent/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="text-accent font-bold mr-4 hover:underline">← Back</a><div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-accent text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-text">Monash B2026</h1>
+                        <p class="text-xs text-text/60">Study Portal</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <!-- Timer -->
+                    <div id="timer" class="hidden flex items-center space-x-2 px-4 py-2 rounded-lg bg-surface border border-accent/20 timer-active">
+                        <i class="fas fa-clock text-accent"></i>
+                        <span id="timer-display" class="font-mono text-lg font-bold text-accent">00:00:00</span>
+                        <button onclick="toggleTimer()" id="timer-btn" class="text-xs px-2 py-1 rounded bg-accent/20 text-accent hover:bg-accent/30">
+                            Pause
+                        </button>
+                    </div>
+                    <button onclick="startTimer()" id="start-timer-btn" class="flex items-center space-x-2 px-4 py-2 rounded-lg bg-accent/20 text-accent hover:bg-accent/30 transition">
+                        <i class="fas fa-play"></i>
+                        <span>Start Timer</span>
+                    </button>
+                    <!-- Overall Progress -->
+                    <div class="hidden md:flex items-center space-x-3 px-4 py-2 rounded-lg bg-surface border border-accent/10">
+                        <div class="text-sm">
+                            <span class="text-text/60">Progress:</span>
+                            <span id="overall-progress" class="font-bold text-accent">0/0</span>
+                        </div>
+                        <div class="w-24 h-2 rounded-full bg-text/10 overflow-hidden">
+                            <div id="overall-progress-bar" class="h-full bg-accent rounded-full progress-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Stats Dashboard -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="glass rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-text/60 text-sm">Questions Completed</p>
+                        <p id="stat-completed" class="text-2xl font-bold text-accent">0</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-check-circle text-accent text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="glass rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-text/60 text-sm">Accuracy</p>
+                        <p id="stat-accuracy" class="text-2xl font-bold text-green">0%</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg bg-green/20 flex items-center justify-center">
+                        <i class="fas fa-bullseye text-green text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="glass rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-text/60 text-sm">Bookmarked</p>
+                        <p id="stat-bookmarked" class="text-2xl font-bold text-yellow">0</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg bg-yellow/20 flex items-center justify-center">
+                        <i class="fas fa-bookmark text-yellow text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="glass rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-text/60 text-sm">For Review</p>
+                        <p id="stat-review" class="text-2xl font-bold text-purple">0</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg bg-purple/20 flex items-center justify-center">
+                        <i class="fas fa-flag text-purple text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subject Selection & Filters -->
+        <div class="glass rounded-xl p-6 mb-8">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <!-- Subject Tabs -->
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold mb-4 text-text">Select Subject</h3>
+                    <div class="flex flex-wrap gap-2" id="subject-tabs">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+                <!-- Filters -->
+                <div class="lg:w-80 space-y-4">
+                    <h3 class="text-lg font-bold text-text">Filters</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterByDifficulty('all')" class="filter-diff px-3 py-1 rounded-full text-sm bg-accent text-dark font-medium transition" data-diff="all">All</button>
+                        <button onclick="filterByDifficulty('easy')" class="filter-diff px-3 py-1 rounded-full text-sm bg-surface border border-green/30 text-green transition" data-diff="easy">Easy</button>
+                        <button onclick="filterByDifficulty('medium')" class="filter-diff px-3 py-1 rounded-full text-sm bg-surface border border-yellow/30 text-yellow transition" data-diff="medium">Medium</button>
+                        <button onclick="filterByDifficulty('hard')" class="filter-diff px-3 py-1 rounded-full text-sm bg-surface border border-red/30 text-red transition" data-diff="hard">Hard</button>
+                    </div>
+                    <div class="flex flex-wrap gap-2" id="topic-filters">
+                        <!-- Generated by JS -->
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="filterBookmarked()" id="filter-bookmark-btn" class="px-3 py-1 rounded-full text-sm bg-surface border border-yellow/30 text-yellow transition">
+                            <i class="fas fa-bookmark mr-1"></i>Bookmarked
+                        </button>
+                        <button onclick="filterReview()" id="filter-review-btn" class="px-3 py-1 rounded-full text-sm bg-surface border border-purple/30 text-purple transition">
+                            <i class="fas fa-flag mr-1"></i>Review
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subject Progress & Difficulty Chart -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8" id="subject-stats" style="display:none;">
+            <div class="lg:col-span-2 glass rounded-xl p-6">
+                <h3 class="text-lg font-bold mb-4 text-text">Subject Progress</h3>
+                <div id="progress-bars" class="space-y-3">
+                    <!-- Generated by JS -->
+                </div>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-lg font-bold mb-4 text-text">Difficulty Distribution</h3>
+                <div class="chart-container">
+                    <canvas id="difficulty-chart"></canvas>
+                </div>
+                <div class="flex justify-center gap-4 mt-4 text-sm">
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-green"></span>Easy</span>
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-yellow"></span>Medium</span>
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-red"></span>Hard</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Questions Container -->
+        <div id="questions-container" class="space-y-6">
+            <!-- Generated by JS -->
+        </div>
+
+        <!-- Score Summary Modal -->
+        <div id="score-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm">
+            <div class="glass rounded-xl p-8 max-w-md w-full mx-4 transform scale-100">
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-trophy text-accent text-3xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-2 text-text">Session Complete!</h2>
+                    <div class="grid grid-cols-2 gap-4 my-6">
+                        <div class="bg-surface rounded-lg p-4">
+                            <p class="text-text/60 text-sm">Score</p>
+                            <p id="modal-score" class="text-3xl font-bold text-accent">0/0</p>
+                        </div>
+                        <div class="bg-surface rounded-lg p-4">
+                            <p class="text-text/60 text-sm">Accuracy</p>
+                            <p id="modal-accuracy" class="text-3xl font-bold text-green">0%</p>
+                        </div>
+                        <div class="bg-surface rounded-lg p-4">
+                            <p class="text-text/60 text-sm">Time</p>
+                            <p id="modal-time" class="text-xl font-bold text-text">00:00</p>
+                        </div>
+                        <div class="bg-surface rounded-lg p-4">
+                            <p class="text-text/60 text-sm">Difficulty</p>
+                            <p id="modal-difficulty" class="text-xl font-bold text-yellow">Mixed</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="closeScoreModal()" class="flex-1 py-2 rounded-lg bg-surface border border-accent/30 text-accent hover:bg-accent/10 transition">
+                            Continue
+                        </button>
+                        <button onclick="resetSession()" class="flex-1 py-2 rounded-lg bg-accent text-dark font-medium hover:bg-accent/90 transition">
+                            New Session
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===================== DATA =====================
+        const subjects = [
+            { code: 'ACW1120', name: 'Financial Accounting', color: 'accent' },
+            { code: 'ACW2220', name: 'Management Accounting', color: 'green' },
+            { code: 'BFW1001', name: 'Foundations of Finance', color: 'purple' },
+            { code: 'BTW1042', name: 'Business Law', color: 'yellow' },
+            { code: 'ECM1953', name: 'Economics', color: 'red' },
+            { code: 'ETW1001', name: 'Business Statistics', color: 'accent' },
+            { code: 'MGW1010', name: 'Management', color: 'green' },
+            { code: 'ETC2440', name: 'Analytics & Econometrics', color: 'purple' },
+        ];
+
+        const questionsData = {
+            'ACW1120': [
+                {
+                    id: 'ACW1120-1',
+                    type: 'mcq',
+                    difficulty: 'easy',
+                    topic: 'Financial Statements',
+                    question: 'Which of the following is NOT a component of the Statement of Financial Position?',
+                    options: ['Assets', 'Liabilities', 'Equity', 'Revenue'],
+                    correct: 3,
+                    explanation: 'Revenue is reported in the Statement of Profit or Loss, not the Statement of Financial Position. The Statement of Financial Position shows Assets, Liabilities, and Equity at a point in time.'
+                },
+                {
+                    id: 'ACW1120-2',
+                    type: 'calculation',
+                    difficulty: 'medium',
+                    topic: 'Depreciation',
+                    question: 'A company purchases equipment for $50,000 with an estimated useful life of 5 years and a residual value of $5,000. Calculate the annual depreciation expense using the straight-line method.',
+                    answer: '$9,000 per year',
+                    working: 'Straight-line depreciation = (Cost - Residual Value) / Useful Life\n= ($50,000 - $5,000) / 5\n= $45,000 / 5\n= $9,000 per year',
+                    explanation: 'The straight-line method allocates the depreciable amount evenly over the useful life. The depreciable amount is cost minus residual value.'
+                },
+                {
+                    id: 'ACW1120-3',
+                    type: 'theory',
+                    difficulty: 'medium',
+                    topic: 'Accounting Principles',
+                    question: 'Explain the accrual basis of accounting and how it differs from cash basis accounting. Provide examples.',
+                    answer: 'Accrual accounting recognizes revenues when earned and expenses when incurred, regardless of cash flow. Cash basis recognizes transactions only when cash moves. Example: Revenue is recognized when goods are delivered (accrual), not when payment is received (cash).',
+                    explanation: 'Accrual accounting provides a more accurate picture of financial performance by matching revenues with related expenses in the correct period.'
+                },
+                {
+                    id: 'ACW1120-4',
+                    type: 'mcq',
+                    difficulty: 'easy',
+                    topic: 'Double Entry',
+                    question: 'When a company pays off an accounts payable, which accounts are affected?',
+                    options: ['Debit Cash, Credit Accounts Payable', 'Debit Accounts Payable, Credit Cash', 'Debit Expense, Credit Cash', 'Debit Accounts Receivable, Credit Cash'],
+                    correct: 1,
+                    explanation: 'Paying off a liability reduces Accounts Payable (debit) and reduces Cash (credit). This follows the basic accounting equation and double-entry principles.'
+                },
+                {
+                    id: 'ACW1120-5',
+                    type: 'calculation',
+                    difficulty: 'hard',
+                    topic: 'Inventory Valuation',
+                    question: 'Using the following data, calculate ending inventory and COGS under FIFO and weighted average methods:\n\nBeginning inventory: 100 units @ $10\nPurchase 1: 200 units @ $12\nPurchase 2: 150 units @ $15\nSales: 350 units',
+                    answer: 'FIFO: Ending Inventory = $1,500, COGS = $4,200\nWeighted Average: Ending Inventory = $1,386, COGS = $3,864',
+                    working: 'FIFO:\nCOGS = (100 × $10) + (200 × $12) + (50 × $15) = $1,000 + $2,400 + $750 = $4,200\nEnding Inventory = 100 × $15 = $1,500\n\nWeighted Average:\nTotal Cost = $1,000 + $2,400 + $2,250 = $5,650\nTotal Units = 450\nAverage Cost = $5,650 / 450 = $12.56\nCOGS = 350 × $12.56 = $3,864\nEnding Inventory = 100 × $12.56 = $1,386',
+                    explanation: 'FIFO assumes oldest inventory is sold first. Weighted average smooths out price fluctuations by using an average cost.'
+                },
+                {
+                    id: 'ACW1120-6',
+                    type: 'truefalse',
+                    difficulty: 'easy',
+                    topic: 'Financial Statements',
+                    question: 'The Statement of Changes in Equity shows only the retained earnings movement.',
+                    answer: false,
+                    explanation: 'The Statement of Changes in Equity shows ALL components of equity, including share capital, reserves, retained earnings, and other comprehensive income - not just retained earnings.'
+                },
+                {
+                    id: 'ACW1120-7',
+                    type: 'case',
+                    difficulty: 'hard',
+                    topic: 'Financial Analysis',
+                    question: 'Case Study: ABC Ltd has the following financial data:\nCurrent Assets: $200,000\nCurrent Liabilities: $120,000\nInventory: $80,000\nTotal Assets: $500,000\nTotal Liabilities: $300,000\nNet Income: $50,000\n\nCalculate and interpret:\n1. Current ratio\n2. Quick ratio\n3. Debt-to-assets ratio\n4. Return on assets',
+                    answer: '1. Current ratio = 1.67 (adequate liquidity)\n2. Quick ratio = 1.00 (tight but acceptable)\n3. Debt-to-assets = 0.60 (moderate leverage)\n4. ROA = 10% (reasonable performance)',
+                    working: 'Current Ratio = Current Assets / Current Liabilities = $200,000 / $120,000 = 1.67\n\nQuick Ratio = (Current Assets - Inventory) / Current Liabilities = ($200,000 - $80,000) / $120,000 = 1.00\n\nDebt-to-Assets = Total Liabilities / Total Assets = $300,000 / $500,000 = 0.60 or 60%\n\nROA = Net Income / Total Assets = $50,000 / $500,000 = 10%',
+                    explanation: 'The company has adequate short-term liquidity (current ratio > 1.5). The quick ratio of 1.00 indicates that without selling inventory, the company can just cover current liabilities. The 60% debt ratio suggests moderate financial leverage. The 10% ROA is reasonable but should be compared to industry benchmarks.'
+                },
+                {
+                    id: 'ACW1120-8',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Revenue Recognition',
+                    question: 'Under AASB 15, when should revenue from a 2-year software subscription be recognized?',
+                    options: ['Immediately when payment is received', 'Over the 2-year subscription period', 'At the end of the 2-year period', 'When the software is first delivered'],
+                    correct: 1,
+                    explanation: 'AASB 15 requires revenue to be recognized as the performance obligation is satisfied over time. For a subscription, this means recognizing revenue over the subscription period.'
+                },
+                {
+                    id: 'ACW1120-9',
+                    type: 'calculation',
+                    difficulty: 'medium',
+                    topic: 'Bad Debts',
+                    question: 'A company has accounts receivable of $100,000 and estimates that 5% will be uncollectible. The allowance for doubtful debts currently has a credit balance of $2,000. Calculate the bad debt expense for the period.',
+                    answer: '$3,000',
+                    working: 'Required ending balance = $100,000 × 5% = $5,000 (credit)\nCurrent balance = $2,000 (credit)\nBad Debt Expense = $5,000 - $2,000 = $3,000',
+                    explanation: 'The percentage of receivables method calculates the required ending balance. The bad debt expense is the amount needed to adjust the allowance account to this required balance.'
+                },
+                {
+                    id: 'ACW1120-10',
+                    type: 'theory',
+                    difficulty: 'hard',
+                    topic: 'Accounting Standards',
+                    question: 'Discuss the conceptual framework for financial reporting. What are the qualitative characteristics of useful financial information?',
+                    answer: 'The Conceptual Framework provides the foundation for Australian Accounting Standards.\n\nFundamental Qualitative Characteristics:\n1. Relevance - information must be capable of making a difference in decisions\n2. Faithful Representation - information must be complete, neutral, and free from error\n\nEnhancing Qualitative Characteristics:\n1. Comparability\n2. Verifiability\n3. Timeliness\n4. Understandability',
+                    explanation: 'The Conceptual Framework ensures consistency in standard-setting and helps preparers when no specific standard applies. The qualitative characteristics form a hierarchy where relevance and faithful representation are fundamental.'
+                },
+                {
+                    id: 'ACW1120-11',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Leases',
+                    question: 'Under AASB 16, a lessee must recognize:',
+                    options: ['Only an expense in profit or loss', 'A right-of-use asset and a lease liability', 'Only a note disclosure', 'An intangible asset'],
+                    correct: 1,
+                    explanation: 'AASB 16 requires lessees to recognize a right-of-use asset and a lease liability for almost all leases (except short-term and low-value leases). This brings most leases onto the balance sheet.'
+                },
+                {
+                    id: 'ACW1120-12',
+                    type: 'calculation',
+                    difficulty: 'hard',
+                    topic: 'Investments',
+                    question: 'Company X acquires 30% of Company Y for $300,000. In the first year, Company Y reports net income of $200,000 and pays dividends of $80,000. Calculate the carrying amount of the investment at year-end using the equity method.',
+                    answer: '$336,000',
+                    working: 'Initial cost: $300,000\nAdd: Share of net income (30% × $200,000) = $60,000\nLess: Share of dividends (30% × $80,000) = $24,000\nCarrying amount = $300,000 + $60,000 - $24,000 = $336,000',
+                    explanation: 'Under the equity method, the investment is initially recognized at cost and subsequently adjusted for the investor\'s share of the investee\'s profits/losses and dividends received.'
+                }
+            ],
+            'ACW2220': [
+                {
+                    id: 'ACW2220-1',
+                    type: 'mcq',
+                    difficulty: 'easy',
+                    topic: 'Cost Classification',
+                    question: 'Which of the following is a fixed cost?',
+                    options: ['Direct materials', 'Factory rent', 'Sales commissions', 'Packaging costs'],
+                    correct: 1,
+                    explanation: 'Factory rent remains constant regardless of production volume, making it a fixed cost. Direct materials, sales commissions, and packaging costs vary with activity levels.'
+                },
+                {
+                    id: 'ACW2220-2',
+                    type: 'calculation',
+                    difficulty: 'medium',
+                    topic: 'Cost-Volume-Profit',
+                    question: 'A product sells for $50 per unit, variable costs are $30 per unit, and fixed costs are $20,000 per month. Calculate:\n1. Contribution margin per unit\n2. Break-even point in units\n3. Units needed for a target profit of $10,000',
+                    answer: '1. $20 per unit\n2. 1,000 units\n3. 1,500 units',
+                    working: 'Contribution Margin = Selling Price - Variable Cost = $50 - $30 = $20 per unit\n\nBreak-even = Fixed Costs / CM per unit = $20,000 / $20 = 1,000 units\n\nTarget Profit Units = (Fixed Costs + Target Profit) / CM per unit = ($20,000 + $10,000) / $20 = 1,500 units',
+                    explanation: 'CVP analysis helps managers understand the relationship between costs, volume, and profit. The contribution margin is key to these calculations.'
+                },
+                {
+                    id: 'ACW2220-3',
+                    type: 'theory',
+                    difficulty: 'medium',
+                    topic: 'Budgeting',
+                    question: 'Explain the differences between static and flexible budgets. When is each most appropriate?',
+                    answer: 'Static Budget: Prepared for a single planned level of activity. Does not change with actual activity levels. Best for planning and when output is predictable.\n\nFlexible Budget: Adjusts based on actual activity levels. Shows what costs should have been at the actual output level. Better for performance evaluation and control.',
+                    explanation: 'Flexible budgets provide more meaningful variance analysis because they compare actual results to budgeted amounts at the same activity level, separating volume variances from efficiency/price variances.'
+                },
+                {
+                    id: 'ACW2220-4',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Variance Analysis',
+                    question: 'An unfavorable direct materials price variance occurs when:',
+                    options: ['Actual quantity used exceeds standard quantity', 'Actual price paid exceeds standard price', 'Actual production exceeds budgeted production', 'Standard price exceeds actual price'],
+                    correct: 1,
+                    explanation: 'Price variance = (Actual Price - Standard Price) × Actual Quantity. When actual price > standard price, the variance is unfavorable.'
+                },
+                {
+                    id: 'ACW2220-5',
+                    type: 'calculation',
+                    difficulty: 'hard',
+                    topic: 'Variance Analysis',
+                    question: 'Given the following data:\nStandard: 2 kg of material @ $5/kg per unit\nActual: Produced 1,000 units, used 2,100 kg, paid $10,290\n\nCalculate:\n1. Materials price variance\n2. Materials efficiency variance\n3. Total materials variance',
+                    answer: '1. Price variance = $210 Favorable\n2. Efficiency variance = $500 Unfavorable\n3. Total variance = $290 Unfavorable',
+                    working: 'Actual Price = $10,290 / 2,100 kg = $4.90/kg\n\nPrice Variance = (Actual Price - Standard Price) × Actual Quantity\n= ($4.90 - $5.00) × 2,100 = -$210 (Favorable)\n\nStandard Quantity = 1,000 units × 2 kg = 2,000 kg\nEfficiency Variance = (Actual Quantity - Standard Quantity) × Standard Price\n= (2,100 - 2,000) × $5 = $500 (Unfavorable)\n\nTotal Variance = $500 U - $210 F = $290 U',
+                    explanation: 'The favorable price variance means materials were purchased cheaper than standard. The unfavorable efficiency variance means more material was used than standard, possibly due to waste or lower quality materials.'
+                },
+                {
+                    id: 'ACW2220-6',
+                    type: 'truefalse',
+                    difficulty: 'easy',
+                    topic: 'Cost Behaviour',
+                    question: 'Variable cost per unit remains constant regardless of activity level.',
+                    answer: true,
+                    explanation: 'By definition, variable cost per unit is constant. Total variable cost changes with activity, but the cost per unit stays the same within the relevant range.'
+                },
+                {
+                    id: 'ACW2220-7',
+                    type: 'case',
+                    difficulty: 'hard',
+                    topic: 'Decision Making',
+                    question: 'Case Study: Melbourne Manufacturing produces two products:\n\nProduct A: Selling price $80, Variable cost $50, Machine hours 2 hrs/unit\nProduct B: Selling price $100, Variable cost $70, Machine hours 3 hrs/unit\n\nTotal machine hours available: 6,000 hours per month\nMaximum demand: A = 2,000 units, B = 1,500 units\n\nDetermine the optimal production mix to maximize profit.',
+                    answer: 'Produce 2,000 units of A and 667 units of B',
+                    working: 'Contribution margin per unit:\nA: $80 - $50 = $30\nB: $100 - $70 = $30\n\nContribution margin per machine hour (the limiting factor):\nA: $30 / 2 = $15/hour\nB: $30 / 3 = $10/hour\n\nProduct A is more profitable per constrained resource.\n\nAllocate to A first: 2,000 units × 2 hours = 4,000 hours\nRemaining hours: 6,000 - 4,000 = 2,000 hours\nUnits of B: 2,000 / 3 = 667 units\n\nTotal Contribution = (2,000 × $30) + (667 × $30) = $60,000 + $20,010 = $80,010',
+                    explanation: 'When resources are constrained, prioritize products with the highest contribution margin per unit of the constrained resource. Product A generates more contribution per machine hour, so it should be produced first up to demand limit.'
+                },
+                {
+                    id: 'ACW2220-8',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Overhead Allocation',
+                    question: 'Activity-Based Costing (ABC) is most beneficial when:',
+                    options: ['Products are similar and overhead is low', 'Products are diverse and overhead is significant', 'Direct labor is the primary cost driver', 'The company produces only one product'],
+                    correct: 1,
+                    explanation: 'ABC is most beneficial when products are diverse (consume resources differently) and overhead costs are significant. It provides more accurate product costing by using multiple cost drivers.'
+                },
+                {
+                    id: 'ACW2220-9',
+                    type: 'calculation',
+                    difficulty: 'medium',
+                    topic: 'Process Costing',
+                    question: 'A process has the following data:\nBeginning WIP: 2,000 units (40% complete)\nStarted: 10,000 units\nCompleted: 9,000 units\nEnding WIP: 3,000 units (60% complete)\n\nCalculate equivalent units using the weighted average method.',
+                    answer: '11,800 equivalent units',
+                    working: 'Equivalent Units = Units Completed + (Ending WIP × % Complete)\n= 9,000 + (3,000 × 0.60)\n= 9,000 + 1,800\n= 10,800 equivalent units',
+                    explanation: 'The weighted average method blends beginning inventory with current period work. Equivalent units represent the amount of work done expressed in terms of fully completed units.'
+                },
+                {
+                    id: 'ACW2220-10',
+                    type: 'theory',
+                    difficulty: 'hard',
+                    topic: 'Transfer Pricing',
+                    question: 'Discuss the three common methods of transfer pricing and their advantages and disadvantages.',
+                    answer: '1. Market-based Transfer Pricing:\n   - Uses external market price\n   - Advantage: Objective, promotes autonomy\n   - Disadvantage: May not exist for intermediate products\n\n2. Cost-based Transfer Pricing:\n   - Uses variable or full cost\n   - Advantage: Simple, ensures cost recovery\n   - Disadvantage: May not motivate efficiency\n\n3. Negotiated Transfer Pricing:\n   - Divisions negotiate price\n   - Advantage: Reflects both parties\' interests\n   - Disadvantage: Time-consuming, may cause conflict',
+                    explanation: 'The optimal transfer pricing method depends on market conditions, the nature of the intermediate product, and the company\'s organizational structure and goals.'
+                },
+                {
+                    id: 'ACW2220-11',
+                    type: 'mcq',
+                    difficulty: 'easy',
+                    topic: 'Relevant Costing',
+                    question: 'Which cost is relevant to a special order decision?',
+                    options: ['Sunk cost of existing equipment', 'Variable cost of production', 'Depreciation of factory building', 'Allocated corporate overhead'],
+                    correct: 1,
+                    explanation: 'Variable costs of production are typically relevant because they change with the decision. Sunk costs, depreciation, and allocated overhead are generally irrelevant as they do not change between alternatives.'
+                },
+                {
+                    id: 'ACW2220-12',
+                    type: 'calculation',
+                    difficulty: 'hard',
+                    topic: 'Performance Measurement',
+                    question: 'Division X has the following data:\nRevenue: $2,000,000\nVariable costs: $1,200,000\nControllable fixed costs: $300,000\nNon-controllable fixed costs: $200,000\nAssets: $1,500,000\n\nCalculate:\n1. Contribution margin\n2. Controllable margin\n3. Return on Investment (ROI)',
+                    answer: '1. $800,000\n2. $500,000\n3. 20%',
+                    working: 'Contribution Margin = Revenue - Variable Costs = $2,000,000 - $1,200,000 = $800,000\n\nControllable Margin = Contribution Margin - Controllable Fixed Costs = $800,000 - $300,000 = $500,000\n\nROI = Controllable Margin / Assets = $500,000 / $1,500,000 = 33.3%\n\n(Note: If using net operating income: ($800,000 - $500,000) / $1,500,000 = 20%)',
+                    explanation: 'ROI measures how efficiently a division uses its assets to generate profit. Different versions exist depending on whether controllable or total margin is used.'
+                }
+            ],
+            'BFW1001': [
+                {
+                    id: 'BFW1001-1',
+                    type: 'mcq',
+                    difficulty: 'easy',
+                    topic: 'Time Value of Money',
+                    question: 'The time value of money concept states that:',
+                    options: ['Money loses value over time due to inflation only', 'A dollar today is worth more than a dollar in the future', 'Future cash flows are more valuable than present cash flows', 'Interest rates have no effect on cash flow values'],
+                    correct: 1,
+                    explanation: 'Due to earning potential (interest) and inflation, a dollar today can be invested to grow, making it worth more than a dollar received in the future.'
+                },
+                {
+                    id: 'BFW1001-2',
+                    type: 'calculation',
+                    difficulty: 'medium',
+                    topic: 'Time Value of Money',
+                    question: 'Calculate the present value of $10,000 to be received in 5 years if the discount rate is 8% per annum.',
+                    answer: '$6,805.83',
+                    working: 'PV = FV / (1 + r)^n\nPV = $10,000 / (1.08)^5\nPV = $10,000 / 1.4693\nPV = $6,805.83',
+                    explanation: 'Present value calculations discount future cash flows back to today using the time value of money. The higher the discount rate or longer the time period, the lower the present value.'
+                },
+                {
+                    id: 'BFW1001-3',
+                    type: 'theory',
+                    difficulty: 'medium',
+                    topic: 'Risk and Return',
+                    question: 'Explain the relationship between risk and expected return. What is the risk-return tradeoff?',
+                    answer: 'The risk-return tradeoff states that higher potential returns require accepting higher risk. Investors demand compensation (risk premium) for bearing additional risk.\n\nSystematic risk (market-wide) cannot be diversified away, while unsystematic risk (company-specific) can be reduced through diversification.',
+                    explanation: 'This fundamental principle underlies modern portfolio theory. Rational investors will only take on additional risk if they expect to be compensated with higher returns.'
+                },
+                {
+                    id: 'BFW1001-4',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Bonds',
+                    question: 'When market interest rates rise, the price of existing bonds:',
+                    options: ['Increases', 'Decreases', 'Stays the same', 'Becomes zero'],
+                    correct: 1,
+                    explanation: 'Bond prices and interest rates have an inverse relationship. When rates rise, newly issued bonds offer higher yields, making existing bonds with lower coupon rates less valuable.'
+                },
+                {
+                    id: 'BFW1001-5',
+                    type: 'calculation',
+                    difficulty: 'hard',
+                    topic: 'Capital Budgeting',
+                    question: 'A project requires an initial investment of $100,000 and generates cash flows of $30,000, $40,000, $35,000, and $25,000 over 4 years. The required return is 10%.\n\nCalculate:\n1. Payback period\n2. NPV\n3. IRR (approximate)',
+                    answer: '1. 2.86 years\n2. $4,734.16\n3. Approximately 13%',
+                    working: 'Payback Period:\nYear 1: $30,000 (cumulative: $30,000)\nYear 2: $40,000 (cumulative: $70,000)\nYear 3: Need $30,000 more from $35,000 = 0.86 years\nPayback = 2.86 years\n\nNPV = -$100,000 + $30,000/1.10 + $40,000/1.10² + $35,000/1.10³ + $25,000/1.10⁴\nNPV = -$100,000 + $27,273 + $33,058 + $26,296 + $17,075\nNPV = $4,734.16\n\nIRR is the rate where NPV = 0. By trial: at 13%, NPV ≈ $0',
+                    explanation: 'NPV is the preferred method as it accounts for time value of money and all cash flows. A positive NPV indicates value creation. IRR shows the break-even discount rate.'
+                },
+                {
+                    id: 'BFW1001-6',
+                    type: 'truefalse',
+                    difficulty: 'easy',
+                    topic: 'Diversification',
+                    question: 'Diversification eliminates all types of investment risk.',
+                    answer: false,
+                    explanation: 'Diversification reduces or eliminates unsystematic (company-specific) risk, but cannot eliminate systematic (market-wide) risk which affects all investments.'
+                },
+                {
+                    id: 'BFW1001-7',
+                    type: 'case',
+                    difficulty: 'hard',
+                    topic: 'Portfolio Management',
+                    question: 'Case Study: An investor has $100,000 to allocate between:\n\nAsset A: Expected return 12%, Standard deviation 15%\nAsset B: Expected return 8%, Standard deviation 10%\nCorrelation: 0.3\nRisk-free rate: 4%\n\n1. Calculate expected return and risk for a 60/40 portfolio (A/B)\n2. Calculate the Sharpe ratio\n3. Interpret the results',
+                    answer: '1. Expected return: 10.4%, Portfolio SD: 11.1%\n2. Sharpe ratio: 0.58\n3. Portfolio offers good risk-adjusted return',
+                    working: 'Expected Return = (0.60 × 12%) + (0.40 × 8%) = 7.2% + 3.2% = 10.4%\n\nPortfolio Variance = (0.60² × 0.15²) + (0.40² × 0.10²) + (2 × 0.60 × 0.40 × 0.15 × 0.10 × 0.3)\n= 0.0081 + 0.0016 + 0.00216 = 0.01186\n\nPortfolio SD = √0.01186 = 10.89% ≈ 11.1%\n\nSharpe Ratio = (10.4% - 4%) / 11.1% = 0.58',
+                    explanation: 'The Sharpe ratio measures risk-adjusted return. A ratio above 0.5 is generally considered good. The low correlation (0.3) provides diversification benefits, reducing overall portfolio risk below the weighted average.'
+                },
+                {
+                    id: 'BFW1001-8',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Capital Structure',
+                    question: 'According to Modigliani-Miller Proposition I (without taxes):',
+                    options: ['Capital structure affects firm value', 'Debt financing is always preferred', 'Firm value is independent of capital structure', 'Equity financing minimizes WACC'],
+                    correct: 2,
+                    explanation: 'MM Proposition I states that in a perfect market (no taxes, no bankruptcy costs), firm value is independent of capital structure. Value is determined by the firm\'s assets and cash flows, not how they are financed.'
+                },
+                {
+                    id: 'BFW1001-9',
+                    type: 'calculation',
+                    difficulty: 'medium',
+                    topic: 'WACC',
+                    question: 'A company has the following capital structure:\nDebt: $400,000 at 6% (before tax), tax rate 30%\nEquity: $600,000 at 12%\n\nCalculate the Weighted Average Cost of Capital (WACC).',
+                    answer: '9.48%',
+                    working: 'Total Capital = $400,000 + $600,000 = $1,000,000\n\nWeight of Debt = $400,000 / $1,000,000 = 0.40\nWeight of Equity = $600,000 / $1,000,000 = 0.60\n\nAfter-tax cost of debt = 6% × (1 - 0.30) = 4.2%\n\nWACC = (0.40 × 4.2%) + (0.60 × 12%)\nWACC = 1.68% + 7.2% = 8.88%',
+                    explanation: 'WACC represents the average cost of financing. Debt is tax-advantaged (interest is tax-deductible), so we use after-tax cost. WACC is used as the discount rate in capital budgeting.'
+                },
+                {
+                    id: 'BFW1001-10',
+                    type: 'theory',
+                    difficulty: 'hard',
+                    topic: 'Efficient Market Hypothesis',
+                    question: 'Explain the Efficient Market Hypothesis (EMH) and its three forms. What are the implications for investors?',
+                    answer: 'EMH states that asset prices fully reflect all available information.\n\nForms:\n1. Weak Form: Prices reflect all historical price and volume data. Technical analysis cannot consistently produce excess returns.\n2. Semi-Strong Form: Prices reflect all publicly available information. Fundamental analysis cannot consistently produce excess returns.\n3. Strong Form: Prices reflect all public and private information. Even insider information cannot produce excess returns.\n\nImplications: Most investors should use passive strategies (index funds) since consistently beating the market is extremely difficult.',
+                    explanation: 'EMH has important implications for investment strategy. While markets may not be perfectly efficient, the cost of obtaining and analyzing information often exceeds potential benefits for active strategies.'
+                },
+                {
+                    id: 'BFW1001-11',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Dividend Policy',
+                    question: 'The dividend irrelevance theory (Modigliani-Miller) suggests that:',
+                    options: ['High dividends always increase share price', 'Dividend policy does not affect firm value', 'Retained earnings are preferable to dividends', 'Companies should pay 100% of earnings as dividends'],
+                    correct: 1,
+                    explanation: 'MM dividend irrelevance states that in perfect markets, dividend policy does not affect firm value. Investors can create their own "dividends" by selling shares if needed.'
+                },
+                {
+                    id: 'BFW1001-12',
+                    type: 'calculation',
+                    difficulty: 'hard',
+                    topic: 'Options',
+                    question: 'A call option has a strike price of $50 and the underlying stock is currently trading at $55. The option premium is $8.\n\n1. What is the intrinsic value?\n2. What is the time value?\n3. Calculate profit at expiration if stock price is $60.',
+                    answer: '1. $5\n2. $3\n3. $2 profit',
+                    working: 'Intrinsic Value = Stock Price - Strike Price = $55 - $50 = $5\n\nTime Value = Option Premium - Intrinsic Value = $8 - $5 = $3\n\nAt expiration with stock at $60:\nPayoff = $60 - $50 = $10\nProfit = $10 - $8 (premium) = $2',
+                    explanation: 'Intrinsic value is the immediate exercise value. Time value represents the possibility of further gains before expiration. The breakeven point is strike price plus premium.'
+                }
+            ],
+            'BTW1042': [
+                {
+                    id: 'BTW1042-1',
+                    type: 'mcq',
+                    difficulty: 'easy',
+                    topic: 'Contract Law',
+                    question: 'Which of the following is NOT an essential element of a valid contract?',
+                    options: ['Offer and acceptance', 'Consideration', 'Written form', 'Intention to create legal relations'],
+                    correct: 2,
+                    explanation: 'Contracts do not generally need to be in writing to be valid (except for specific types like land contracts). The essential elements are offer, acceptance, consideration, intention, and capacity.'
+                },
+                {
+                    id: 'BTW1042-2',
+                    type: 'theory',
+                    difficulty: 'medium',
+                    topic: 'Negligence',
+                    question: 'Explain the elements of the tort of negligence and the reasonable person test.',
+                    answer: 'Elements of Negligence:\n1. Duty of Care - defendant owed plaintiff a duty\n2. Breach of Duty - defendant failed to meet the standard of care\n3. Causation - breach caused the damage\n4. Damage - actual loss was suffered\n\nReasonable Person Test: The standard of care is that of a reasonable person in the defendant\'s position, considering factors like skill level, age, and circumstances.',
+                    explanation: 'Negligence is the most common tort. The reasonable person is an objective standard - not perfect, but exercising reasonable care and skill in the circumstances.'
+                },
+                {
+                    id: 'BTW1042-3',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Consumer Law',
+                    question: 'Under the Australian Consumer Law, a term in a standard form consumer contract is void if it is:',
+                    options: ['Negotiated between parties', 'Reasonably necessary', 'Unfair', 'In writing'],
+                    correct: 2,
+                    explanation: 'Under ACL Section 23, unfair contract terms in standard form consumer contracts are void. A term is unfair if it causes significant imbalance, is not reasonably necessary, and would cause detriment.'
+                },
+                {
+                    id: 'BTW1042-4',
+                    type: 'truefalse',
+                    difficulty: 'easy',
+                    topic: 'Business Structures',
+                    question: 'A sole trader has limited liability for business debts.',
+                    answer: false,
+                    explanation: 'Sole traders have UNLIMITED liability. Their personal assets can be used to satisfy business debts. Limited liability is a feature of companies, not sole traders.'
+                },
+                {
+                    id: 'BTW1042-5',
+                    type: 'case',
+                    difficulty: 'hard',
+                    topic: 'Contract Law',
+                    question: 'Case Study: Alice advertises her car for sale for $20,000. Bob emails offering $18,000. Alice replies she will accept $19,000. Bob sends an email saying "I\'ll think about it." Meanwhile, Carol offers $19,500 and Alice accepts.\n\nAnalyze the contractual situation between:\n1. Alice and Bob\n2. Alice and Carol',
+                    answer: '1. No contract between Alice and Bob - Bob\'s email was not an acceptance\n2. Valid contract between Alice and Carol - offer and acceptance with consideration',
+                    explanation: 'Bob\'s initial email was a counter-offer (not acceptance), which rejected Alice\'s original offer. Alice\'s reply to Bob was a new offer, but Bob\'s "I\'ll think about it" is not acceptance. Alice was free to sell to Carol. The contract with Carol is valid as there was a clear offer ($19,500), acceptance, and consideration.'
+                },
+                {
+                    id: 'BTW1042-6',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Corporations Law',
+                    question: 'The corporate veil can be lifted when:',
+                    options: ['The company makes a profit', 'The company has many shareholders', 'The company is used to avoid legal obligations', 'The company pays tax on time'],
+                    correct: 2,
+                    explanation: 'The corporate veil may be lifted (pierced) in cases of fraud, sham companies, or when the company is used to evade legal obligations. This is an exception to the principle of separate legal personality.'
+                },
+                {
+                    id: 'BTW1042-7',
+                    type: 'theory',
+                    difficulty: 'hard',
+                    topic: 'Director Duties',
+                    question: 'Discuss the statutory and general law duties of company directors under the Corporations Act 2001 (Cth).',
+                    answer: 'Statutory Duties (Corporations Act):\n- Section 180: Duty of care and diligence\n- Section 181: Duty to act in good faith\n- Section 182: Duty not to misuse position\n- Section 183: Duty not to misuse information\n- Section 588G: Duty to prevent insolvent trading\n\nGeneral Law Duties:\n- Fiduciary duties (loyalty, avoid conflicts)\n- Duty of care, skill and diligence\n- Duty to act for proper purposes',
+                    explanation: 'Director duties are designed to protect shareholders and ensure responsible corporate governance. Breaches can result in civil penalties, disqualification, and criminal liability in serious cases.'
+                },
+                {
+                    id: 'BTW1042-8',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'IP Law',
+                    question: 'Copyright protection in Australia arises:',
+                    options: ['Only after registration with IP Australia', 'Automatically upon creation of the work', 'Only after publication', 'Only for works with the © symbol'],
+                    correct: 1,
+                    explanation: 'Copyright protection is automatic upon creation of an original work in material form. No registration is required in Australia, though the © symbol is commonly used to indicate ownership.'
+                },
+                {
+                    id: 'BTW1042-9',
+                    type: 'case',
+                    difficulty: 'hard',
+                    topic: 'Employment Law',
+                    question: 'Case Study: Sarah has worked for XYZ Pty Ltd for 3 years as a "contractor." She works set hours, uses company equipment, cannot delegate work, and wears a company uniform. She is suddenly terminated without notice.\n\n1. Is Sarah an employee or independent contractor?\n2. What legal protections might apply?\n3. What remedies could Sarah seek?',
+                    answer: '1. Sarah is likely an employee (multi-factor test)\n2. Unfair dismissal protections, notice period, redundancy\n3. FWC claim for unfair dismissal or sham contracting',
+                    explanation: 'The multi-factor test looks at substance over form. Despite the "contractor" label, Sarah\'s integration into the business, control over work, and use of company assets suggest employment. This may be sham contracting under the Fair Work Act, carrying penalties for the employer.'
+                },
+                {
+                    id: 'BTW1042-10',
+                    type: 'theory',
+                    difficulty: 'medium',
+                    topic: 'Competition Law',
+                    question: 'Explain the prohibition against cartel conduct under the Competition and Consumer Act 2010.',
+                    answer: 'Cartel conduct under the CCA includes:\n1. Price fixing - agreeing on prices\n2. Market sharing - dividing markets\n3. Output restrictions - limiting production\n4. Bid rigging - manipulating tender processes\n\nThese are per se illegal (no need to prove anti-competitive effect). Penalties include fines up to $10 million per contravention and criminal sanctions for individuals.',
+                    explanation: 'Cartel conduct is considered the most serious breach of competition law as it directly undermines competitive markets and consumer welfare.'
+                },
+                {
+                    id: 'BTW1042-11',
+                    type: 'mcq',
+                    difficulty: 'easy',
+                    topic: 'Property Law',
+                    question: 'A lease for a term exceeding 3 years must be:',
+                    options: ['Oral only', 'In writing', 'Registered', 'Notarized'],
+                    correct: 2,
+                    explanation: 'Under property law, leases exceeding 3 years generally need to be in writing to be enforceable. This requirement protects both parties by creating a clear record of the agreement.'
+                },
+                {
+                    id: 'BTW1042-12',
+                    type: 'truefalse',
+                    difficulty: 'medium',
+                    topic: 'Administrative Law',
+                    question: 'The doctrine of procedural fairness requires that a person affected by a decision be given the right to be heard before the decision is made.',
+                    answer: true,
+                    explanation: 'Procedural fairness (natural justice) has two main requirements: the bias rule (decision-maker must be impartial) and the hearing rule (affected parties must have the opportunity to present their case).'
+                }
+            ],
+            'ECM1953': [
+                {
+                    id: 'ECM1953-1',
+                    type: 'mcq',
+                    difficulty: 'easy',
+                    topic: 'Supply and Demand',
+                    question: 'If consumer incomes increase and the good is a normal good, what happens to demand?',
+                    options: ['Decreases', 'Increases', 'Stays the same', 'Becomes perfectly elastic'],
+                    correct: 1,
+                    explanation: 'For normal goods, demand increases as consumer income rises. This is a positive income elasticity of demand. Inferior goods would see decreased demand with rising incomes.'
+                },
+                {
+                    id: 'ECM1953-2',
+                    type: 'calculation',
+                    difficulty: 'medium',
+                    topic: 'Elasticity',
+                    question: 'When price increases from $10 to $12, quantity demanded decreases from 100 to 80 units. Calculate the price elasticity of demand using the midpoint method.',
+                    answer: '-1.22 (elastic)',
+                    working: '% Change in Quantity = (80 - 100) / ((80 + 100)/2) = -20 / 90 = -22.2%\n% Change in Price = ($12 - $10) / (($12 + $10)/2) = $2 / $11 = 18.2%\n\nElasticity = -22.2% / 18.2% = -1.22\n\nAbsolute value > 1, so demand is elastic.',
+                    explanation: 'The midpoint method avoids the ambiguity of which point to use as the base. An elasticity greater than 1 means consumers are relatively responsive to price changes.'
+                },
+                {
+                    id: 'ECM1953-3',
+                    type: 'theory',
+                    difficulty: 'medium',
+                    topic: 'Market Structures',
+                    question: 'Compare and contrast perfect competition and monopoly market structures.',
+                    answer: 'Perfect Competition:\n- Many firms, homogeneous products\n- No market power (price takers)\n- Free entry and exit\n- Efficient outcome (P = MC)\n\nMonopoly:\n- Single firm, unique product\n- Significant market power (price maker)\n- Barriers to entry\n- Inefficient (P > MC, deadweight loss)\n\nKey difference: Market power and its effect on price, output, and welfare.',
+                    explanation: 'Perfect competition represents an ideal market structure with maximum efficiency. Monopoly creates deadweight loss but may be justified by economies of scale or innovation incentives.'
+                },
+                {
+                    id: 'ECM1953-4',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Macroeconomics',
+                    question: 'GDP calculated by summing all incomes earned in producing goods and services is the:',
+                    options: ['Expenditure approach', 'Income approach', 'Production approach', 'Value-added approach'],
+                    correct: 1,
+                    explanation: 'The income approach sums wages, rent, interest, and profits. The expenditure approach sums C + I + G + (X - M). Both should yield the same GDP figure.'
+                },
+                {
+                    id: 'ECM1953-5',
+                    type: 'calculation',
+                    difficulty: 'hard',
+                    topic: 'National Income',
+                    question: 'Given the following data (in billions):\nConsumption: $800\nInvestment: $200\nGovernment spending: $300\nExports: $150\nImports: $180\nDepreciation: $100\nIndirect taxes: $50\nSubsidies: $30\n\nCalculate:\n1. GDP (expenditure approach)\n2. NDP\n3. National Income',
+                    answer: '1. $1,270 billion\n2. $1,170 billion\n3. $1,150 billion',
+                    working: 'GDP = C + I + G + (X - M)\n= $800 + $200 + $300 + ($150 - $180)\n= $1,270 billion\n\nNDP = GDP - Depreciation\n= $1,270 - $100 = $1,170 billion\n\nNational Income = NDP - Indirect Taxes + Subsidies\n= $1,170 - $50 + $30 = $1,150 billion',
+                    explanation: 'GDP measures total production. NDP accounts for capital depreciation. National income represents the total income earned by factors of production.'
+                },
+                {
+                    id: 'ECM1953-6',
+                    type: 'truefalse',
+                    difficulty: 'easy',
+                    topic: 'Fiscal Policy',
+                    question: 'Expansionary fiscal policy involves decreasing government spending and increasing taxes.',
+                    answer: false,
+                    explanation: 'Expansionary fiscal policy involves INCREASING government spending and/or DECREASING taxes to stimulate aggregate demand. Contractionary fiscal policy is the opposite.'
+                },
+                {
+                    id: 'ECM1953-7',
+                    type: 'case',
+                    difficulty: 'hard',
+                    topic: 'Market Failure',
+                    question: 'Case Study: A chemical factory emits pollution that affects a nearby river, harming fish populations and downstream farmers.\n\n1. What type of market failure is this?\n2. Explain the concept involved.\n3. What policy solutions could address this?',
+                    answer: '1. Negative externality\n2. External cost not reflected in market price\n3. Pigouvian tax, cap-and-trade, regulation',
+                    explanation: 'This is a negative externality - the factory\'s production imposes costs on third parties (farmers, environment) not reflected in the market price. The socially optimal output is less than the market output because MSC > MPC. Solutions include: (1) Pigouvian tax equal to marginal external cost, (2) Tradable pollution permits, (3) Direct regulation of emissions, (4) Coasian bargaining if property rights are clear and transaction costs are low.'
+                },
+                {
+                    id: 'ECM1953-8',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Monetary Policy',
+                    question: 'When the Reserve Bank of Australia sells government securities in open market operations:',
+                    options: ['Money supply increases', 'Interest rates tend to fall', 'Money supply decreases', 'Exchange rate depreciates'],
+                    correct: 2,
+                    explanation: 'Selling securities withdraws money from the banking system, decreasing money supply. This tends to increase interest rates (contractionary monetary policy).'
+                },
+                {
+                    id: 'ECM1953-9',
+                    type: 'calculation',
+                    difficulty: 'medium',
+                    topic: 'Monetary Economics',
+                    question: 'If the reserve requirement is 10% and a bank receives a new deposit of $10,000, what is the maximum potential increase in the money supply through the money multiplier process?',
+                    answer: '$90,000',
+                    working: 'Money Multiplier = 1 / Reserve Requirement = 1 / 0.10 = 10\n\nTotal Money Creation = Initial Deposit × Multiplier = $10,000 × 10 = $100,000\n\nNet Increase in Money Supply = $100,000 - $10,000 = $90,000\n(The original $10,000 was already part of M1)',
+                    explanation: 'The money multiplier shows how banks create money through lending. Each loan becomes a deposit elsewhere, allowing further lending (minus reserves).'
+                },
+                {
+                    id: 'ECM1953-10',
+                    type: 'theory',
+                    difficulty: 'hard',
+                    topic: 'International Trade',
+                    question: 'Explain the theory of comparative advantage and its implications for international trade.',
+                    answer: 'Comparative Advantage (David Ricardo):\nA country should specialize in producing goods where it has a lower opportunity cost, even if it has an absolute disadvantage in all goods.\n\nImplications:\n1. Trade benefits all participating countries\n2. Specialization increases global output\n3. Countries should export goods with comparative advantage\n4. Import restrictions reduce overall welfare\n\nLimitations: Assumes immobile factors, no economies of scale, and two countries/goods.',
+                    explanation: 'Comparative advantage is the foundation of free trade theory. Even if one country is more efficient at producing everything, both countries gain by specializing in their relatively more efficient products.'
+                },
+                {
+                    id: 'ECM1953-11',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Inflation',
+                    question: 'Cost-push inflation is caused by:',
+                    options: ['Increased consumer spending', 'Rising production costs', 'Expansionary monetary policy', 'Increased exports'],
+                    correct: 1,
+                    explanation: 'Cost-push inflation occurs when production costs (wages, raw materials) increase, shifting the short-run aggregate supply curve leftward. Demand-pull inflation is caused by increased aggregate demand.'
+                },
+                {
+                    id: 'ECM1953-12',
+                    type: 'calculation',
+                    difficulty: 'hard',
+                    topic: 'Game Theory',
+                    question: 'Two firms face the following payoff matrix (profits in millions):\n\n               Firm B: High    Firm B: Low\nFirm A: High     (10, 10)       (5, 15)\nFirm A: Low      (15, 5)        (7, 7)\n\n1. What is the Nash equilibrium?\n2. Is this a prisoner\'s dilemma?',
+                    answer: '1. (Low, Low) - both firms choose Low\n2. Yes, it is a prisoner\'s dilemma',
+                    working: 'For Firm A:\nIf B chooses High: A gets 10 (High) vs 15 (Low) → chooses Low\nIf B chooses Low: A gets 5 (High) vs 7 (Low) → chooses Low\n\nFor Firm B:\nIf A chooses High: B gets 10 (High) vs 15 (Low) → chooses Low\nIf A chooses Low: B gets 5 (High) vs 7 (Low) → chooses Low\n\nNash Equilibrium: (Low, Low) = (7, 7)\n\nThis is a prisoner\'s dilemma because both would be better off at (High, High) = (10, 10), but individual rationality leads to a worse collective outcome.',
+                    explanation: 'The prisoner\'s dilemma illustrates how self-interested behavior can lead to suboptimal outcomes. Cooperation would yield higher profits, but the incentive to defect makes cooperation unstable without enforcement mechanisms.'
+                }
+            ],
+            'ETW1001': [
+                {
+                    id: 'ETW1001-1',
+                    type: 'mcq',
+                    difficulty: 'easy',
+                    topic: 'Descriptive Statistics',
+                    question: 'Which measure of central tendency is most affected by outliers?',
+                    options: ['Mean', 'Median', 'Mode', 'All equally'],
+                    correct: 0,
+                    explanation: 'The mean is most affected by outliers because it uses all values in its calculation. The median only depends on the middle position, and the mode depends on frequency.'
+                },
+                {
+                    id: 'ETW1001-2',
+                    type: 'calculation',
+                    difficulty: 'medium',
+                    topic: 'Probability',
+                    question: 'A bag contains 5 red, 3 blue, and 2 green balls. If two balls are drawn without replacement, what is the probability of getting one red and one blue?',
+                    answer: '1/3 or 33.33%',
+                    working: 'Total balls = 10\nP(Red then Blue) = (5/10) × (3/9) = 15/90\nP(Blue then Red) = (3/10) × (5/9) = 15/90\n\nP(One Red and One Blue) = 15/90 + 15/90 = 30/90 = 1/3',
+                    explanation: 'Since order does not matter, we add the probabilities of both sequences. The denominator decreases after the first draw because we are sampling without replacement.'
+                },
+                {
+                    id: 'ETW1001-3',
+                    type: 'theory',
+                    difficulty: 'medium',
+                    topic: 'Sampling',
+                    question: 'Explain the difference between probability and non-probability sampling methods. Give examples of each.',
+                    answer: 'Probability Sampling (random selection, known probability):\n- Simple random: every member equally likely\n- Stratified: population divided into strata, random from each\n- Cluster: population divided into clusters, random clusters selected\n\nNon-Probability Sampling (non-random):\n- Convenience: readily available subjects\n- Judgment: researcher selects based on expertise\n- Snowball: existing subjects recruit others',
+                    explanation: 'Probability sampling allows statistical inference to the population. Non-probability sampling is easier but results cannot be generalized with known confidence levels.'
+                },
+                {
+                    id: 'ETW1001-4',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Distributions',
+                    question: 'The standard normal distribution has:',
+                    options: ['Mean = 0, SD = 1', 'Mean = 1, SD = 0', 'Mean = 0.5, SD = 0.5', 'Mean = 100, SD = 15'],
+                    correct: 0,
+                    explanation: 'The standard normal distribution is a special case with mean (μ) = 0 and standard deviation (σ) = 1. Any normal distribution can be converted to standard normal using z-scores.'
+                },
+                {
+                    id: 'ETW1001-5',
+                    type: 'calculation',
+                    difficulty: 'hard',
+                    topic: 'Hypothesis Testing',
+                    question: 'A company claims their batteries last 100 hours on average. A sample of 36 batteries has a mean of 96 hours with a standard deviation of 12 hours. Test the claim at α = 0.05.',
+                    answer: 'Reject the claim (z = -2.0, p < 0.05)',
+                    working: 'H₀: μ = 100\nH₁: μ ≠ 100 (two-tailed)\n\nStandard Error = s/√n = 12/√36 = 12/6 = 2\n\nz = (x̄ - μ) / SE = (96 - 100) / 2 = -2.0\n\nCritical z-values at α = 0.05 (two-tailed): ±1.96\n\nSince |z| = 2.0 > 1.96, we reject H₀.\n\np-value = 2 × P(Z < -2.0) = 2 × 0.0228 = 0.0456 < 0.05',
+                    explanation: 'The test statistic falls in the rejection region. There is sufficient evidence at the 5% level to conclude that the true mean battery life differs from 100 hours.'
+                },
+                {
+                    id: 'ETW1001-6',
+                    type: 'truefalse',
+                    difficulty: 'easy',
+                    topic: 'Correlation',
+                    question: 'Correlation implies causation.',
+                    answer: false,
+                    explanation: 'Correlation does NOT imply causation. Two variables may be correlated due to coincidence, a third confounding variable, or actual causation. Experimental designs are needed to establish causation.'
+                },
+                {
+                    id: 'ETW1001-7',
+                    type: 'case',
+                    difficulty: 'hard',
+                    topic: 'Regression',
+                    question: 'Case Study: A regression analysis yields the following results for predicting sales (Y) from advertising spend (X):\n\nIntercept (b₀) = 10\nSlope (b₁) = 2.5\nR² = 0.81\nStandard Error = 5\nn = 50\n\n1. Write the regression equation\n2. Interpret the slope\n3. Predict sales when advertising = $20,000\n4. Assess model fit',
+                    answer: '1. Ŷ = 10 + 2.5X\n2. Each $1,000 increase in advertising increases sales by $2,500\n3. $60,000 predicted sales\n4. Strong fit (R² = 81%)',
+                    working: 'Regression Equation: Ŷ = 10 + 2.5X\n\nSlope Interpretation: For every $1,000 increase in advertising spend, sales increase by $2,500 on average.\n\nPrediction at X = 20:\nŶ = 10 + 2.5(20) = 10 + 50 = 60 ($60,000)\n\nModel Fit: R² = 0.81 means 81% of sales variation is explained by advertising. This is a strong fit. The standard error of 5 indicates typical prediction error is $5,000.',
+                    explanation: 'Simple linear regression models the relationship between two variables. R² measures explanatory power. The slope indicates the rate of change, and predictions should only be made within the observed data range.'
+                },
+                {
+                    id: 'ETW1001-8',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Confidence Intervals',
+                    question: 'As sample size increases, the width of a confidence interval:',
+                    options: ['Increases', 'Decreases', 'Stays the same', 'Becomes zero'],
+                    correct: 1,
+                    explanation: 'Larger samples provide more precise estimates. The standard error decreases as sample size increases (SE = σ/√n), leading to narrower confidence intervals.'
+                },
+                {
+                    id: 'ETW1001-9',
+                    type: 'calculation',
+                    difficulty: 'medium',
+                    topic: 'Probability Distributions',
+                    question: 'A fair die is rolled 3 times. What is the probability of getting exactly two sixes?',
+                    answer: '5/72 or 6.94%',
+                    working: 'This is a binomial probability problem:\nn = 3, k = 2, p = 1/6\n\nP(X = 2) = C(3,2) × (1/6)² × (5/6)¹\n= 3 × (1/36) × (5/6)\n= 15/216\n= 5/72 ≈ 0.0694 or 6.94%',
+                    explanation: 'The binomial distribution applies to fixed trials with two outcomes. C(3,2) accounts for the different orders in which two sixes can occur (SSN, SNS, NSS).'
+                },
+                {
+                    id: 'ETW1001-10',
+                    type: 'theory',
+                    difficulty: 'hard',
+                    topic: 'Experimental Design',
+                    question: 'Explain the key principles of experimental design and how they help establish causality.',
+                    answer: 'Key Principles:\n1. Randomization - randomly assign subjects to treatment/control groups to eliminate selection bias and distribute confounders evenly.\n2. Control Group - provides baseline for comparison, isolates treatment effect.\n3. Replication - repeating experiments increases reliability and generalizability.\n4. Blocking - grouping similar subjects to reduce within-group variance.\n\nEstablishing Causality:\nRandomized controlled trials (RCTs) are the gold standard because randomization ensures the only systematic difference between groups is the treatment, allowing causal inference.'
+                },
+                {
+                    id: 'ETW1001-11',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'ANOVA',
+                    question: 'ANOVA is used to:',
+                    options: ['Compare two means', 'Compare three or more means', 'Test for correlation', 'Create confidence intervals'],
+                    correct: 1,
+                    explanation: 'ANOVA (Analysis of Variance) compares means across three or more groups. For two groups, a t-test is used. ANOVA tests whether any group means differ significantly.'
+                },
+                {
+                    id: 'ETW1001-12',
+                    type: 'calculation',
+                    difficulty: 'hard',
+                    topic: 'Chi-Square Test',
+                    question: 'A survey of 200 customers shows the following preference by age group:\n\n            Prefer A   Prefer B\nUnder 30     45        35\n30-50        50        30\nOver 50      25        15\n\nTest whether preference is independent of age at α = 0.05.',
+                    answer: 'Cannot reject independence (χ² ≈ 1.54, critical value = 5.99)',
+                    working: 'Expected frequencies (row total × column total / grand total):\nUnder 30: A = 48, B = 32\n30-50: A = 48, B = 32\nOver 50: A = 24, B = 16\n\nχ² = Σ((O-E)²/E)\n= (45-48)²/48 + (35-32)²/32 + (50-48)²/48 + (30-32)²/32 + (25-24)²/24 + (15-16)²/16\n= 0.1875 + 0.28125 + 0.0833 + 0.125 + 0.0417 + 0.0625\n= 0.78125\n\ndf = (3-1)(2-1) = 2\nCritical χ² at α = 0.05, df = 2: 5.99\n\nSince 0.78 < 5.99, we fail to reject H₀.',
+                    explanation: 'The chi-square test of independence determines whether two categorical variables are related. The low test statistic indicates observed differences are likely due to random sampling variation.'
+                }
+            ],
+            'MGW1010': [
+                {
+                    id: 'MGW1010-1',
+                    type: 'mcq',
+                    difficulty: 'easy',
+                    topic: 'Management Functions',
+                    question: 'Which of the following is NOT one of the four main functions of management?',
+                    options: ['Planning', 'Organizing', 'Marketing', 'Controlling'],
+                    correct: 2,
+                    explanation: 'The four main functions of management are Planning, Organizing, Leading (Directing), and Controlling. Marketing is a business function, not a management function.'
+                },
+                {
+                    id: 'MGW1010-2',
+                    type: 'theory',
+                    difficulty: 'medium',
+                    topic: 'Leadership',
+                    question: 'Compare transactional and transformational leadership styles. When is each most effective?',
+                    answer: 'Transactional Leadership:\n- Focuses on exchanges and rewards for performance\n- Uses contingent rewards and management by exception\n- Effective in stable environments with clear goals\n\nTransformational Leadership:\n- Inspires and motivates through vision\n- Uses idealized influence, inspirational motivation, intellectual stimulation, individualized consideration\n- Effective in dynamic environments requiring innovation and change',
+                    explanation: 'Both styles can be effective depending on context. Transactional leadership works well for routine tasks, while transformational leadership is better for organizational change and creative work.'
+                },
+                {
+                    id: 'MGW1010-3',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Organizational Structure',
+                    question: 'A matrix organizational structure is characterized by:',
+                    options: ['Single chain of command', 'Dual reporting relationships', 'No formal structure', 'Flat hierarchy only'],
+                    correct: 1,
+                    explanation: 'Matrix structures combine functional and divisional approaches, creating dual reporting relationships (e.g., reporting to both a functional manager and a project manager).'
+                },
+                {
+                    id: 'MGW1010-4',
+                    type: 'truefalse',
+                    difficulty: 'easy',
+                    topic: 'Motivation',
+                    question: 'According to Maslow\'s hierarchy, self-actualization needs must be satisfied before safety needs.',
+                    answer: false,
+                    explanation: 'Maslow\'s hierarchy (bottom to top): Physiological → Safety → Social → Esteem → Self-Actualization. Lower-level needs must be satisfied before higher-level needs become motivators.'
+                },
+                {
+                    id: 'MGW1010-5',
+                    type: 'case',
+                    difficulty: 'hard',
+                    topic: 'Strategic Management',
+                    question: 'Case Study: TechStart is a 5-year-old software company experiencing rapid growth. They have 50 employees, flat structure, and informal culture. As they plan to expand to 200 employees:\n\n1. What organizational challenges will they face?\n2. Recommend appropriate structural changes\n3. How should they maintain culture during growth?',
+                    answer: '1. Communication breakdown, coordination issues, role ambiguity\n2. Add middle management, create departments, formalize processes\n3. Document values, hire for cultural fit, maintain open communication',
+                    explanation: 'Growing organizations face the challenge of maintaining flexibility while adding necessary structure. The transition from entrepreneurial to professional management requires: (1) Adding hierarchical levels for coordination, (2) Formalizing roles and responsibilities, (3) Implementing control systems, (4) Preserving core values through onboarding, leadership modeling, and cultural rituals. The key is balancing structure with the innovation-friendly culture that drove initial success.'
+                },
+                {
+                    id: 'MGW1010-6',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Decision Making',
+                    question: 'The SWOT analysis framework examines:',
+                    options: ['Strengths, Weaknesses, Opportunities, Threats', 'Sales, Workforce, Operations, Technology', 'Strategy, Workload, Objectives, Tasks', 'Systems, Workflow, Outputs, Time'],
+                    correct: 0,
+                    explanation: 'SWOT analyzes internal factors (Strengths, Weaknesses) and external factors (Opportunities, Threats) to inform strategic decision-making.'
+                },
+                {
+                    id: 'MGW1010-7',
+                    type: 'theory',
+                    difficulty: 'hard',
+                    topic: 'Organizational Culture',
+                    question: 'Discuss Schein\'s three levels of organizational culture and how they manifest in organizations.',
+                    answer: 'Schein\'s Three Levels:\n\n1. Artifacts (Visible):\n   - Physical environment, dress code, rituals\n   - Easiest to observe but hardest to interpret\n\n2. Espoused Values (Declared):\n   - Mission statements, strategies, goals\n   - What the organization says it believes\n\n3. Basic Assumptions (Unconscious):\n   - Deeply held beliefs about human nature, reality, relationships\n   - Drive actual behavior, difficult to change',
+                    explanation: 'Understanding culture at all three levels is essential for change management. Surface-level changes (artifacts) are easier but less effective than addressing basic assumptions.'
+                },
+                {
+                    id: 'MGW1010-8',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Human Resources',
+                    question: '360-degree feedback involves performance evaluation from:',
+                    options: ['Only the direct manager', 'Manager and self only', 'Manager, peers, subordinates, and self', 'External consultants only'],
+                    correct: 2,
+                    explanation: '360-degree feedback gathers input from multiple sources: supervisors, peers, subordinates, and self-assessment. This provides a comprehensive view of performance.'
+                },
+                {
+                    id: 'MGW1010-9',
+                    type: 'theory',
+                    difficulty: 'medium',
+                    topic: 'Change Management',
+                    question: 'Explain Kotter\'s 8-Step Change Model and its application in organizational change.',
+                    answer: 'Kotter\'s 8 Steps:\n1. Create urgency - build compelling case for change\n2. Form coalition - assemble guiding team\n3. Create vision - define future state\n4. Communicate vision - share broadly and repeatedly\n5. Empower action - remove obstacles\n6. Generate quick wins - create visible successes\n7. Sustain acceleration - build on momentum\n8. Institute change - embed in culture',
+                    explanation: 'Kotter\'s model emphasizes the human side of change. Skipping steps or moving too quickly often leads to failure. The model is widely used because it is practical and addresses both strategic and emotional aspects of change.'
+                },
+                {
+                    id: 'MGW1010-10',
+                    type: 'case',
+                    difficulty: 'hard',
+                    topic: 'International Business',
+                    question: 'Case Study: An Australian retailer is considering expansion into Southeast Asian markets.\n\n1. What factors should they consider in the decision?\n2. What entry mode options exist?\n3. What cultural challenges might they face?',
+                    answer: '1. Market size, growth, competition, regulations, infrastructure\n2. Exporting, licensing, franchising, joint venture, FDI\n3. Language, negotiation styles, hierarchy, consumer preferences',
+                    explanation: 'International expansion requires analysis of: (1) Market attractiveness (PESTEL analysis), (2) Entry mode selection based on control/risk tradeoffs - exporting has low risk but low control, FDI offers high control but high risk, (3) Cultural adaptation using Hofstede\'s dimensions (power distance, individualism, uncertainty avoidance). Success requires balancing global standardization with local adaptation.'
+                },
+                {
+                    id: 'MGW1010-11',
+                    type: 'mcq',
+                    difficulty: 'easy',
+                    topic: 'Ethics',
+                    question: 'Corporate social responsibility (CSR) involves:',
+                    options: ['Maximizing shareholder wealth only', 'Considering social and environmental impacts', 'Ignoring stakeholder interests', 'Minimizing all costs'],
+                    correct: 1,
+                    explanation: 'CSR extends beyond profit maximization to consider the broader impacts of business activities on society, the environment, and all stakeholders.'
+                },
+                {
+                    id: 'MGW1010-12',
+                    type: 'theory',
+                    difficulty: 'hard',
+                    topic: 'Strategic Management',
+                    question: 'Discuss Porter\'s Five Forces framework and how it helps analyze industry attractiveness.',
+                    answer: 'Porter\'s Five Forces:\n\n1. Threat of New Entrants - barriers to entry protect incumbent profits\n2. Bargaining Power of Suppliers - fewer suppliers means more power\n3. Bargaining Power of Buyers - concentrated buyers can demand lower prices\n4. Threat of Substitutes - alternatives limit pricing power\n5. Competitive Rivalry - intensity of competition affects profitability\n\nApplication: High forces mean low industry attractiveness (low profitability). Firms can strategize to reduce force impact or choose industries with favorable force profiles.',
+                    explanation: 'The Five Forces framework moves beyond simple competitor analysis to understand the structural factors that determine industry profitability. It helps in strategic positioning and industry selection.'
+                }
+            ],
+            'ETC2440': [
+                {
+                    id: 'ETC2440-1',
+                    type: 'mcq',
+                    difficulty: 'easy',
+                    topic: 'Regression Analysis',
+                    question: 'In a multiple regression model, the coefficient of determination (R²) represents:',
+                    options: ['The correlation between X and Y', 'The proportion of variance in Y explained by the model', 'The slope of the regression line', 'The standard error of estimate'],
+                    correct: 1,
+                    explanation: 'R² measures the proportion of variance in the dependent variable that is explained by the independent variables. It ranges from 0 to 1, with higher values indicating better fit.'
+                },
+                {
+                    id: 'ETC2440-2',
+                    type: 'calculation',
+                    difficulty: 'medium',
+                    topic: 'OLS Regression',
+                    question: 'Given the following data points:\nX: 1, 2, 3, 4, 5\nY: 2, 4, 5, 4, 6\n\nCalculate the OLS regression coefficients b₀ and b₁.',
+                    answer: 'b₀ = 2.2, b₁ = 0.8',
+                    working: 'n = 5\nΣX = 15, ΣY = 21, ΣXY = 71, ΣX² = 55\n\nx̄ = 3, ȳ = 4.2\n\nb₁ = [ΣXY - n(x̄)(ȳ)] / [ΣX² - n(x̄)²]\n= [71 - 5(3)(4.2)] / [55 - 5(9)]\n= [71 - 63] / [55 - 45]\n= 8 / 10 = 0.8\n\nb₀ = ȳ - b₁x̄ = 4.2 - 0.8(3) = 4.2 - 2.4 = 2.2',
+                    explanation: 'The slope (b₁) represents the change in Y for a one-unit change in X. The intercept (b₀) is the predicted Y when X = 0. OLS minimizes the sum of squared residuals.'
+                },
+                {
+                    id: 'ETC2440-3',
+                    type: 'theory',
+                    difficulty: 'medium',
+                    topic: 'Econometric Assumptions',
+                    question: 'Explain the Gauss-Markov assumptions and why they are important for OLS estimation.',
+                    answer: 'Gauss-Markov Assumptions:\n1. Linearity in parameters\n2. Random sampling\n3. No perfect multicollinearity\n4. Zero conditional mean (E(u|X) = 0)\n5. Homoskedasticity (constant error variance)\n\nImportance: Under these assumptions, OLS estimators are BLUE - Best Linear Unbiased Estimators. They have minimum variance among all linear unbiased estimators.',
+                    explanation: 'Violations of these assumptions lead to biased or inefficient estimates. Each assumption has specific diagnostic tests and remedies (e.g., robust standard errors for heteroskedasticity).'
+                },
+                {
+                    id: 'ETC2440-4',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Time Series',
+                    question: 'Autocorrelation in time series residuals suggests:',
+                    options: ['The model is perfectly specified', 'Errors are correlated over time', 'Heteroskedasticity is present', 'Multicollinearity exists'],
+                    correct: 1,
+                    explanation: 'Autocorrelation means error terms are correlated with their own lagged values. This violates the independence assumption and can lead to inefficient estimates and misleading standard errors.'
+                },
+                {
+                    id: 'ETC2440-5',
+                    type: 'calculation',
+                    difficulty: 'hard',
+                    topic: 'Hypothesis Testing',
+                    question: 'A regression yields: b₁ = 2.5, SE(b₁) = 0.8, n = 30, k = 3. Test H₀: β₁ = 0 vs H₁: β₁ ≠ 0 at α = 0.05.',
+                    answer: 'Reject H₀ (t = 3.125, p < 0.05)',
+                    working: 't = b₁ / SE(b₁) = 2.5 / 0.8 = 3.125\n\ndf = n - k = 30 - 3 = 27\n\nCritical t-value (two-tailed, α = 0.05, df = 27): ±2.052\n\nSince |3.125| > 2.052, reject H₀.\n\nThe coefficient is statistically significant.',
+                    explanation: 'The t-test determines whether an individual coefficient is significantly different from zero. The test statistic compares the estimated coefficient to its standard error.'
+                },
+                {
+                    id: 'ETC2440-6',
+                    type: 'truefalse',
+                    difficulty: 'easy',
+                    topic: 'Multicollinearity',
+                    question: 'Perfect multicollinearity occurs when an independent variable is a perfect linear function of another independent variable.',
+                    answer: true,
+                    explanation: 'Perfect multicollinearity means one predictor is exactly determined by others. This makes OLS estimation impossible because (X\'X) is singular. High (but not perfect) multicollinearity inflates standard errors.'
+                },
+                {
+                    id: 'ETC2440-7',
+                    type: 'case',
+                    difficulty: 'hard',
+                    topic: 'Model Specification',
+                    question: 'Case Study: You are analyzing house prices using the following variables:\nPrice (dependent), Square footage, Bedrooms, Age, Distance to CBD\n\nThe regression results show:\n- Bedrooms has a negative coefficient (unexpected)\n- VIF for Bedrooms = 8.5\n- R² = 0.85\n\n1. What problem is likely occurring?\n2. How would you diagnose it?\n3. What remedies would you consider?',
+                    answer: '1. Multicollinearity (high VIF)\n2. Check correlations, VIF values\n3. Remove variable, combine variables, PCA, ridge regression',
+                    explanation: 'The negative coefficient for Bedrooms is counterintuitive - more bedrooms should increase price. The high VIF (8.5 > 5 or 10 threshold) indicates multicollinearity, likely because Bedrooms is correlated with Square footage.\n\nDiagnosis: Check correlation matrix, calculate VIFs for all predictors.\n\nRemedies: (1) Drop the problematic variable if theoretically justified, (2) Create a composite measure (e.g., rooms per square foot), (3) Use regularization techniques, (4) Collect more data to reduce collinearity, (5) Use principal component analysis.'
+                },
+                {
+                    id: 'ETC2440-8',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Panel Data',
+                    question: 'Fixed effects models control for:',
+                    options: ['Time-invariant unobserved heterogeneity', 'Only observed variables', 'Random measurement error', 'Only cross-sectional variation'],
+                    correct: 0,
+                    explanation: 'Fixed effects models remove time-invariant unobserved heterogeneity by using within-group variation. This controls for any characteristic that does not change over time for each unit.'
+                },
+                {
+                    id: 'ETC2440-9',
+                    type: 'calculation',
+                    difficulty: 'medium',
+                    topic: 'Forecasting',
+                    question: 'Using a simple exponential smoothing model with α = 0.3, the forecast for period 5 was 100. The actual value in period 5 was 110. What is the forecast for period 6?',
+                    answer: '103',
+                    working: 'F₆ = α × A₅ + (1 - α) × F₅\n= 0.3 × 110 + 0.7 × 100\n= 33 + 70\n= 103',
+                    explanation: 'Exponential smoothing gives more weight to recent observations. The smoothing parameter α controls how quickly the forecast adapts to new data. Higher α means faster adaptation.'
+                },
+                {
+                    id: 'ETC2440-10',
+                    type: 'theory',
+                    difficulty: 'hard',
+                    topic: 'Endogeneity',
+                    question: 'Discuss the problem of endogeneity in econometrics. What causes it and how can it be addressed?',
+                    answer: 'Endogeneity occurs when explanatory variables are correlated with the error term, leading to biased estimates.\n\nCauses:\n1. Omitted variable bias\n2. Simultaneity (reverse causality)\n3. Measurement error in independent variables\n\nSolutions:\n1. Instrumental Variables (IV) - find variables correlated with X but not with error\n2. Natural experiments - exploit exogenous variation\n3. Panel data methods - control for time-invariant omitted variables\n4. Control functions',
+                    explanation: 'Endogeneity is one of the most serious problems in applied econometrics. IV estimation requires valid instruments that are relevant (correlated with endogenous X) and exogenous (uncorrelated with error).'
+                },
+                {
+                    id: 'ETC2440-11',
+                    type: 'mcq',
+                    difficulty: 'medium',
+                    topic: 'Model Evaluation',
+                    question: 'The Durbin-Watson statistic tests for:',
+                    options: ['Heteroskedasticity', 'Multicollinearity', 'Autocorrelation', 'Normality'],
+                    correct: 2,
+                    explanation: 'The Durbin-Watson statistic tests for first-order autocorrelation in residuals. Values near 2 indicate no autocorrelation, values near 0 suggest positive autocorrelation, and values near 4 suggest negative autocorrelation.'
+                },
+                {
+                    id: 'ETC2440-12',
+                    type: 'calculation',
+                    difficulty: 'hard',
+                    topic: 'Logistic Regression',
+                    question: 'A logistic regression predicts loan default with:\nIntercept = -3.0\nCredit score coefficient = 0.02\nIncome coefficient = -0.001\n\nFor a borrower with credit score = 650 and income = $50,000, calculate the probability of default.',
+                    answer: 'Approximately 18.0%',
+                    working: 'Log-odds (z) = -3.0 + 0.02(650) - 0.001(50,000)\n= -3.0 + 13 - 50\n= -40\n\nWait, let me recalculate:\nIf income is in thousands:\nz = -3.0 + 0.02(650) - 0.001(50)\n= -3.0 + 13 - 0.05\n= 9.95\n\nP(default) = e^z / (1 + e^z) = e^9.95 / (1 + e^9.95) ≈ 1.0 (unrealistic)\n\nAssuming income coefficient is -0.001 per dollar (so -1 per $1000):\nz = -3.0 + 13 - 50 = -40\nP = e^-40 / (1 + e^-40) ≈ 0\n\nMore realistic specification (credit score coefficient = 0.02 is too large):\nAssuming credit score coefficient = 0.002:\nz = -3.0 + 1.3 - 0.05 = -1.75\nP = e^-1.75 / (1 + e^-1.75) = 0.173 / 1.173 ≈ 0.148 or 14.8%',
+                    explanation: 'Logistic regression models the log-odds of an event. The coefficients represent the change in log-odds for a one-unit change in the predictor. The predicted probability is obtained through the logistic function.'
+                }
+            ]
+        };
+
+        // ===================== STATE =====================
+        let currentSubject = 'ACW1120';
+        let currentFilter = { difficulty: 'all', topic: 'all', bookmarked: false, review: false };
+        let userState = {
+            completed: new Set(),
+            bookmarks: new Set(),
+            review: new Set(),
+            scores: {},
+            timerStart: null,
+            timerElapsed: 0,
+            timerRunning: false
+        };
+
+        // ===================== TIMER =====================
+        let timerInterval;
+
+        function startTimer() {
+            if (!userState.timerRunning) {
+                userState.timerStart = Date.now() - userState.timerElapsed;
+                userState.timerRunning = true;
+                document.getElementById('timer').classList.remove('hidden');
+                document.getElementById('start-timer-btn').classList.add('hidden');
+                timerInterval = setInterval(updateTimer, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            if (userState.timerRunning) {
+                userState.timerRunning = false;
+                clearInterval(timerInterval);
+                document.getElementById('timer-btn').textContent = 'Resume';
+                document.getElementById('timer-btn').onclick = resumeTimer;
+            }
+        }
+
+        function resumeTimer() {
+            if (!userState.timerRunning) {
+                userState.timerStart = Date.now() - userState.timerElapsed;
+                userState.timerRunning = true;
+                timerInterval = setInterval(updateTimer, 1000);
+                document.getElementById('timer-btn').textContent = 'Pause';
+                document.getElementById('timer-btn').onclick = pauseTimer;
+            }
+        }
+
+        function toggleTimer() {
+            if (userState.timerRunning) {
+                pauseTimer();
+            } else {
+                resumeTimer();
+            }
+        }
+
+        function updateTimer() {
+            userState.timerElapsed = Date.now() - userState.timerStart;
+            const totalSeconds = Math.floor(userState.timerElapsed / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            document.getElementById('timer-display').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // ===================== RENDERING =====================
+        function renderSubjectTabs() {
+            const container = document.getElementById('subject-tabs');
+            container.innerHTML = subjects.map(sub => `
+                <button onclick="selectSubject('${sub.code}')" 
+                    class="subject-tab px-4 py-2 rounded-lg text-sm font-medium transition ${currentSubject === sub.code ? 'bg-accent text-dark' : 'bg-surface text-text/70 hover:bg-surface/80'}"
+                    data-subject="${sub.code}">
+                    ${sub.code}
+                </button>
+            `).join('');
+        }
+
+        function renderTopicFilters() {
+            const questions = questionsData[currentSubject] || [];
+            const topics = [...new Set(questions.map(q => q.topic))];
+            const container = document.getElementById('topic-filters');
+            container.innerHTML = topics.map(topic => `
+                <button onclick="filterByTopic('${topic}')" 
+                    class="filter-topic px-3 py-1 rounded-full text-xs bg-surface border border-accent/20 text-text/70 transition ${currentFilter.topic === topic ? 'bg-accent/20 text-accent border-accent' : ''}"
+                    data-topic="${topic}">
+                    ${topic}
+                </button>
+            `).join('') + `
+                <button onclick="filterByTopic('all')" 
+                    class="filter-topic px-3 py-1 rounded-full text-xs bg-surface border border-accent/20 text-text/70 transition ${currentFilter.topic === 'all' ? 'bg-accent/20 text-accent border-accent' : ''}"
+                    data-topic="all">
+                    All Topics
+                </button>
+            `;
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            let questions = questionsData[currentSubject] || [];
+
+            // Apply filters
+            if (currentFilter.difficulty !== 'all') {
+                questions = questions.filter(q => q.difficulty === currentFilter.difficulty);
+            }
+            if (currentFilter.topic !== 'all') {
+                questions = questions.filter(q => q.topic === currentFilter.topic);
+            }
+            if (currentFilter.bookmarked) {
+                questions = questions.filter(q => userState.bookmarks.has(q.id));
+            }
+            if (currentFilter.review) {
+                questions = questions.filter(q => userState.review.has(q.id));
+            }
+
+            if (questions.length === 0) {
+                container.innerHTML = `
+                    <div class="glass rounded-xl p-12 text-center">
+                        <i class="fas fa-search text-4xl text-text/20 mb-4"></i>
+                        <p class="text-text/60">No questions match the current filters.</p>
+                        <button onclick="resetFilters()" class="mt-4 px-4 py-2 rounded-lg bg-accent/20 text-accent hover:bg-accent/30 transition">
+                            Reset Filters
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = questions.map(q => {
+                const isCompleted = userState.completed.has(q.id);
+                const isBookmarked = userState.bookmarks.has(q.id);
+                const isReview = userState.review.has(q.id);
+                const difficultyColor = q.difficulty === 'easy' ? 'green' : q.difficulty === 'medium' ? 'yellow' : 'red';
+                const typeIcon = {
+                    'mcq': 'fa-list-ul',
+                    'calculation': 'fa-calculator',
+                    'theory': 'fa-file-alt',
+                    'case': 'fa-briefcase',
+                    'truefalse': 'fa-check-circle'
+                }[q.type];
+
+                let answerHTML = '';
+                if (q.type === 'mcq') {
+                    answerHTML = `
+                        <div class="space-y-2 mt-4">
+                            ${q.options.map((opt, i) => `
+                                <div class="mcq-option p-3 rounded-lg border border-text/10" 
+                                     onclick="selectMCQ('${q.id}', ${i}, ${q.correct})"
+                                     data-option="${i}" id="${q.id}-opt-${i}">
+                                    <span class="font-medium mr-2">${String.fromCharCode(65 + i)}.</span>${opt}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div id="${q.id}-mcq-feedback" class="mt-3 hidden"></div>
+                    `;
+                } else if (q.type === 'truefalse') {
+                    answerHTML = `
+                        <div class="flex gap-3 mt-4">
+                            <button onclick="answerTrueFalse('${q.id}', true, ${q.answer})" 
+                                class="flex-1 py-2 rounded-lg border border-text/10 hover:bg-accent/10 transition">True</button>
+                            <button onclick="answerTrueFalse('${q.id}', false, ${q.answer})" 
+                                class="flex-1 py-2 rounded-lg border border-text/10 hover:bg-accent/10 transition">False</button>
+                        </div>
+                        <div id="${q.id}-tf-feedback" class="mt-3 hidden"></div>
+                    `;
+                }
+
+                const workingHTML = q.working ? `
+                    <div class="mt-4 pt-4 border-t border-text/10">
+                        <h5 class="font-semibold text-accent mb-2">Working:</h5>
+                        <pre class="whitespace-pre-wrap text-sm text-text/80 font-mono bg-[#0a0a0f]/50 p-3 rounded-lg">${q.working}</pre>
+                    </div>
+                ` : '';
+
+                return `
+                    <div class="question-card glass rounded-xl p-6 difficulty-${q.difficulty}" id="${q.id}">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <span class="px-2 py-1 rounded text-xs font-medium bg-${difficultyColor}/20 text-${difficultyColor} uppercase">${q.difficulty}</span>
+                                <span class="flex items-center gap-1 text-sm text-text/60">
+                                    <i class="fas ${typeIcon}"></i>
+                                    ${q.type.toUpperCase()}
+                                </span>
+                                <span class="px-2 py-1 rounded text-xs bg-accent/10 text-accent">${q.topic}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="toggleBookmark('${q.id}')" 
+                                    class="bookmark-btn p-2 rounded-lg hover:bg-yellow/10 ${isBookmarked ? 'bookmarked' : 'text-text/40'}">
+                                    <i class="fas fa-bookmark"></i>
+                                </button>
+                                <button onclick="toggleReview('${q.id}')" 
+                                    class="review-btn p-2 rounded-lg hover:bg-purple/10 ${isReview ? 'marked' : 'text-text/40'}">
+                                    <i class="fas fa-flag"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <span class="text-sm text-text/40 font-mono">${q.id}</span>
+                            <h3 class="text-lg font-semibold text-text mt-1">${q.question.replace(/\n/g, '<br>')}</h3>
+                        </div>
+
+                        ${answerHTML}
+
+                        <div class="mt-4">
+                            <button onclick="toggleAnswer('${q.id}')" 
+                                class="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent/20 text-accent hover:bg-accent/30 transition">
+                                <i class="fas fa-eye" id="${q.id}-eye"></i>
+                                <span id="${q.id}-btn-text">Show Answer</span>
+                            </button>
+                        </div>
+
+                        <div id="${q.id}-answer" class="answer-hidden bg-surface/50 rounded-lg mt-4">
+                            <div class="text-text">
+                                <h4 class="font-semibold text-green mb-2">Answer:</h4>
+                                <div class="text-text/90">${q.answer === true ? 'True' : q.answer === false ? 'False' : q.answer.toString().replace(/\n/g, '<br>')}</div>
+                                ${workingHTML}
+                                <div class="mt-4 pt-4 border-t border-text/10">
+                                    <h5 class="font-semibold text-accent mb-2">Explanation:</h5>
+                                    <p class="text-text/80">${q.explanation}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        ${isCompleted ? '<div class="mt-4 flex items-center gap-2 text-green text-sm"><i class="fas fa-check-circle"></i> Completed</div>' : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===================== INTERACTIONS =====================
+        function selectSubject(code) {
+            currentSubject = code;
+            currentFilter.topic = 'all';
+            renderSubjectTabs();
+            renderTopicFilters();
+            renderQuestions();
+            updateStats();
+            renderProgressBars();
+        }
+
+        function filterByDifficulty(diff) {
+            currentFilter.difficulty = diff;
+            document.querySelectorAll('.filter-diff').forEach(btn => {
+                if (btn.dataset.diff === diff) {
+                    btn.classList.add('bg-accent', 'text-dark', 'font-medium');
+                    btn.classList.remove('bg-surface', 'text-green', 'text-yellow', 'text-red');
+                } else {
+                    btn.classList.remove('bg-accent', 'text-dark', 'font-medium');
+                    btn.classList.add('bg-surface');
+                    if (btn.dataset.diff === 'easy') btn.classList.add('text-green');
+                    else if (btn.dataset.diff === 'medium') btn.classList.add('text-yellow');
+                    else if (btn.dataset.diff === 'hard') btn.classList.add('text-red');
+                }
+            });
+            renderQuestions();
+        }
+
+        function filterByTopic(topic) {
+            currentFilter.topic = topic;
+            renderTopicFilters();
+            renderQuestions();
+        }
+
+        function filterBookmarked() {
+            currentFilter.bookmarked = !currentFilter.bookmarked;
+            currentFilter.review = false;
+            document.getElementById('filter-bookmark-btn').classList.toggle('bg-yellow/20');
+            document.getElementById('filter-review-btn').classList.remove('bg-purple/20');
+            renderQuestions();
+        }
+
+        function filterReview() {
+            currentFilter.review = !currentFilter.review;
+            currentFilter.bookmarked = false;
+            document.getElementById('filter-review-btn').classList.toggle('bg-purple/20');
+            document.getElementById('filter-bookmark-btn').classList.remove('bg-yellow/20');
+            renderQuestions();
+        }
+
+        function resetFilters() {
+            currentFilter = { difficulty: 'all', topic: 'all', bookmarked: false, review: false };
+            filterByDifficulty('all');
+            renderTopicFilters();
+            document.getElementById('filter-bookmark-btn').classList.remove('bg-yellow/20');
+            document.getElementById('filter-review-btn').classList.remove('bg-purple/20');
+        }
+
+        function toggleAnswer(id) {
+            const answerDiv = document.getElementById(`${id}-answer`);
+            const btnText = document.getElementById(`${id}-btn-text`);
+            const eye = document.getElementById(`${id}-eye`);
+            
+            if (answerDiv.classList.contains('answer-hidden')) {
+                answerDiv.classList.remove('answer-hidden');
+                answerDiv.classList.add('answer-visible');
+                btnText.textContent = 'Hide Answer';
+                eye.classList.remove('fa-eye');
+                eye.classList.add('fa-eye-slash');
+                userState.completed.add(id);
+                updateStats();
+                renderProgressBars();
+            } else {
+                answerDiv.classList.remove('answer-visible');
+                answerDiv.classList.add('answer-hidden');
+                btnText.textContent = 'Show Answer';
+                eye.classList.remove('fa-eye-slash');
+                eye.classList.add('fa-eye');
+            }
+        }
+
+        function selectMCQ(id, selected, correct) {
+            const options = document.querySelectorAll(`[id^="${id}-opt-"]`);
+            options.forEach((opt, i) => {
+                opt.classList.remove('mcq-selected');
+                opt.onclick = null;
+                if (i === correct) {
+                    opt.classList.add('mcq-correct');
+                } else if (i === selected && i !== correct) {
+                    opt.classList.add('mcq-wrong');
+                }
+            });
+
+            const feedback = document.getElementById(`${id}-mcq-feedback`);
+            feedback.classList.remove('hidden');
+            if (selected === correct) {
+                feedback.innerHTML = '<span class="text-green font-medium"><i class="fas fa-check-circle mr-1"></i> Correct!</span>';
+                userState.scores[id] = 1;
+            } else {
+                feedback.innerHTML = '<span class="text-red font-medium"><i class="fas fa-times-circle mr-1"></i> Incorrect. The correct answer is shown above.</span>';
+                userState.scores[id] = 0;
+            }
+            userState.completed.add(id);
+            updateStats();
+            renderProgressBars();
+        }
+
+        function answerTrueFalse(id, selected, correct) {
+            const feedback = document.getElementById(`${id}-tf-feedback`);
+            feedback.classList.remove('hidden');
+            if (selected === correct) {
+                feedback.innerHTML = '<span class="text-green font-medium"><i class="fas fa-check-circle mr-1"></i> Correct!</span>';
+                userState.scores[id] = 1;
+            } else {
+                feedback.innerHTML = `<span class="text-red font-medium"><i class="fas fa-times-circle mr-1"></i> Incorrect. The answer is ${correct ? 'True' : 'False'}.</span>`;
+                userState.scores[id] = 0;
+            }
+            userState.completed.add(id);
+            updateStats();
+            renderProgressBars();
+        }
+
+        function toggleBookmark(id) {
+            if (userState.bookmarks.has(id)) {
+                userState.bookmarks.delete(id);
+            } else {
+                userState.bookmarks.add(id);
+            }
+            renderQuestions();
+            updateStats();
+        }
+
+        function toggleReview(id) {
+            if (userState.review.has(id)) {
+                userState.review.delete(id);
+            } else {
+                userState.review.add(id);
+            }
+            renderQuestions();
+            updateStats();
+        }
+
+        // ===================== STATS & PROGRESS =====================
+        function updateStats() {
+            let totalCompleted = 0;
+            let totalQuestions = 0;
+            let correctAnswers = 0;
+            let totalAnswered = 0;
+
+            Object.values(questionsData).forEach(questions => {
+                questions.forEach(q => {
+                    totalQuestions++;
+                    if (userState.completed.has(q.id)) {
+                        totalCompleted++;
+                        if (userState.scores[q.id] !== undefined) {
+                            totalAnswered++;
+                            if (userState.scores[q.id] === 1) correctAnswers++;
+                        }
+                    }
+                });
+            });
+
+            document.getElementById('stat-completed').textContent = totalCompleted;
+            document.getElementById('stat-bookmarked').textContent = userState.bookmarks.size;
+            document.getElementById('stat-review').textContent = userState.review.size;
+            document.getElementById('overall-progress').textContent = `${totalCompleted}/${totalQuestions}`;
+            document.getElementById('overall-progress-bar').style.width = `${(totalCompleted / totalQuestions) * 100}%`;
+
+            const accuracy = totalAnswered > 0 ? Math.round((correctAnswers / totalAnswered) * 100) : 0;
+            document.getElementById('stat-accuracy').textContent = `${accuracy}%`;
+
+            renderDifficultyChart();
+        }
+
+        function renderProgressBars() {
+            const container = document.getElementById('progress-bars');
+            container.innerHTML = subjects.map(sub => {
+                const questions = questionsData[sub.code] || [];
+                const completed = questions.filter(q => userState.completed.has(q.id)).length;
+                const total = questions.length;
+                const pct = total > 0 ? (completed / total) * 100 : 0;
+                return `
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-text/80">${sub.code}</span>
+                            <span class="text-text/60">${completed}/${total}</span>
+                        </div>
+                        <div class="w-full h-2 rounded-full bg-text/10 overflow-hidden">
+                            <div class="h-full bg-${sub.color} rounded-full progress-bar" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderDifficultyChart() {
+            const canvas = document.getElementById('difficulty-chart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+
+            let easy = 0, medium = 0, hard = 0;
+            Object.values(questionsData).forEach(questions => {
+                questions.forEach(q => {
+                    if (userState.completed.has(q.id)) {
+                        if (q.difficulty === 'easy') easy++;
+                        else if (q.difficulty === 'medium') medium++;
+                        else if (q.difficulty === 'hard') hard++;
+                    }
+                });
+            });
+
+            const total = easy + medium + hard;
+            if (total === 0) {
+                ctx.clearRect(0, 0, rect.width, rect.height);
+                ctx.fillStyle = '#e2e2e840';
+                ctx.font = '14px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Complete questions to see distribution', rect.width / 2, rect.height / 2);
+                return;
+            }
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const radius = Math.min(centerX, centerY) - 20;
+
+            const data = [
+                { value: easy, color: '#9ca3af', label: 'Easy' },
+                { value: medium, color: '#fbbf24', label: 'Medium' },
+                { value: hard, color: '#f87171', label: 'Hard' }
+            ];
+
+            let startAngle = -Math.PI / 2;
+            data.forEach(segment => {
+                const sliceAngle = (segment.value / total) * 2 * Math.PI;
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
+                ctx.closePath();
+                ctx.fillStyle = segment.color;
+                ctx.fill();
+
+                // Label
+                const midAngle = startAngle + sliceAngle / 2;
+                const labelRadius = radius * 0.7;
+                const labelX = centerX + Math.cos(midAngle) * labelRadius;
+                const labelY = centerY + Math.sin(midAngle) * labelRadius;
+                ctx.fillStyle = '#0a0a0f';
+                ctx.font = 'bold 12px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                if (segment.value > 0) {
+                    ctx.fillText(`${segment.value}`, labelX, labelY);
+                }
+
+                startAngle += sliceAngle;
+            });
+
+            // Donut hole
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius * 0.4, 0, 2 * Math.PI);
+            ctx.fillStyle = '#111118';
+            ctx.fill();
+
+            // Center text
+            ctx.fillStyle = '#e2e2e8';
+            ctx.font = 'bold 16px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(`${total}`, centerX, centerY - 8);
+            ctx.font = '12px sans-serif';
+            ctx.fillStyle = '#e2e2e880';
+            ctx.fillText('Done', centerX, centerY + 10);
+        }
+
+        // ===================== MODAL =====================
+        function showScoreModal() {
+            let totalAnswered = 0;
+            let correctAnswers = 0;
+            Object.entries(userState.scores).forEach(([id, score]) => {
+                totalAnswered++;
+                if (score === 1) correctAnswers++;
+            });
+            const accuracy = totalAnswered > 0 ? Math.round((correctAnswers / totalAnswered) * 100) : 0;
+            const totalSeconds = Math.floor(userState.timerElapsed / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+
+            document.getElementById('modal-score').textContent = `${correctAnswers}/${totalAnswered}`;
+            document.getElementById('modal-accuracy').textContent = `${accuracy}%`;
+            document.getElementById('modal-time').textContent = `${minutes}m ${seconds}s`;
+            document.getElementById('score-modal').classList.remove('hidden');
+            document.getElementById('score-modal').classList.add('flex');
+        }
+
+        function closeScoreModal() {
+            document.getElementById('score-modal').classList.add('hidden');
+            document.getElementById('score-modal').classList.remove('flex');
+        }
+
+        function resetSession() {
+            userState.completed.clear();
+            userState.scores = {};
+            userState.timerElapsed = 0;
+            userState.timerRunning = false;
+            clearInterval(timerInterval);
+            document.getElementById('timer').classList.add('hidden');
+            document.getElementById('start-timer-btn').classList.remove('hidden');
+            document.getElementById('timer-display').textContent = '00:00:00';
+            closeScoreModal();
+            renderQuestions();
+            updateStats();
+            renderProgressBars();
+        }
+
+        // ===================== INIT =====================
+        function init() {
+            renderSubjectTabs();
+            renderTopicFilters();
+            renderQuestions();
+            updateStats();
+            renderProgressBars();
+            document.getElementById('subject-stats').style.display = 'grid';
+
+            // Add keyboard shortcut for timer
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' && e.target.tagName !== 'BUTTON') {
+                    e.preventDefault();
+                    if (userState.timerRunning || userState.timerElapsed > 0) {
+                        toggleTimer();
+                    } else {
+                        startTimer();
+                    }
+                }
+            });
+
+            // Resize chart on window resize
+            window.addEventListener('resize', renderDifficultyChart);
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>

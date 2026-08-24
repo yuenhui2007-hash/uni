@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monash B2026 Study Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #111118;
+            --bg-card: #16161f;
+            --bg-hover: #1e1e2a;
+            --accent-blue: #60a5fa;
+            --accent-purple: #a78bfa;
+            --accent-cyan: #22d3ee;
+            --accent-pink: #f472b6;
+            --accent-orange: #fb923c;
+            --accent-green: #34d399;
+            --accent-red: #f87171;
+            --text-primary: #e2e2e8;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --gradient-primary: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+            --gradient-secondary: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
+            --gradient-accent: linear-gradient(135deg, #22d3ee 0%, #60a5fa 100%);
+            --shadow-glow: 0 0 20px rgba(96, 165, 250, 0.2);
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.6);
+            --border-color: rgba(255,255,255,0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-animation {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; overflow: hidden;
+        }
+        .bg-animation .orb {
+            position: absolute; border-radius: 50%; filter: blur(80px);
+            opacity: 0.08; animation: float 20s infinite ease-in-out;
+        }
+        .bg-animation .orb:nth-child(1) {
+            width: 400px; height: 400px; background: var(--accent-blue);
+            top: -100px; left: -100px; animation-delay: 0s;
+        }
+        .bg-animation .orb:nth-child(2) {
+            width: 300px; height: 300px; background: var(--accent-purple);
+            top: 50%; right: -50px; animation-delay: -5s;
+        }
+        .bg-animation .orb:nth-child(3) {
+            width: 350px; height: 350px; background: var(--accent-cyan);
+            bottom: -100px; left: 30%; animation-delay: -10s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 0; margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon {
+            width: 48px; height: 48px; background: var(--gradient-primary);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; box-shadow: var(--shadow-glow);
+        }
+        .logo-text h1 {
+            font-size: 1.5rem; font-weight: 800;
+            background: var(--gradient-primary); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .logo-text span { font-size: 0.8rem; color: var(--text-secondary); }
+
+        .nav-links { display: flex; gap: 8px; }
+        .nav-links a {
+            padding: 10px 18px; border-radius: 10px; text-decoration: none;
+            color: var(--text-secondary); font-weight: 500;
+            transition: all 0.3s ease; border: 1px solid transparent;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-primary); background: var(--bg-card);
+            border-color: rgba(96, 165, 250, 0.2);
+        }
+        .nav-links a i { margin-right: 6px; }
+
+        .user-profile { display: flex; align-items: center; gap: 12px; }
+        .user-avatar {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: var(--gradient-secondary); display: flex;
+            align-items: center; justify-content: center; font-weight: 700;
+            cursor: pointer; transition: transform 0.3s ease;
+        }
+        .user-avatar:hover { transform: scale(1.1); }
+
+        .quote-bar {
+            background: var(--bg-card); border-radius: 16px;
+            padding: 20px 30px; margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+            position: relative; overflow: hidden;
+        }
+        .quote-bar::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 4px; background: var(--gradient-primary);
+        }
+        .quote-bar i { font-size: 1.5rem; color: var(--accent-blue); opacity: 0.7; }
+        .quote-text { font-style: italic; color: var(--text-secondary); font-size: 1rem; transition: opacity 0.5s ease; }
+        .quote-author { color: var(--text-muted); font-size: 0.85rem; margin-left: 10px; }
+
+        .dashboard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+
+        .stat-card {
+            background: var(--bg-card); border-radius: 16px; padding: 24px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+        .stat-card::after {
+            content: ''; position: absolute; top: 0; right: 0;
+            width: 100px; height: 100px;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%);
+            border-radius: 50%; transform: translate(30%, -30%);
+        }
+        .stat-card:hover {
+            transform: translateY(-4px); box-shadow: var(--shadow-card);
+            border-color: rgba(96, 165, 250, 0.15);
+        }
+        .stat-card .icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; margin-bottom: 16px;
+        }
+        .stat-card:nth-child(1) .icon { background: rgba(96, 165, 250, 0.15); color: var(--accent-blue); }
+        .stat-card:nth-child(2) .icon { background: rgba(167, 139, 250, 0.15); color: var(--accent-purple); }
+        .stat-card:nth-child(3) .icon { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); }
+        .stat-card:nth-child(4) .icon { background: rgba(251, 146, 60, 0.15); color: var(--accent-orange); }
+        .stat-card .value { font-size: 2rem; font-weight: 800; margin-bottom: 4px; }
+        .stat-card .label { color: var(--text-secondary); font-size: 0.9rem; }
+        .stat-card .change { font-size: 0.8rem; margin-top: 8px; font-weight: 500; }
+        .stat-card .change.positive { color: var(--accent-green); }
+        .stat-card .change.negative { color: var(--accent-red); }
+
+        .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px; }
+
+        .card {
+            background: var(--bg-card); border-radius: 16px; padding: 24px;
+            border: 1px solid var(--border-color);
+        }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .card-title { font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .card-title i { color: var(--accent-blue); }
+        .card-action {
+            padding: 6px 14px; border-radius: 8px;
+            background: rgba(96, 165, 250, 0.1); color: var(--accent-blue);
+            font-size: 0.8rem; font-weight: 600; border: none;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .card-action:hover { background: rgba(96, 165, 250, 0.2); }
+
+        .progress-rings { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .ring-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .ring-container { position: relative; width: 120px; height: 120px; }
+        .ring-container svg { transform: rotate(-90deg); }
+        .ring-bg { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 8; }
+        .ring-progress { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1.5s ease; }
+        .ring-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.4rem; font-weight: 800; }
+        .ring-label { margin-top: 12px; font-size: 0.9rem; font-weight: 600; }
+        .ring-code { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+        .gpa-calculator { display: flex; flex-direction: column; gap: 12px; }
+        .gpa-display {
+            text-align: center; padding: 20px;
+            background: rgba(96, 165, 250, 0.05); border-radius: 12px; margin-bottom: 8px;
+        }
+        .gpa-value {
+            font-size: 3rem; font-weight: 800;
+            background: var(--gradient-primary); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .gpa-label { color: var(--text-secondary); font-size: 0.9rem; }
+        .gpa-inputs { display: flex; flex-direction: column; gap: 8px; }
+        .gpa-row { display: flex; gap: 8px; align-items: center; }
+        .gpa-row input, .gpa-row select {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 8px 12px; color: var(--text-primary);
+            font-size: 0.85rem; outline: none; transition: border-color 0.3s ease;
+        }
+        .gpa-row input:focus, .gpa-row select:focus { border-color: var(--accent-blue); }
+        .gpa-row input { width: 60px; text-align: center; }
+        .gpa-row select { flex: 1; }
+        .gpa-row .credit-input { width: 50px; }
+        .gpa-row .subject-name { flex: 1; background: transparent; border: none; color: var(--text-secondary); font-size: 0.85rem; }
+
+        .btn-add {
+            padding: 10px; border-radius: 10px; background: var(--gradient-primary);
+            color: white; font-weight: 600; border: none; cursor: pointer;
+            transition: all 0.3s ease; margin-top: 8px;
+        }
+        .btn-add:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+
+        .countdown-list { display: flex; flex-direction: column; gap: 12px; }
+        .countdown-item {
+            background: var(--bg-secondary); border-radius: 12px; padding: 16px;
+            border-left: 3px solid var(--accent-blue); transition: all 0.3s ease;
+        }
+        .countdown-item:hover { transform: translateX(4px); background: var(--bg-hover); }
+        .countdown-item.urgent {
+            border-left-color: var(--accent-red);
+            animation: pulse-border 2s infinite;
+        }
+        @keyframes pulse-border {
+            0%, 100% { border-left-color: var(--accent-red); }
+            50% { border-left-color: transparent; }
+        }
+        .countdown-title { font-weight: 600; margin-bottom: 4px; }
+        .countdown-subject { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+        .countdown-timer { display: flex; gap: 12px; }
+        .time-unit { text-align: center; }
+        .time-value { font-size: 1.3rem; font-weight: 700; color: var(--accent-blue); }
+        .time-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+
+        .streak-calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+        .day-label { text-align: center; font-size: 0.7rem; color: var(--text-muted); padding: 4px; }
+        .day-cell {
+            aspect-ratio: 1; border-radius: 6px; background: var(--bg-secondary);
+            transition: all 0.3s ease; cursor: pointer; position: relative;
+        }
+        .day-cell:hover { transform: scale(1.15); z-index: 2; }
+        .day-cell.empty { background: transparent; cursor: default; }
+        .day-cell.level-1 { background: rgba(96, 165, 250, 0.2); }
+        .day-cell.level-2 { background: rgba(96, 165, 250, 0.4); }
+        .day-cell.level-3 { background: rgba(96, 165, 250, 0.6); }
+        .day-cell.level-4 { background: rgba(96, 165, 250, 0.8); }
+        .day-cell.level-5 { background: var(--accent-blue); box-shadow: 0 0 10px rgba(96, 165, 250, 0.5); }
+        .day-cell.today { border: 2px solid var(--accent-purple); }
+        .streak-info {
+            display: flex; justify-content: space-between;
+            margin-top: 16px; padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        .streak-stat { text-align: center; }
+        .streak-stat-value { font-size: 1.5rem; font-weight: 800; color: var(--accent-orange); }
+        .streak-stat-label { font-size: 0.75rem; color: var(--text-muted); }
+
+        .activity-feed { display: flex; flex-direction: column; gap: 12px; }
+        .activity-item {
+            display: flex; gap: 12px; align-items: flex-start;
+            padding: 12px; border-radius: 10px; background: var(--bg-secondary);
+            transition: all 0.3s ease;
+        }
+        .activity-item:hover { background: var(--bg-hover); }
+        .activity-icon {
+            width: 36px; height: 36px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; flex-shrink: 0;
+        }
+        .activity-icon.study { background: rgba(96, 165, 250, 0.15); color: var(--accent-blue); }
+        .activity-icon.quiz { background: rgba(167, 139, 250, 0.15); color: var(--accent-purple); }
+        .activity-icon.assignment { background: rgba(251, 146, 60, 0.15); color: var(--accent-orange); }
+        .activity-icon.exam { background: rgba(248, 113, 113, 0.15); color: var(--accent-red); }
+        .activity-icon.video { background: rgba(34, 211, 238, 0.15); color: var(--accent-cyan); }
+        .activity-content { flex: 1; }
+        .activity-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+        .activity-meta { font-size: 0.75rem; color: var(--text-muted); }
+        .activity-time { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+
+        .chart-container { position: relative; height: 250px; }
+
+        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .edit-btn {
+            background: transparent; border: 1px solid var(--border-color); color: var(--text-muted);
+            padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s;
+        }
+        .edit-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+        .edit-input {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 6px; padding: 4px 8px; color: var(--text-primary); font-size: 0.85rem;
+            width: 80px; text-align: center;
+        }
+        .edit-input:focus { border-color: var(--accent-blue); outline: none; }
+
+        .inline-edit { display: none; align-items: center; gap: 6px; }
+        .inline-edit.active { display: flex; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--bg-hover); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
+
+        @media (max-width: 1200px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+            .main-grid { grid-template-columns: 1fr; }
+            .bottom-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .progress-rings { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .header { flex-direction: column; gap: 16px; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in { animation: fadeInUp 0.6s ease forwards; }
+        .delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .delay-4 { animation-delay: 0.4s; opacity: 0; }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">📚</div>
+                <div class="logo-text">
+                    <h1>Monash B2026</h1>
+                    <span>Study Portal</span>
+                </div>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+                <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+                <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+                <a href="study.html"><i class="fas fa-book"></i> Study</a>
+                <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+            </nav>
+            <div class="user-profile">
+                <span id="userDegree" style="color: var(--text-secondary); font-size: 0.9rem;">Bachelor of Science</span>
+                <div class="user-avatar" id="userAvatar">JD</div>
+            </div>
+        </header>
+
+        <div class="quote-bar animate-in">
+            <i class="fas fa-quote-left"></i>
+            <div>
+                <span class="quote-text" id="quoteText">Loading...</span>
+                <span class="quote-author" id="quoteAuthor"></span>
+            </div>
+            <i class="fas fa-quote-right"></i>
+        </div>
+
+        <div class="dashboard-grid" id="statsGrid"></div>
+
+        <div class="main-grid">
+            <div class="card animate-in">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-chart-pie"></i> Subject Progress</div>
+                    <button class="card-action">View All</button>
+                </div>
+                <div class="progress-rings" id="progressRings"></div>
+            </div>
+
+            <div class="card animate-in delay-2">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-calculator"></i> GPA Calculator</div>
+                </div>
+                <div class="gpa-calculator">
+                    <div class="gpa-display">
+                        <div class="gpa-value" id="gpaValue">0.00</div>
+                        <div class="gpa-label">Current GPA</div>
+                    </div>
+                    <div class="gpa-inputs" id="gpaInputs"></div>
+                    <button class="btn-add" onclick="calculateGPA()">Recalculate GPA</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-grid">
+            <div class="card animate-in">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-chart-bar"></i> Weekly Study Hours</div>
+                    <button class="card-action">This Month</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="studyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card animate-in delay-2">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-hourglass-half"></i> Upcoming Deadlines</div>
+                </div>
+                <div class="countdown-list" id="countdownList"></div>
+            </div>
+        </div>
+
+        <div class="main-grid" style="margin-top: 20px;">
+            <div class="card animate-in">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-fire-alt"></i> Study Streak</div>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <button class="edit-btn" onclick="toggleStreakEdit()">Edit</button>
+                        <button class="card-action" id="streakMonthLabel">August 2026</button>
+                    </div>
+                </div>
+                <div class="streak-calendar" id="streakCalendar">
+                    <div class="day-label">Mon</div>
+                    <div class="day-label">Tue</div>
+                    <div class="day-label">Wed</div>
+                    <div class="day-label">Thu</div>
+                    <div class="day-label">Fri</div>
+                    <div class="day-label">Sat</div>
+                    <div class="day-label">Sun</div>
+                </div>
+                <div class="streak-info" id="streakInfo"></div>
+                <div class="inline-edit" id="streakEditPanel" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-color);">
+                    <span style="font-size:0.8rem;color:var(--text-muted);">Click any day to toggle. Or log today:</span>
+                    <button class="btn-add" style="padding:6px 14px;font-size:0.8rem;" onclick="logToday()">Log Today</button>
+                </div>
+            </div>
+
+            <div class="card animate-in delay-2">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-history"></i> Recent Activity</div>
+                    <button class="card-action">View All</button>
+                </div>
+                <div class="activity-feed" id="activityFeed"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+        async function api(method, path, body) {
+            const opts = { method, headers: { 'Content-Type': 'application/json' } };
+            if (body) opts.body = JSON.stringify(body);
+            const r = await fetch(`${API_BASE}${path}`, opts);
+            return r.ok ? r.json() : null;
+        }
+
+        let appData = { stats: {}, streak: {}, config: {}, deadlines: [], activities: [] };
+
+        async function loadAll() {
+            const [stats, streak, config, deadlines, activities] = await Promise.all([
+                api('GET','/api/stats'), api('GET','/api/streak'), api('GET','/api/config'),
+                api('GET','/api/deadlines'), api('GET','/api/activities')
+            ]);
+            appData = { stats: stats||{}, streak: streak||{}, config: config||{}, deadlines: deadlines||[], activities: activities||[] };
+            renderAll();
+        }
+
+        const GRADIENTS = {
+            grad1: { id: "grad1", stops: [{ offset: "0%", color: "#60a5fa" }, { offset: "100%", color: "#a78bfa" }] },
+            grad2: { id: "grad2", stops: [{ offset: "0%", color: "#a78bfa" }, { offset: "100%", color: "#f472b6" }] },
+            grad3: { id: "grad3", stops: [{ offset: "0%", color: "#34d399" }, { offset: "100%", color: "#22d3ee" }] },
+            grad4: { id: "grad4", stops: [{ offset: "0%", color: "#fb923c" }, { offset: "100%", color: "#f472b6" }] }
+        };
+
+        function renderAll() {
+            document.getElementById('userDegree').textContent = appData.config.degree || 'Bachelor of Commerce';
+            document.getElementById('userAvatar').textContent = appData.config.avatarInitials || 'YH';
+            renderStats();
+            renderProgressRings();
+            renderGPA();
+            renderCountdowns();
+            renderStreakCalendar();
+            renderActivity();
+            setInitialQuote();
+            animateNumbers();
+            animateRings();
+            initStudyChart();
+            calculateGPA();
+        }
+
+        function renderStats() {
+            const grid = document.getElementById('statsGrid');
+            grid.innerHTML = '';
+            const s = appData.stats;
+            const statsArr = [
+                { icon: "fas fa-book-open", value: s.hoursStudiedThisWeek || 0, label: "Hours Studied This Week", change: "+12% from last week", changeType: "positive" },
+                { icon: "fas fa-tasks", value: s.assignmentsCompleted || 0, label: "Assignments Completed", change: "On track", changeType: "positive" },
+                { icon: "fas fa-fire", value: s.studyStreakDays || 0, label: "Day Study Streak", change: "+3 days", changeType: "positive" },
+                { icon: "fas fa-graduation-cap", value: s.currentGPA || 0, label: "Current GPA", change: "+0.2 this semester", changeType: "positive", isDecimal: true }
+            ];
+            statsArr.forEach((stat, i) => {
+                const card = document.createElement('div');
+                card.className = `stat-card animate-in delay-${i + 1}`;
+                card.innerHTML = `
+                    <div class="icon"><i class="${stat.icon}"></i></div>
+                    <div class="value" data-target="${stat.value}" data-decimal="${stat.isDecimal ? 'true' : 'false'}">0</div>
+                    <div class="label">${stat.label}</div>
+                    <div class="change positive"><i class="fas fa-arrow-up"></i> ${stat.change}</div>
+                    <div class="inline-edit" id="statEdit${i}">
+                        <input class="edit-input" type="number" step="${stat.isDecimal?0.01:1}" value="${stat.value}" id="statInput${i}">
+                        <button class="edit-btn" onclick="saveStat('${stat.label}', ${i})">Save</button>
+                    </div>
+                `;
+                card.querySelector('.icon').addEventListener('dblclick', () => {
+                    const edit = card.querySelector('.inline-edit');
+                    edit.classList.toggle('active');
+                });
+                grid.appendChild(card);
+            });
+        }
+
+        async function saveStat(label, idx) {
+            const val = parseFloat(document.getElementById(`statInput${idx}`).value);
+            if (label.includes('Hours')) appData.stats.hoursStudiedThisWeek = val;
+            else if (label.includes('Assignments')) appData.stats.assignmentsCompleted = val;
+            else if (label.includes('Streak')) appData.stats.studyStreakDays = val;
+            else if (label.includes('GPA')) appData.stats.currentGPA = val;
+            await api('PUT','/api/stats', appData.stats);
+            loadAll();
+        }
+
+        function renderProgressRings() {
+            const container = document.getElementById('progressRings');
+            container.innerHTML = '';
+            const subjects = appData.config.subjects || [
+                { name: "Financial Accounting", code: "ACW1120", progress: 78, gradient: "grad1" },
+                { name: "Foundations of Finance", code: "BFW1001", progress: 65, gradient: "grad2" },
+                { name: "Business Law", code: "BTW1042", progress: 92, gradient: "grad3" },
+                { name: "Economics", code: "ECM1953", progress: 54, gradient: "grad4" }
+            ];
+            subjects.forEach((sub, i) => {
+                const grad = GRADIENTS[sub.gradient || 'grad1'];
+                const item = document.createElement('div');
+                item.className = 'ring-item';
+                item.innerHTML = `
+                    <div class="ring-container">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <defs>
+                                <linearGradient id="${grad.id}-${i}" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    ${grad.stops.map(s => `<stop offset="${s.offset}" style="stop-color:${s.color}"/>`).join('')}
+                                </linearGradient>
+                            </defs>
+                            <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                            <circle class="ring-progress" cx="60" cy="60" r="52" 
+                                stroke="url(#${grad.id}-${i})" 
+                                stroke-dasharray="326.73" 
+                                stroke-dashoffset="326.73"
+                                data-progress="${sub.progress}"/>
+                        </svg>
+                        <div class="ring-text">${sub.progress}%</div>
+                    </div>
+                    <div class="ring-label">${sub.name}</div>
+                    <div class="ring-code">${sub.code || ''}</div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function renderGPA() {
+            const container = document.getElementById('gpaInputs');
+            container.innerHTML = '';
+            const rows = appData.config.gpaRows || [
+                { grade: 2.0, credits: 6, subject: "ACW1120 - Financial Accounting" },
+                { grade: 3.0, credits: 6, subject: "BFW1001 - Foundations of Finance" },
+                { grade: 4.0, credits: 6, subject: "BTW1042 - Business Law" },
+                { grade: 2.0, credits: 6, subject: "ECM1953 - Economics" }
+            ];
+            const gradeOptions = [
+                { value: 4.0, label: "HD (4.0)" }, { value: 3.0, label: "D (3.0)" },
+                { value: 2.0, label: "C (2.0)" }, { value: 1.0, label: "P (1.0)" }, { value: 0.0, label: "F (0.0)" }
+            ];
+            rows.forEach(row => {
+                const div = document.createElement('div');
+                div.className = 'gpa-row';
+                div.innerHTML = `
+                    <select onchange="calculateGPA()">
+                        ${gradeOptions.map(g => `<option value="${g.value}"${g.value === row.grade ? ' selected' : ''}>${g.label}</option>`).join('')}
+                    </select>
+                    <input type="number" class="credit-input" value="${row.credits}" min="0" max="24" onchange="calculateGPA()">
+                    <input type="text" class="subject-name" value="${row.subject}" readonly>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderCountdowns() {
+            const container = document.getElementById('countdownList');
+            container.innerHTML = '';
+            const deadlines = appData.deadlines.length ? appData.deadlines : [
+                { title: "Mid-Semester Exam", subject: "ACW1120 - Financial Accounting", date: "2026-09-05T09:00:00", urgent: true },
+                { title: "Assignment 2 Due", subject: "BFW1001 - Foundations of Finance", date: "2026-09-12T23:59:00", urgent: false },
+                { title: "Lab Report", subject: "BTW1042 - Business Law", date: "2026-09-18T17:00:00", urgent: false }
+            ];
+            deadlines.forEach(d => {
+                const item = document.createElement('div');
+                item.className = `countdown-item${d.urgent ? ' urgent' : ''}`;
+                item.innerHTML = `
+                    <div class="countdown-title">${d.title}</div>
+                    <div class="countdown-subject">${d.subject}</div>
+                    <div class="countdown-timer" data-date="${d.date}">
+                        <div class="time-unit"><div class="time-value">00</div><div class="time-label">Days</div></div>
+                        <div class="time-unit"><div class="time-value">00</div><div class="time-label">Hrs</div></div>
+                        <div class="time-unit"><div class="time-value">00</div><div class="time-label">Mins</div></div>
+                        <div class="time-unit"><div class="time-value">00</div><div class="time-label">Secs</div></div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        let streakEditMode = false;
+        function toggleStreakEdit() {
+            streakEditMode = !streakEditMode;
+            document.getElementById('streakEditPanel').classList.toggle('active');
+        }
+
+        async function logToday() {
+            const r = await api('POST','/api/streak/today');
+            if (r) { alert(`Study logged! Today level: ${r.todayLevel}, Streak: ${r.currentStreak} days`); loadAll(); }
+        }
+
+        async function toggleStreakDay(dayIndex) {
+            if (!streakEditMode) return;
+            const days = appData.streak.days || Array(31).fill(0);
+            days[dayIndex] = days[dayIndex] > 0 ? 0 : Math.min(5, (days[dayIndex] || 0) + 3);
+            appData.streak.days = days;
+            await api('PUT','/api/streak', appData.streak);
+            loadAll();
+        }
+
+        function renderStreakCalendar() {
+            const calendar = document.getElementById('streakCalendar');
+            const labels = calendar.querySelectorAll('.day-label');
+            calendar.innerHTML = '';
+            labels.forEach(l => calendar.appendChild(l));
+
+            const streak = appData.streak || {};
+            const emptyDays = streak.emptyDays !== undefined ? streak.emptyDays : 5;
+            const days = streak.days || Array(31).fill(0);
+
+            for (let i = 0; i < emptyDays; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'day-cell empty';
+                calendar.appendChild(empty);
+            }
+
+            const today = new Date().getDate();
+            for (let day = 1; day <= days.length; day++) {
+                const cell = document.createElement('div');
+                cell.className = 'day-cell';
+                const level = days[day - 1] || 0;
+                if (level > 0) cell.classList.add(`level-${level}`);
+                if (day === today) cell.classList.add('today');
+                cell.title = `${streak.month || 'This Month'} ${day}${level > 0 ? `: Level ${level} study session` : ': No study'}`;
+                cell.onclick = () => toggleStreakDay(day - 1);
+                calendar.appendChild(cell);
+            }
+
+            document.getElementById('streakMonthLabel').textContent = streak.month || 'This Month';
+            const stats = streak.stats || { currentStreak: 0, longestStreak: 0, totalDays: 0, consistency: '0%' };
+            document.getElementById('streakInfo').innerHTML = [
+                { value: stats.currentStreak, label: 'Current Streak' },
+                { value: stats.longestStreak, label: 'Longest Streak' },
+                { value: stats.totalDays, label: 'Total Days' },
+                { value: stats.consistency, label: 'Consistency' }
+            ].map(s => `
+                <div class="streak-stat">
+                    <div class="streak-stat-value">${s.value}</div>
+                    <div class="streak-stat-label">${s.label}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderActivity() {
+            const container = document.getElementById('activityFeed');
+            container.innerHTML = '';
+            const acts = appData.activities.length ? appData.activities : [
+                { type: "study", icon: "fas fa-book", title: "Completed Accounting Notes", meta: "ACW1120 - Chapter 5", time: "2h ago" },
+                { type: "quiz", icon: "fas fa-check-circle", title: "Scored 85% on Quiz", meta: "BFW1001 - Time Value of Money", time: "5h ago" },
+                { type: "assignment", icon: "fas fa-file-alt", title: "Submitted Case Study", meta: "BTW1042 - Contract Law", time: "Yesterday" },
+                { type: "video", icon: "fas fa-video", title: "Watched Lecture Recording", meta: "ECM1953 - Supply & Demand", time: "Yesterday" }
+            ];
+            acts.forEach(act => {
+                const item = document.createElement('div');
+                item.className = 'activity-item';
+                item.innerHTML = `
+                    <div class="activity-icon ${act.type}"><i class="${act.icon}"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-title">${act.title}</div>
+                        <div class="activity-meta">${act.meta}</div>
+                    </div>
+                    <div class="activity-time">${act.time}</div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function animateNumbers() {
+            document.querySelectorAll('.stat-card .value[data-target]').forEach(counter => {
+                const target = parseFloat(counter.dataset.target);
+                const isDecimal = counter.dataset.decimal === 'true';
+                const duration = 2000, startTime = performance.now();
+                function update(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const easeOut = 1 - Math.pow(1 - progress, 3);
+                    const current = target * easeOut;
+                    counter.textContent = isDecimal ? current.toFixed(2) : Math.round(current);
+                    if (progress < 1) requestAnimationFrame(update);
+                }
+                requestAnimationFrame(update);
+            });
+        }
+
+        function animateRings() {
+            document.querySelectorAll('.ring-progress').forEach(ring => {
+                const progress = parseInt(ring.dataset.progress);
+                const circumference = 2 * Math.PI * 52;
+                const offset = circumference - (progress / 100) * circumference;
+                setTimeout(() => { ring.style.strokeDashoffset = offset; }, 500);
+            });
+        }
+
+        let studyChartInstance = null;
+        function initStudyChart() {
+            const ctx = document.getElementById('studyChart');
+            if (!ctx) return;
+            if (studyChartInstance) studyChartInstance.destroy();
+            const gradient1 = ctx.getContext('2d').createLinearGradient(0, 0, 0, 250);
+            gradient1.addColorStop(0, 'rgba(96, 165, 250, 0.8)');
+            gradient1.addColorStop(1, 'rgba(96, 165, 250, 0.1)');
+            const gradient2 = ctx.getContext('2d').createLinearGradient(0, 0, 0, 250);
+            gradient2.addColorStop(0, 'rgba(167, 139, 250, 0.8)');
+            gradient2.addColorStop(1, 'rgba(167, 139, 250, 0.1)');
+
+            studyChartInstance = new Chart(ctx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                    datasets: [{
+                        label: 'This Week',
+                        data: [3.5, 4, 2.5, 5, 3, 6, 4],
+                        backgroundColor: gradient1,
+                        borderColor: '#60a5fa',
+                        borderWidth: 1,
+                        borderRadius: 8,
+                    }, {
+                        label: 'Last Week',
+                        data: [2, 3, 3.5, 4, 2.5, 5, 3.5],
+                        backgroundColor: gradient2,
+                        borderColor: '#a78bfa',
+                        borderWidth: 1,
+                        borderRadius: 8,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#9ca3af', font: { family: 'Inter', size: 12 } }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#6b7280', font: { family: 'Inter', size: 11 } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#6b7280', font: { family: 'Inter', size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function calculateGPA() {
+            const rows = document.querySelectorAll('#gpaInputs .gpa-row');
+            let totalPoints = 0, totalCredits = 0;
+            rows.forEach(row => {
+                const grade = parseFloat(row.querySelector('select').value);
+                const credits = parseFloat(row.querySelector('.credit-input').value) || 0;
+                totalPoints += grade * credits;
+                totalCredits += credits;
+            });
+            const gpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : '0.00';
+            document.getElementById('gpaValue').textContent = gpa;
+        }
+
+        function updateCountdowns() {
+            document.querySelectorAll('.countdown-timer').forEach(timer => {
+                const targetDate = new Date(timer.dataset.date);
+                const now = new Date();
+                const diff = targetDate - now;
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    const units = timer.querySelectorAll('.time-value');
+                    units[0].textContent = String(days).padStart(2, '0');
+                    units[1].textContent = String(hours).padStart(2, '0');
+                    units[2].textContent = String(minutes).padStart(2, '0');
+                    units[3].textContent = String(seconds).padStart(2, '0');
+                }
+            });
+        }
+
+        const quotes = [
+            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+            { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Education is the most powerful weapon which you can use to change the world.", author: "Nelson Mandela" },
+            { text: "It always seems impossible until it's done.", author: "Nelson Mandela" }
+        ];
+        let quoteIndex = 0;
+        function rotateQuotes() {
+            const quoteText = document.getElementById('quoteText');
+            const quoteAuthor = document.getElementById('quoteAuthor');
+            quoteText.style.opacity = '0'; quoteAuthor.style.opacity = '0';
+            setTimeout(() => {
+                quoteIndex = (quoteIndex + 1) % quotes.length;
+                quoteText.textContent = `"${quotes[quoteIndex].text}"`;
+                quoteAuthor.textContent = `— ${quotes[quoteIndex].author}`;
+                quoteText.style.opacity = '1'; quoteAuthor.style.opacity = '1';
+            }, 500);
+        }
+        function setInitialQuote() {
+            const q = quotes[0];
+            document.getElementById('quoteText').textContent = `"${q.text}"`;
+            document.getElementById('quoteAuthor').textContent = `— ${q.author}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAll();
+            setInterval(updateCountdowns, 1000);
+            setInterval(rotateQuotes, 15000);
+        });
+    </script>
+</body>
+</html>

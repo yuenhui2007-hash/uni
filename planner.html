@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monash B2026 Study Portal</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface-hover: #1e1e2a;
+      --surface-border: rgba(255,255,255,0.08);
+      --text: #e2e2e8;
+      --text-muted: #9ca3af;
+      --accent: #60a5fa;
+      --accent-hover: #e8d5c8;
+      --green: #9ca3af;
+      --purple: #fbbf24;
+      --yellow: #fbbf24;
+      --red: #f87171;
+      --radius: 14px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.6);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+    header {
+      text-align: center; padding: 30px 0; border-bottom: 1px solid var(--surface-border);
+    }
+    header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; }
+    header p { color: var(--text-muted); margin-top: 6px; font-size: 1rem; }
+    .tabs { display: flex; gap: 8px; margin: 24px 0; flex-wrap: wrap; justify-content: center; }
+    .tab-btn {
+      background: var(--surface); color: var(--text-muted); border: 1px solid var(--surface-border);
+      padding: 10px 22px; border-radius: 999px; cursor: pointer; font-size: 0.92rem; font-weight: 500;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { color: var(--text); border-color: var(--accent); }
+    .tab-btn.active { background: var(--accent); color: #0a0a0f; border-color: var(--accent); font-weight: 600; }
+    .tab-panel { display: none; animation: fadeIn 0.3s ease; }
+    .tab-panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .panel-grid { display: grid; gap: 20px; }
+    .panel-grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); }
+    .panel-grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .card {
+      background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius);
+      padding: 20px; box-shadow: var(--shadow);
+    }
+    .card h2 { font-size: 1.15rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .card h2 .icon { font-size: 1.3rem; }
+    /* Schedule */
+    .schedule-controls { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+    .schedule-controls select, .schedule-controls input {
+      background: var(--bg); color: var(--text); border: 1px solid var(--surface-border);
+      padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.9rem;
+    }
+    .btn {
+      background: var(--accent); color: #0a0a0f; border: none; padding: 8px 16px;
+      border-radius: var(--radius-sm); cursor: pointer; font-weight: 600; font-size: 0.88rem;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--accent-hover); }
+    .btn-sm { padding: 5px 12px; font-size: 0.82rem; }
+    .btn-red { background: var(--red); color: #fff; }
+    .btn-green { background: var(--green); color: #0a0a0f; }
+    .btn-purple { background: var(--purple); color: #0a0a0f; }
+    .weekly-grid {
+      display: grid; grid-template-columns: 60px repeat(7, 1fr); gap: 4px;
+      overflow-x: auto; padding-bottom: 8px;
+    }
+    .time-label { font-size: 0.72rem; color: var(--text-muted); text-align: right; padding-right: 6px; align-self: center; }
+    .day-header { text-align: center; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); padding: 6px 0; }
+    .slot {
+      background: var(--bg); border: 1px solid var(--surface-border); border-radius: 6px;
+      min-height: 36px; cursor: pointer; transition: all 0.15s; position: relative;
+    }
+    .slot:hover { border-color: var(--accent); background: var(--surface-hover); }
+    .slot.filled { color: #0a0a0f; font-size: 0.72rem; font-weight: 600; display: flex; align-items: center; justify-content: center; padding: 2px; text-align: center; overflow: hidden; }
+    .slot.subj-1 { background: #60a5fa; }
+    .slot.subj-2 { background: #9ca3af; }
+    .slot.subj-3 { background: #fbbf24; }
+    .slot.subj-4 { background: #fbbf24; }
+    .slot.subj-5 { background: #f87171; }
+    .slot.subj-6 { background: #60a5fa; }
+    .slot.subj-7 { background: #f87171; }
+    .slot.subj-8 { background: #a78bfa; }
+    .legend { display: flex; gap: 14px; margin-top: 14px; flex-wrap: wrap; font-size: 0.78rem; }
+    .legend-item { display: flex; align-items: center; gap: 4px; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+    /* Modal */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+      align-items: center; justify-content: center; z-index: 100;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius);
+      padding: 24px; width: 90%; max-width: 420px; box-shadow: var(--shadow);
+    }
+    .modal h3 { margin-bottom: 16px; }
+    .modal input, .modal select {
+      width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--surface-border);
+      padding: 10px 12px; border-radius: var(--radius-sm); margin-bottom: 12px; font-size: 0.92rem;
+    }
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+    /* Deadlines */
+    .deadline-item {
+      background: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-sm);
+      padding: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 14px;
+    }
+    .deadline-priority { width: 6px; height: 100%; border-radius: 3px; min-height: 48px; flex-shrink: 0; }
+    .deadline-priority.high { background: var(--red); }
+    .deadline-priority.medium { background: var(--yellow); }
+    .deadline-priority.low { background: var(--green); }
+    .deadline-info { flex: 1; }
+    .deadline-title { font-weight: 600; font-size: 0.95rem; }
+    .deadline-meta { font-size: 0.8rem; color: var(--text-muted); }
+    .deadline-countdown { font-size: 0.85rem; font-weight: 600; text-align: right; min-width: 90px; }
+    .progress-bar { height: 6px; background: var(--surface-border); border-radius: 3px; margin-top: 6px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+    .deadline-form { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .deadline-form input, .deadline-form select { flex: 1; min-width: 140px; }
+    /* Goals */
+    .goal-item {
+      background: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-sm);
+      padding: 12px 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
+    }
+    .goal-check { width: 20px; height: 20px; border: 2px solid var(--accent); border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; }
+    .goal-check.done { background: var(--accent); }
+    .goal-text { flex: 1; font-size: 0.92rem; }
+    .goal-text.done { text-decoration: line-through; color: var(--text-muted); }
+    .habit-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 10px; }
+    .habit-day {
+      aspect-ratio: 1; background: var(--bg); border: 1px solid var(--surface-border);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; color: var(--text-muted); cursor: pointer; transition: all 0.15s;
+    }
+    .habit-day:hover { border-color: var(--accent); }
+    .habit-day.done { background: var(--green); color: #0a0a0f; border-color: var(--green); font-weight: 700; }
+    .habit-day.missed { background: var(--red); color: #fff; border-color: var(--red); }
+    .habit-label { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 4px; }
+    .badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    .badge {
+      background: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-sm);
+      padding: 8px 14px; font-size: 0.82rem; display: flex; align-items: center; gap: 6px;
+    }
+    .badge.earned { border-color: var(--yellow); background: rgba(251,191,36,0.08); }
+    /* Timer */
+    .timer-display {
+      text-align: center; padding: 30px; background: var(--bg); border-radius: var(--radius);
+      border: 1px solid var(--surface-border); margin-bottom: 16px;
+    }
+    .timer-circle { font-size: 4rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 2px; }
+    .timer-label { font-size: 0.9rem; color: var(--text-muted); margin-top: 4px; }
+    .timer-controls { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
+    .timer-settings { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin-top: 16px; }
+    .timer-settings label { font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 4px; }
+    .timer-settings input { width: 100%; }
+    .session-log { max-height: 180px; overflow-y: auto; margin-top: 14px; }
+    .session-log-item { font-size: 0.8rem; color: var(--text-muted); padding: 4px 0; border-bottom: 1px solid var(--surface-border); }
+    /* Grades */
+    .grade-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .grade-table th, .grade-table td { padding: 10px; text-align: left; border-bottom: 1px solid var(--surface-border); }
+    .grade-table th { color: var(--text-muted); font-weight: 500; font-size: 0.8rem; }
+    .grade-table input {
+      background: var(--bg); color: var(--text); border: 1px solid var(--surface-border);
+      padding: 6px 8px; border-radius: var(--radius-sm); font-size: 0.85rem; width: 100%;
+    }
+    .gpa-box {
+      background: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-sm);
+      padding: 16px; text-align: center; margin-top: 16px;
+    }
+    .gpa-value { font-size: 2.4rem; font-weight: 700; color: var(--accent); }
+    .gpa-label { font-size: 0.82rem; color: var(--text-muted); }
+    .whatif { margin-top: 16px; }
+    .whatif-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: center; }
+    .whatif-row input { flex: 1; }
+    .whatif-result { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--surface-border); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+    @media (max-width: 600px) {
+      .weekly-grid { grid-template-columns: 40px repeat(7, minmax(44px, 1fr)); }
+      .timer-circle { font-size: 2.6rem; }
+      .panel-grid.cols-2, .panel-grid.cols-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Monash B2026 Study Portal</h1>
+      <p>Study Planner &amp; Deadline Tracker</p>
+    </header>
+    <a href="index.html" style="display:inline-block;margin:0 20px 10px;color:var(--accent);font-weight:700;text-decoration:none">← Back to Dashboard</a><nav class="tabs">
+      <button class="tab-btn active" data-tab="schedule">Schedule</button>
+      <button class="tab-btn" data-tab="deadlines">Deadlines</button>
+      <button class="tab-btn" data-tab="goals">Goals</button>
+      <button class="tab-btn" data-tab="timer">Study Timer</button>
+      <button class="tab-btn" data-tab="grades">Grade Tracker</button>
+    </nav>
+
+    <!-- SCHEDULE TAB -->
+    <div id="schedule" class="tab-panel active">
+      <div class="panel-grid cols-2">
+        <div class="card" style="grid-column: 1 / -1;">
+          <h2><span class="icon">📅</span> Weekly Schedule</h2>
+          <div class="schedule-controls">
+            <select id="subjSelect">
+              <option value="1">Business Law</option>
+              <option value="2">Accounting</option>
+              <option value="3">Economics</option>
+              <option value="4">Marketing</option>
+              <option value="5">Finance</option>
+              <option value="6">Management</option>
+              <option value="7">Statistics</option>
+              <option value="8">IT for Business</option>
+            </select>
+            <input type="text" id="subjLabel" placeholder="Custom label (optional)" style="min-width:180px;">
+            <button class="btn" onclick="clearSchedule()">Clear All</button>
+            <button class="btn btn-red btn-sm" onclick="clearSelectedSubject()">Clear Subject</button>
+          </div>
+          <div class="weekly-grid" id="weeklyGrid"></div>
+          <div class="legend" id="scheduleLegend"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEADLINES TAB -->
+    <div id="deadlines" class="tab-panel">
+      <div class="panel-grid cols-2">
+        <div class="card">
+          <h2><span class="icon">⏰</span> Add Deadline</h2>
+          <div class="deadline-form">
+            <input type="text" id="dlTitle" placeholder="Title">
+            <input type="date" id="dlDate">
+            <select id="dlPriority">
+              <option value="high">High Priority</option>
+              <option value="medium">Medium Priority</option>
+              <option value="low">Low Priority</option>
+            </select>
+            <select id="dlType">
+              <option value="assignment">Assignment</option>
+              <option value="exam">Exam</option>
+              <option value="quiz">Quiz</option>
+              <option value="project">Project</option>
+            </select>
+            <input type="number" id="dlProgress" placeholder="Progress %" min="0" max="100" value="0">
+            <button class="btn" onclick="addDeadline()">Add</button>
+          </div>
+        </div>
+        <div class="card">
+          <h2><span class="icon">📋</span> Deadlines &amp; Exams</h2>
+          <div id="deadlinesList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOALS TAB -->
+    <div id="goals" class="tab-panel">
+      <div class="panel-grid cols-3">
+        <div class="card">
+          <h2><span class="icon">🎯</span> Weekly Goals</h2>
+          <div style="display:flex;gap:8px;margin-bottom:12px;">
+            <input type="text" id="goalInput" placeholder="New goal..." style="flex:1;" onkeydown="if(event.key==='Enter')addGoal()">
+            <button class="btn" onclick="addGoal()">Add</button>
+          </div>
+          <div id="goalsList"></div>
+        </div>
+        <div class="card">
+          <h2><span class="icon">📊</span> Subject Targets</h2>
+          <div id="subjectTargets"></div>
+        </div>
+        <div class="card">
+          <h2><span class="icon">✅</span> Habit Tracker</h2>
+          <div id="habitTracker"></div>
+        </div>
+        <div class="card" style="grid-column: 1 / -1;">
+          <h2><span class="icon">🏆</span> Achievement Badges</h2>
+          <div class="badges" id="badgesDisplay"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMER TAB -->
+    <div id="timer" class="tab-panel">
+      <div class="panel-grid cols-2">
+        <div class="card">
+          <h2><span class="icon">⏱️</span> Pomodoro Timer</h2>
+          <div class="timer-display">
+            <div class="timer-circle" id="timerDisplay">25:00</div>
+            <div class="timer-label" id="timerPhase">Ready to focus</div>
+            <div class="timer-controls">
+              <button class="btn btn-green" id="timerToggle" onclick="toggleTimer()">Start</button>
+              <button class="btn" onclick="resetTimer()">Reset</button>
+            </div>
+          </div>
+          <div class="timer-settings">
+            <div>
+              <label>Work (min)</label>
+              <input type="number" id="workMin" value="25" min="1" max="120" onchange="updateTimerSettings()">
+            </div>
+            <div>
+              <label>Short Break (min)</label>
+              <input type="number" id="shortBreak" value="5" min="1" max="60" onchange="updateTimerSettings()">
+            </div>
+            <div>
+              <label>Long Break (min)</label>
+              <input type="number" id="longBreak" value="15" min="1" max="60" onchange="updateTimerSettings()">
+            </div>
+            <div>
+              <label>Sessions until long break</label>
+              <input type="number" id="sessionsUntilLong" value="4" min="2" max="10" onchange="updateTimerSettings()">
+            </div>
+          </div>
+          <div style="margin-top:14px;">
+            <label style="font-size:0.88rem;color:var(--text-muted);">Subject</label>
+            <select id="timerSubject" style="width:100%;margin-top:4px;">
+              <option value="">General Study</option>
+              <option>Business Law</option>
+              <option>Accounting</option>
+              <option>Economics</option>
+              <option>Marketing</option>
+              <option>Finance</option>
+              <option>Management</option>
+              <option>Statistics</option>
+              <option>IT for Business</option>
+            </select>
+          </div>
+        </div>
+        <div class="card">
+          <h2><span class="icon">📈</span> Session History</h2>
+          <div id="sessionCounter" style="font-size:1.22rem;margin-bottom:10px;">Total sessions: <strong>0</strong></div>
+          <div class="session-log" id="sessionLog"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRADES TAB -->
+    <div id="grades" class="tab-panel">
+      <div class="panel-grid cols-2">
+        <div class="card">
+          <h2><span class="icon">📝</span> Assessments</h2>
+          <div style="display:flex;gap:8px;margin-bottom:14px;">
+            <input type="text" id="gradeSubject" placeholder="Subject" style="flex:1;">
+            <input type="text" id="gradeName" placeholder="Assessment name" style="flex:1;">
+            <input type="number" id="gradeScore" placeholder="Score %" min="0" max="100" style="width:90px;">
+            <input type="number" id="gradeWeight" placeholder="Weight %" min="0" max="100" style="width:90px;">
+            <button class="btn" onclick="addGrade()">Add</button>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="grade-table">
+              <thead><tr><th>Subject</th><th>Assessment</th><th>Score</th><th>Weight</th><th></th></tr></thead>
+              <tbody id="gradesTable"></tbody>
+            </table>
+          </div>
+          <div class="gpa-box">
+            <div class="gpa-value" id="gpaValue">—</div>
+            <div class="gpa-label">Projected GPA (7-point scale)</div>
+          </div>
+        </div>
+        <div class="card">
+          <h2><span class="icon">🔮</span> What-If Calculator</h2>
+          <div class="whatif">
+            <div class="whatif-row">
+              <input type="text" id="whatifSubject" placeholder="Subject">
+              <input type="number" id="whatifCurrent" placeholder="Current %" min="0" max="100">
+              <input type="number" id="whatifWeightDone" placeholder="Weight done %" min="0" max="100">
+            </div>
+            <div class="whatif-row">
+              <input type="number" id="whatifTarget" placeholder="Target final %" min="0" max="100">
+              <button class="btn" onclick="calcWhatIf()">Calculate</button>
+            </div>
+            <div class="whatif-result" id="whatifResult"></div>
+          </div>
+          <div style="margin-top:20px;">
+            <h3 style="font-size:1.12rem;margin-bottom:10px;">Grade Scale (Monash)</h3>
+            <table class="grade-table" style="font-size:0.9rem;">
+              <thead><tr><th>Mark</th><th>Grade</th><th>GPA</th></tr></thead>
+              <tbody>
+                <tr><td>80-100</td><td>HD</td><td>7</td></tr>
+                <tr><td>70-79</td><td>D</td><td>6</td></tr>
+                <tr><td>60-69</td><td>C</td><td>5</td></tr>
+                <tr><td>50-59</td><td>P</td><td>4</td></tr>
+                <tr><td>0-49</td><td>F</td><td>0</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Schedule Modal -->
+  <div class="modal-overlay" id="scheduleModal">
+    <div class="modal">
+      <h3>Edit Time Slot</h3>
+      <input type="hidden" id="modalDay">
+      <input type="hidden" id="modalHour">
+      <select id="modalSubject">
+        <option value="">— Free —</option>
+        <option value="1">Business Law</option>
+        <option value="2">Accounting</option>
+        <option value="3">Economics</option>
+        <option value="4">Marketing</option>
+        <option value="5">Finance</option>
+        <option value="6">Management</option>
+        <option value="7">Statistics</option>
+        <option value="8">IT for Business</option>
+      </select>
+      <input type="text" id="modalLabel" placeholder="Custom label">
+      <div class="modal-actions">
+        <button class="btn btn-sm" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-sm" onclick="saveSlot()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===================== STORAGE =====================
+    const STORE = {
+      get(k, d) { try { return JSON.parse(localStorage.getItem('b2026_'+k)) ?? d; } catch { return d; } },
+      set(k, v) { localStorage.setItem('b2026_'+k, JSON.stringify(v)); }
+    };
+
+    // ===================== SUBJECTS =====================
+    const SUBJECTS = {
+      1: 'Business Law', 2: 'Accounting', 3: 'Economics', 4: 'Marketing',
+      5: 'Finance', 6: 'Management', 7: 'Statistics', 8: 'IT for Business'
+    };
+    const SUBJ_COLORS = {
+      1: '#60a5fa', 2: '#9ca3af', 3: '#fbbf24', 4: '#fbbf24',
+      5: '#f87171', 6: '#60a5fa', 7: '#f87171', 8: '#a78bfa'
+    };
+
+    // ===================== TABS =====================
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // ===================== SCHEDULE =====================
+    const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const HOURS = Array.from({length:16},(_,i)=>i+7); // 7-22
+    let schedule = STORE.get('schedule', {});
+
+    function renderSchedule() {
+      const grid = document.getElementById('weeklyGrid');
+      grid.innerHTML = '';
+      // Header
+      grid.appendChild(document.createElement('div'));
+      DAYS.forEach(d => {
+        const el = document.createElement('div');
+        el.className = 'day-header';
+        el.textContent = d;
+        grid.appendChild(el);
+      });
+      // Rows
+      HOURS.forEach(h => {
+        const lbl = document.createElement('div');
+        lbl.className = 'time-label';
+        lbl.textContent = `${h}:00`;
+        grid.appendChild(lbl);
+        DAYS.forEach((d,di) => {
+          const key = `${di}-${h}`;
+          const slot = document.createElement('div');
+          slot.className = 'slot';
+          const data = schedule[key];
+          if (data && data.subj) {
+            slot.classList.add('filled', `subj-${data.subj}`);
+            slot.textContent = data.label || SUBJECTS[data.subj] || '';
+          }
+          slot.onclick = () => openSlot(di, h);
+          grid.appendChild(slot);
+        });
+      });
+      renderLegend();
+    }
+    function renderLegend() {
+      const leg = document.getElementById('scheduleLegend');
+      leg.innerHTML = '';
+      Object.entries(SUBJECTS).forEach(([id,name]) => {
+        const item = document.createElement('div');
+        item.className = 'legend-item';
+        item.innerHTML = `<div class="legend-dot" style="background:${SUBJ_COLORS[id]}"></div><span>${name}</span>`;
+        leg.appendChild(item);
+      });
+    }
+    function openSlot(day, hour) {
+      document.getElementById('modalDay').value = day;
+      document.getElementById('modalHour').value = hour;
+      const key = `${day}-${hour}`;
+      const data = schedule[key];
+      document.getElementById('modalSubject').value = data?.subj || '';
+      document.getElementById('modalLabel').value = data?.label || '';
+      document.getElementById('scheduleModal').classList.add('show');
+    }
+    function closeModal() {
+      document.getElementById('scheduleModal').classList.remove('show');
+    }
+    function saveSlot() {
+      const day = +document.getElementById('modalDay').value;
+      const hour = +document.getElementById('modalHour').value;
+      const subj = document.getElementById('modalSubject').value;
+      const label = document.getElementById('modalLabel').value.trim();
+      const key = `${day}-${hour}`;
+      if (subj) {
+        schedule[key] = { subj, label: label || SUBJECTS[subj] };
+      } else {
+        delete schedule[key];
+      }
+      STORE.set('schedule', schedule);
+      renderSchedule();
+      closeModal();
+    }
+    function clearSchedule() {
+      if (confirm('Clear entire schedule?')) { schedule = {}; STORE.set('schedule', schedule); renderSchedule(); }
+    }
+    function clearSelectedSubject() {
+      const sel = document.getElementById('subjSelect').value;
+      Object.keys(schedule).forEach(k => { if (schedule[k].subj === sel) delete schedule[k]; });
+      STORE.set('schedule', schedule); renderSchedule();
+    }
+
+    // ===================== DEADLINES =====================
+    let deadlines = STORE.get('deadlines', []);
+    function addDeadline() {
+      const title = document.getElementById('dlTitle').value.trim();
+      const date = document.getElementById('dlDate').value;
+      if (!title || !date) return alert('Title and date required');
+      deadlines.push({
+        id: Date.now(), title, date,
+        priority: document.getElementById('dlPriority').value,
+        type: document.getElementById('dlType').value,
+        progress: +document.getElementById('dlProgress').value || 0
+      });
+      STORE.set('deadlines', deadlines);
+      document.getElementById('dlTitle').value = '';
+      document.getElementById('dlDate').value = '';
+      document.getElementById('dlProgress').value = 0;
+      renderDeadlines();
+    }
+    function deleteDeadline(id) {
+      deadlines = deadlines.filter(d => d.id !== id);
+      STORE.set('deadlines', deadlines); renderDeadlines();
+    }
+    function updateDlProgress(id, val) {
+      const d = deadlines.find(x => x.id === id);
+      if (d) { d.progress = +val; STORE.set('deadlines', deadlines); renderDeadlines(); }
+    }
+    function renderDeadlines() {
+      const list = document.getElementById('deadlinesList');
+      list.innerHTML = '';
+      const now = new Date();
+      const sorted = [...deadlines].sort((a,b) => new Date(a.date) - new Date(b.date));
+      sorted.forEach(dl => {
+        const dlDate = new Date(dl.date + 'T23:59:59');
+        const diff = Math.ceil((dlDate - now) / (1000*60*60*24));
+        const color = diff <= 3 ? 'var(--red)' : diff <= 7 ? 'var(--yellow)' : 'var(--green)';
+        const el = document.createElement('div');
+        el.className = 'deadline-item';
+        el.innerHTML = `
+          <div class="deadline-priority ${dl.priority}"></div>
+          <div class="deadline-info">
+            <div class="deadline-title">${escapeHtml(dl.title)} <span style="font-size:0.85rem;color:var(--text-muted)">(${dl.type})</span></div>
+            <div class="deadline-meta">${new Date(dl.date).toLocaleDateString()} · ${dl.priority.toUpperCase()}</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:${dl.progress}%;background:${SUBJ_COLORS[1]}"></div></div>
+            <input type="range" min="0" max="100" value="${dl.progress}" style="width:100%;margin-top:4px;" onchange="updateDlProgress(${dl.id},this.value)">
+          </div>
+          <div class="deadline-countdown" style="color:${color}">${diff >= 0 ? diff + ' days' : 'Overdue'}</div>
+          <button class="btn btn-red btn-sm" onclick="deleteDeadline(${dl.id})">×</button>
+        `;
+        list.appendChild(el);
+      });
+      if (!sorted.length) list.innerHTML = '<div style="color:var(--text-muted);text-align:center;padding:20px;">No deadlines yet</div>';
+    }
+
+    // ===================== GOALS =====================
+    let goals = STORE.get('goals', []);
+    let habits = STORE.get('habits', {study:[], exercise:[], review:[], sleep:[]});
+    let badges = STORE.get('badges', []);
+    const BADGE_DEFS = [
+      {id:'first_session', name:'First Session', icon:'🎉', desc:'Complete your first study session'},
+      {id:'week_warrior', name:'Week Warrior', icon:'🔥', desc:'7-day study streak'},
+      {id:'pomodoro_pro', name:'Pomodoro Pro', icon:'⏱️', desc:'Complete 10 Pomodoro sessions'},
+      {id:'goal_crusher', name:'Goal Crusher', icon:'💪', desc:'Complete 5 weekly goals'},
+      {id:'early_bird', name:'Early Bird', icon:'🌅', desc:'Study before 8am'},
+      {id:'night_owl', name:'Night Owl', icon:'🦉', desc:'Study after 10pm'},
+    ];
+    function addGoal() {
+      const text = document.getElementById('goalInput').value.trim();
+      if (!text) return;
+      goals.push({id:Date.now(), text, done:false});
+      STORE.set('goals', goals);
+      document.getElementById('goalInput').value = '';
+      renderGoals();
+    }
+    function toggleGoal(id) {
+      const g = goals.find(x => x.id === id);
+      if (g) { g.done = !g.done; STORE.set('goals', goals); renderGoals(); checkBadges(); }
+    }
+    function deleteGoal(id) {
+      goals = goals.filter(g => g.id !== id);
+      STORE.set('goals', goals); renderGoals();
+    }
+    function renderGoals() {
+      const list = document.getElementById('goalsList');
+      list.innerHTML = '';
+      goals.forEach(g => {
+        const el = document.createElement('div');
+        el.className = 'goal-item';
+        el.innerHTML = `
+          <div class="goal-check ${g.done?'done':''}" onclick="toggleGoal(${g.id})">${g.done?'✓':''}</div>
+          <div class="goal-text ${g.done?'done':''}">${escapeHtml(g.text)}</div>
+          <button class="btn btn-red btn-sm" onclick="deleteGoal(${g.id})">×</button>
+        `;
+        list.appendChild(el);
+      });
+    }
+    function renderHabits() {
+      const container = document.getElementById('habitTracker');
+      container.innerHTML = '';
+      const habitNames = {study:'📚 Study', exercise:'🏃 Exercise', review:'🔁 Review', sleep:'😴 8h Sleep'};
+      Object.entries(habitNames).forEach(([key,name]) => {
+        const days = habits[key] || [];
+        const today = new Date().getDay(); // 0=Sun
+        const mondayOffset = today === 0 ? -6 : 1;
+        const div = document.createElement('div');
+        div.style.marginBottom = '14px';
+        let html = `<div class="habit-label">${name}</div><div class="habit-grid">`;
+        for (let i = 0; i < 7; i++) {
+          const d = new Date(); d.setDate(d.getDate() - ((today===0?6:today-1) - i));
+          const dateStr = d.toISOString().slice(0,10);
+          const done = days.includes(dateStr);
+          const isPast = d < new Date(new Date().setHours(0,0,0,0));
+          html += `<div class="habit-day ${done?'done':(isPast&&!done?'missed':'')}" onclick="toggleHabit('${key}','${dateStr}')">${d.getDate()}</div>`;
+        }
+        html += '</div>';
+        div.innerHTML = html;
+        container.appendChild(div);
+      });
+    }
+    function toggleHabit(key, date) {
+      if (!habits[key]) habits[key] = [];
+      const idx = habits[key].indexOf(date);
+      if (idx >= 0) habits[key].splice(idx, 1); else habits[key].push(date);
+      STORE.set('habits', habits);
+      renderHabits();
+      checkBadges();
+    }
+    function checkBadges() {
+      const doneGoals = goals.filter(g => g.done).length;
+      const sessions = STORE.get('timer_sessions', []);
+      const earned = [];
+      if (sessions.length >= 1) earned.push('first_session');
+      if (sessions.length >= 10) earned.push('pomodoro_pro');
+      if (doneGoals >= 5) earned.push('goal_crusher');
+      // streak
+      const studyDays = new Set(sessions.map(s => s.date)).size;
+      if (studyDays >= 7) earned.push('week_warrior');
+      // early bird / night owl
+      sessions.forEach(s => {
+        const h = new Date(s.timestamp).getHours();
+        if (h < 8) earned.push('early_bird');
+        if (h >= 22) earned.push('night_owl');
+      });
+      badges = [...new Set(earned)];
+      STORE.set('badges', badges);
+      renderBadges();
+    }
+    function renderBadges() {
+      const el = document.getElementById('badgesDisplay');
+      el.innerHTML = '';
+      BADGE_DEFS.forEach(b => {
+        const earned = badges.includes(b.id);
+        const div = document.createElement('div');
+        div.className = `badge ${earned?'earned':''}`;
+        div.style.opacity = earned ? '1' : '0.4';
+        div.innerHTML = `<span>${b.icon}</span><span>${b.name}</span>`;
+        div.title = b.desc;
+        el.appendChild(div);
+      });
+    }
+    function renderSubjectTargets() {
+      const el = document.getElementById('subjectTargets');
+      el.innerHTML = '';
+      Object.entries(SUBJECTS).forEach(([id,name]) => {
+        const target = STORE.get('target_'+id, 70);
+        const div = document.createElement('div');
+        div.style.marginBottom = '14px';
+        div.innerHTML = `
+          <div style="display:flex;justify-content:space-between;font-size:0.92rem;margin-bottom:4px;">
+            <span>${name}</span><span id="targetVal${id}">${target}%</span>
+          </div>
+          <input type="range" min="0" max="100" value="${target}" style="width:100%;" oninput="setTarget(${id},this.value)">
+        `;
+        el.appendChild(div);
+      });
+    }
+    function setTarget(id, val) {
+      STORE.set('target_'+id, +val);
+      document.getElementById('targetVal'+id).textContent = val+'%';
+    }
+
+    // ===================== TIMER =====================
+    let timerState = {
+      running: false, seconds: 25*60, phase: 'work', sessionCount: 0,
+      workMin: 25, shortBreak: 5, longBreak: 15, sessionsUntilLong: 4
+    };
+    let timerInterval = null;
+    let timerSessions = STORE.get('timer_sessions', []);
+
+    function loadTimerSettings() {
+      const s = STORE.get('timer_settings', {});
+      if (s.workMin) timerState.workMin = s.workMin;
+      if (s.shortBreak) timerState.shortBreak = s.shortBreak;
+      if (s.longBreak) timerState.longBreak = s.longBreak;
+      if (s.sessionsUntilLong) timerState.sessionsUntilLong = s.sessionsUntilLong;
+      document.getElementById('workMin').value = timerState.workMin;
+      document.getElementById('shortBreak').value = timerState.shortBreak;
+      document.getElementById('longBreak').value = timerState.longBreak;
+      document.getElementById('sessionsUntilLong').value = timerState.sessionsUntilLong;
+      resetTimer();
+    }
+    function updateTimerSettings() {
+      timerState.workMin = +document.getElementById('workMin').value;
+      timerState.shortBreak = +document.getElementById('shortBreak').value;
+      timerState.longBreak = +document.getElementById('longBreak').value;
+      timerState.sessionsUntilLong = +document.getElementById('sessionsUntilLong').value;
+      STORE.set('timer_settings', {
+        workMin: timerState.workMin, shortBreak: timerState.shortBreak,
+        longBreak: timerState.longBreak, sessionsUntilLong: timerState.sessionsUntilLong
+      });
+      resetTimer();
+    }
+    function formatTime(sec) {
+      const m = Math.floor(sec/60), s = sec%60;
+      return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+    function updateTimerDisplay() {
+      document.getElementById('timerDisplay').textContent = formatTime(timerState.seconds);
+      const phaseText = timerState.phase === 'work' ? 'Focus time' : timerState.phase === 'short' ? 'Short break' : 'Long break';
+      document.getElementById('timerPhase').textContent = phaseText;
+      document.title = timerState.running ? `(${formatTime(timerState.seconds)}) ${phaseText}` : 'Monash B2026 Study Portal';
+    }
+    function toggleTimer() {
+      if (timerState.running) {
+        clearInterval(timerInterval); timerState.running = false;
+        document.getElementById('timerToggle').textContent = 'Start';
+        document.getElementById('timerToggle').className = 'btn btn-green';
+      } else {
+        timerState.running = true;
+        document.getElementById('timerToggle').textContent = 'Pause';
+        document.getElementById('timerToggle').className = 'btn btn-red';
+        timerInterval = setInterval(() => {
+          if (timerState.seconds > 0) {
+            timerState.seconds--;
+            updateTimerDisplay();
+          } else {
+            finishPhase();
+          }
+        }, 1000);
+      }
+    }
+    function finishPhase() {
+      clearInterval(timerInterval); timerState.running = false;
+      document.getElementById('timerToggle').textContent = 'Start';
+      document.getElementById('timerToggle').className = 'btn btn-green';
+      // play soft beep
+      try {
+        const ctx = new (window.AudioContext||window.webkitAudioContext)();
+        const osc = ctx.createOscillator(); osc.connect(ctx.destination);
+        osc.frequency.value = 880; osc.type='sine'; osc.start(); osc.stop(ctx.currentTime+0.3);
+      } catch(e){}
+      if (timerState.phase === 'work') {
+        timerState.sessionCount++;
+        logSession();
+        const isLong = timerState.sessionCount % timerState.sessionsUntilLong === 0;
+        timerState.phase = isLong ? 'long' : 'short';
+        timerState.seconds = (isLong ? timerState.longBreak : timerState.shortBreak) * 60;
+      } else {
+        timerState.phase = 'work';
+        timerState.seconds = timerState.workMin * 60;
+      }
+      updateTimerDisplay();
+      renderSessionLog();
+    }
+    function resetTimer() {
+      clearInterval(timerInterval); timerState.running = false;
+      timerState.phase = 'work';
+      timerState.seconds = timerState.workMin * 60;
+      document.getElementById('timerToggle').textContent = 'Start';
+      document.getElementById('timerToggle').className = 'btn btn-green';
+      updateTimerDisplay();
+    }
+    function logSession() {
+      const subject = document.getElementById('timerSubject').value || 'General Study';
+      timerSessions.unshift({
+        date: new Date().toISOString().slice(0,10),
+        timestamp: Date.now(),
+        subject, duration: timerState.workMin
+      });
+      STORE.set('timer_sessions', timerSessions);
+      checkBadges();
+    }
+    function renderSessionLog() {
+      document.getElementById('sessionCounter').innerHTML = `Total sessions: <strong>${timerSessions.length}</strong>`;
+      const log = document.getElementById('sessionLog');
+      log.innerHTML = '';
+      timerSessions.slice(0, 50).forEach(s => {
+        const el = document.createElement('div');
+        el.className = 'session-log-item';
+        el.textContent = `${new Date(s.timestamp).toLocaleString()} · ${s.subject} · ${s.duration} min`;
+        log.appendChild(el);
+      });
+    }
+
+    // ===================== GRADES =====================
+    let grades = STORE.get('grades', []);
+    function addGrade() {
+      const subject = document.getElementById('gradeSubject').value.trim();
+      const name = document.getElementById('gradeName').value.trim();
+      const score = +document.getElementById('gradeScore').value;
+      const weight = +document.getElementById('gradeWeight').value;
+      if (!subject || !name || isNaN(score) || isNaN(weight)) return alert('Fill all fields');
+      grades.push({id:Date.now(), subject, name, score, weight});
+      STORE.set('grades', grades);
+      document.getElementById('gradeSubject').value = '';
+      document.getElementById('gradeName').value = '';
+      document.getElementById('gradeScore').value = '';
+      document.getElementById('gradeWeight').value = '';
+      renderGrades();
+    }
+    function deleteGrade(id) {
+      grades = grades.filter(g => g.id !== id);
+      STORE.set('grades', grades); renderGrades();
+    }
+    function markToGPA(mark) {
+      if (mark >= 80) return 7;
+      if (mark >= 70) return 6;
+      if (mark >= 60) return 5;
+      if (mark >= 50) return 4;
+      return 0;
+    }
+    function renderGrades() {
+      const tbody = document.getElementById('gradesTable');
+      tbody.innerHTML = '';
+      const bySubject = {};
+      grades.forEach(g => {
+        if (!bySubject[g.subject]) bySubject[g.subject] = [];
+        bySubject[g.subject].push(g);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${escapeHtml(g.subject)}</td>
+          <td>${escapeHtml(g.name)}</td>
+          <td><input type="number" value="${g.score}" min="0" max="100" onchange="updateGrade(${g.id},'score',this.value)"></td>
+          <td><input type="number" value="${g.weight}" min="0" max="100" onchange="updateGrade(${g.id},'weight',this.value)"></td>
+          <td><button class="btn btn-red btn-sm" onclick="deleteGrade(${g.id})">×</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+      // GPA
+      let totalGPA = 0, count = 0;
+      Object.entries(bySubject).forEach(([subj, items]) => {
+        const totalWeight = items.reduce((s,i)=>s+i.weight,0);
+        if (totalWeight > 0) {
+          const weighted = items.reduce((s,i)=>s+i.score*(i.weight/totalWeight),0);
+          totalGPA += markToGPA(weighted); count++;
+        }
+      });
+      document.getElementById('gpaValue').textContent = count > 0 ? (totalGPA/count).toFixed(2) : '—';
+    }
+    function updateGrade(id, field, val) {
+      const g = grades.find(x => x.id === id);
+      if (g) { g[field] = +val; STORE.set('grades', grades); renderGrades(); }
+    }
+    function calcWhatIf() {
+      const subject = document.getElementById('whatifSubject').value.trim();
+      const current = +document.getElementById('whatifCurrent').value;
+      const weightDone = +document.getElementById('whatifWeightDone').value;
+      const target = +document.getElementById('whatifTarget').value;
+      if (!subject || isNaN(current) || isNaN(weightDone) || isNaN(target)) {
+        document.getElementById('whatifResult').textContent = 'Fill all fields';
+        return;
+      }
+      const remaining = 100 - weightDone;
+      if (remaining <= 0) {
+        document.getElementById('whatifResult').textContent = 'All weight already accounted for';
+        return;
+      }
+      const needed = ((target * 100) - (current * weightDone)) / remaining;
+      const gpa = markToGPA(target);
+      document.getElementById('whatifResult').innerHTML =
+        `To achieve <strong>${target}%</strong> in <strong>${escapeHtml(subject)}</strong>, you need <strong>${needed.toFixed(1)}%</strong> on the remaining <strong>${remaining}%</strong>.<br>GPA if achieved: <strong>${gpa}</strong>`;
+    }
+
+    // ===================== UTILS =====================
+    function escapeHtml(t) {
+      const d = document.createElement('div'); d.textContent = t; return d.innerHTML;
+    }
+
+    // ===================== INIT =====================
+    function init() {
+      renderSchedule();
+      renderDeadlines();
+      renderGoals();
+      renderSubjectTargets();
+      renderHabits();
+      renderBadges();
+      loadTimerSettings();
+      renderSessionLog();
+      renderGrades();
+      // update countdowns every minute
+      setInterval(renderDeadlines, 60000);
+    }
+    init();
+  </script>
+</body>
+</html>

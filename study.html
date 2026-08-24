@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monash B2026 — Exam Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#111118;--surface-2:#1e1e2a;--border:rgba(255,255,255,0.08);--text:#e2e2e8;--text-secondary:#9ca3af;--accent:#60a5fa;--accent-2:#9ca3af;--danger:#f87171;--warning:#fbbf24;--font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.65;font-size:15px}
+.container{max-width:1000px;margin:0 auto;padding:30px 20px}
+
+.navbar{position:sticky;top:0;z-index:100;background:rgba(10,14,20,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px}
+.navbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.navbar-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;color:var(--text);text-decoration:none}
+.nav-links{display:flex;gap:8px}
+.nav-link{padding:6px 14px;border-radius:8px;color:var(--text-secondary);text-decoration:none;font-size:13px;font-weight:500;transition:all .2s}
+.nav-link:hover{background:var(--surface-2);color:var(--text)}
+.nav-link.active{background:rgba(96,165,250,0.15);color:var(--accent)}
+
+header{text-align:center;padding:30px 20px 30px;border-bottom:2px solid var(--accent);margin-bottom:30px}
+header h1{font-size:2.25rem;color:var(--accent);margin-bottom:8px}
+header p{color:var(--text-secondary);font-size:1.12rem}
+.exam-badge{display:inline-block;background:linear-gradient(135deg,rgba(96,165,250,0.15),rgba(52,211,153,0.15));border:1px solid var(--accent);color:var(--accent);padding:6px 18px;border-radius:20px;font-size:.85rem;font-weight:600;margin-top:12px;text-transform:uppercase;letter-spacing:.05em}
+
+.timer-bar{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
+.timer-bar button{background:var(--accent);color:#e2e2e8;border:none;padding:6px 14px;border-radius:6px;font-weight:600;cursor:pointer}
+
+nav.toc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:28px;position:sticky;top:70px;z-index:10}
+nav.toc h3{font-size:.85rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+nav.toc ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 16px}
+nav.toc a{color:var(--text);text-decoration:none;font-size:.88rem;padding:3px 0;display:block;border-left:2px solid transparent;padding-left:8px;transition:.2s}
+nav.toc a:hover{color:var(--accent);border-left-color:var(--accent)}
+
+h2{font-size:1.55rem;color:var(--accent);margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+h3{font-size:1.22rem;color:var(--accent-2);margin:28px 0 12px}
+h4{font-size:1.12rem;color:var(--warning);margin:20px 0 10px}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.card-title{font-weight:600;color:var(--accent)}
+.card-tag{font-size:.75rem;background:var(--surface-2);padding:3px 10px;border-radius:4px;color:var(--text-secondary)}
+
+.formula{background:rgba(96,165,250,0.08);border-left:3px solid var(--accent);padding:14px 18px;margin:12px 0;border-radius:0 8px 8px 0;font-family:var(--mono);font-size:1.12rem}
+.formula-label{font-family:var(--font);font-size:.8rem;color:var(--text-secondary);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+
+.def{background:rgba(52,211,153,0.06);border-left:3px solid var(--accent-2);padding:14px 18px;margin:12px 0;border-radius:0 8px 8px 0}
+.def-term{font-weight:700;color:var(--accent-2);font-size:1.18rem}
+.def-meaning{margin-top:6px;color:var(--text)}
+
+.trap{background:rgba(248,113,113,0.08);border-left:3px solid var(--danger);padding:14px 18px;margin:12px 0;border-radius:0 8px 8px 0}
+.trap-label{font-weight:700;color:var(--danger);font-size:.85rem;text-transform:uppercase}
+
+.tip{background:rgba(251,191,36,0.08);border-left:3px solid var(--warning);padding:14px 18px;margin:12px 0;border-radius:0 8px 8px 0}
+.tip-label{font-weight:700;color:var(--warning);font-size:.85rem;text-transform:uppercase}
+
+.mcq{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:18px;margin:14px 0}
+.mcq-question{font-weight:600;margin-bottom:12px}
+.mcq-options{list-style:none;margin:0;padding:0}
+.mcq-options li{padding:8px 12px;margin:4px 0;background:var(--surface);border-radius:6px;cursor:pointer;transition:.2s}
+.mcq-options li:hover{background:rgba(96,165,250,0.1)}
+.mcq-answer{display:none;margin-top:12px;padding:12px;background:rgba(52,211,153,0.1);border-radius:6px;border-left:3px solid var(--accent-2)}
+.mcq-answer.show{display:block}
+.mcq-toggle{color:var(--accent);cursor:pointer;font-size:.9rem;margin-top:10px;display:inline-block}
+
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+th{background:var(--surface-2);font-weight:600;color:var(--accent);font-size:.8rem;text-transform:uppercase}
+
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:16px 0}
+.quick-item{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:14px}
+.quick-item strong{display:block;color:var(--accent);margin-bottom:4px;font-size:.9rem}
+.quick-item span{color:var(--text-secondary);font-size:.88rem}
+
+.cram-toggle{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#e2e2e8;border:none;padding:12px 20px;border-radius:30px;font-weight:700;cursor:pointer;box-shadow:0 4px 15px rgba(96,165,250,0.3);z-index:100}
+
+@media(max-width:640px){header h1{font-size:1.55rem}.container{padding:16px}}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+<div class="navbar-inner">
+<a href="index.html" class="navbar-brand"><span>🎓</span><span>Monash B2026</span></a>
+<div class="nav-links">
+    <a href="index.html" class="nav-link" style="font-weight:700">← Back</a>
+<a href="index.html" class="nav-link">🏠 Home</a>
+<a href="notes.html" class="nav-link">📝 Notes</a>
+<a href="visual.html" class="nav-link">📊 Visual</a>
+<a href="study.html" class="nav-link active">📖 Guide</a>
+<a href="exercise.html" class="nav-link">🧪 Exercise</a>
+<a href="planner.html" class="nav-link">📅 Planner</a>
+</div>
+</div>
+</nav>
+
+<header>
+<h1>Monash B2026 — Exam Study Guide</h1>
+<p>Accountancy Major · Part A Core Units</p>
+<span class="exam-badge">Exam Ready</span>
+</header>
+
+<div class="container">
+<div class="timer-bar">
+<span>📅 Exam season mode: Focus on highlighted sections</span>
+<button onclick="document.body.classList.toggle('cram-mode')">Toggle Cram Mode</button>
+</div>
+
+<nav class="toc">
+<h3>Jump to Unit</h3>
+<ul>
+<li><a href="#acw1120">ACW1120 Financial Accounting</a></li>
+<li><a href="#bfw1001">BFW1001 Foundations of Finance</a></li>
+<li><a href="#btw1042">BTW1042 Business Law</a></li>
+<li><a href="#ecm1953">ECM1953 Economics</a></li>
+<li><a href="#etw1001">ETW1001 Business Statistics</a></li>
+<li><a href="#mgw1010">MGW1010 Management</a></li>
+<li><a href="#acw2220">ACW2220 Management Accounting</a></li>
+<li><a href="#etc2440">ETC2440 Analytics & Econometrics</a></li>
+<li><a href="#quickref">Quick Reference</a></li>
+</ul>
+</nav>
+
+<!-- ACW1120 -->
+<h2 id="acw1120">ACW1120 — Financial Accounting 1</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Accounting Equation</span><span class="card-tag">Must Memorize</span></div>
+<div class="formula"><div class="formula-label">Fundamental Equation</div>Assets = Liabilities + Equity</div>
+<div class="formula"><div class="formula-label">Expanded</div>Assets = Liabilities + (Capital + Revenue − Expenses − Drawings)</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Double Entry Rules</span><span class="card-tag">Dr / Cr</span></div>
+<table>
+<tr><th>Account Type</th><th>Increase</th><th>Decrease</th></tr>
+<tr><td>Assets</td><td>Debit (Dr)</td><td>Credit (Cr)</td></tr>
+<tr><td>Liabilities</td><td>Credit (Cr)</td><td>Debit (Dr)</td></tr>
+<tr><td>Equity / Capital</td><td>Credit (Cr)</td><td>Debit (Dr)</td></tr>
+<tr><td>Revenue</td><td>Credit (Cr)</td><td>Debit (Dr)</td></tr>
+<tr><td>Expenses</td><td>Debit (Dr)</td><td>Credit (Cr)</td></tr>
+</table>
+<div class="trap"><div class="trap-label">⚠ Exam Trap</div>Drawings/Owner withdrawals are <strong>NOT expenses</strong> — they reduce equity directly. Debit Drawings, Credit Bank.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Key Definitions</span><span class="card-tag">IFRS Conceptual Framework</span></div>
+<div class="def"><div class="def-term">Asset</div><div class="def-meaning">Resource <strong>controlled</strong> by entity, from <strong>past event</strong>, expected <strong>future economic benefit</strong></div></div>
+<div class="def"><div class="def-term">Liability</div><div class="def-meaning"><strong>Present obligation</strong> from past event, expected <strong>outflow of resources</strong></div></div>
+<div class="def"><div class="def-term">Equity</div><div class="def-meaning">Residual interest: Assets minus Liabilities</div></div>
+<div class="def"><div class="def-term">Income</div><div class="def-meaning">Increases in economic benefits (inflows / enhancements of assets / decreases of liabilities)</div></div>
+<div class="def"><div class="def-term">Expenses</div><div class="def-meaning">Decreases in economic benefits (outflows / depletions of assets / increases of liabilities)</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Qualitative Characteristics</span><span class="card-tag">Framework</span></div>
+<div class="quick-grid">
+<div class="quick-item"><strong>Fundamental</strong><span>Relevance — material, predictive/confirmatory value</span><span>Faithful Representation — complete, neutral, free from error</span></div>
+<div class="quick-item"><strong>Enhancing</strong><span>Comparability, Verifiability, Timeliness, Understandability</span></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Adjusting Entries</span><span class="card-tag">High-Yield</span></div>
+<table>
+<tr><th>Adjustment</th><th>Journal Entry</th></tr>
+<tr><td>Accrued Expense</td><td>Dr Expense, Cr Payable</td></tr>
+<tr><td>Accrued Revenue</td><td>Dr Receivable, Cr Revenue</td></tr>
+<tr><td>Prepaid Expense</td><td>Dr Prepaid, Cr Expense (if initially expensed)</td></tr>
+<tr><td>Unearned Revenue</td><td>Dr Revenue, Cr Unearned (if initially recognised)</td></tr>
+<tr><td>Depreciation</td><td>Dr Depreciation Expense, Cr Accumulated Depreciation</td></tr>
+<tr><td>Bad Debts</td><td>Dr Bad Debt Expense, Cr Allowance for Doubtful Debts</td></tr>
+</table>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q1: A company receives $12,000 cash for services to be performed next month. What is the correct entry?</div>
+<ul class="mcq-options"><li>A) Dr Cash $12,000; Cr Revenue $12,000</li><li>B) Dr Cash $12,000; Cr Unearned Revenue $12,000</li><li>C) Dr Revenue $12,000; Cr Cash $12,000</li><li>D) Dr Prepaid Revenue $12,000; Cr Cash $12,000</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>Cash received before earning = liability (Unearned Revenue). Revenue recognition principle — recognise when earned.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q2: Which qualitative characteristic requires information to be complete, neutral, and free from error?</div>
+<ul class="mcq-options"><li>A) Relevance</li><li>B) Comparability</li><li>C) Faithful Representation</li><li>D) Timeliness</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br>Faithful representation = complete, neutral, and free from error. Must reflect economic substance, not merely legal form.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q3: On 1 June, XYZ pays $24,000 for a 12-month insurance policy. Adjusting entry on 30 June?</div>
+<ul class="mcq-options"><li>A) Dr Insurance Expense $24,000; Cr Prepaid $24,000</li><li>B) Dr Insurance Expense $2,000; Cr Prepaid $2,000</li><li>C) Dr Prepaid $2,000; Cr Insurance Expense $2,000</li><li>D) No entry needed</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>$24,000 ÷ 12 = $2,000 per month. One month expired.</div>
+</div>
+
+<!-- BFW1001 -->
+<h2 id="bfw1001">BFW1001 — Foundations of Finance</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Time Value of Money</span><span class="card-tag">Core</span></div>
+<div class="formula"><div class="formula-label">Future Value</div>FV = PV × (1 + r)^n</div>
+<div class="formula"><div class="formula-label">Present Value</div>PV = FV ÷ (1 + r)^n</div>
+<div class="formula"><div class="formula-label">Annuity PV</div>PV = PMT × [1 − (1 + r)^−n] ÷ r</div>
+<div class="formula"><div class="formula-label">Perpetuity PV</div>PV = PMT ÷ r</div>
+<div class="formula"><div class="formula-label">Growing Perpetuity</div>PV = PMT ÷ (r − g)</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Valuation & Returns</span><span class="card-tag">Essential</span></div>
+<div class="formula"><div class="formula-label">NPV</div>NPV = −Initial + Σ(CFt ÷ (1 + r)^t)</div>
+<div class="formula"><div class="formula-label">CAPM</div>E(R) = Rf + β(Rm − Rf)</div>
+<div class="formula"><div class="formula-label">WACC</div>WACC = (E/V)×Re + (D/V)×Rd×(1−Tc)</div>
+<div class="formula"><div class="formula-label">Gordon Growth</div>P₀ = D₁ ÷ (r − g)</div>
+<div class="trap"><div class="trap-label">⚠ Exam Trap</div>NPV > 0 = accept. For mutually exclusive projects, <strong>NPV always wins</strong> over IRR due to scale differences.</div>
+</div>
+
+<!-- BTW1042 -->
+<h2 id="btw1042">BTW1042 — Business Law</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Elements of a Valid Contract</span><span class="card-tag">MEMORIZE</span></div>
+<div class="quick-grid">
+<div class="quick-item"><strong>1. Offer</strong><span>Clear, definite, communicated intention to be bound</span></div>
+<div class="quick-item"><strong>2. Acceptance</strong><span>Unqualified agreement, communicated to offeror</span></div>
+<div class="quick-item"><strong>3. Consideration</strong><span>Something of value exchanged; sufficient but need not be adequate</span></div>
+<div class="quick-item"><strong>4. Intention</strong><span>To create legal relations (presumed in commercial)</span></div>
+<div class="quick-item"><strong>5. Capacity</strong><span>Legal ability to contract</span></div>
+<div class="quick-item"><strong>6. Legality</strong><span>Lawful purpose</span></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Contract Defects</span><span class="card-tag">Void / Voidable</span></div>
+<table>
+<tr><th>Defect</th><th>Effect</th><th>Key Point</th></tr>
+<tr><td>Misrepresentation</td><td>Voidable</td><td>False statement of fact; fraudulent, negligent, innocent</td></tr>
+<tr><td>Duress</td><td>Voidable</td><td>Illegitimate pressure/violence/threats</td></tr>
+<tr><td>Undue Influence</td><td>Voidable</td><td>Abuse of special relationship of trust</td></tr>
+<tr><td>Mistake</td><td>Void / Voidable</td><td>Common, mutual, unilateral mistake</td></tr>
+<tr><td>Illegality</td><td>Void</td><td>Contract for unlawful purpose</td></tr>
+</table>
+<div class="trap"><div class="trap-label">⚠ Exam Trap</div>Invitation to treat (ads, displays) is <strong>NOT an offer</strong>. Customer makes the offer at checkout.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Remedies for Breach</span><span class="card-tag">Damages</span></div>
+<table>
+<tr><th>Remedy</th><th>When</th><th>Key</th></tr>
+<tr><td>Damages</td><td>Standard</td><td>Put injured party in position as if performed</td></tr>
+<tr><td>Liquidated</td><td>Genuine pre-estimate</td><td>Not a penalty</td></tr>
+<tr><td>Specific Performance</td><td>Unique subject</td><td>Discretionary; not personal services</td></tr>
+<tr><td>Injunction</td><td>Restraining breach</td><td>Negative specific performance</td></tr>
+<tr><td>Rescission</td><td>Voidable contract</td><td>Restore pre-contract position</td></tr>
+</table>
+</div>
+
+<!-- ECM1953 -->
+<h2 id="ecm1953">ECM1953 — Economics</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Market Structures</span><span class="card-tag">Comparison</span></div>
+<table>
+<tr><th>Structure</th><th>Firms</th><th>Barriers</th><th>Product</th><th>Price Power</th></tr>
+<tr><td>Perfect Competition</td><td>Many</td><td>None</td><td>Homogeneous</td><td>None</td></tr>
+<tr><td>Monopolistic Comp</td><td>Many</td><td>Low</td><td>Differentiated</td><td>Some</td></tr>
+<tr><td>Oligopoly</td><td>Few</td><td>High</td><td>Homog/Diff</td><td>Significant</td></tr>
+<tr><td>Monopoly</td><td>One</td><td>Very High</td><td>Unique</td><td>Complete</td></tr>
+</table>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Key Formulas</span><span class="card-tag">Essential</span></div>
+<div class="formula"><div class="formula-label">Price Elasticity</div>Ed = (%ΔQd) ÷ (%ΔP)</div>
+<div class="formula"><div class="formula-label">GDP (Expenditure)</div>GDP = C + I + G + (X − M)</div>
+<div class="formula"><div class="formula-label">GDP Deflator</div>(Nominal GDP ÷ Real GDP) × 100</div>
+</div>
+
+<!-- ETW1001 -->
+<h2 id="etw1001">ETW1001 — Business Statistics</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Hypothesis Testing Framework</span><span class="card-tag">6 Steps</span></div>
+<div class="quick-grid">
+<div class="quick-item"><strong>Step 1</strong><span>State H₀ and H₁</span></div>
+<div class="quick-item"><strong>Step 2</strong><span>Choose α (usually 0.05)</span></div>
+<div class="quick-item"><strong>Step 3</strong><span>Calculate test statistic</span></div>
+<div class="quick-item"><strong>Step 4</strong><span>Determine critical value / p-value</span></div>
+<div class="quick-item"><strong>Step 5</strong><span>Decision: reject or fail to reject H₀</span></div>
+<div class="quick-item"><strong>Step 6</strong><span>Conclusion in context</span></div>
+</div>
+<div class="trap"><div class="trap-label">⚠ Exam Trap</div>We "reject" or "fail to reject" H₀ — never "accept" H₀. p-value < α means reject H₀.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Key Formulas</span><span class="card-tag">Memorize</span></div>
+<div class="formula"><div class="formula-label">Z-Score</div>Z = (X − μ) ÷ σ</div>
+<div class="formula"><div class="formula-label">Confidence Interval (Mean)</div>x̄ ± z(α/2) × (σ/√n)</div>
+<div class="formula"><div class="formula-label">Confidence Interval (Proportion)</div>p̂ ± z(α/2) × √[p̂(1−p̂)/n]</div>
+<div class="formula"><div class="formula-label">Regression Slope</div>b = Σ(x−x̄)(y−ȳ) ÷ Σ(x−x̄)²</div>
+</div>
+
+<!-- MGW1010 -->
+<h2 id="mgw1010">MGW1010 — Management</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Management Functions (POLC)</span><span class="card-tag">Core</span></div>
+<div class="quick-grid">
+<div class="quick-item"><strong>Planning</strong><span>Goals, strategy, plans</span></div>
+<div class="quick-item"><strong>Organising</strong><span>Structure, resources, tasks</span></div>
+<div class="quick-item"><strong>Leading</strong><span>Motivate, direct, influence</span></div>
+<div class="quick-item"><strong>Controlling</strong><span>Monitor, compare, correct</span></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Mintzberg's Managerial Roles</span><span class="card-tag">10 Roles</span></div>
+<table>
+<tr><th>Category</th><th>Roles</th></tr>
+<tr><td>Interpersonal</td><td>Figurehead, Leader, Liaison</td></tr>
+<tr><td>Informational</td><td>Monitor, Disseminator, Spokesperson</td></tr>
+<tr><td>Decisional</td><td>Entrepreneur, Disturbance Handler, Resource Allocator, Negotiator</td></tr>
+</table>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Planning Tools</span><span class="card-tag">Strategy</span></div>
+<div class="def"><div class="def-term">SWOT Analysis</div><div class="def-meaning">Strengths, Weaknesses (internal); Opportunities, Threats (external)</div></div>
+<div class="def"><div class="def-term">Porter's Five Forces</div><div class="def-meaning">Rivalry, New Entrants, Substitutes, Buyer Power, Supplier Power</div></div>
+<div class="def"><div class="def-term">Maslow's Hierarchy</div><div class="def-meaning">Physiological → Safety → Social → Esteem → Self-actualisation</div></div>
+</div>
+
+<!-- ACW2220 -->
+<h2 id="acw2220">ACW2220 — Management Accounting</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Cost Classification</span><span class="card-tag">Foundation</span></div>
+<table>
+<tr><th>Type</th><th>Behaviour</th><th>Examples</th></tr>
+<tr><td>Variable</td><td>Changes with activity</td><td>Direct materials, direct labour</td></tr>
+<tr><td>Fixed</td><td>Constant (relevant range)</td><td>Rent, salaries, insurance</td></tr>
+<tr><td>Mixed</td><td>Both components</td><td>Utilities, phone bills</td></tr>
+<tr><td>Step</td><td>Fixed then jumps</td><td>Supervisor salaries</td></tr>
+</table>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">CVP Analysis Formulas</span><span class="card-tag">High-Yield</span></div>
+<div class="formula"><div class="formula-label">Contribution Margin</div>CM = Sales − Variable Costs</div>
+<div class="formula"><div class="formula-label">CM Ratio</div>CM Ratio = CM ÷ Sales</div>
+<div class="formula"><div class="formula-label">Break-even (Units)</div>BE = Fixed Costs ÷ CM per unit</div>
+<div class="formula"><div class="formula-label">Break-even ($)</div>BE$ = Fixed Costs ÷ CM Ratio</div>
+<div class="formula"><div class="formula-label">Target Profit</div>(Fixed Costs + Target Profit) ÷ CM per unit</div>
+<div class="formula"><div class="formula-label">Margin of Safety</div>Actual Sales − Break-even Sales</div>
+<div class="trap"><div class="trap-label">⚠ Exam Trap</div>Sunk costs are <strong>NEVER relevant</strong>. Always exclude from decision-making.</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Decision-Making Concepts</span><span class="card-tag">Relevant Costs</span></div>
+<div class="def"><div class="def-term">Relevant Cost</div><div class="def-meaning">Future cost that differs between alternatives</div></div>
+<div class="def"><div class="def-term">Opportunity Cost</div><div class="def-meaning">Benefit foregone by choosing one alternative</div></div>
+<div class="def"><div class="def-term">Sunk Cost</div><div class="def-meaning">Already incurred, cannot recover — IRRELEVANT</div></div>
+<div class="tip"><div class="tip-label">💡 Pro Tip</div>When evaluating special orders, only consider incremental revenues and incremental costs.</div>
+</div>
+
+<!-- ETC2440 -->
+<h2 id="etc2440">ETC2440 — Business Analytics & Econometrics</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Regression Analysis</span><span class="card-tag">Core</span></div>
+<div class="formula"><div class="formula-label">Simple Linear Regression</div>y = β₀ + β₁x + ε</div>
+<div class="formula"><div class="formula-label">Slope Estimate</div>β̂₁ = Σ(xi − x̄)(yi − ȳ) ÷ Σ(xi − x̄)²</div>
+<div class="formula"><div class="formula-label">R-squared</div>R² = 1 − (SSres ÷ SStot)</div>
+<div class="formula"><div class="formula-label">t-statistic</div>t = β̂j ÷ SE(β̂j)</div>
+<div class="formula"><div class="formula-label">F-statistic</div>F = (R²/k) ÷ [(1−R²)/(n−k−1)]</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">CLRM Assumptions</span><span class="card-tag">BLUE</span></div>
+<table>
+<tr><th>#</th><th>Assumption</th><th>Violation</th><th>Solution</th></tr>
+<tr><td>1</td><td>Linearity</td><td>Wrong functional form</td><td>Transform variables</td></tr>
+<tr><td>2</td><td>Random sampling</td><td>Clustered data</td><td>Cluster-robust SEs</td></tr>
+<tr><td>3</td><td>No perfect collinearity</td><td>X constant or linear combo</td><td>Drop redundant variable</td></tr>
+<tr><td>4</td><td>Zero conditional mean</td><td>Omitted variable bias</td><td>Include omitted, instruments</td></tr>
+<tr><td>5</td><td>Homoskedasticity</td><td>Heteroskedasticity</td><td>Robust SEs, WLS</td></tr>
+<tr><td>6</td><td>Normality of errors</td><td>Non-normal</td><td>Larger sample, bootstrap</td></tr>
+</table>
+<div class="tip"><div class="tip-label">💡 Exam Tip</div>Under CLRM, OLS is BLUE — Best Linear Unbiased Estimator.</div>
+</div>
+
+<!-- Quick Reference -->
+<h2 id="quickref">Quick Reference — Formulas at a Glance</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Accounting</span><span class="card-tag">ACW1120 / ACW2220</span></div>
+<div class="formula">Assets = Liabilities + Equity</div>
+<div class="formula">Depreciation = (Cost − RV) ÷ Useful Life</div>
+<div class="formula">CM = Sales − Variable Costs</div>
+<div class="formula">BE (units) = Fixed Costs ÷ CM per unit</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Finance</span><span class="card-tag">BFW1001</span></div>
+<div class="formula">FV = PV(1+r)ⁿ | PV = FV÷(1+r)ⁿ</div>
+<div class="formula">NPV = −I₀ + Σ(CFt÷(1+r)ᵗ)</div>
+<div class="formula">E(R) = Rf + β(Rm−Rf)</div>
+<div class="formula">WACC = (E/V)Re + (D/V)Rd(1−Tc)</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Statistics</span><span class="card-tag">ETW1001 / ETC2440</span></div>
+<div class="formula">Z = (X−μ)÷σ</div>
+<div class="formula">CI = x̄ ± z(σ÷√n)</div>
+<div class="formula">β̂₁ = Cov(x,y)÷Var(x)</div>
+<div class="formula">R² = 1 − (SSres÷SStot)</div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Economics</span><span class="card-tag">ECM1953</span></div>
+<div class="formula">Ed = (%ΔQd)÷(%ΔP)</div>
+<div class="formula">GDP = C + I + G + (X−M)</div>
+</div>
+
+</div>
+
+<button class="cram-toggle" onclick="document.body.classList.toggle('cram-mode')">Toggle Cram Mode</button>
+
+</body>
+</html>
