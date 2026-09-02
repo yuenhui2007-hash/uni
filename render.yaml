@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: monash-study-portal
+    runtime: node
+    repo: https://github.com/yuenhui2007-hash/uni
+    branch: main
+    buildCommand: npm install
+    startCommand: node server.js
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production

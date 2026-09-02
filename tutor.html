@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNI — AI Tutor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #130F0B;
+            --bg-secondary: #1A1612;
+            --bg-card: #1E1A15;
+            --bg-hover: #26221C;
+            --bg-input: #26221C;
+            --accent: #B8B68F;
+            --accent-2: #DECCA6;
+            --accent-blue: #8FA8B6;
+            --accent-purple: #DECCA6;
+            --accent-green: #6B8F50;
+            --accent-red: #C05040;
+            --accent-orange: #D4A574;
+            --text-primary: #FDF9F1;
+            --text-secondary: #BEAD9F;
+            --text-muted: #857971;
+            --border-color: rgba(222,204,166,0.10);
+            --gradient-primary: linear-gradient(135deg, #B8B68F 0%, #DECCA6 100%);
+            --shadow-glow: 0 0 20px rgba(222, 204, 166, 0.15);
+            --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ========== LAYOUT ========== */
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* ========== SIDEBAR ========== */
+        .sidebar {
+            width: 260px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon {
+            width: 40px; height: 40px; background: var(--gradient-primary);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-size: 18px; color: var(--bg-primary); font-weight: 700;
+        }
+        .logo-text h1 {
+            font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700;
+            background: var(--gradient-primary); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .logo-text span { font-size: 0.7rem; color: var(--text-muted); }
+
+        .nav-section { padding: 12px; }
+        .nav-section-title {
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em;
+            color: var(--text-muted); margin-bottom: 8px; padding: 0 8px;
+        }
+
+        .subject-chip {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 12px; margin-bottom: 3px;
+            border-radius: 8px; cursor: pointer; transition: all 0.2s ease;
+            font-size: 0.82rem; color: var(--text-secondary);
+            border: 1px solid transparent;
+        }
+        .subject-chip:hover { background: var(--bg-hover); color: var(--text-primary); }
+        .subject-chip.active {
+            background: rgba(184,182,143,0.12);
+            color: var(--accent);
+            border-color: rgba(184,182,143,0.25);
+        }
+        .subject-chip i { width: 18px; text-align: center; font-size: 0.9rem; }
+
+        .sidebar-footer {
+            padding: 16px; border-top: 1px solid var(--border-color);
+            font-size: 0.75rem; color: var(--text-muted);
+        }
+        .sidebar-footer a { color: var(--accent); text-decoration: none; display: block; margin-bottom: 6px; }
+        .sidebar-footer a:hover { text-decoration: underline; }
+
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            flex: 1; display: flex; flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Nav */
+        .top-nav {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; height: 56px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+        .top-nav-links { display: flex; gap: 4px; }
+        .top-nav-links a {
+            padding: 8px 16px; border-radius: 8px;
+            color: var(--text-secondary); text-decoration: none;
+            font-size: 0.82rem; font-weight: 500; transition: all 0.2s;
+        }
+        .top-nav-links a:hover, .top-nav-links a.active {
+            color: var(--accent); background: rgba(184,182,143,0.1);
+        }
+        .top-nav-subject {
+            font-size: 0.85rem; color: var(--text-muted);
+        }
+        .top-nav-subject strong { color: var(--accent-2); }
+
+        /* Tab Switcher */
+        .tab-switcher {
+            display: flex; gap: 0; border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+        .tab-btn {
+            padding: 12px 24px; background: transparent; border: none;
+            color: var(--text-muted); font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; position: relative;
+            font-family: inherit;
+        }
+        .tab-btn:hover { color: var(--text-secondary); }
+        .tab-btn.active {
+            color: var(--accent);
+        }
+        .tab-btn.active::after {
+            content: ''; position: absolute; bottom: 0; left: 20%; right: 20%;
+            height: 2px; background: var(--accent); border-radius: 2px;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1; overflow-y: auto; padding: 24px;
+        }
+
+        /* ========== NOTES PANEL ========== */
+        .notes-panel { display: none; }
+        .notes-panel.active { display: block; }
+
+        .notes-header {
+            margin-bottom: 24px;
+        }
+        .notes-header h2 {
+            font-family: 'Playfair Display', serif; font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+        .notes-header p { color: var(--text-muted); font-size: 0.9rem; }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 16px;
+        }
+
+        .note-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px; padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .note-card:hover {
+            border-color: rgba(184,182,143,0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .note-card-header {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 14px;
+        }
+        .note-card-icon {
+            width: 32px; height: 32px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem;
+        }
+        .note-card-title { font-weight: 600; font-size: 0.95rem; }
+
+        .note-card-content {
+            font-size: 0.85rem; line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        .note-card-content p { margin-bottom: 10px; }
+        .note-card-content ul { padding-left: 18px; margin: 8px 0; }
+        .note-card-content li { margin: 4px 0; }
+        .note-card-content code {
+            background: rgba(184,182,143,0.12); padding: 2px 6px;
+            border-radius: 4px; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8em; color: var(--accent-2);
+        }
+        .note-card-content strong { color: var(--text-primary); }
+
+        /* Exam Trap */
+        .exam-trap {
+            background: rgba(192, 80, 64, 0.08);
+            border-left: 3px solid var(--accent-red);
+            padding: 14px 16px; border-radius: 0 10px 10px 0;
+            margin: 12px 0;
+        }
+        .exam-trap-header {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--accent-red); font-weight: 600;
+            font-size: 0.8rem; margin-bottom: 8px;
+        }
+        .exam-trap p { margin: 0; font-size: 0.85rem; }
+
+        /* Formula Box */
+        .formula-box {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px; padding: 14px;
+            margin: 10px 0; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem; color: var(--accent-2);
+        }
+
+        /* MCQ Card */
+        .mcq-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 16px;
+            margin: 12px 0;
+        }
+        .mcq-question {
+            font-weight: 500; margin-bottom: 12px;
+            color: var(--text-primary); font-size: 0.9rem;
+        }
+        .mcq-options { display: flex; flex-direction: column; gap: 8px; }
+        .mcq-option {
+            padding: 10px 14px; border-radius: 8px;
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            cursor: pointer; transition: all 0.2s; font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .mcq-option:hover {
+            border-color: rgba(184,182,143,0.3);
+            background: var(--bg-hover);
+        }
+        .mcq-option.correct {
+            border-color: var(--accent-green);
+            background: rgba(107, 143, 80, 0.1);
+            color: var(--accent-green);
+        }
+        .mcq-option.wrong {
+            border-color: var(--accent-red);
+            background: rgba(192, 80, 64, 0.08);
+            color: var(--accent-red);
+        }
+        .mcq-explanation {
+            margin-top: 12px; padding: 12px;
+            background: rgba(184,182,143,0.06);
+            border-radius: 8px; font-size: 0.82rem;
+            color: var(--text-secondary); display: none;
+        }
+        .mcq-explanation.show { display: block; }
+
+        /* ========== CHAT PANEL ========== */
+        .chat-panel { display: none; flex-direction: column; height: 100%; }
+        .chat-panel.active { display: flex; }
+
+        .messages-container {
+            flex: 1; overflow-y: auto; padding: 24px;
+            display: flex; flex-direction: column; gap: 20px;
+        }
+
+        .message {
+            max-width: 85%; display: flex; gap: 12px;
+            animation: messageIn 0.3s ease;
+        }
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message.user { align-self: flex-end; flex-direction: row-reverse; }
+        .message.bot { align-self: flex-start; }
+
+        .message-avatar {
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; flex-shrink: 0;
+        }
+        .message.user .message-avatar {
+            background: var(--gradient-primary); color: var(--bg-primary);
+        }
+        .message.bot .message-avatar {
+            background: var(--bg-hover); color: var(--accent);
+            border: 1px solid var(--border-color);
+        }
+        .message-content {
+            padding: 14px 18px; border-radius: 14px;
+            font-size: 0.9rem; line-height: 1.6;
+        }
+        .message.user .message-content {
+            background: var(--gradient-primary); color: var(--bg-primary);
+            border-bottom-right-radius: 4px;
+        }
+        .message.bot .message-content {
+            background: var(--bg-secondary); color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-bottom-left-radius: 4px;
+        }
+        .message.bot .message-content p { margin-bottom: 8px; }
+        .message.bot .message-content p:last-child { margin-bottom: 0; }
+        .message.bot .message-content ul { margin: 8px 0; padding-left: 20px; }
+        .message.bot .message-content li { margin: 4px 0; }
+        .message.bot .message-content code {
+            background: rgba(184,182,143,0.15); padding: 2px 6px;
+            border-radius: 4px; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82em;
+        }
+        .message.bot .message-content strong { color: var(--accent-2); }
+
+        .message-meta {
+            font-size: 0.7rem; color: var(--text-muted);
+            margin-top: 4px; padding: 0 4px;
+        }
+        .message.user .message-meta { text-align: right; }
+
+        .suggested-questions {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;
+        }
+        .suggested-q {
+            padding: 8px 14px; border-radius: 999px;
+            background: var(--bg-hover); border: 1px solid var(--border-color);
+            color: var(--text-secondary); font-size: 0.78rem;
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .suggested-q:hover {
+            background: rgba(184,182,143,0.15);
+            color: var(--text-primary);
+            border-color: rgba(184,182,143,0.3);
+        }
+
+        .typing-indicator {
+            display: flex; gap: 4px; padding: 12px 18px;
+            background: var(--bg-secondary); border-radius: 14px;
+            border: 1px solid var(--border-color); align-self: flex-start;
+        }
+        .typing-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--text-muted); animation: typingBounce 1.4s infinite ease-in-out;
+        }
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
+        }
+
+        /* Input */
+        .input-area {
+            padding: 16px 24px; border-top: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+        .input-wrapper {
+            max-width: 800px; margin: 0 auto;
+            display: flex; align-items: flex-end; gap: 12px;
+            background: var(--bg-input); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 12px 16px;
+            transition: border-color 0.3s ease;
+        }
+        .input-wrapper:focus-within { border-color: rgba(184,182,143,0.3); }
+        .chat-input {
+            flex: 1; background: transparent; border: none;
+            color: var(--text-primary); font-size: 0.9rem;
+            font-family: inherit; resize: none; outline: none;
+            max-height: 120px; min-height: 24px;
+        }
+        .chat-input::placeholder { color: var(--text-muted); }
+        .send-btn {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--gradient-primary); border: none;
+            color: var(--bg-primary); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s ease; font-size: 0.9rem;
+        }
+        .send-btn:hover { transform: scale(1.1); box-shadow: var(--shadow-glow); }
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .input-footer {
+            text-align: center; margin-top: 8px;
+            font-size: 0.7rem; color: var(--text-muted);
+        }
+
+        /* Settings Modal */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            display: none; align-items: center; justify-content: center;
+            z-index: 1000; backdrop-filter: blur(8px);
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 24px; width: 90%; max-width: 480px;
+            animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal h3 { font-size: 1.1rem; margin-bottom: 16px; }
+        .modal-row { margin-bottom: 16px; }
+        .modal-row label {
+            display: block; font-size: 0.78rem; color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        .modal-row input, .modal-row select {
+            width: 100%; padding: 10px 12px;
+            background: var(--bg-input); border: 1px solid var(--border-color);
+            border-radius: 8px; color: var(--text-primary); font-family: inherit;
+            font-size: 0.85rem; outline: none;
+        }
+        .modal-row input:focus, .modal-row select:focus {
+            border-color: rgba(184,182,143,0.3);
+        }
+        .modal-actions {
+            display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px;
+        }
+        .modal-btn {
+            padding: 10px 20px; border-radius: 8px; border: none;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+        }
+        .modal-btn.secondary { background: var(--bg-hover); color: var(--text-secondary); }
+        .modal-btn.primary { background: var(--gradient-primary); color: var(--bg-primary); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+
+        /* Mobile */
+        .mobile-toggle {
+            display: none; position: fixed; bottom: 20px; left: 20px;
+            width: 48px; height: 48px; border-radius: 50%;
+            background: var(--gradient-primary); color: var(--bg-primary);
+            border: none; font-size: 1.2rem; cursor: pointer;
+            z-index: 100; box-shadow: var(--shadow-glow);
+        }
+        @media (max-width: 768px) {
+            .sidebar { position: fixed; left: 0; top: 0; bottom: 0; z-index: 50;
+                transform: translateX(-100%); transition: transform 0.3s; }
+            .sidebar.open { transform: translateX(0); }
+            .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+            .notes-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center; padding: 60px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state i { font-size: 3rem; margin-bottom: 16px; color: var(--border-color); }
+        .empty-state h3 { color: var(--text-secondary); margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-robot"></i></div>
+                    <div class="logo-text">
+                        <h1>AI Tutor</h1>
+                        <span>Your study companion</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Units</div>
+                    <div class="subject-chip active" data-subject="all" onclick="selectSubject('all')">
+                        <i class="fas fa-layer-group"></i> All Subjects
+                    </div>
+                    <div class="subject-chip" data-subject="ACW1120" onclick="selectSubject('ACW1120')">
+                        <i class="fas fa-book"></i> ACW1120 — Financial Accounting
+                    </div>
+                    <div class="subject-chip" data-subject="BFW1001" onclick="selectSubject('BFW1001')">
+                        <i class="fas fa-chart-line"></i> BFW1001 — Finance
+                    </div>
+                    <div class="subject-chip" data-subject="BTW1042" onclick="selectSubject('BTW1042')">
+                        <i class="fas fa-gavel"></i> BTW1042 — Business Law
+                    </div>
+                    <div class="subject-chip" data-subject="ECM1953" onclick="selectSubject('ECM1953')">
+                        <i class="fas fa-calculator"></i> ECM1953 — Quantitative Methods
+                    </div>
+                    <div class="subject-chip" data-subject="ETW1001" onclick="selectSubject('ETW1001')">
+                        <i class="fas fa-chart-bar"></i> ETW1001 — Microeconomics
+                    </div>
+                    <div class="subject-chip" data-subject="MGW1010" onclick="selectSubject('MGW1010')">
+                        <i class="fas fa-users"></i> MGW1010 — Management
+                    </div>
+                    <div class="subject-chip" data-subject="ACW2220" onclick="selectSubject('ACW2220')">
+                        <i class="fas fa-book-open"></i> ACW2220 — Management Accounting
+                    </div>
+                    <div class="subject-chip" data-subject="BFC2140" onclick="selectSubject('BFC2140')">
+                        <i class="fas fa-university"></i> BFC2140 — Corporate Finance
+                    </div>
+                    <div class="subject-chip" data-subject="ETC2410" onclick="selectSubject('ETC2410')">
+                        <i class="fas fa-chart-pie"></i> ETC2410 — Econometrics
+                    </div>
+                    <div class="subject-chip" data-subject="ETC2430" onclick="selectSubject('ETC2430')">
+                        <i class="fas fa-money-bill-wave"></i> ETC2430 — Cash Flow Modelling
+                    </div>
+                    <div class="subject-chip" data-subject="ETC2440" onclick="selectSubject('ETC2440')">
+                        <i class="fas fa-superscript"></i> ETC2440 — Maths for Economics
+                    </div>
+                    <div class="subject-chip" data-subject="ETC2520" onclick="selectSubject('ETC2520')">
+                        <i class="fas fa-chart-area"></i> ETC2520 — Probability & Inference
+                    </div>
+                    <div class="subject-chip" data-subject="ETC2560" onclick="selectSubject('ETC2560')">
+                        <i class="fas fa-database"></i> ETC2560 — Data Visualisation
+                    </div>
+                    <div class="subject-chip" data-subject="ETC3420" onclick="selectSubject('ETC3420')">
+                        <i class="fas fa-coins"></i> ETC3420 — Corp Finance Theory
+                    </div>
+                    <div class="subject-chip" data-subject="ETC3430" onclick="selectSubject('ETC3430')">
+                        <i class="fas fa-percentage"></i> ETC3430 — Financial Mathematics
+                    </div>
+                    <div class="subject-chip" data-subject="ETC3460" onclick="selectSubject('ETC3460')">
+                        <i class="fas fa-project-diagram"></i> ETC3460 — Financial Econometrics
+                    </div>
+                    <div class="subject-chip" data-subject="ETC3520" onclick="selectSubject('ETC3520')">
+                        <i class="fas fa-globe"></i> ETC3520 — International Finance
+                    </div>
+                    <div class="subject-chip" data-subject="ETC3530" onclick="selectSubject('ETC3530')">
+                        <i class="fas fa-shield-alt"></i> ETC3530 — Insurance & Risk
+                    </div>
+                    <div class="subject-chip" data-subject="ETC3550" onclick="selectSubject('ETC3550')">
+                        <i class="fas fa-brain"></i> ETC3550 — Contingent Pricing
+                    </div>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html"><i class="fas fa-arrow-left"></i> Dashboard</a>
+                <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual Portal</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navigation -->
+            <div class="top-nav">
+                <div class="top-nav-links">
+                    <a href="index.html">Back</a>
+                    <a href="index.html">Home</a>
+                    <a href="#" class="active">Notes</a>
+                    <a href="visual.html">Visual</a>
+                    <a href="#">Guide</a>
+                    <a href="#">Exercise</a>
+                    <a href="#">Planner</a>
+                </div>
+                <div class="top-nav-subject">
+                    Selected: <strong id="currentSubjectLabel">All Subjects</strong>
+                </div>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="tab-switcher">
+                <button class="tab-btn active" onclick="switchTab('notes')">Notes</button>
+                <button class="tab-btn" onclick="switchTab('chat')">Ask AI</button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area" id="contentArea">
+                <!-- Notes Panel -->
+                <div class="notes-panel active" id="notesPanel">
+                    <div class="notes-header">
+                        <h2 id="notesTitle">All Subjects</h2>
+                        <p id="notesSubtitle">Select a subject from the sidebar to view notes</p>
+                    </div>
+                    <div class="notes-grid" id="notesGrid">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <!-- Chat Panel -->
+                <div class="chat-panel" id="chatPanel">
+                    <div class="messages-container" id="messagesContainer">
+                        <div class="message bot">
+                            <div class="message-avatar"><i class="fas fa-robot"></i></div>
+                            <div>
+                                <div class="message-content">
+                                    <p><strong>Hello! I'm your AI Tutor.</strong></p>
+                                    <p>Ask me anything about <span id="chatSubject">any subject</span>. I can explain concepts, walk through formulas, and help with exam prep.</p>
+                                </div>
+                                <div class="suggested-questions" id="chatSuggestions">
+                                    <button class="suggested-q" onclick="sendQuick('What is the accounting equation?')">Accounting equation</button>
+                                    <button class="suggested-q" onclick="sendQuick('Explain NPV')">Explain NPV</button>
+                                    <button class="suggested-q" onclick="sendQuick('What is hypothesis testing?')">Hypothesis testing</button>
+                                    <button class="suggested-q" onclick="sendQuick('Explain CAPM')">Explain CAPM</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-area">
+                        <div class="input-wrapper">
+                            <textarea class="chat-input" id="chatInput" rows="1" placeholder="Ask me anything..." onkeydown="handleKeydown(event)" oninput="autoResize(this)"></textarea>
+                            <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <div class="input-footer">Responses powered by course knowledge base. Add OpenAI key in settings for broader answers.</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <button class="mobile-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal">
+            <h3><i class="fas fa-cog"></i> Settings</h3>
+            <div class="modal-row">
+                <label>OpenAI API Key (optional)</label>
+                <input type="password" id="apiKey" placeholder="sk-...">
+                <div style="font-size:0.7rem;color:var(--text-muted);margin-top:4px;">Stored locally in your browser only.</div>
+            </div>
+            <div class="modal-row">
+                <label>Model</label>
+                <select id="modelSelect">
+                    <option value="knowledge-base">Knowledge Base Only</option>
+                    <option value="gpt-4o-mini">GPT-4o Mini</option>
+                    <option value="gpt-4o">GPT-4o</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn secondary" onclick="closeSettings()">Cancel</button>
+                <button class="modal-btn primary" onclick="saveSettings()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // ===================== SUBJECT DATA =====================
+    const subjectData = {
+        "ACW1120": {
+            name: "ACW1120 — Financial Accounting",
+            description: "Financial reporting, double-entry, financial statements",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-balance-scale",
+                    iconColor: "#8FA8B6",
+                    title: "The Accounting Equation",
+                    content: `<p>The foundation of all accounting:</p>
+                    <div class="formula-box">Assets = Liabilities + Equity</div>
+                    <p>Every transaction affects at least two accounts. The equation must always balance.</p>
+                    <ul>
+                        <li><strong>Assets</strong> = Resources owned (Cash, AR, Inventory, Equipment)</li>
+                        <li><strong>Liabilities</strong> = Obligations (AP, Loans, Unearned Revenue)</li>
+                        <li><strong>Equity</strong> = Owner's claim (Capital, Retained Earnings)</li>
+                    </ul>`
+                },
+                {
+                    type: "exam-trap",
+                    title: "Drawings vs Expenses",
+                    content: `<p>Drawings/Owner withdrawals are <strong>NOT expenses</strong> — they reduce equity directly.</p>
+                    <p><strong>Correct entry:</strong> Debit Drawings, Credit Bank</p>
+                    <p>Don't put them on the Income Statement!</p>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-book",
+                    iconColor: "#B8B68F",
+                    title: "Double-Entry Rules",
+                    content: `<p><strong>Debit (DR) increases:</strong> Assets, Expenses, Drawings</p>
+                    <p><strong>Credit (CR) increases:</strong> Liabilities, Equity, Revenue</p>
+                    <p>Every journal entry: Total DR = Total CR</p>`
+                },
+                {
+                    type: "mcq",
+                    question: "A company receives $12,000 cash for services to be performed next month. Correct entry?",
+                    options: [
+                        "Dr Cash $12,000; Cr Revenue $12,000",
+                        "Dr Cash $12,000; Cr Unearned Revenue $12,000",
+                        "Dr Revenue $12,000; Cr Cash $12,000",
+                        "Dr Prepaid Revenue $12,000; Cr Cash $12,000"
+                    ],
+                    correct: 1,
+                    explanation: "Cash is received but service not yet performed → liability (Unearned Revenue). Revenue is recognized when earned, not when cash is received (accrual accounting)."
+                },
+                {
+                    type: "concept",
+                    icon: "fa-file-invoice-dollar",
+                    iconColor: "#DECCA6",
+                    title: "Adjusting Entries",
+                    content: `<p>Made at period end to record revenues/expenses in correct period:</p>
+                    <ul>
+                        <li><strong>Accrued Revenue</strong> — earned but not recorded (DR AR, CR Revenue)</li>
+                        <li><strong>Accrued Expense</strong> — incurred but not paid (DR Expense, CR AP)</li>
+                        <li><strong>Prepaid Expense</strong> — paid but not used (DR Expense, CR Prepaid)</li>
+                        <li><strong>Unearned Revenue</strong> — cash received, not earned (DR Unearned, CR Revenue)</li>
+                        <li><strong>Depreciation</strong> (DR Depreciation Expense, CR Accumulated Depreciation)</li>
+                        <li><strong>Bad Debts</strong> (DR Bad Debt Expense, CR Allowance for Doubtful Debts)</li>
+                    </ul>`
+                }
+            ]
+        },
+        "BFW1001": {
+            name: "BFW1001 — Foundations of Finance",
+            description: "Time value of money, NPV, IRR, risk and return",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-clock",
+                    iconColor: "#8FA8B6",
+                    title: "Time Value of Money",
+                    content: `<p>Money today is worth more than the same amount in the future.</p>
+                    <div class="formula-box">FV = PV(1+i)ⁿ<br>PV = FV / (1+i)ⁿ</div>
+                    <p>Where <code>i</code> = interest rate per period, <code>n</code> = number of periods</p>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-chart-line",
+                    iconColor: "#6B8F50",
+                    title: "Annuities",
+                    content: `<p><strong>Ordinary Annuity</strong> (payments at END):</p>
+                    <div class="formula-box">PV = PMT × [1 - (1+i)⁻ⁿ] / i<br>FV = PMT × [(1+i)ⁿ - 1] / i</div>
+                    <p><strong>Annuity Due</strong> (payments at BEGINNING): multiply by (1+i)</p>`
+                },
+                {
+                    type: "exam-trap",
+                    title: "Annuity Due Confusion",
+                    content: `<p>Most exam questions use <strong>ordinary annuity</strong> unless stated otherwise.</p>
+                    <p>If it says "payments at the beginning of each period" → Annuity Due → multiply by (1+i)</p>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-coins",
+                    iconColor: "#DECCA6",
+                    title: "NPV & IRR",
+                    content: `<p><strong>NPV</strong> = Σ[CFₜ / (1+i)ᵗ] - Initial Investment</p>
+                    <p>Decision: Accept if NPV > 0</p>
+                    <p><strong>IRR</strong> = discount rate where NPV = 0</p>
+                    <p>Decision: Accept if IRR > required return</p>
+                    <p><strong>If NPV and IRR conflict → use NPV</strong></p>`
+                },
+                {
+                    type: "mcq",
+                    question: "A project has NPV = $5,000 at 10% discount rate and NPV = -$2,000 at 15%. The IRR is approximately:",
+                    options: ["10%", "12.5%", "13.6%", "15%"],
+                    correct: 2,
+                    explanation: "IRR is where NPV=0. Using linear interpolation: IRR ≈ 10% + (5,000 / (5,000+2,000)) × 5% = 10% + 3.57% ≈ 13.6%"
+                },
+                {
+                    type: "concept",
+                    icon: "fa-shield-alt",
+                    iconColor: "#C05040",
+                    title: "CAPM",
+                    content: `<div class="formula-box">E(Rᵢ) = Rƒ + βᵢ[E(Rₘ) - Rƒ]</div>
+                    <ul>
+                        <li><strong>Rƒ</strong> = Risk-free rate</li>
+                        <li><strong>β</strong> = Systematic risk (β=1 = market average)</li>
+                        <li><strong>E(Rₘ) - Rƒ</strong> = Market risk premium</li>
+                    </ul>
+                    <p>Higher β → higher expected return → higher risk</p>`
+                }
+            ]
+        },
+        "BTW1042": {
+            name: "BTW1042 — Business Law",
+            description: "Contracts, torts, negligence, agency",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-file-signature",
+                    iconColor: "#8FA8B6",
+                    title: "Contract Essentials",
+                    content: `<p>A valid contract requires:</p>
+                    <ul>
+                        <li><strong>Offer & Acceptance</strong> — clear agreement on terms</li>
+                        <li><strong>Consideration</strong> — something of value exchanged</li>
+                        <li><strong>Intention</strong> — to create legal relations</li>
+                        <li><strong>Capacity</strong> — parties can legally contract</li>
+                        <li><strong>Legality</strong> — lawful purpose</li>
+                    </ul>`
+                },
+                {
+                    type: "exam-trap",
+                    title: "Invitation to Treat ≠ Offer",
+                    content: `<p>Displaying goods in a shop, advertisements, and price lists are <strong>invitations to treat</strong>, not offers.</p>
+                    <p>The customer makes the offer by presenting goods at checkout. The shop accepts by processing payment.</p>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-exclamation-triangle",
+                    iconColor: "#C05040",
+                    title: "Negligence",
+                    content: `<p>Elements of negligence:</p>
+                    <ol>
+                        <li><strong>Duty of care</strong> owed to plaintiff</li>
+                        <li><strong>Breach</strong> of that duty (reasonable person test)</li>
+                        <li><strong>Causation</strong> — actual and proximate cause</li>
+                        <li><strong>Damage</strong> / loss suffered</li>
+                    </ol>
+                    <p>Defences: contributory negligence, voluntary assumption of risk</p>`
+                }
+            ]
+        },
+        "ECM1953": {
+            name: "ECM1953 — Quantitative Methods",
+            description: "Statistics, probability, hypothesis testing",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-chart-bar",
+                    iconColor: "#8FA8B6",
+                    title: "Descriptive Statistics",
+                    content: `<p><strong>Central Tendency:</strong></p>
+                    <ul>
+                        <li>Mean = Σx / n</li>
+                        <li>Median = middle value (sorted)</li>
+                        <li>Mode = most frequent value</li>
+                    </ul>
+                    <p><strong>Spread:</strong></p>
+                    <ul>
+                        <li>Variance σ² = Σ(x - x̄)² / n</li>
+                        <li>Standard Deviation σ = √variance</li>
+                    </ul>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-bell",
+                    iconColor: "#DECCA6",
+                    title: "Normal Distribution",
+                    content: `<p>Standard Normal: Z = (X - μ) / σ</p>
+                    <ul>
+                        <li>68% within μ ± σ</li>
+                        <li>95% within μ ± 2σ</li>
+                        <li>99.7% within μ ± 3σ</li>
+                    </ul>`
+                },
+                {
+                    type: "exam-trap",
+                    title: "Z-Table vs T-Table",
+                    content: `<p>Use <strong>Z-distribution</strong> when population standard deviation (σ) is KNOWN or n > 30.</p>
+                    <p>Use <strong>t-distribution</strong> when σ is UNKNOWN and estimated from sample (especially n < 30).</p>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-flask",
+                    iconColor: "#6B8F50",
+                    title: "Hypothesis Testing Steps",
+                    content: `<ol>
+                        <li>State H₀ (null) and H₁ (alternative)</li>
+                        <li>Choose significance level α (usually 0.05)</li>
+                        <li>Calculate test statistic</li>
+                        <li>Find p-value or critical value</li>
+                        <li>Decision: Reject H₀ if p < α</li>
+                    </ol>
+                    <p>Type I error = reject true H₀ (false positive)<br>Type II error = fail to reject false H₀ (false negative)</p>`
+                }
+            ]
+        },
+        "ETW1001": {
+            name: "ETW1001 — Microeconomics",
+            description: "Supply & demand, elasticity, market structures",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-balance-scale",
+                    iconColor: "#8FA8B6",
+                    title: "Supply & Demand",
+                    content: `<p><strong>Law of Demand:</strong> Price ↑ → Quantity Demanded ↓</p>
+                    <p><strong>Law of Supply:</strong> Price ↑ → Quantity Supplied ↑</p>
+                    <p>Equilibrium: Qd = Qs</p>
+                    <p>Shifts vs Movements:</p>
+                    <ul>
+                        <li>Price change → movement ALONG curve</li>
+                        <li>Income, tastes, input costs → SHIFT of curve</li>
+                    </ul>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-compress-arrows-alt",
+                    iconColor: "#DECCA6",
+                    title: "Elasticity",
+                    content: `<div class="formula-box">Price Elasticity = (%ΔQd) / (%ΔP)</div>
+                    <ul>
+                        <li><strong>Elastic |E| > 1</strong> — quantity responds more than price</li>
+                        <li><strong>Inelastic |E| < 1</strong> — quantity responds less than price</li>
+                        <li><strong>Unit Elastic |E| = 1</strong></li>
+                    </ul>
+                    <p>Total Revenue Test: If elastic, price cut increases TR</p>`
+                },
+                {
+                    type: "exam-trap",
+                    title: "Elasticity Sign Confusion",
+                    content: `<p>Price elasticity of demand is <strong>negative</strong> (due to law of demand), but we report the <strong>absolute value</strong>.</p>
+                    <p>Don't forget the negative sign in calculations, but interpret using |E|.</p>`
+                }
+            ]
+        },
+        "MGW1010": {
+            name: "MGW1010 — Management",
+            description: "Planning, organizing, leading, controlling",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-tasks",
+                    iconColor: "#8FA8B6",
+                    title: "Management Functions",
+                    content: `<p><strong>POLC Framework:</strong></p>
+                    <ul>
+                        <li><strong>Planning</strong> — setting objectives & strategies</li>
+                        <li><strong>Organizing</strong> — arranging resources & tasks</li>
+                        <li><strong>Leading</strong> — motivating & directing people</li>
+                        <li><strong>Controlling</strong> — monitoring & correcting performance</li>
+                    </ul>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-users",
+                    iconColor: "#DECCA6",
+                    title: "Motivation Theories",
+                    content: `<ul>
+                        <li><strong>Maslow's Hierarchy:</strong> Physiological → Safety → Social → Esteem → Self-actualization</li>
+                        <li><strong>Herzberg Two-Factor:</strong> Hygiene factors (prevent dissatisfaction) vs Motivators (create satisfaction)</li>
+                        <li><strong>Expectancy Theory:</strong> Motivation = Expectancy × Instrumentality × Valence</li>
+                    </ul>`
+                }
+            ]
+        },
+        "ACW2220": {
+            name: "ACW2220 — Management Accounting",
+            description: "CVP, budgeting, variance analysis",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-chart-pie",
+                    iconColor: "#8FA8B6",
+                    title: "CVP Analysis",
+                    content: `<div class="formula-box">Break-even (units) = Fixed Costs / (SP - VC per unit)<br>Contribution Margin = SP - VC<br>CM Ratio = CM / SP</div>
+                    <p>Margin of Safety = Actual Sales - Break-even Sales</p>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-calculator",
+                    iconColor: "#6B8F50",
+                    title: "Variance Analysis",
+                    content: `<p><strong>Price Variance</strong> = (AP - SP) × AQ</p>
+                    <p><strong>Quantity Variance</strong> = (AQ - SQ) × SP</p>
+                    <p>Favorable = actual better than standard<br>Adverse = actual worse than standard</p>`
+                }
+            ]
+        },
+        "BFC2140": {
+            name: "BFC2140 — Corporate Finance",
+            description: "Capital budgeting, cost of capital, capital structure",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-building",
+                    iconColor: "#8FA8B6",
+                    title: "Capital Budgeting Methods",
+                    content: `<ul>
+                        <li><strong>NPV</strong> — preferred method, accounts for TVM</li>
+                        <li><strong>IRR</strong> — break-even discount rate</li>
+                        <li><strong>Payback Period</strong> — time to recover investment</li>
+                        <li><strong>Profitability Index</strong> = PV inflows / Initial investment</li>
+                    </ul>
+                    <p>NPV & PI always agree. IRR may conflict for mutually exclusive projects.</p>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-percentage",
+                    iconColor: "#DECCA6",
+                    title: "WACC",
+                    content: `<div class="formula-box">WACC = (E/V) × Re + (D/V) × Rd × (1 - Tc)</div>
+                    <ul>
+                        <li>E = Equity value, D = Debt value, V = E + D</li>
+                        <li>Re = Cost of equity (CAPM or DDM)</li>
+                        <li>Rd = Cost of debt (YTM)</li>
+                        <li>Tc = Corporate tax rate</li>
+                    </ul>`
+                }
+            ]
+        },
+        "ETC2430": {
+            name: "ETC2430 — Actuarial Cash Flow Modelling",
+            description: "Time value, annuities, loan amortisation",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-money-bill-wave",
+                    iconColor: "#8FA8B6",
+                    title: "Cash Flow Formulas",
+                    content: `<p><strong>Future Value:</strong></p>
+                    <div class="formula-box">Single: FV = PV(1+i)ⁿ<br>Annuity: FV = PMT × [(1+i)ⁿ - 1] / i</div>
+                    <p><strong>Present Value:</strong></p>
+                    <div class="formula-box">Single: PV = FV / (1+i)ⁿ<br>Annuity: PV = PMT × [1 - (1+i)⁻ⁿ] / i</div>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-exchange-alt",
+                    iconColor: "#DECCA6",
+                    title: "Interest Rate Conversions",
+                    content: `<div class="formula-box">Effective: i = (1 + i⁽ᵐ⁾/m)ᵐ - 1<br>Force of interest: δ = ln(1+i)<br>Real rate: r = (1+i)/(1+f) - 1</div>
+                    <p>Where m = compounding frequency, f = inflation</p>`
+                },
+                {
+                    type: "exam-trap",
+                    title: "Nominal vs Effective Rates",
+                    content: `<p>Always convert <strong>nominal rates</strong> to <strong>effective rates</strong> before using in formulas.</p>
+                    <p>i⁽⁴⁾ = 8% p.a. compounded quarterly → i = (1 + 0.08/4)⁴ - 1 = 8.24%</p>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-home",
+                    iconColor: "#6B8F50",
+                    title: "Loan Amortisation",
+                    content: `<p>Each payment = Interest + Principal reduction</p>
+                    <p>Interest = Opening Balance × i</p>
+                    <p>Principal = Payment - Interest</p>
+                    <p>Outstanding balance = PV of remaining payments</p>`
+                }
+            ]
+        },
+        "ETC2440": {
+            name: "ETC2440 — Mathematics for Economics",
+            description: "Optimisation, integration, matrices",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-superscript",
+                    iconColor: "#8FA8B6",
+                    title: "Optimisation",
+                    content: `<p><strong>Unconstrained:</strong></p>
+                    <ol>
+                        <li>Find first derivative f'(x)</li>
+                        <li>Set f'(x) = 0 → critical points</li>
+                        <li>Second derivative test: f''(x) > 0 → minimum, f''(x) < 0 → maximum</li>
+                    </ol>
+                    <p><strong>Constrained (Lagrange):</strong></p>
+                    <div class="formula-box">L = f(x,y) - λ[g(x,y) - c]<br>∂L/∂x = 0, ∂L/∂y = 0, ∂L/∂λ = 0</div>`
+                }
+            ]
+        },
+        "ETC2410": {
+            name: "ETC2410 — Introductory Econometrics",
+            description: "OLS, hypothesis testing, regression diagnostics",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-chart-line",
+                    iconColor: "#8FA8B6",
+                    title: "OLS Assumptions",
+                    content: `<ol>
+                        <li>Linearity in parameters</li>
+                        <li>Random sampling</li>
+                        <li>No perfect multicollinearity</li>
+                        <li>Zero conditional mean: E(u|X) = 0</li>
+                        <li>Homoskedasticity: Var(u|X) = σ²</li>
+                    </ol>
+                    <p>Violations → biased/inconsistent estimates or wrong SEs</p>`
+                },
+                {
+                    type: "exam-trap",
+                    title: "R² vs Adjusted R²",
+                    content: `<p><strong>R²</strong> always increases when adding variables.</p>
+                    <p><strong>Adjusted R²</strong> penalizes extra variables. Use Adjusted R² for model comparison.</p>`
+                }
+            ]
+        },
+        "ETC2520": {
+            name: "ETC2520 — Probability & Statistical Inference",
+            description: "Random variables, MLE, Bayesian inference",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-dice",
+                    iconColor: "#8FA8B6",
+                    title: "Key Distributions",
+                    content: `<ul>
+                        <li><strong>Binomial:</strong> n independent trials, p success probability</li>
+                        <li><strong>Poisson:</strong> rare events, λ = mean rate</li>
+                        <li><strong>Normal:</strong> bell-shaped, μ and σ</li>
+                        <li><strong>t-distribution:</strong> normal with unknown σ, heavier tails</li>
+                        <li><strong>Chi-squared:</strong> sum of squared standard normals</li>
+                    </ul>`
+                }
+            ]
+        },
+        "ETC3420": {
+            name: "ETC3420 — Corporate Finance Theory",
+            description: "Real options, agency theory, asymmetric information",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-coins",
+                    iconColor: "#8FA8B6",
+                    title: "Real Options",
+                    content: `<p>Applying option pricing to capital budgeting:</p>
+                    <ul>
+                        <li><strong>Option to expand</strong> — invest now, expand later if successful</li>
+                        <li><strong>Option to abandon</strong> — sell/exit if project fails</li>
+                        <li><strong>Option to defer</strong> — wait for more information</li>
+                        <li><strong>Option to switch</strong> — change inputs/outputs</li>
+                    </ul>
+                    <p>Value = NPV(with flexibility) - NPV(without flexibility)</p>`
+                }
+            ]
+        },
+        "ETC3430": {
+            name: "ETC3430 — Financial Mathematics",
+            description: "Interest rate risk, immunisation, stochastic rates",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-shield-alt",
+                    iconColor: "#8FA8B6",
+                    title: "Immunisation",
+                    content: `<p>Redington Immunisation conditions:</p>
+                    <ol>
+                        <li>PV(Assets) = PV(Liabilities)</li>
+                        <li>Duration(Assets) = Duration(Liabilities)</li>
+                        <li>Convexity(Assets) > Convexity(Liabilities)</li>
+                    </ol>
+                    <p>Protects against small parallel shifts in yield curve</p>`
+                }
+            ]
+        },
+        "ETC3460": {
+            name: "ETC3460 — Financial Econometrics",
+            description: "Time series, ARIMA, GARCH, cointegration",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-wave-square",
+                    iconColor: "#8FA8B6",
+                    title: "ARIMA Models",
+                    content: `<p><strong>ARIMA(p,d,q):</strong></p>
+                    <ul>
+                        <li><strong>AR(p)</strong> — p lags of autoregression</li>
+                        <li><strong>I(d)</strong> — d differences for stationarity</li>
+                        <li><strong>MA(q)</strong> — q lags of moving average</li>
+                    </ul>
+                    <p>ARIMA(0,1,0) = Random Walk</p>
+                    <p>Use ACF/PACF to identify p and q orders</p>`
+                }
+            ]
+        },
+        "ETC3520": {
+            name: "ETC3520 — International Finance",
+            description: "Exchange rates, parity conditions, currency risk",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-globe",
+                    iconColor: "#8FA8B6",
+                    title: "Interest Rate Parity",
+                    content: `<p><strong>Covered:</strong> F/S = (1+id)/(1+if)</p>
+                    <p><strong>Uncovered:</strong> E[S₁]/S₀ = (1+id)/(1+if)</p>
+                    <p>Arbitrage ensures covered parity holds exactly</p>`
+                }
+            ]
+        },
+        "ETC3530": {
+            name: "ETC3530 — Insurance & Risk",
+            description: "Risk pooling, mortality tables, premium calculation",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-shield-alt",
+                    iconColor: "#8FA8B6",
+                    title: "Premium Calculation",
+                    content: `<p><strong>Equivalence Principle:</strong></p>
+                    <div class="formula-box">EPV(Premiums) = EPV(Benefits) + EPV(Expenses)</div>
+                    <p><strong>Net Premium:</strong> ignores expenses</p>
+                    <p><strong>Gross Premium:</strong> includes expense loading</p>`
+                }
+            ]
+        },
+        "ETC3550": {
+            name: "ETC3550 — Contingent Pricing",
+            description: "Black-Scholes, binomial model, Greeks",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-chart-area",
+                    iconColor: "#8FA8B6",
+                    title: "Black-Scholes Formula",
+                    content: `<div class="formula-box">C = S₀N(d₁) - Ke⁻ʳᵀN(d₂)<br>P = Ke⁻ʳᵀN(-d₂) - S₀N(-d₁)</div>
+                    <p>Assumptions: lognormal prices, constant volatility, no dividends, no arbitrage</p>`
+                },
+                {
+                    type: "concept",
+                    icon: "fa-layer-group",
+                    iconColor: "#DECCA6",
+                    title: "The Greeks",
+                    content: `<ul>
+                        <li><strong>Delta</strong> — hedge ratio (∂C/∂S)</li>
+                        <li><strong>Gamma</strong> — rate of delta change</li>
+                        <li><strong>Theta</strong> — time decay</li>
+                        <li><strong>Vega</strong> — volatility sensitivity</li>
+                        <li><strong>Rho</strong> — interest rate sensitivity</li>
+                    </ul>`
+                }
+            ]
+        },
+        "ETC2560": {
+            name: "ETC2560 — Data Visualisation",
+            description: "Visualisation principles, ggplot2, chart types",
+            notes: [
+                {
+                    type: "concept",
+                    icon: "fa-paint-brush",
+                    iconColor: "#8FA8B6",
+                    title: "Visualisation Principles",
+                    content: `<ul>
+                        <li>Show the data clearly</li>
+                        <li>Induce viewer to think about substance</li>
+                        <li>Avoid distortion</li>
+                        <li>Present many numbers in small space</li>
+                        <li>Encourage comparison</li>
+                    </ul>`
+                }
+            ]
+        }
+    };
+
+    // ===================== STATE =====================
+    let currentSubject = 'all';
+    let currentTab = 'notes';
+    let messages = [];
+    let settings = JSON.parse(localStorage.getItem('tutor_settings') || '{}');
+
+    // ===================== SUBJECT SELECTION =====================
+    function selectSubject(subject) {
+        currentSubject = subject;
+
+        // Update sidebar active state
+        document.querySelectorAll('.subject-chip').forEach(chip => {
+            chip.classList.toggle('active', chip.dataset.subject === subject);
+        });
+
+        // Update header label
+        const label = subject === 'all' ? 'All Subjects' : (subjectData[subject]?.name || subject);
+        document.getElementById('currentSubjectLabel').textContent = label;
+
+        // Update notes panel
+        renderNotes();
+
+        // Update chat subject reference
+        const chatSubject = subject === 'all' ? 'any subject' : subjectData[subject]?.name.split('—')[1]?.trim() || subject;
+        const chatSubjectEl = document.getElementById('chatSubject');
+        if (chatSubjectEl) chatSubjectEl.textContent = chatSubject;
+
+        // Update chat suggestions
+        updateChatSuggestions(subject);
+    }
+
+    function renderNotes() {
+        const grid = document.getElementById('notesGrid');
+        const title = document.getElementById('notesTitle');
+        const subtitle = document.getElementById('notesSubtitle');
+
+        if (currentSubject === 'all') {
+            title.textContent = 'All Subjects';
+            subtitle.textContent = 'Select a subject from the sidebar to view notes, formulas, and practice questions';
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Select a Subject</h3>
+                    <p>Choose a unit from the sidebar to view notes, formulas, exam traps, and practice MCQs.</p>
+                </div>
+            `;
+            return;
+        }
+
+        const data = subjectData[currentSubject];
+        if (!data) {
+            title.textContent = currentSubject;
+            subtitle.textContent = 'No notes available yet';
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <h3>No Notes Yet</h3>
+                    <p>Notes for this subject are coming soon. Use the Ask AI tab to ask questions.</p>
+                </div>
+            `;
+            return;
+        }
+
+        title.textContent = data.name;
+        subtitle.textContent = data.description;
+
+        grid.innerHTML = data.notes.map((note, idx) => {
+            if (note.type === 'exam-trap') {
+                return `
+                    <div class="note-card">
+                        <div class="exam-trap">
+                            <div class="exam-trap-header"><i class="fas fa-exclamation-triangle"></i> Exam Trap</div>
+                            ${note.content}
+                        </div>
+                    </div>
+                `;
+            }
+            if (note.type === 'mcq') {
+                return `
+                    <div class="note-card">
+                        <div class="note-card-header">
+                            <div class="note-card-icon" style="background:rgba(143,168,182,0.15);color:#8FA8B6;"><i class="fas fa-question-circle"></i></div>
+                            <div class="note-card-title">Practice MCQ</div>
+                        </div>
+                        <div class="mcq-card">
+                            <div class="mcq-question">${note.question}</div>
+                            <div class="mcq-options">
+                                ${note.options.map((opt, i) => `<div class="mcq-option" onclick="selectMCQ(this, ${i}, ${note.correct}, '${note.explanation.replace(/'/g, "\\'")}')">${String.fromCharCode(65+i)}. ${opt}</div>`).join('')}
+                            </div>
+                            <div class="mcq-explanation" id="mcq-exp-${idx}"></div>
+                        </div>
+                    </div>
+                `;
+            }
+            return `
+                <div class="note-card">
+                    <div class="note-card-header">
+                        <div class="note-card-icon" style="background:${note.iconColor}22;color:${note.iconColor};"><i class="fas ${note.icon}"></i></div>
+                        <div class="note-card-title">${note.title}</div>
+                    </div>
+                    <div class="note-card-content">${note.content}</div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function selectMCQ(el, selected, correct, explanation) {
+        const card = el.closest('.mcq-card');
+        const options = card.querySelectorAll('.mcq-option');
+        const expDiv = card.querySelector('.mcq-explanation');
+
+        options.forEach((opt, i) => {
+            opt.classList.remove('correct', 'wrong');
+            opt.style.pointerEvents = 'none';
+            if (i === correct) opt.classList.add('correct');
+            else if (i === selected) opt.classList.add('wrong');
+        });
+
+        expDiv.innerHTML = `<strong>Explanation:</strong> ${explanation}`;
+        expDiv.classList.add('show');
+    }
+
+    // ===================== TAB SWITCHING =====================
+    function switchTab(tab) {
+        currentTab = tab;
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.textContent.toLowerCase().includes(tab));
+        });
+        document.getElementById('notesPanel').classList.toggle('active', tab === 'notes');
+        document.getElementById('chatPanel').classList.toggle('active', tab === 'chat');
+    }
+
+    // ===================== CHAT =====================
+    function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const text = input.value.trim();
+        if (!text) return;
+
+        addMessage('user', text);
+        input.value = '';
+        input.style.height = 'auto';
+        document.getElementById('sendBtn').disabled = true;
+        showTyping();
+
+        if (settings.apiKey && settings.model && settings.model !== 'knowledge-base') {
+            callOpenAI(text);
+        } else {
+            setTimeout(() => {
+                const response = findAnswer(text);
+                hideTyping();
+                addMessage('bot', response.text, response.suggestions);
+            }, 600 + Math.random() * 400);
+        }
+    }
+
+    function sendQuick(text) {
+        document.getElementById('chatInput').value = text;
+        sendMessage();
+    }
+
+    function addMessage(role, text, suggestions = []) {
+        const container = document.getElementById('messagesContainer');
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${role}`;
+        const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const avatar = role === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+
+        let suggestionsHtml = '';
+        if (suggestions?.length) {
+            suggestionsHtml = '<div class="suggested-questions">' +
+                suggestions.map(s => `<button class="suggested-q" onclick="sendQuick('${s.replace(/'/g, "\\'")}')">${s}</button>`).join('') +
+                '</div>';
+        }
+
+        msgDiv.innerHTML = `
+            <div class="message-avatar">${avatar}</div>
+            <div>
+                <div class="message-content">${formatText(text)}</div>
+                ${suggestionsHtml}
+                <div class="message-meta">${time}</div>
+            </div>
+        `;
+        container.appendChild(msgDiv);
+        container.scrollTop = container.scrollHeight;
+        messages.push({ role, text });
+    }
+
+    function formatText(text) {
+        return text
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            .replace(/`(.+?)`/g, '<code>$1</code>')
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n/g, '<br>')
+            .replace(/^(.+)$/gm, (m) => {
+                if (m.startsWith('- ')) return '<li>' + m.substring(2) + '</li>';
+                if (/^\d+\.\s/.test(m)) return '<li>' + m.replace(/^\d+\.\s/, '') + '</li>';
+                return m;
+            })
+            .replace(/(<li>.*<\/li>\s*)+/g, m => '<ul>' + m + '</ul>')
+            .replace(/^(.+)$/, '<p>$1</p>');
+    }
+
+    function showTyping() {
+        const container = document.getElementById('messagesContainer');
+        const div = document.createElement('div');
+        div.className = 'typing-indicator';
+        div.id = 'typingIndicator';
+        div.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+        container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function hideTyping() {
+        const el = document.getElementById('typingIndicator');
+        if (el) el.remove();
+    }
+
+    function updateChatSuggestions(subject) {
+        const container = document.getElementById('chatSuggestions');
+        if (!container) return;
+        const defaults = ['What is the accounting equation?', 'Explain NPV', 'What is hypothesis testing?', 'Explain CAPM'];
+        const subjectQs = {
+            'ACW1120': ['What is the accounting equation?', 'Explain double entry', 'How do adjusting entries work?'],
+            'BFW1001': ['Explain NPV', 'What is CAPM?', 'How do annuities work?'],
+            'ETC2430': ['What is the time value of money?', 'How to convert nominal to effective rate?', 'Explain loan amortisation'],
+            'ECM1953': ['What is hypothesis testing?', 'Explain normal distribution', 'When to use t-test vs z-test?'],
+            'BTW1042': ['What makes a valid contract?', 'Explain negligence', 'What is agency law?']
+        };
+        const qs = subjectQs[subject] || defaults;
+        container.innerHTML = qs.map(q => `<button class="suggested-q" onclick="sendQuick('${q.replace(/'/g, "\\'")}')">${q}</button>`).join('');
+    }
+
+    // ===================== KNOWLEDGE BASE SEARCH =====================
+    function findAnswer(query) {
+        query = query.toLowerCase();
+        const words = query.split(/\s+/).filter(w => w.length > 2);
+
+        let bestMatch = null;
+        let bestScore = 0;
+
+        const subjects = currentSubject === 'all' ? Object.keys(subjectData) : [currentSubject];
+
+        for (const subj of subjects) {
+            const data = subjectData[subj];
+            if (!data?.notes) continue;
+            for (const note of data.notes) {
+                const title = (note.title || '').toLowerCase();
+                const content = (note.content || '').toLowerCase();
+                let score = 0;
+                if (title.includes(query)) score += 15;
+                if (content.includes(query)) score += 10;
+                for (const w of words) {
+                    if (title.includes(w)) score += 3;
+                    if (content.includes(w)) score += 1;
+                }
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMatch = note.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+                }
+            }
+        }
+
+        if (bestScore >= 3) {
+            return { text: bestMatch.substring(0, 800), suggestions: [] };
+        }
+
+        return {
+            text: "I don't have specific notes on that topic. Try asking about concepts from your selected subject, or switch to a different subject in the sidebar.",
+            suggestions: currentSubject !== 'all' ? ['Show me formulas', 'Exam tips', 'Practice questions'] : ['Select a subject first']
+        };
+    }
+
+    // ===================== OPENAI API =====================
+    async function callOpenAI(query) {
+        try {
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${settings.apiKey}`
+                },
+                body: JSON.stringify({
+                    model: settings.model,
+                    messages: [
+                        { role: 'system', content: `You are a tutor for ${currentSubject === 'all' ? 'university' : subjectData[currentSubject]?.name || currentSubject}. Provide clear, concise explanations.` },
+                        ...messages.slice(-4).map(m => ({ role: m.role, content: m.text })),
+                        { role: 'user', content: query }
+                    ],
+                    temperature: 0.7, max_tokens: 600
+                })
+            });
+            const data = await response.json();
+            hideTyping();
+            if (data.choices?.[0]) addMessage('bot', data.choices[0].message.content);
+            else addMessage('bot', 'Error: ' + (data.error?.message || 'Unknown error'));
+        } catch (err) {
+            hideTyping();
+            addMessage('bot', 'Connection error. Falling back to knowledge base...');
+            const fb = findAnswer(query);
+            addMessage('bot', fb.text);
+        }
+        document.getElementById('sendBtn').disabled = false;
+    }
+
+    // ===================== UI HELPERS =====================
+    function handleKeydown(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    }
+    function autoResize(t) {
+        t.style.height = 'auto';
+        t.style.height = Math.min(t.scrollHeight, 120) + 'px';
+        document.getElementById('sendBtn').disabled = !t.value.trim();
+    }
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+    }
+    function openSettings() {
+        document.getElementById('apiKey').value = settings.apiKey || '';
+        document.getElementById('modelSelect').value = settings.model || 'knowledge-base';
+        document.getElementById('settingsModal').classList.add('active');
+    }
+    function closeSettings() {
+        document.getElementById('settingsModal').classList.remove('active');
+    }
+    function saveSettings() {
+        settings.apiKey = document.getElementById('apiKey').value.trim();
+        settings.model = document.getElementById('modelSelect').value;
+        localStorage.setItem('tutor_settings', JSON.stringify(settings));
+        closeSettings();
+    }
+
+    document.getElementById('settingsModal').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeSettings();
+    });
+
+    // ===================== INIT =====================
+    document.addEventListener('DOMContentLoaded', () => {
+        renderNotes();
+    });
+    </script>
+</body>
+</html>
