@@ -1,0 +1,214 @@
+[
+  {
+    "id": "MGW1010-25",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Management Functions",
+    "question": "Which of the following is NOT one of the four primary functions of management as originally identified by Henri Fayol?",
+    "options": [
+      "Planning",
+      "Organizing",
+      "Marketing",
+      "Controlling"
+    ],
+    "correct": 2,
+    "explanation": "Henri Fayol identified the four primary functions of management as Planning (prevoyance), Organizing, Commanding (leading/directing), and Controlling. Marketing is an important business function but is not one of Fayol's core management functions."
+  },
+  {
+    "id": "MGW1010-26",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Motivation",
+    "question": "Which motivation theory distinguishes between factors that cause job satisfaction (motivators) and factors that cause job dissatisfaction (hygiene factors)?",
+    "options": [
+      "Maslow's Hierarchy of Needs",
+      "Herzberg's Two-Factor Theory",
+      "Vroom's Expectancy Theory",
+      "Adams' Equity Theory"
+    ],
+    "correct": 1,
+    "explanation": "Herzberg's Two-Factor Theory proposes that motivators (achievement, recognition, responsibility) lead to satisfaction, while hygiene factors (pay, conditions, policy) prevent dissatisfaction but do not motivate. This contrasts with Maslow's needs hierarchy, Vroom's expectancy model, and Adams' equity framework."
+  },
+  {
+    "id": "MGW1010-27",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Organizational Structure",
+    "question": "A flat organizational structure is typically characterized by:",
+    "options": [
+      "Narrow spans of control and many hierarchical levels",
+      "Wide spans of control and few hierarchical levels",
+      "Strict departmentalization and centralization",
+      "Rigid formalization and standardization"
+    ],
+    "correct": 1,
+    "explanation": "A flat structure has few layers of management and wide spans of control, enabling faster communication and greater employee autonomy. In contrast, a tall structure has narrow spans and many levels, while mechanistic designs emphasize centralization and formalization."
+  },
+  {
+    "id": "MGW1010-28",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Leadership",
+    "question": "An autocratic leadership style is best described as one in which the leader:",
+    "options": [
+      "Encourages group participation in decision-making",
+      "Delegates authority extensively to subordinates",
+      "Makes decisions independently with little or no input from others",
+      "Adapts their style based on follower readiness and task demands"
+    ],
+    "correct": 2,
+    "explanation": "Autocratic leaders centralize decision-making power and direct work without significant subordinate consultation. Democratic leaders encourage participation (A), laissez-faire leaders delegate (B), and situational leaders adapt their style (D)."
+  },
+  {
+    "id": "MGW1010-29",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Strategic Management",
+    "question": "In the PESTEL framework for environmental scanning, the 'E' refers to:",
+    "options": [
+      "Ethical",
+      "Environmental",
+      "Economic",
+      "Employment"
+    ],
+    "correct": 2,
+    "explanation": "PESTEL stands for Political, Economic, Social, Technological, Environmental, and Legal factors. The Economic component examines inflation, interest rates, exchange rates, and economic growth that affect organizational strategy."
+  },
+  {
+    "id": "MGW1010-30",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Decision Making",
+    "question": "Programmed decisions are best described as decisions that are:",
+    "options": [
+      "Novel and unstructured",
+      "Recurring and routine with established procedures",
+      "Made under conditions of complete uncertainty",
+      "Reserved exclusively for top management"
+    ],
+    "correct": 1,
+    "explanation": "Programmed decisions address routine, repetitive situations for which rules and procedures exist (e.g., reordering inventory, processing payroll). Non-programmed decisions are novel and unstructured, typically requiring judgment and creativity."
+  },
+  {
+    "id": "MGW1010-31",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Human Resource Management",
+    "question": "Which of the following is a primary objective of performance management systems?",
+    "options": [
+      "To eliminate the need for employee training and development",
+      "To align individual employee performance with organizational strategic goals",
+      "To reduce employee compensation automatically each review cycle",
+      "To enforce strict disciplinary action as the default outcome"
+    ],
+    "correct": 1,
+    "explanation": "Performance management systems aim to align individual and team contributions with organizational objectives, provide feedback, identify development needs, and reward high performance. They are developmental tools, not primarily mechanisms for cost reduction or discipline."
+  },
+  {
+    "id": "MGW1010-32",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Ethics and CSR",
+    "question": "According to stakeholder theory, managers have a responsibility to:",
+    "options": [
+      "Maximize shareholder wealth exclusively",
+      "Balance the interests of all groups affected by the organization",
+      "Prioritize government regulations above all other considerations",
+      "Minimize operational costs regardless of social or environmental impact"
+    ],
+    "correct": 1,
+    "explanation": "Stakeholder theory (R. Edward Freeman) argues that managers should consider the interests of all stakeholders affected by the firm's actions, including employees, customers, suppliers, communities, and shareholders, rather than focusing solely on shareholders."
+  },
+  {
+    "id": "MGW1010-33",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "International Business",
+    "question": "According to Hofstede's cultural dimensions theory, a society with high uncertainty avoidance is likely to:",
+    "options": [
+      "Embrace ambiguity and tolerate unstructured situations",
+      "Prefer clear rules, structured environments, and risk minimization",
+      "Value individual achievement and personal recognition over group harmony",
+      "Accept unequal power distribution without expectation of justification"
+    ],
+    "correct": 1,
+    "explanation": "High uncertainty avoidance cultures prefer formal rules, standard procedures, and stability to reduce ambiguity. Low uncertainty avoidance cultures are more comfortable with flexibility and risk. Option D describes high power distance, while option C describes high individualism."
+  },
+  {
+    "id": "MGW1010-34",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Organizational Culture",
+    "question": "In the Competing Values Framework, an organization that emphasizes flexibility, discretion, and an internal focus on the integration and morale of its people is best described as having a:",
+    "options": [
+      "Clan culture",
+      "Adhocracy culture",
+      "Market culture",
+      "Hierarchy culture"
+    ],
+    "correct": 0,
+    "explanation": "The Competing Values Framework identifies four cultures: Clan (internal focus + flexibility), Adhocracy (external focus + flexibility), Market (external focus + stability/control), and Hierarchy (internal focus + stability/control). A clan culture values teamwork, commitment, and employee development."
+  },
+  {
+    "id": "MGW1010-35",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Operations Management",
+    "question": "Just-in-Time (JIT) inventory management aims primarily to:",
+    "options": [
+      "Maximize buffer stock to prevent all possibility of stockouts",
+      "Minimize inventory holding costs by receiving goods only as they are needed in production",
+      "Increase the number of suppliers to reduce supply chain risk",
+      "Centralize all inventory in a single large warehouse for efficiency"
+    ],
+    "correct": 1,
+    "explanation": "JIT is a pull-based system designed to reduce waste by receiving materials and producing goods only as demanded. It minimizes holding costs and inventory levels but requires reliable suppliers and high-quality processes to avoid stockouts."
+  },
+  {
+    "id": "MGW1010-36",
+    "type": "truefalse",
+    "difficulty": "easy",
+    "topic": "Motivation",
+    "question": "According to Maslow's hierarchy of needs, esteem needs must be satisfied before an individual is motivated by social belonging needs.",
+    "answer": false,
+    "explanation": "Maslow's hierarchy (from bottom to top) is: Physiological, Safety, Social (Love/Belonging), Esteem, and Self-Actualization. Social belonging needs sit below esteem needs; therefore, social needs are generally addressed before esteem needs, not after."
+  },
+  {
+    "id": "MGW1010-37",
+    "type": "theory",
+    "difficulty": "medium",
+    "topic": "Team Management",
+    "question": "Explain Bruce Tuckman's stages of group development and discuss why understanding these stages is important for managers leading new teams.",
+    "answer": "Tuckman's model identifies five stages: (1) Forming - team members are polite, uncertain, and dependent on the leader; (2) Storming - conflicts arise as individuals push against boundaries and compete for status; (3) Norming - consensus develops, roles clarify, and cooperation improves; (4) Performing - the team functions autonomously and effectively toward shared goals; (5) Adjourning - the team disbands after achieving its objectives. Understanding these stages helps managers anticipate conflict during storming, facilitate communication during norming, and delegate effectively during performing. It also informs when to intervene versus when to let the team self-manage, ultimately accelerating the path to high performance.",
+    "explanation": "Tuckman's framework provides a roadmap for team dynamics. Managers who recognize each stage can tailor their leadership approach, provide appropriate support, and set realistic expectations for team progress."
+  },
+  {
+    "id": "MGW1010-38",
+    "type": "calculation",
+    "difficulty": "medium",
+    "topic": "Operations Management",
+    "question": "A restaurant has monthly fixed costs of $12,000. The average price per meal is $30 and the average variable cost per meal is $18. Calculate: (a) the contribution margin per meal, (b) the monthly break-even point in meals, and (c) the break-even sales revenue.",
+    "answer": "(a) $12 per meal, (b) 1,000 meals, (c) $30,000",
+    "working": "(a) Contribution margin per meal = Selling price - Variable cost = $30 - $18 = $12.\n(b) Break-even point (units) = Fixed costs / Contribution margin per unit = $12,000 / $12 = 1,000 meals.\n(c) Break-even sales revenue = Break-even units × Selling price = 1,000 × $30 = $30,000.",
+    "explanation": "Break-even analysis determines the sales volume at which total revenue equals total costs. The contribution margin covers fixed costs; once fixed costs are covered, each additional unit contributes directly to profit."
+  },
+  {
+    "id": "MGW1010-39",
+    "type": "case",
+    "difficulty": "hard",
+    "topic": "Strategic Management and Ethics",
+    "question": "Case Study: GreenLeaf Pty Ltd is a mid-sized Australian organic food producer. The company has built its brand on sustainability and ethical sourcing. A large multinational supermarket chain offers GreenLeaf a 5-year exclusive supply contract worth $50 million annually, but requires GreenLeaf to switch to cheaper, non-certified overseas suppliers to meet price points. The contract would double revenue but contradict the company's core values. GreenLeaf's board is divided.\n\n1. Identify the key strategic and ethical issues.\n2. Using stakeholder theory and Porter's generic strategies, analyze GreenLeaf's options.\n3. Recommend a course of action with justification.",
+    "answer": "1. Strategic issues include brand dilution, loss of differentiation, supplier dependency, and long-term competitive positioning. Ethical issues include integrity versus profit, potential misleading of consumers, and supply chain exploitation.\n2. Stakeholder analysis reveals customers value authenticity, employees take pride in the mission, and shareholders desire profit. Porter's framework shows that accepting the contract would shift GreenLeaf from a differentiation strategy toward cost leadership, which it cannot sustain against larger competitors and which erodes its unique market position.\n3. Recommendation: Reject the contract or negotiate a premium-tier arrangement that maintains certification. Protecting brand integrity preserves long-term differentiation and customer trust, which are the sources of sustainable competitive advantage.",
+    "working": "Analysis using stakeholder mapping reveals high-power/high-interest stakeholders (customers, investors) with conflicting expectations. Porter's generic strategies show that differentiation (premium, certified products) is GreenLeaf's current source of competitive advantage. Switching to non-certified suppliers would erode this advantage and expose the firm to significant reputational risk. A deontological ethical framework supports maintaining commitments to fair sourcing regardless of short-term financial temptation.",
+    "explanation": "This case illustrates the tension between short-term financial gain and long-term strategic positioning. Organizations that compromise core values for revenue often suffer reputational damage and loss of customer loyalty, ultimately destroying the very advantage that made them attractive."
+  },
+  {
+    "id": "MGW1010-40",
+    "type": "theory",
+    "difficulty": "hard",
+    "topic": "Change Management",
+    "question": "Compare incremental change and transformational change. Discuss the conditions under which each approach is most appropriate, providing managerial examples.",
+    "answer": "Incremental change involves small, continuous adjustments to existing processes, structures, or strategies (e.g., Kaizen improvements, software updates, policy refinements). It is appropriate when the environment is relatively stable, the organization is performing adequately, and the risk of disruption must be minimized. Transformational change involves radical, fundamental shifts in strategy, culture, or operations (e.g., digital transformation, mergers and acquisitions, turnaround strategies). It is appropriate when the organization faces a crisis, disruptive technology, or fundamental market shifts that threaten survival. Incremental change preserves organizational continuity and reduces resistance; transformational change is necessary when incremental adjustments are insufficient to ensure competitiveness or survival.",
+    "explanation": "The choice between incremental and transformational change depends on environmental volatility, organizational performance, and strategic urgency. Effective managers often combine both approaches, using incremental improvements during stable periods and triggering transformation when competitive dynamics demand fundamental reinvention."
+  }
+]
