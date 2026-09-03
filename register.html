@@ -27,6 +27,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .divider span{padding:0 12px}
 .error{background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);color:var(--danger);padding:10px 14px;border-radius:8px;font-size:.85rem;margin-bottom:16px;display:none}
 .success{background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);color:var(--success);padding:10px 14px;border-radius:8px;font-size:.85rem;margin-bottom:16px;display:none}
+.info{background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.3);color:var(--accent);padding:10px 14px;border-radius:8px;font-size:.85rem;margin-bottom:16px;display:none}
 </style>
 </head>
 <body>
@@ -38,6 +39,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 </div>
 <div class="error" id="error"></div>
 <div class="success" id="success"></div>
+<div class="info" id="info"></div>
 <form id="registerForm">
 <div class="input-group">
 <label>Username</label>
@@ -57,6 +59,14 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 <button class="btn-secondary" onclick="location.href='login.html'">Already have an account? Sign In</button>
 </div>
 <script>
+// Check if we're on GitHub Pages (no backend)
+const isStatic = location.hostname.includes('github.io') || location.protocol === 'file:';
+
+if (isStatic) {
+  document.getElementById('info').textContent = 'Running in local mode — data stored in your browser.';
+  document.getElementById('info').style.display = 'block';
+}
+
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 const username = document.getElementById('username').value.trim();
@@ -66,34 +76,70 @@ const errorDiv = document.getElementById('error');
 const successDiv = document.getElementById('success');
 errorDiv.style.display = 'none';
 successDiv.style.display = 'none';
+
 if (password !== confirmPassword) {
-errorDiv.textContent = 'Passwords do not match';
-errorDiv.style.display = 'block';
-return;
+  errorDiv.textContent = 'Passwords do not match';
+  errorDiv.style.display = 'block';
+  return;
 }
 if (password.length < 6) {
-errorDiv.textContent = 'Password must be at least 6 characters';
-errorDiv.style.display = 'block';
-return;
+  errorDiv.textContent = 'Password must be at least 6 characters';
+  errorDiv.style.display = 'block';
+  return;
 }
+
+// Try backend first
 try {
-const res = await fetch('/api/auth/register', {
-method: 'POST',
-headers: {'Content-Type': 'application/json'},
-body: JSON.stringify({username, password})
-});
-const data = await res.json();
-if (res.ok) {
-successDiv.textContent = 'Account created! Redirecting to login...';
-successDiv.style.display = 'block';
-setTimeout(() => location.href = 'login.html', 1200);
-} else {
-errorDiv.textContent = data.error || 'Registration failed';
-errorDiv.style.display = 'block';
-}
+  const res = await fetch('/api/auth/register', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({username, password})
+  });
+  const data = await res.json();
+  if (res.ok) {
+    successDiv.textContent = 'Account created! Redirecting to login...';
+    successDiv.style.display = 'block';
+    setTimeout(() => location.href = 'login.html', 1200);
+    return;
+  } else {
+    errorDiv.textContent = data.error || 'Registration failed';
+    errorDiv.style.display = 'block';
+    return;
+  }
 } catch (err) {
-errorDiv.textContent = 'Network error. Please try again.';
-errorDiv.style.display = 'block';
+  // Backend unavailable — use localStorage mode
+  if (isStatic) {
+    const users = JSON.parse(localStorage.getItem('uni_users') || '[]');
+    if (users.find(u => u.username === username)) {
+      errorDiv.textContent = 'Username already exists';
+      errorDiv.style.display = 'block';
+      return;
+    }
+    const user = { id: 'local_' + Date.now(), username, password: btoa(password) };
+    users.push(user);
+    localStorage.setItem('uni_users', JSON.stringify(users));
+    localStorage.setItem('uni_current_user', JSON.stringify(user));
+    // Initialize default data
+    const defaults = {
+      stats: { hoursStudiedThisWeek: 24, assignmentsCompleted: 8, studyStreakDays: 15, currentGPA: 3.42 },
+      streak: { month: new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' }), emptyDays: new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay() - 1, days: Array(31).fill(0), stats: { currentStreak: 0, longestStreak: 0, totalDays: 0, consistency: '0%' } },
+      deadlines: [], goals: [], grades: [], schedule: {}, timer_sessions: [], habits: { study: [], exercise: [], review: [], sleep: [] }, badges: [], activities: [],
+      config: { name: username, degree: 'Bachelor of Commerce', avatarInitials: username.slice(0,2).toUpperCase(), subjects: [
+        { id: 1, name: 'Business Law', color: '#d8c2b5' }, { id: 2, name: 'Accounting', color: '#a78bfa' }, { id: 3, name: 'Economics', color: '#60a5fa' },
+        { id: 4, name: 'Marketing', color: '#34d399' }, { id: 5, name: 'Finance', color: '#f472b6' }, { id: 6, name: 'Management', color: '#fbbf24' },
+        { id: 7, name: 'Statistics', color: '#fb923c' }, { id: 8, name: 'IT for Business', color: '#22d3ee' }
+      ]}
+    };
+    for (const [key, val] of Object.entries(defaults)) {
+      localStorage.setItem('uni_' + key, JSON.stringify(val));
+    }
+    successDiv.textContent = 'Account created in local mode! Redirecting...';
+    successDiv.style.display = 'block';
+    setTimeout(() => location.href = 'index.html', 1200);
+    return;
+  }
+  errorDiv.textContent = 'Network error. Server may be down.';
+  errorDiv.style.display = 'block';
 }
 });
 </script>
