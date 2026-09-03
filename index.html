@@ -436,8 +436,22 @@
             <div class="card animate-in delay-2">
                 <div class="card-header">
                     <div class="card-title"><i class="fas fa-hourglass-half"></i> Upcoming Deadlines</div>
+                    <button class="edit-btn" onclick="toggleDeadlineEdit()">Edit</button>
                 </div>
                 <div class="countdown-list" id="countdownList"></div>
+                <div class="inline-edit" id="deadlineEditPanel" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border-color);">
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+                        <input type="text" id="dlTitle" placeholder="Title" style="flex:1;min-width:120px;padding:6px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);font-size:0.85rem;">
+                        <input type="date" id="dlDate" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);font-size:0.85rem;">
+                        <select id="dlType" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);font-size:0.85rem;">
+                            <option value="exam">Exam</option>
+                            <option value="assignment">Assignment</option>
+                            <option value="quiz">Quiz</option>
+                        </select>
+                        <button class="btn-add" style="padding:6px 14px;font-size:0.8rem;" onclick="addDeadline()">Add</button>
+                    </div>
+                    <div id="dlListEdit" style="font-size:0.8rem;"></div>
+                </div>
             </div>
         </div>
 
@@ -627,6 +641,9 @@
         function renderCountdowns() {
             const container = document.getElementById('countdownList');
             container.innerHTML = '';
+            // Load from localStorage if available
+            const saved = localStorage.getItem('uni_deadlines');
+            if (saved) appData.deadlines = JSON.parse(saved);
             const deadlines = appData.deadlines.length ? appData.deadlines : [
                 { title: "Mid-Semester Exam", subject: "ACW1120 - Financial Accounting", date: "2026-09-05T09:00:00", urgent: true },
                 { title: "Assignment 2 Due", subject: "BFW1001 - Foundations of Finance", date: "2026-09-12T23:59:00", urgent: false },
@@ -653,6 +670,56 @@
         function toggleStreakEdit() {
             streakEditMode = !streakEditMode;
             document.getElementById('streakEditPanel').classList.toggle('active');
+        }
+
+        let deadlineEditMode = false;
+        function toggleDeadlineEdit() {
+            deadlineEditMode = !deadlineEditMode;
+            const panel = document.getElementById('deadlineEditPanel');
+            panel.style.display = deadlineEditMode ? 'block' : 'none';
+            if (deadlineEditMode) renderDeadlineEditList();
+        }
+
+        function renderDeadlineEditList() {
+            const container = document.getElementById('dlListEdit');
+            const deadlines = appData.deadlines.length ? appData.deadlines : [
+                { title: "Mid-Semester Exam", subject: "ACW1120 - Financial Accounting", date: "2026-09-05T09:00:00", urgent: true },
+                { title: "Assignment 2 Due", subject: "BFW1001 - Foundations of Finance", date: "2026-09-12T23:59:00", urgent: false },
+                { title: "Lab Report", subject: "BTW1042 - Business Law", date: "2026-09-18T17:00:00", urgent: false }
+            ];
+            container.innerHTML = deadlines.map((d, i) => `
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--border-color);">
+                    <span>${d.title} — ${d.date.split('T')[0]}</span>
+                    <button onclick="deleteDeadline(${i})" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:0.8rem;">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function addDeadline() {
+            const title = document.getElementById('dlTitle').value.trim();
+            const date = document.getElementById('dlDate').value;
+            const type = document.getElementById('dlType').value;
+            if (!title || !date) { alert('Please fill in title and date'); return; }
+            const subjectMap = { exam: 'Exam', assignment: 'Assignment', quiz: 'Quiz' };
+            const newDl = {
+                title: title,
+                subject: subjectMap[type] || type,
+                date: date + 'T09:00:00',
+                urgent: Math.floor((new Date(date) - new Date()) / (1000*60*60*24)) <= 3
+            };
+            appData.deadlines.push(newDl);
+            localStorage.setItem('uni_deadlines', JSON.stringify(appData.deadlines));
+            document.getElementById('dlTitle').value = '';
+            document.getElementById('dlDate').value = '';
+            renderCountdowns();
+            renderDeadlineEditList();
+        }
+
+        function deleteDeadline(index) {
+            appData.deadlines.splice(index, 1);
+            localStorage.setItem('uni_deadlines', JSON.stringify(appData.deadlines));
+            renderCountdowns();
+            renderDeadlineEditList();
         }
 
         async function logToday() {
