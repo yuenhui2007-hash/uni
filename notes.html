@@ -427,32 +427,41 @@ body::before{
   text-transform:uppercase;
 }
 
-/* ═══ DEFINITION CARDS ═══ */
+/* ═══ DEFINITION CARDS (HORIZONTAL) ═══ */
 .def-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:16px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
   margin:20px 0;
 }
 .def-card{
+  display:flex;
+  align-items:flex-start;
+  gap:24px;
   background:var(--bg-card);
   border:1px solid var(--border);
   border-radius:var(--radius-md);
-  padding:22px;
+  padding:20px 24px;
   transition:all .35s ease;
 }
 .def-card:hover{
   border-color:var(--border-light);
   box-shadow:var(--shadow-card);
-  transform:translateY(-2px);
 }
 .def-card-term{
   font-family:var(--font-serif);
   font-weight:600;
   color:var(--accent-tan);
-  font-size:1.25rem;
-  margin-bottom:8px;
+  font-size:1.15rem;
   letter-spacing:-0.01em;
+  min-width:180px;
+  max-width:220px;
+  flex-shrink:0;
+  padding-top:2px;
+}
+.def-card-body{
+  flex:1;
+  min-width:0;
 }
 .def-card-meaning{
   color:var(--text-secondary);
@@ -461,9 +470,7 @@ body::before{
   font-weight:300;
 }
 .def-card-exam{
-  margin-top:10px;
-  padding-top:10px;
-  border-top:1px solid var(--border);
+  margin-top:8px;
   font-size:0.78rem;
   color:var(--accent-rust);
   font-style:italic;
@@ -1635,8 +1642,10 @@ function renderFlipCards(unitId, defs) {
   container.innerHTML = defs.map((d, i) => `
     <div class="def-card">
       <div class="def-card-term">${d.term}</div>
-      <div class="def-card-meaning">${d.meaning}</div>
-      ${d.examNote ? `<div class="def-card-exam">💡 Exam: ${d.examNote}</div>` : ''}
+      <div class="def-card-body">
+        <div class="def-card-meaning">${d.meaning}</div>
+        ${d.examNote ? `<div class="def-card-exam">💡 Exam: ${d.examNote}</div>` : ''}
+      </div>
     </div>
   `).join('');
 }
