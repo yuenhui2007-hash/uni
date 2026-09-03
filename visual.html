@@ -183,15 +183,70 @@
     .formula .fn { color: var(--purple); font-style: italic; }
 
     /* Timeline */
-    .timeline { position: relative; padding-left: 28px; }
-    .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--border); }
-    .timeline-item { position: relative; margin-bottom: 20px; }
-    .timeline-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
-    .timeline-item.done::before { background: var(--green); }
-    .timeline-item.current::before { background: var(--orange); box-shadow: 0 0 0 4px var(--orange-glow); }
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: var(--surface-3); }
+    .timeline-item { position: relative; padding-bottom: 28px; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot { position: absolute; left: -28px; top: 2px; width: 20px; height: 20px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); display: grid; place-items: center; font-size: 0.65rem; font-weight: 700; }
+    .timeline-item.active .timeline-dot { background: var(--accent); color: var(--bg); }
+    .timeline-item.complete .timeline-dot { background: var(--green); border-color: var(--green); color: var(--bg); }
+    .timeline-content { background: var(--surface-2); border-radius: var(--radius-sm); padding: 16px 20px; border: 1px solid var(--border); }
+    .timeline-content h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .timeline-content p { font-size: 0.85rem; color: var(--text-dim); }
     .timeline-date { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 4px; }
     .timeline-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 2px; }
     .timeline-desc { font-size: 0.85rem; color: var(--text-dim); }
+
+    /* Process Flow */
+    .process-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .process-step {
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 14px 18px; text-align: center; min-width: 140px; position: relative;
+    }
+    .process-step .num { font-size: 0.75rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    .process-step .label { font-size: 0.85rem; font-weight: 600; }
+    .process-arrow { color: var(--accent); font-size: 1.2rem; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab {
+      padding: 8px 18px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; border: 1px solid transparent; color: var(--text-dim); transition: var(--transition);
+      background: transparent;
+    }
+    .tab:hover { color: var(--text); background: var(--surface-2); }
+    .tab.active { color: var(--accent); background: var(--accent-glow); border-color: var(--border); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Misc */
+    .tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 600; margin-right: 4px; }
+    .tag-outline { border: 1px solid var(--border); color: var(--text-dim); }
+    .highlight-box { background: var(--accent-glow); border: 1px solid rgba(107,140,255,0.2); border-radius: var(--radius-sm); padding: 16px 20px; margin: 16px 0; }
+    .highlight-box.green { background: var(--green-glow); border-color: rgba(74,222,128,0.2); }
+    .highlight-box.orange { background: var(--orange-glow); border-color: rgba(251,146,60,0.2); }
+    .highlight-box h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .highlight-box p { font-size: 0.85rem; color: var(--text-dim); margin: 0; }
+
+    /* Footer */
+    footer { text-align: center; padding: 40px 24px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 40px; }
+
+    /* Mermaid dark theme overrides */
+    .mermaid .node rect, .mermaid .node circle, .mermaid .node polygon { fill: var(--surface-2) !important; stroke: var(--accent) !important; stroke-width: 1.5px !important; }
+    .mermaid .node .label { color: var(--text) !important; font-family: 'Inter', sans-serif !important; }
+    .mermaid .edgePath .path { stroke: var(--accent) !important; stroke-width: 1.5px !important; }
+    .mermaid .edgeLabel { background: var(--surface) !important; color: var(--text-dim) !important; }
+    .mermaid .cluster rect { fill: var(--surface) !important; stroke: var(--border) !important; }
+    .mermaid g.classGroup rect { fill: var(--surface-2) !important; stroke: var(--accent) !important; }
+    .mermaid .actor { fill: var(--surface-2) !important; stroke: var(--accent) !important; }
+    .mermaid text { fill: var(--text) !important; font-family: 'Inter', sans-serif !important; }
+    .mermaid .timeline-section { fill: var(--surface) !important; stroke: var(--border) !important; }
+    .mermaid .cScale0 { fill: var(--accent) !important; }
+    .mermaid .cScale1 { fill: var(--green) !important; }
+    .mermaid .cScale2 { fill: var(--orange) !important; }
+    .mermaid .cScale3 { fill: var(--purple) !important; }
+    .mermaid .cScale4 { fill: var(--cyan) !important; }
 
     /* Responsive */
     @media (max-width: 768px) {
