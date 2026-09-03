@@ -326,11 +326,30 @@ body::before{
 }
 .unit-section.hidden-unit{display:none}
 
-/* Subject picker bar */
-.subject-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:1100px;margin:0 auto 32px;padding:0 24px}
-.subject-pill{background:transparent;border:1px solid var(--border-light);color:var(--text-secondary);padding:8px 18px;border-radius:999px;font-size:.82rem;font-family:var(--font-sans);font-weight:500;cursor:pointer;transition:all .2s}
-.subject-pill:hover{border-color:var(--accent-tan);color:var(--text-primary)}
-.subject-pill.active{background:linear-gradient(135deg,var(--accent-tan),var(--accent-rust));color:#0a0a0f;border-color:transparent;font-weight:600}
+.toc .subject-link{
+  display:block;
+  color:var(--text-muted);
+  text-decoration:none;
+  font-size:0.78rem;
+  padding:6px 10px;
+  border-radius:var(--radius-sm);
+  transition:all .25s ease;
+  border-left:2px solid transparent;
+  margin-bottom:2px;
+  font-weight:400;
+  cursor:pointer;
+}
+.toc .subject-link:hover{
+  color:var(--accent-tan);
+  border-left-color:var(--accent-rust);
+  background:rgba(191,155,122,0.05);
+}
+.toc .subject-link.active{
+  color:var(--accent-tan);
+  border-left-color:var(--accent-rust);
+  background:rgba(191,155,122,0.08);
+  font-weight:600;
+}
 
 .toc a.unit{
   color:var(--text-secondary);
@@ -1151,16 +1170,17 @@ function logout() { localStorage.removeItem('token'); localStorage.removeItem('u
 <input type="text" class="search-input" id="searchInput" placeholder="Search definitions, formulas, concepts...">
 </div>
 
-<div class="subject-bar" id="subjectBar">
-  <button class="subject-pill active" data-subject="all">All</button>
-  <button class="subject-pill" data-subject="acw1120">ACW1120</button>
-  <button class="subject-pill" data-subject="bfw1001">BFW1001</button>
-  <button class="subject-pill" data-subject="btw1042">BTW1042</button>
-  <button class="subject-pill" data-subject="ecm1953">ECM1953</button>
-  <button class="subject-pill" data-subject="etw1001">ETW1001</button>
-  <button class="subject-pill" data-subject="mgw1010">MGW1010</button>
-  <button class="subject-pill" data-subject="acw2220">ACW2220</button>
-  <button class="subject-pill" data-subject="etc2440">ETC2440</button>
+<div class="toc">
+  <h3>Subjects</h3>
+  <a class="subject-link active" data-subject="all">All</a>
+  <a class="subject-link" data-subject="acw1120">ACW1120</a>
+  <a class="subject-link" data-subject="bfw1001">BFW1001</a>
+  <a class="subject-link" data-subject="btw1042">BTW1042</a>
+  <a class="subject-link" data-subject="ecm1953">ECM1953</a>
+  <a class="subject-link" data-subject="etw1001">ETW1001</a>
+  <a class="subject-link" data-subject="mgw1010">MGW1010</a>
+  <a class="subject-link" data-subject="acw2220">ACW2220</a>
+  <a class="subject-link" data-subject="etc2440">ETC2440</a>
 </div>
 
 <div class="content-wrap">
@@ -6527,9 +6547,9 @@ function toggleSection(header) {
 }
 
 function initSubjectBar() {
-  document.querySelectorAll('.subject-pill').forEach(btn => {
+  document.querySelectorAll('.toc .subject-link').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.subject-pill').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.toc .subject-link').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const subject = btn.dataset.subject;
       document.querySelectorAll('.unit-section').forEach(section => {
