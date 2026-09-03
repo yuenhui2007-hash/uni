@@ -118,6 +118,7 @@ try {
     const user = { id: 'local_' + Date.now(), username, password: btoa(password) };
     users.push(user);
     localStorage.setItem('uni_users', JSON.stringify(users));
+    localStorage.setItem('token', 'local_' + user.id);
     localStorage.setItem('uni_current_user', JSON.stringify(user));
     // Initialize default data
     const defaults = {

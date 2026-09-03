@@ -95,6 +95,7 @@ try {
     const users = JSON.parse(localStorage.getItem('uni_users') || '[]');
     const user = users.find(u => u.username === username && u.password === btoa(password));
     if (user) {
+      localStorage.setItem('token', 'local_' + user.id);
       localStorage.setItem('uni_current_user', JSON.stringify(user));
       localStorage.setItem('username', user.username);
       successDiv.textContent = 'Login successful (local mode)! Redirecting...';
