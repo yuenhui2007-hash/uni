@@ -62,54 +62,63 @@ if (isStatic) {
   document.getElementById('info').style.display = 'block';
 }
 
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-e.preventDefault();
-const username = document.getElementById('username').value.trim();
-const password = document.getElementById('password').value;
-const errorDiv = document.getElementById('error');
-const successDiv = document.getElementById('success');
-errorDiv.style.display = 'none';
-successDiv.style.display = 'none';
-
-try {
-  const res = await fetch('/api/auth/login', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({username, password})
-  });
-  const data = await res.json();
-  if (res.ok) {
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('username', data.username);
-    successDiv.textContent = 'Login successful! Redirecting...';
-    successDiv.style.display = 'block';
-    setTimeout(() => location.href = 'index.html', 800);
-    return;
-  } else {
-    errorDiv.textContent = data.error || 'Login failed';
-    errorDiv.style.display = 'block';
-    return;
+async function doLocalLogin(username, password) {
+  const users = JSON.parse(localStorage.getItem('uni_users') || '[]');
+  const user = users.find(u => u.username === username && u.password === btoa(password));
+  if (user) {
+    localStorage.setItem('token', 'local_' + user.id);
+    localStorage.setItem('uni_current_user', JSON.stringify(user));
+    localStorage.setItem('username', user.username);
+    return { ok: true };
   }
-} catch (err) {
+  return { ok: false, error: 'Invalid username or password' };
+}
+
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+  const errorDiv = document.getElementById('error');
+  const successDiv = document.getElementById('success');
+  errorDiv.style.display = 'none';
+  successDiv.style.display = 'none';
+
+  // If on GitHub Pages, skip backend entirely
   if (isStatic) {
-    const users = JSON.parse(localStorage.getItem('uni_users') || '[]');
-    const user = users.find(u => u.username === username && u.password === btoa(password));
-    if (user) {
-      localStorage.setItem('token', 'local_' + user.id);
-      localStorage.setItem('uni_current_user', JSON.stringify(user));
-      localStorage.setItem('username', user.username);
-      successDiv.textContent = 'Login successful (local mode)! Redirecting...';
+    const result = await doLocalLogin(username, password);
+    if (result.ok) {
+      successDiv.textContent = 'Login successful! Redirecting...';
       successDiv.style.display = 'block';
-      setTimeout(() => location.href = 'index.html', 800);
+      setTimeout(() => location.href = 'index.html', 600);
     } else {
-      errorDiv.textContent = 'Invalid username or password';
+      errorDiv.textContent = result.error;
       errorDiv.style.display = 'block';
     }
     return;
   }
-  errorDiv.textContent = 'Network error. Server may be down.';
-  errorDiv.style.display = 'block';
-}
+
+  // Backend mode
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({username, password})
+    });
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('username', data.username);
+      successDiv.textContent = 'Login successful! Redirecting...';
+      successDiv.style.display = 'block';
+      setTimeout(() => location.href = 'index.html', 800);
+    } else {
+      errorDiv.textContent = data.error || 'Login failed';
+      errorDiv.style.display = 'block';
+    }
+  } catch (err) {
+    errorDiv.textContent = 'Network error. Server may be down.';
+    errorDiv.style.display = 'block';
+  }
 });
 </script>
 </body>
