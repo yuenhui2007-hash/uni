@@ -1058,7 +1058,13 @@ location.href='login.html';
 
         async function loadUser() {
             const token = localStorage.getItem('token');
+            const username = localStorage.getItem('username');
             if (!token) return;
+            // Local mode: token starts with 'local_'
+            if (token.startsWith('local_')) {
+                if (username) document.getElementById('userAvatar').textContent = username.slice(0,2).toUpperCase();
+                return;
+            }
             try {
                 const res = await fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } });
                 if (res.ok) {
