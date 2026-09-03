@@ -403,7 +403,7 @@ location.href='login.html';
               <option value="project">Project</option>
             </select>
             <input type="number" id="dlProgress" placeholder="Progress %" min="0" max="100" value="0">
-            <button class="btn" onclick="addDeadline()">Add</button>
+            <button class="btn" id="addDlBtn" onclick="addDeadline()">Add</button>
           </div>
         </div>
         <div class="card">
@@ -685,21 +685,45 @@ location.href='login.html';
 
     // ===================== DEADLINES =====================
     let deadlines = STORE.get('deadlines', []);
+    let editingDeadlineId = null;
     function addDeadline() {
       const title = document.getElementById('dlTitle').value.trim();
       const date = document.getElementById('dlDate').value;
       if (!title || !date) return alert('Title and date required');
-      deadlines.push({
-        id: Date.now(), title, date,
-        priority: document.getElementById('dlPriority').value,
-        type: document.getElementById('dlType').value,
-        progress: +document.getElementById('dlProgress').value || 0
-      });
+      if (editingDeadlineId) {
+        const d = deadlines.find(x => x.id === editingDeadlineId);
+        if (d) {
+          d.title = title; d.date = date;
+          d.priority = document.getElementById('dlPriority').value;
+          d.type = document.getElementById('dlType').value;
+          d.progress = +document.getElementById('dlProgress').value || 0;
+        }
+        editingDeadlineId = null;
+        document.getElementById('addDlBtn').textContent = 'Add';
+      } else {
+        deadlines.push({
+          id: Date.now(), title, date,
+          priority: document.getElementById('dlPriority').value,
+          type: document.getElementById('dlType').value,
+          progress: +document.getElementById('dlProgress').value || 0
+        });
+      }
       STORE.set('deadlines', deadlines);
       document.getElementById('dlTitle').value = '';
       document.getElementById('dlDate').value = '';
       document.getElementById('dlProgress').value = 0;
       renderDeadlines();
+    }
+    function editDeadline(id) {
+      const d = deadlines.find(x => x.id === id);
+      if (!d) return;
+      document.getElementById('dlTitle').value = d.title;
+      document.getElementById('dlDate').value = d.date;
+      document.getElementById('dlPriority').value = d.priority;
+      document.getElementById('dlType').value = d.type;
+      document.getElementById('dlProgress').value = d.progress;
+      editingDeadlineId = id;
+      document.getElementById('addDlBtn').textContent = 'Update';
     }
     function deleteDeadline(id) {
       deadlines = deadlines.filter(d => d.id !== id);
@@ -729,6 +753,7 @@ location.href='login.html';
             <input type="range" min="0" max="100" value="${dl.progress}" style="width:100%;margin-top:4px;" onchange="updateDlProgress(${dl.id},this.value)">
           </div>
           <div class="deadline-countdown" style="color:${color}">${diff >= 0 ? diff + ' days' : 'Overdue'}</div>
+          <button class="btn btn-sm" onclick="editDeadline(${dl.id})" style="background:var(--accent);color:#0a0a0f;margin-right:4px;">Edit</button>
           <button class="btn btn-red btn-sm" onclick="deleteDeadline(${dl.id})">×</button>
         `;
         list.appendChild(el);
