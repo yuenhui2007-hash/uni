@@ -195,6 +195,12 @@
       .panel-grid.cols-2, .panel-grid.cols-3 { grid-template-columns: 1fr; }
     }
   </style>
+<script>
+(function(){
+const token=localStorage.getItem('token');
+if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('register')){location.href='login.html';}
+})();
+</script>
 </head>
 <body>
   <div class="container">

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNI — Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#111118;--surface-2:#1e1e2a;--border:rgba(255,255,255,0.08);--text:#e2e2e8;--text-secondary:#9ca3af;--accent:#60a5fa;--accent-2:#9ca3af;--danger:#f87171;--success:#34d399;--font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.register-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px;width:100%;max-width:420px}
+.register-header{text-align:center;margin-bottom:32px}
+.register-header .logo{font-size:2.5rem;margin-bottom:12px}
+.register-header h1{font-size:1.5rem;font-weight:700;margin-bottom:6px}
+.register-header p{color:var(--text-secondary);font-size:.9rem}
+.input-group{margin-bottom:20px}
+.input-group label{display:block;font-size:.85rem;font-weight:500;margin-bottom:6px;color:var(--text-secondary)}
+.input-group input{width:100%;padding:12px 14px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.95rem;transition:all .2s}
+.input-group input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(96,165,250,0.1)}
+.btn{width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn:hover{background:#4a8fe7}
+.btn-secondary{width:100%;padding:12px;background:transparent;color:var(--text-secondary);border:1px solid var(--border);border-radius:8px;font-size:.9rem;cursor:pointer;transition:all .2s;margin-top:12px}
+.btn-secondary:hover{color:var(--text);border-color:var(--text-secondary)}
+.divider{display:flex;align-items:center;margin:24px 0;color:var(--text-secondary);font-size:.85rem}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.divider span{padding:0 12px}
+.error{background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);color:var(--danger);padding:10px 14px;border-radius:8px;font-size:.85rem;margin-bottom:16px;display:none}
+.success{background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);color:var(--success);padding:10px 14px;border-radius:8px;font-size:.85rem;margin-bottom:16px;display:none}
+</style>
+</head>
+<body>
+<div class="register-card">
+<div class="register-header">
+<div class="logo">🎓</div>
+<h1>Create Account</h1>
+<p>Join UNI and track your study progress</p>
+</div>
+<div class="error" id="error"></div>
+<div class="success" id="success"></div>
+<form id="registerForm">
+<div class="input-group">
+<label>Username</label>
+<input type="text" id="username" placeholder="Choose a username" required minlength="3" maxlength="20" autocomplete="username">
+</div>
+<div class="input-group">
+<label>Password</label>
+<input type="password" id="password" placeholder="Choose a password" required minlength="6" autocomplete="new-password">
+</div>
+<div class="input-group">
+<label>Confirm Password</label>
+<input type="password" id="confirmPassword" placeholder="Confirm your password" required autocomplete="new-password">
+</div>
+<button type="submit" class="btn">Create Account</button>
+</form>
+<div class="divider"><span>or</span></div>
+<button class="btn-secondary" onclick="location.href='login.html'">Already have an account? Sign In</button>
+</div>
+<script>
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
+e.preventDefault();
+const username = document.getElementById('username').value.trim();
+const password = document.getElementById('password').value;
+const confirmPassword = document.getElementById('confirmPassword').value;
+const errorDiv = document.getElementById('error');
+const successDiv = document.getElementById('success');
+errorDiv.style.display = 'none';
+successDiv.style.display = 'none';
+if (password !== confirmPassword) {
+errorDiv.textContent = 'Passwords do not match';
+errorDiv.style.display = 'block';
+return;
+}
+if (password.length < 6) {
+errorDiv.textContent = 'Password must be at least 6 characters';
+errorDiv.style.display = 'block';
+return;
+}
+try {
+const res = await fetch('/api/auth/register', {
+method: 'POST',
+headers: {'Content-Type': 'application/json'},
+body: JSON.stringify({username, password})
+});
+const data = await res.json();
+if (res.ok) {
+successDiv.textContent = 'Account created! Redirecting to login...';
+successDiv.style.display = 'block';
+setTimeout(() => location.href = 'login.html', 1200);
+} else {
+errorDiv.textContent = data.error || 'Registration failed';
+errorDiv.style.display = 'block';
+}
+} catch (err) {
+errorDiv.textContent = 'Network error. Please try again.';
+errorDiv.style.display = 'block';
+}
+});
+</script>
+</body>
+</html>

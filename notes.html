@@ -1050,6 +1050,12 @@ h4{
 
 ::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
 </style>
+<script>
+(function(){
+const token=localStorage.getItem('token');
+if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('register')){location.href='login.html';}
+})();
+</script>
 </head>
 <body>
 

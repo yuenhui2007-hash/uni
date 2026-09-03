@@ -77,6 +77,12 @@ th{background:var(--surface-2);font-weight:600;color:var(--accent);font-size:.8r
 
 @media(max-width:640px){header h1{font-size:1.55rem}.container{padding:16px}}
 </style>
+<script>
+(function(){
+const token=localStorage.getItem('token');
+if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('register')){location.href='login.html';}
+})();
+</script>
 </head>
 <body>
 

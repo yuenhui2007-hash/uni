@@ -470,6 +470,12 @@
         .empty-state i { font-size: 3rem; margin-bottom: 16px; color: var(--border-color); }
         .empty-state h3 { color: var(--text-secondary); margin-bottom: 8px; }
     </style>
+<script>
+(function(){
+const token=localStorage.getItem('token');
+if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('register')){location.href='login.html';}
+})();
+</script>
 </head>
 <body>
     <div class="app-container">

@@ -391,6 +391,14 @@
         .delay-3 { animation-delay: 0.3s; opacity: 0; }
         .delay-4 { animation-delay: 0.4s; opacity: 0; }
     </style>
+<script>
+(function(){
+const token = localStorage.getItem('token');
+if(!token && !location.pathname.includes('login') && !location.pathname.includes('register')){
+location.href='login.html';
+}
+})();
+</script>
 </head>
 <body>
     <div class="bg-animation">
@@ -401,7 +409,8 @@
 
     <div class="container">
         <header class="header">
-            <div class="logo">
+            <div style="display:flex;align-items:center;gap:16px">
+<div class="logo">
                 <div class="logo-icon">📚</div>
                 <div class="logo-text">
                     <h1>UNI <em>Dashboard</em></h1>
@@ -419,6 +428,7 @@
             <div class="user-profile">
                 <span id="userDegree" style="color: var(--text-secondary); font-size: 0.9rem;">Bachelor of Science</span>
                 <div class="user-avatar" id="userAvatar">JD</div>
+                <button onclick="logout()" style="background:transparent;border:1px solid var(--border-light);color:var(--text-secondary);padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:all .2s" onmouseover="this.style.color='var(--danger)'" onmouseout="this.style.color='var(--text-secondary)'">Logout</button>
             </div>
         </header>
 
@@ -1040,8 +1050,31 @@
             document.getElementById('quoteAuthor').textContent = `— ${q.author}`;
         }
 
+        async function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            location.href = 'login.html';
+        }
+
+        async function loadUser() {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+            try {
+                const res = await fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } });
+                if (res.ok) {
+                    const user = await res.json();
+                    document.getElementById('userAvatar').textContent = user.username.slice(0,2).toUpperCase();
+                } else {
+                    logout();
+                }
+            } catch {
+                // offline, keep going
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             loadAll();
+            loadUser();
             setInterval(updateCountdowns, 1000);
             setInterval(rotateQuotes, 15000);
         });
