@@ -6,6 +6,50 @@
 <title>UNI — Exam Study Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+
+    .header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 40px; margin-bottom: 30px;
+      border-bottom: 1px solid rgba(191,155,122,0.10);
+      background: rgba(21,16,12,0.90);
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(20px) saturate(1.2);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon {
+      width: 48px; height: 48px; background: linear-gradient(135deg, #BF9B7A, #8C5B3E);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 24px; box-shadow: 0 0 40px rgba(191,155,122,0.08);
+    }
+    .logo-text h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: #F2E6D8; letter-spacing: -0.02em;
+    }
+    .logo-text h1 em { font-style: italic; color: #BF9B7A; }
+    .logo-text span { font-size: 0.8rem; color: #8C5B3E; letter-spacing: 0.05em; }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      padding: 10px 18px; border-radius: 10px; text-decoration: none;
+      color: #8C5B3E; font-weight: 500;
+      transition: all 0.3s ease; border: 1px solid transparent;
+      font-size: 0.85rem;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #BF9B7A; background: rgba(191,155,122,0.08);
+      border-color: rgba(191,155,122,0.18);
+    }
+    .nav-links a i { margin-right: 6px; }
+    .user-profile { display: flex; align-items: center; gap: 12px; }
+    .user-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, #555934, #BF9B7A); display: flex;
+      align-items: center; justify-content: center; font-weight: 700;
+      cursor: pointer; transition: transform 0.3s ease;
+      color: #F2E6D8;
+    }
+    .user-avatar:hover { transform: scale(1.1); }
+
 :root{--bg:#0a0a0f;--surface:#111118;--surface-2:#1e1e2a;--border:rgba(255,255,255,0.08);--text:#e2e2e8;--text-secondary:#9ca3af;--accent:#60a5fa;--accent-2:#9ca3af;--danger:#f87171;--warning:#fbbf24;--font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.65;font-size:15px}
@@ -83,29 +127,43 @@ const token=localStorage.getItem('token');
 if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('register')){location.href='login.html';}
 })();
 </script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+if (!localStorage.getItem('token')) location.href = 'login.html';
+function logout() { localStorage.removeItem('token'); localStorage.removeItem('username'); location.href = 'login.html'; }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<nav class="navbar">
-<div class="navbar-inner">
-<a href="index.html" class="navbar-brand"><span>🎓</span><span>UNI</span></a>
-<div class="nav-links">
-    <a href="index.html" class="nav-link" style="font-weight:700">← Back</a>
-<a href="index.html" class="nav-link">🏠 Home</a>
-<a href="notes.html" class="nav-link">📝 Notes</a>
-<a href="visual.html" class="nav-link">📊 Visual</a>
-<a href="study.html" class="nav-link active">📖 Guide</a>
-<a href="exercise.html" class="nav-link">🧪 Exercise</a>
-<a href="planner.html" class="nav-link">📅 Planner</a>
+<header class="header">
+<div style="display:flex;align-items:center;gap:16px">
+<div class="logo">
+                <div class="logo-icon">📚</div>
+                <div class="logo-text">
+                    <h1>UNI <em>Study Guide</em></h1>
+                    <span>Your Academic Hub</span>
+                </div>
+            </div>
 </div>
-</div>
-</nav>
+            <nav class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+                <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+                <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+                <a href="study.html" class="active"><i class="fas fa-book"></i> Study</a>
+                <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+            </nav>
+            <div class="user-profile">
+                <span style="color: #8C5B3E; font-size: 0.9rem;">Bachelor of Science</span>
+                <div class="user-avatar" id="userAvatar">JD</div>
+                <button onclick="logout()" style="background:transparent;border:1px solid rgba(191,155,122,0.18);color:#8C5B3E;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:all .2s" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#8C5B3E'">Logout</button>
+            </div>
+        </header>
 
-<header>
-<h1>UNI — Exam Study Guide</h1>
-<p>Accountancy Major · Part A Core Units</p>
-<span class="exam-badge">Exam Ready</span>
-</header>
+
+
+
 
 <div class="container">
 <div class="timer-bar">
@@ -113,20 +171,7 @@ if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('re
 <button onclick="document.body.classList.toggle('cram-mode')">Toggle Cram Mode</button>
 </div>
 
-<nav class="toc">
-<h3>Jump to Unit</h3>
-<ul>
-<li><a href="#acw1120">ACW1120 Financial Accounting</a></li>
-<li><a href="#bfw1001">BFW1001 Foundations of Finance</a></li>
-<li><a href="#btw1042">BTW1042 Business Law</a></li>
-<li><a href="#ecm1953">ECM1953 Economics</a></li>
-<li><a href="#etw1001">ETW1001 Business Statistics</a></li>
-<li><a href="#mgw1010">MGW1010 Management</a></li>
-<li><a href="#acw2220">ACW2220 Management Accounting</a></li>
-<li><a href="#etc2440">ETC2440 Analytics & Econometrics</a></li>
-<li><a href="#quickref">Quick Reference</a></li>
-</ul>
-</nav>
+
 
 <!-- ACW1120 -->
 <h2 id="acw1120">ACW1120 — Financial Accounting 1</h2>

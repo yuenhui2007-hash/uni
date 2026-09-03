@@ -7,6 +7,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+
+    .header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 40px; margin-bottom: 30px;
+      border-bottom: 1px solid rgba(191,155,122,0.10);
+      background: rgba(21,16,12,0.90);
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(20px) saturate(1.2);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon {
+      width: 48px; height: 48px; background: linear-gradient(135deg, #BF9B7A, #8C5B3E);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 24px; box-shadow: 0 0 40px rgba(191,155,122,0.08);
+    }
+    .logo-text h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: #F2E6D8; letter-spacing: -0.02em;
+    }
+    .logo-text h1 em { font-style: italic; color: #BF9B7A; }
+    .logo-text span { font-size: 0.8rem; color: #8C5B3E; letter-spacing: 0.05em; }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      padding: 10px 18px; border-radius: 10px; text-decoration: none;
+      color: #8C5B3E; font-weight: 500;
+      transition: all 0.3s ease; border: 1px solid transparent;
+      font-size: 0.85rem;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #BF9B7A; background: rgba(191,155,122,0.08);
+      border-color: rgba(191,155,122,0.18);
+    }
+    .nav-links a i { margin-right: 6px; }
+    .user-profile { display: flex; align-items: center; gap: 12px; }
+    .user-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, #555934, #BF9B7A); display: flex;
+      align-items: center; justify-content: center; font-weight: 700;
+      cursor: pointer; transition: transform 0.3s ease;
+      color: #F2E6D8;
+    }
+    .user-avatar:hover { transform: scale(1.1); }
+
         :root {
             --bg-primary: #130F0B;
             --bg-secondary: #1A1612;
@@ -469,92 +513,151 @@
         }
         .empty-state i { font-size: 3rem; margin-bottom: 16px; color: var(--border-color); }
         .empty-state h3 { color: var(--text-secondary); margin-bottom: 8px; }
-    </style>
+    
+/* ===== UNI HEADER (matches index.html) ===== */
+.uni-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+.uni-header .logo-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    font-size: 24px;
+    box-shadow: var(--shadow-glow);
+}
+.uni-header .logo-text h1 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    -webkit-text-fill-color: var(--text-primary);
+    background: none;
+    letter-spacing: -0.02em;
+}
+.uni-header .logo-text h1 em {
+    font-style: italic;
+    color: var(--accent-2);
+    -webkit-text-fill-color: var(--accent-2);
+}
+.uni-header .logo-text span {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+.uni-nav {
+    display: flex;
+    gap: 8px;
+}
+.uni-nav a {
+    padding: 10px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    font-size: 0.85rem;
+}
+.uni-nav a:hover, .uni-nav a.active {
+    color: var(--accent);
+    background: rgba(184,182,143,0.08);
+    border-color: rgba(184,182,143,0.18);
+}
+.uni-nav a i { margin-right: 6px; }
+
+.uni-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.uni-user .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    color: var(--bg-primary);
+    font-size: 0.85rem;
+}
+.uni-user .user-avatar:hover { transform: scale(1.1); }
+.uni-user button {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+.uni-user button:hover {
+    border-color: var(--accent-red);
+    color: var(--accent-red);
+}
+
+@media (max-width: 768px) {
+    .uni-nav { display: none; }
+    .uni-header { flex-direction: column; gap: 12px; padding: 12px; }
+}
+</style>
 <script>
 (function(){
 const token=localStorage.getItem('token');
 if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('register')){location.href='login.html';}
 })();
 </script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+<header class="header">
+<div style="display:flex;align-items:center;gap:16px">
+<div class="logo">
+                <div class="logo-icon">📚</div>
+                <div class="logo-text">
+                    <h1>UNI <em>Tutor</em></h1>
+                    <span>Your Academic Hub</span>
+                </div>
+            </div>
+</div>
+            <nav class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+                <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+                <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+                <a href="study.html"><i class="fas fa-book"></i> Study</a>
+                <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+            </nav>
+            <div class="user-profile">
+                <span style="color: #8C5B3E; font-size: 0.9rem;">Bachelor of Science</span>
+                <div class="user-avatar" id="userAvatar">JD</div>
+                <button onclick="logout()" style="background:transparent;border:1px solid rgba(191,155,122,0.18);color:#8C5B3E;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:all .2s" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#8C5B3E'">Logout</button>
+            </div>
+        </header>
+    
     <div class="app-container">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <div class="logo-icon"><i class="fas fa-robot"></i></div>
+                    <div class="logo-icon">📚</div>
                     <div class="logo-text">
-                        <h1>AI Tutor</h1>
+                        <h1>UNI <em>Tutor</em></h1>
                         <span>Your study companion</span>
                     </div>
                 </div>
             </div>
-            <nav class="sidebar-nav">
-                <div class="nav-section">
-                    <div class="nav-section-title">Units</div>
-                    <div class="subject-chip active" data-subject="all" onclick="selectSubject('all')">
-                        <i class="fas fa-layer-group"></i> All Subjects
-                    </div>
-                    <div class="subject-chip" data-subject="ACW1120" onclick="selectSubject('ACW1120')">
-                        <i class="fas fa-book"></i> ACW1120 — Financial Accounting
-                    </div>
-                    <div class="subject-chip" data-subject="BFW1001" onclick="selectSubject('BFW1001')">
-                        <i class="fas fa-chart-line"></i> BFW1001 — Finance
-                    </div>
-                    <div class="subject-chip" data-subject="BTW1042" onclick="selectSubject('BTW1042')">
-                        <i class="fas fa-gavel"></i> BTW1042 — Business Law
-                    </div>
-                    <div class="subject-chip" data-subject="ECM1953" onclick="selectSubject('ECM1953')">
-                        <i class="fas fa-calculator"></i> ECM1953 — Quantitative Methods
-                    </div>
-                    <div class="subject-chip" data-subject="ETW1001" onclick="selectSubject('ETW1001')">
-                        <i class="fas fa-chart-bar"></i> ETW1001 — Microeconomics
-                    </div>
-                    <div class="subject-chip" data-subject="MGW1010" onclick="selectSubject('MGW1010')">
-                        <i class="fas fa-users"></i> MGW1010 — Management
-                    </div>
-                    <div class="subject-chip" data-subject="ACW2220" onclick="selectSubject('ACW2220')">
-                        <i class="fas fa-book-open"></i> ACW2220 — Management Accounting
-                    </div>
-                    <div class="subject-chip" data-subject="BFC2140" onclick="selectSubject('BFC2140')">
-                        <i class="fas fa-university"></i> BFC2140 — Corporate Finance
-                    </div>
-                    <div class="subject-chip" data-subject="ETC2410" onclick="selectSubject('ETC2410')">
-                        <i class="fas fa-chart-pie"></i> ETC2410 — Econometrics
-                    </div>
-                    <div class="subject-chip" data-subject="ETC2430" onclick="selectSubject('ETC2430')">
-                        <i class="fas fa-money-bill-wave"></i> ETC2430 — Cash Flow Modelling
-                    </div>
-                    <div class="subject-chip" data-subject="ETC2440" onclick="selectSubject('ETC2440')">
-                        <i class="fas fa-superscript"></i> ETC2440 — Maths for Economics
-                    </div>
-                    <div class="subject-chip" data-subject="ETC2520" onclick="selectSubject('ETC2520')">
-                        <i class="fas fa-chart-area"></i> ETC2520 — Probability & Inference
-                    </div>
-                    <div class="subject-chip" data-subject="ETC2560" onclick="selectSubject('ETC2560')">
-                        <i class="fas fa-database"></i> ETC2560 — Data Visualisation
-                    </div>
-                    <div class="subject-chip" data-subject="ETC3420" onclick="selectSubject('ETC3420')">
-                        <i class="fas fa-coins"></i> ETC3420 — Corp Finance Theory
-                    </div>
-                    <div class="subject-chip" data-subject="ETC3430" onclick="selectSubject('ETC3430')">
-                        <i class="fas fa-percentage"></i> ETC3430 — Financial Mathematics
-                    </div>
-                    <div class="subject-chip" data-subject="ETC3460" onclick="selectSubject('ETC3460')">
-                        <i class="fas fa-project-diagram"></i> ETC3460 — Financial Econometrics
-                    </div>
-                    <div class="subject-chip" data-subject="ETC3520" onclick="selectSubject('ETC3520')">
-                        <i class="fas fa-globe"></i> ETC3520 — International Finance
-                    </div>
-                    <div class="subject-chip" data-subject="ETC3530" onclick="selectSubject('ETC3530')">
-                        <i class="fas fa-shield-alt"></i> ETC3530 — Insurance & Risk
-                    </div>
-                    <div class="subject-chip" data-subject="ETC3550" onclick="selectSubject('ETC3550')">
-                        <i class="fas fa-brain"></i> ETC3550 — Contingent Pricing
-                    </div>
-                </div>
-            </nav>
+            
             <div class="sidebar-footer">
                 <a href="index.html"><i class="fas fa-arrow-left"></i> Dashboard</a>
                 <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual Portal</a>
@@ -563,22 +666,6 @@ if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('re
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Top Navigation -->
-            <div class="top-nav">
-                <div class="top-nav-links">
-                    <a href="index.html">Back</a>
-                    <a href="index.html">Home</a>
-                    <a href="#" class="active">Notes</a>
-                    <a href="visual.html">Visual</a>
-                    <a href="#">Guide</a>
-                    <a href="#">Exercise</a>
-                    <a href="#">Planner</a>
-                </div>
-                <div class="top-nav-subject">
-                    Selected: <strong id="currentSubjectLabel">All Subjects</strong>
-                </div>
-            </div>
-
             <!-- Tab Switcher -->
             <div class="tab-switcher">
                 <button class="tab-btn active" onclick="switchTab('notes')">Notes</button>
@@ -658,7 +745,14 @@ if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('re
     </div>
 
     <script>
-    // ===================== SUBJECT DATA =====================
+    // ===================== AUTH =====================
+function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    location.href = 'login.html';
+}
+
+// ===================== SUBJECT DATA =====================
     const subjectData = {
         "ACW1120": {
             name: "ACW1120 — Financial Accounting",

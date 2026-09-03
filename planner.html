@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UNI — Study Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     :root {
       --bg: #0a0a0f;
@@ -21,6 +23,34 @@
       --radius: 14px;
       --radius-sm: 8px;
       --shadow: 0 4px 24px rgba(0,0,0,0.6);
+
+      /* Header theme variables from index.html */
+      --bg-primary: #15100C;
+      --bg-secondary: #1C1510;
+      --bg-card: #231A14;
+      --bg-hover: #2E221A;
+      --bg-elevated: #3A2C22;
+      --text-primary: #F2E6D8;
+      --text-secondary: #BF9B7A;
+      --header-text-muted: #8C5B3E;
+      --text-faint: #593E2E;
+      --accent-cream: #F2E6D8;
+      --accent-tan: #BF9B7A;
+      --accent-rust: #8C5B3E;
+      --accent-espresso: #593E2E;
+      --accent-olive: #555934;
+      --border-color: rgba(191,155,122,0.10);
+      --border-light: rgba(191,155,122,0.18);
+      --gradient-primary: linear-gradient(135deg, #BF9B7A 0%, #8C5B3E 100%);
+      --gradient-secondary: linear-gradient(135deg, #8C5B3E 0%, #593E2E 100%);
+      --gradient-accent: linear-gradient(135deg, #F2E6D8 0%, #BF9B7A 100%);
+      --gradient-olive: linear-gradient(135deg, #555934 0%, #8C5B3E 100%);
+      --shadow-glow: 0 0 20px rgba(191, 155, 122, 0.15);
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.5);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --danger: #C05040;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -30,12 +60,94 @@
       min-height: 100vh;
       line-height: 1.6;
     }
-    .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-    header {
-      text-align: center; padding: 30px 0; border-bottom: 1px solid var(--surface-border);
+
+    /* Subtle warm grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
     }
-    header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; }
-    header p { color: var(--text-muted); margin-top: 6px; font-size: 1rem; }
+
+    /* Background orbs */
+    .bg-animation {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1; overflow: hidden;
+    }
+    .bg-animation .orb {
+      position: absolute; border-radius: 50%; filter: blur(80px);
+      opacity: 0.08; animation: float 20s infinite ease-in-out;
+    }
+    .bg-animation .orb:nth-child(1) {
+      width: 400px; height: 400px; background: var(--accent-tan);
+      top: -100px; left: -100px; animation-delay: 0s;
+    }
+    .bg-animation .orb:nth-child(2) {
+      width: 300px; height: 300px; background: var(--accent-rust);
+      top: 50%; right: -50px; animation-delay: -5s;
+    }
+    .bg-animation .orb:nth-child(3) {
+      width: 350px; height: 350px; background: var(--accent-cream);
+      bottom: -100px; left: 30%; animation-delay: -10s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+    /* Dark glassmorphism navbar */
+    .header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 0; margin-bottom: 30px;
+      border-bottom: 1px solid var(--border-color);
+      font-family: var(--font-sans);
+      text-align: left;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon {
+      width: 48px; height: 48px; background: var(--gradient-primary);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 24px; box-shadow: var(--shadow-glow);
+    }
+    .logo-text h1 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--text-primary); letter-spacing: -0.02em;
+    }
+    .logo-text h1 em {
+      font-style: italic;
+      color: var(--accent-tan);
+    }
+    .logo-text span { font-size: 0.8rem; color: var(--text-secondary); letter-spacing: 0.05em; }
+
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      padding: 10px 18px; border-radius: 10px; text-decoration: none;
+      color: var(--header-text-muted); font-weight: 500;
+      transition: all 0.3s ease; border: 1px solid transparent;
+      font-size: 0.85rem;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent-tan); background: rgba(191,155,122,0.08);
+      border-color: rgba(191,155,122,0.18);
+    }
+    .nav-links a i { margin-right: 6px; }
+
+    .user-profile { display: flex; align-items: center; gap: 12px; }
+    .user-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--gradient-secondary); display: flex;
+      align-items: center; justify-content: center; font-weight: 700;
+      cursor: pointer; transition: transform 0.3s ease;
+      color: var(--text-primary);
+    }
+    .user-avatar:hover { transform: scale(1.1); }
+
     .tabs { display: flex; gap: 8px; margin: 24px 0; flex-wrap: wrap; justify-content: center; }
     .tab-btn {
       background: var(--surface); color: var(--text-muted); border: 1px solid var(--surface-border);
@@ -197,18 +309,47 @@
   </style>
 <script>
 (function(){
-const token=localStorage.getItem('token');
-if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('register')){location.href='login.html';}
+const token = localStorage.getItem('token');
+if(!token && !location.pathname.includes('login') && !location.pathname.includes('register')){
+location.href='login.html';
+}
 })();
 </script>
 </head>
 <body>
+  <div class="bg-animation">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
   <div class="container">
-    <header>
-      <h1>UNI — Study Planner</h1>
-      <p>Study Planner &amp; Deadline Tracker</p>
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="logo">
+          <div class="logo-icon">📚</div>
+          <div class="logo-text">
+            <h1>UNI <em>Planner</em></h1>
+            <span>Your Academic Hub</span>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+          <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+          <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+          <a href="planner.html" class="active"><i class="fas fa-calendar-alt"></i> Planner</a>
+          <a href="study.html"><i class="fas fa-book"></i> Study</a>
+          <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+        </nav>
+      </div>
+      <div class="user-profile">
+        <span id="userDegree" style="color: var(--text-secondary); font-size: 0.9rem;">Bachelor of Science</span>
+        <div class="user-avatar" id="userAvatar">JD</div>
+        <button onclick="logout()" style="background:transparent;border:1px solid var(--border-light);color:var(--text-secondary);padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:all .2s" onmouseover="this.style.color='var(--danger)'" onmouseout="this.style.color='var(--text-secondary)'">Logout</button>
+      </div>
     </header>
-    <a href="index.html" style="display:inline-block;margin:0 20px 10px;color:var(--accent);font-weight:700;text-decoration:none">← Back to Dashboard</a><nav class="tabs">
+
+    <nav class="tabs">
       <button class="tab-btn active" data-tab="schedule">Schedule</button>
       <button class="tab-btn" data-tab="deadlines">Deadlines</button>
       <button class="tab-btn" data-tab="goals">Goals</button>
@@ -917,6 +1058,12 @@ if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('re
     // ===================== UTILS =====================
     function escapeHtml(t) {
       const d = document.createElement('div'); d.textContent = t; return d.innerHTML;
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      location.href = 'login.html';
     }
 
     // ===================== INIT =====================

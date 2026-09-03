@@ -7,7 +7,12 @@
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    if (!localStorage.getItem('token')) location.href = 'login.html';
+    function logout() { localStorage.removeItem('token'); localStorage.removeItem('username'); location.href = 'login.html'; }
+  </script>
   <style>
     :root {
       --bg: #0a0a0f;
@@ -37,11 +42,14 @@
       --radius-sm: 8px;
       --shadow: 0 8px 32px rgba(0,0,0,0.6);
       --transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: var(--font-sans);
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -52,33 +60,58 @@
     ::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-    /* Navigation */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(10,11,20,0.85);
-      backdrop-filter: blur(20px);
+    /* Header matching index.html */
+    .header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 40px; margin-bottom: 30px;
       border-bottom: 1px solid var(--border);
+      background: rgba(10,10,15,0.95);
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(20px);
     }
-    .nav-inner {
-      max-width: 1400px; margin: 0 auto; padding: 0 24px;
-      display: flex; align-items: center; justify-content: space-between; height: 60px;
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon {
+      width: 48px; height: 48px; background: linear-gradient(135deg, #BF9B7A, #8C5B3E);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 24px; box-shadow: 0 0 40px rgba(191,155,122,0.15);
     }
-    .logo { font-weight: 700; font-size: 1.15rem; color: var(--accent); display: flex; align-items: center; gap: 10px; }
-    .logo-icon { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: grid; place-items: center; font-size: 0.85rem; color: var(--bg); font-weight: 800; }
-    .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+    .logo-text h1 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem; font-weight: 700;
+      color: #F2E6D8; letter-spacing: -0.02em;
+    }
+    .logo-text h1 em { font-style: italic; color: #BF9B7A; }
+    .logo-text span { font-size: 0.8rem; color: #8C5B3E; letter-spacing: 0.05em; }
+
+    .nav-links { display: flex; gap: 8px; }
     .nav-links a {
-      padding: 6px 14px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 500;
-      color: var(--text-dim); text-decoration: none; transition: var(--transition);
-      border: 1px solid transparent;
+      padding: 10px 18px; border-radius: 10px; text-decoration: none;
+      color: #6b7280; font-weight: 500;
+      transition: all 0.3s ease; border: 1px solid transparent;
+      font-size: 0.85rem;
     }
-    .nav-links a:hover, .nav-links a.active { color: var(--accent); background: var(--accent-glow); border-color: var(--border); }
+    .nav-links a:hover, .nav-links a.active {
+      color: #BF9B7A; background: rgba(191,155,122,0.08);
+      border-color: rgba(191,155,122,0.18);
+    }
+    .nav-links a i { margin-right: 6px; }
+
+    .user-profile { display: flex; align-items: center; gap: 12px; }
+    .user-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, #555934, #BF9B7A); display: flex;
+      align-items: center; justify-content: center; font-weight: 700;
+      cursor: pointer; transition: transform 0.3s ease;
+      color: #F2E6D8;
+    }
+    .user-avatar:hover { transform: scale(1.1); }
 
     /* Hero */
     .hero {
-      padding: 120px 24px 60px; text-align: center;
+      padding: 60px 24px 40px; text-align: center;
       background: radial-gradient(ellipse at 50% 0%, var(--accent-glow) 0%, transparent 60%);
     }
-    .hero h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
+    .hero h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; font-family: var(--font-serif); color: #F2E6D8; }
     .hero h1 span { color: var(--accent); }
     .hero p { color: var(--text-dim); font-size: 1.1rem; max-width: 600px; margin: 0 auto 28px; }
     .hero-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
@@ -92,6 +125,98 @@
     /* Layout */
     .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
     section { margin-bottom: 60px; }
+    .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .section-header .icon { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; font-size: 1.1rem; }
+    .section-header h2 { font-size: 1.5rem; font-weight: 700; }
+    .section-header p { color: var(--text-dim); font-size: 0.9rem; margin-top: 2px; }
+
+    /* Cards */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 20px; }
+    .card-grid.wide { grid-template-columns: 1fr; }
+    .card-grid.three { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--accent); opacity: 0; transition: var(--transition);
+    }
+    .card:hover::before { opacity: 1; }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: rgba(107,140,255,0.2); }
+    .card-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .card-title .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* Mermaid */
+    .mermaid-container { background: var(--surface-2); border-radius: var(--radius-sm); padding: 20px; overflow-x: auto; }
+    .mermaid { display: flex; justify-content: center; }
+    .mermaid svg { max-width: 100%; height: auto; }
+
+    /* Charts */
+    .chart-container { position: relative; height: 320px; }
+    .chart-container.tall { height: 400px; }
+    .chart-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; justify-content: center; }
+    .chart-legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-dim); }
+    .chart-legend-item .color { width: 12px; height: 12px; border-radius: 3px; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; border-radius: var(--radius-sm); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th { background: var(--surface-2); color: var(--accent); font-weight: 600; text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-dim); }
+    tr:hover td { background: var(--surface-2); }
+    .bar-cell { display: flex; align-items: center; gap: 12px; }
+    .bar-track { flex: 1; height: 8px; background: var(--surface-3); border-radius: 4px; overflow: hidden; max-width: 200px; }
+    .bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+    .bar-label { font-size: 0.8rem; color: var(--text); font-weight: 600; min-width: 36px; text-align: right; }
+
+    /* Formulas */
+    .formula-box {
+      background: var(--surface-2); border-radius: var(--radius-sm); padding: 20px 24px;
+      border-left: 3px solid var(--accent); margin-bottom: 16px;
+    }
+    .formula-title { font-size: 0.85rem; font-weight: 600; color: var(--accent); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .formula { font-family: var(--font-mono); font-size: 1.1rem; color: var(--text); line-height: 1.8; }
+    .formula .var { color: var(--accent); font-weight: 600; }
+    .formula .op { color: var(--text-muted); }
+    .formula .num { color: var(--green); }
+    .formula .fn { color: var(--purple); font-style: italic; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+    .timeline-item { position: relative; margin-bottom: 20px; }
+    .timeline-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+    .timeline-item.done::before { background: var(--green); }
+    .timeline-item.current::before { background: var(--orange); box-shadow: 0 0 0 4px var(--orange-glow); }
+    .timeline-date { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 4px; }
+    .timeline-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 2px; }
+    .timeline-desc { font-size: 0.85rem; color: var(--text-dim); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .card-grid, .card-grid.three { grid-template-columns: 1fr; }
+      .header { flex-direction: column; gap: 16px; padding: 16px; }
+      .nav-links { flex-wrap: wrap; justify-content: center; }
+      .hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>Visual <span>Study Portal</span></h1>
+    <p>Interactive diagrams, charts, and visual learning tools for Monash B2026 Accountancy</p>
+    <div class="hero-badges">
+      <span class="badge accent">Mind Maps</span>
+      <span class="badge green">Charts</span>
+      <span class="badge orange">Formulas</span>
+      <span class="badge purple">Timelines</span>
+      <span class="badge cyan">Tables</span>
+    </div>
+  </div>
+
+  <div class="container">
     .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
     .section-header .icon { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; font-size: 1.1rem; }
     .section-header h2 { font-size: 1.5rem; font-weight: 700; }
@@ -233,23 +358,32 @@ if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('re
 </script>
 </head>
 <body>
+<header class="header">
+<div style="display:flex;align-items:center;gap:16px">
+<div class="logo">
+                <div class="logo-icon">📚</div>
+                <div class="logo-text">
+                    <h1>UNI <em>Visual</em></h1>
+                    <span>Your Academic Hub</span>
+                </div>
+            </div>
+</div>
+            <nav class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+                <a href="visual.html" class="active"><i class="fas fa-project-diagram"></i> Visual</a>
+                <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+                <a href="study.html"><i class="fas fa-book"></i> Study</a>
+                <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+            </nav>
+            <div class="user-profile">
+                <span style="color: #8C5B3E; font-size: 0.9rem;">Bachelor of Science</span>
+                <div class="user-avatar" id="userAvatar">JD</div>
+                <button onclick="logout()" style="background:transparent;border:1px solid rgba(191,155,122,0.18);color:#8C5B3E;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:all .2s" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#8C5B3E'">Logout</button>
+            </div>
+        </header>
 
-  <nav>
-    <div class="nav-inner">
-      <div class="logo">
-        <div class="logo-icon">M</div>
-        UNI Visual Portal
-      </div>
-      <div class="nav-links">
-    <a href="index.html" class="nav-link" style="font-weight:700">← Back</a>
-        <a href="#mindmaps" class="active">Mind Maps</a>
-        <a href="#charts">Charts</a>
-        <a href="#tables">Tables</a>
-        <a href="#formulas">Formulas</a>
-        <a href="#timelines">Timelines</a>
-      </div>
-    </div>
-  </nav>
+  
 
   <div class="hero">
     <h1>Visual <span>Learning Aids</span></h1>
