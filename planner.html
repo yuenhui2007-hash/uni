@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monash B2026 Study Portal</title>
+  <title>UNI — Study Planner</title>
   <style>
     :root {
       --bg: #0a0a0f;
@@ -199,7 +199,7 @@
 <body>
   <div class="container">
     <header>
-      <h1>Monash B2026 Study Portal</h1>
+      <h1>UNI — Study Planner</h1>
       <p>Study Planner &amp; Deadline Tracker</p>
     </header>
     <a href="index.html" style="display:inline-block;margin:0 20px 10px;color:var(--accent);font-weight:700;text-decoration:none">← Back to Dashboard</a><nav class="tabs">
@@ -755,7 +755,7 @@
       document.getElementById('timerDisplay').textContent = formatTime(timerState.seconds);
       const phaseText = timerState.phase === 'work' ? 'Focus time' : timerState.phase === 'short' ? 'Short break' : 'Long break';
       document.getElementById('timerPhase').textContent = phaseText;
-      document.title = timerState.running ? `(${formatTime(timerState.seconds)}) ${phaseText}` : 'Monash B2026 Study Portal';
+      document.title = timerState.running ? `(${formatTime(timerState.seconds)}) ${phaseText}` : 'UNI — Study Planner';
     }
     function toggleTimer() {
       if (timerState.running) {
