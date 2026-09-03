@@ -252,6 +252,36 @@ body::before{
   border-left-color:var(--accent-rust);
   background:rgba(191,155,122,0.05);
 }
+.unit-filter{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-bottom:16px;
+  padding-bottom:16px;
+  border-bottom:1px solid var(--border);
+}
+.unit-filter label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:0.78rem;
+  color:var(--text-muted);
+  cursor:pointer;
+  padding:4px 8px;
+  border-radius:var(--radius-sm);
+  transition:all .2s ease;
+}
+.unit-filter label:hover{
+  background:rgba(191,155,122,0.06);
+  color:var(--text-secondary);
+}
+.unit-filter input[type="checkbox"]{
+  accent-color:var(--accent-tan);
+  width:14px;height:14px;
+  cursor:pointer;
+}
+.unit-section.hidden-unit{display:none}
+
 .toc a.unit{
   color:var(--text-secondary);
   font-weight:500;
@@ -1054,6 +1084,16 @@ h4{
 
 <nav class="toc">
 <h3>Units</h3>
+<div class="unit-filter" id="unitFilter">
+  <label><input type="checkbox" value="acw1120" checked onchange="filterUnits()"> 📊 ACW1120</label>
+  <label><input type="checkbox" value="bfw1001" checked onchange="filterUnits()"> 💰 BFW1001</label>
+  <label><input type="checkbox" value="btw1042" checked onchange="filterUnits()"> ⚖️ BTW1042</label>
+  <label><input type="checkbox" value="ecm1953" checked onchange="filterUnits()"> 📉 ECM1953</label>
+  <label><input type="checkbox" value="etw1001" checked onchange="filterUnits()"> 📈 ETW1001</label>
+  <label><input type="checkbox" value="mgw1010" checked onchange="filterUnits()"> 👔 MGW1010</label>
+  <label><input type="checkbox" value="acw2220" checked onchange="filterUnits()"> 📈 ACW2220</label>
+  <label><input type="checkbox" value="etc2440" checked onchange="filterUnits()"> 🔬 ETC2440</label>
+</div>
 <a href="#acw1120" class="unit">📊 ACW1120 — Financial Accounting 1</a>
 <a href="#bfw1001" class="unit">💰 BFW1001 — Foundations of Finance</a>
 <a href="#btw1042" class="unit">⚖️ BTW1042 — Business Law</a>
@@ -6426,6 +6466,17 @@ function toggleSection(header) {
   header.classList.toggle('open');
   const content = header.nextElementSibling;
   content.classList.toggle('open');
+}
+
+function filterUnits() {
+  const checked = Array.from(document.querySelectorAll('#unitFilter input:checked')).map(cb => cb.value);
+  document.querySelectorAll('.unit-section').forEach(section => {
+    if (checked.includes(section.id)) {
+      section.classList.remove('hidden-unit');
+    } else {
+      section.classList.add('hidden-unit');
+    }
+  });
 }
 
 function initSearch() {
