@@ -427,65 +427,46 @@ body::before{
   text-transform:uppercase;
 }
 
-/* ═══ FLIP CARDS ═══ */
-.flip-grid{
+/* ═══ DEFINITION CARDS ═══ */
+.def-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:16px;
   margin:20px 0;
 }
-.flip-card{
-  perspective:1000px;
-  height:170px;
-  cursor:pointer;
-}
-.flip-card-inner{
-  position:relative;
-  width:100%;
-  height:100%;
-  transition:transform .7s cubic-bezier(0.22,1,0.36,1);
-  transform-style:preserve-3d;
-}
-.flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
-.flip-card-front,.flip-card-back{
-  position:absolute;
-  width:100%;
-  height:100%;
-  backface-visibility:hidden;
+.def-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
   border-radius:var(--radius-md);
   padding:22px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  border:1px solid var(--border);
+  transition:all .35s ease;
 }
-.flip-card-front{
-  background:linear-gradient(135deg,var(--bg-card),var(--bg-secondary));
+.def-card:hover{
+  border-color:var(--border-light);
+  box-shadow:var(--shadow-card);
+  transform:translateY(-2px);
 }
-.flip-card-back{
-  background:linear-gradient(135deg,var(--bg-hover),var(--bg-card));
-  transform:rotateY(180deg);
-}
-.flip-card-term{
+.def-card-term{
   font-family:var(--font-serif);
   font-weight:600;
   color:var(--accent-tan);
-  font-size:1.3rem;
+  font-size:1.25rem;
   margin-bottom:8px;
   letter-spacing:-0.01em;
 }
-.flip-card-meaning{
+.def-card-meaning{
   color:var(--text-secondary);
   font-size:0.88rem;
   line-height:1.6;
   font-weight:300;
 }
-.flip-card-hint{
-  font-size:0.72rem;
-  color:var(--text-faint);
-  margin-top:12px;
+.def-card-exam{
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid var(--border);
+  font-size:0.78rem;
+  color:var(--accent-rust);
   font-style:italic;
-  letter-spacing:0.02em;
 }
 
 /* ═══ FORMULA BOXES ═══ */
@@ -1020,7 +1001,7 @@ h4{
   .unit-title{font-size:1.25rem}
   .unit-progress{display:none}
   .swot-grid{grid-template-columns:1fr}
-  .flip-grid{grid-template-columns:1fr}
+  .def-grid{grid-template-columns:1fr}
   .porter-forces{grid-template-columns:1fr}
 }
 
@@ -1056,7 +1037,7 @@ h4{
 <div class="hero">
 <div class="hero-label">Study Collection</div>
 <h1>Comprehensive <em>Notes</em></h1>
-<p>Complete unit notes with interactive flip cards, search, and progress tracking.</p>
+<p>Complete unit notes with interactive cards, search, and progress tracking.</p>
 <div class="hero-divider"></div>
 </div>
 
@@ -1120,9 +1101,9 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions — Click cards to flip</h3>
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
 <div class="collapsible-content open">
-<div class="flip-grid" id="acw1120-defs"></div>
+<div class="def-grid" id="acw1120-defs"></div>
 </div>
 
 <h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
@@ -1203,9 +1184,9 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions — Click cards to flip</h3>
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
 <div class="collapsible-content open">
-<div class="flip-grid" id="bfw1001-defs"></div>
+<div class="def-grid" id="bfw1001-defs"></div>
 </div>
 
 <h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
@@ -1252,9 +1233,9 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions — Click cards to flip</h3>
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
 <div class="collapsible-content open">
-<div class="flip-grid" id="btw1042-defs"></div>
+<div class="def-grid" id="btw1042-defs"></div>
 </div>
 
 <h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Remedies for Breach</h3>
@@ -1315,9 +1296,9 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions — Click cards to flip</h3>
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
 <div class="collapsible-content open">
-<div class="flip-grid" id="ecm1953-defs"></div>
+<div class="def-grid" id="ecm1953-defs"></div>
 </div>
 </div>
 
@@ -1473,9 +1454,9 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions — Click cards to flip</h3>
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
 <div class="collapsible-content open">
-<div class="flip-grid" id="acw2220-defs"></div>
+<div class="def-grid" id="acw2220-defs"></div>
 </div>
 </div>
 
@@ -1508,9 +1489,9 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions — Click cards to flip</h3>
+<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
 <div class="collapsible-content open">
-<div class="flip-grid" id="etc2440-defs"></div>
+<div class="def-grid" id="etc2440-defs"></div>
 </div>
 </div>
 
@@ -1652,17 +1633,10 @@ function renderFlipCards(unitId, defs) {
   const container = document.getElementById(unitId + '-defs');
   if (!container || !defs) return;
   container.innerHTML = defs.map((d, i) => `
-    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-      <div class="flip-card-inner">
-        <div class="flip-card-front">
-          <div class="flip-card-term">${d.term}</div>
-          <div class="flip-card-hint">Click to reveal definition →</div>
-        </div>
-        <div class="flip-card-back">
-          <div class="flip-card-meaning">${d.meaning}</div>
-          ${d.examNote ? `<div class="flip-card-hint" style="color:var(--accent-rust);margin-top:10px">💡 Exam: ${d.examNote}</div>` : ''}
-        </div>
-      </div>
+    <div class="def-card">
+      <div class="def-card-term">${d.term}</div>
+      <div class="def-card-meaning">${d.meaning}</div>
+      ${d.examNote ? `<div class="def-card-exam">💡 Exam: ${d.examNote}</div>` : ''}
     </div>
   `).join('');
 }
