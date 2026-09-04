@@ -119,6 +119,20 @@ th{background:var(--surface-2);font-weight:600;color:var(--accent);font-size:.8r
 
 .cram-toggle{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#e2e2e8;border:none;padding:12px 20px;border-radius:30px;font-weight:700;cursor:pointer;box-shadow:0 4px 15px rgba(96,165,250,0.3);z-index:100}
 
+/* ILAC & Case Study styles for BTW1042 */
+.essay-box{background:var(--surface);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:16px;margin-bottom:16px}
+.essay-title{font-weight:700;color:var(--accent);margin-bottom:8px}
+.ilac-box{background:var(--surface);border:1px solid rgba(167,139,250,.25);border-radius:10px;padding:16px;margin-bottom:16px}
+.ilac-title{color:var(--accent-2);font-weight:700;margin-bottom:10px;font-size:1.05rem}
+.case-study{background:linear-gradient(135deg,var(--surface),rgba(10,10,15,.6));border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+.case-title{color:var(--warning);font-weight:700;font-size:1.1rem;margin-bottom:12px}
+.case-section{margin-bottom:12px}
+.case-label{color:var(--accent);font-weight:600;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.case-content{color:var(--text-secondary);font-size:.95rem}
+.checklist{background:var(--surface);border-radius:12px;padding:16px}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;margin:8px 0}
+.checklist-item input{margin-top:4px}
+
 @media(max-width:640px){header h1{font-size:1.55rem}.container{padding:16px}}
 </style>
 <script>
@@ -361,9 +375,6 @@ th{background:var(--surface-2);font-weight:600;color:var(--accent);font-size:.8r
 </div>
 
 <!-- BTW1042 -->
-
-
-<h3>Practice Questions</h3>
 <!-- MCQ 1 -->
 <div class="mcq">
   <div class="mcq-question">Q1: Which of the following best describes the time value of money?</div>
@@ -592,10 +603,144 @@ th{background:var(--surface-2);font-weight:600;color:var(--accent);font-size:.8r
 </table>
 </div>
 
+<h3>Essay Writing — ILAC Method</h3>
+<div class="essay-box">
+  <div class="essay-title">ILAC = Issue → Law → Application → Conclusion</div>
+  <p>Use this structure for every problem question. Examiners award marks for it.</p>
+</div>
+
+<table>
+  <tr><th>Step</th><th>What to Write</th></tr>
+  <tr><td><strong>I</strong>ssue</td><td>Identify the legal question raised by the facts. Be specific.</td></tr>
+  <tr><td><strong>L</strong>aw</td><td>State the relevant rule with statute + case law. E.g. <em>Donoghue v Stevenson</em></td></tr>
+  <tr><td><strong>A</strong>pplication</td><td>Apply the law to the facts. This is where marks are earned.</td></tr>
+  <tr><td><strong>C</strong>onclusion</td><td>Answer the issue directly. State the likely outcome.</td></tr>
+</table>
+
+<div class="tip-box">
+  <div class="tip-title">Essay Do's</div>
+  <ul>
+    <li>Use signposting: "The first issue is...", "In conclusion..."</li>
+    <li>Cite both statute AND case law</li>
+    <li>Apply the facts — don't just describe the law</li>
+    <li>Consider counter-arguments and defences</li>
+    <li>Always reach a conclusion, even if uncertain</li>
+  </ul>
+</div>
+
+<div class="warning-box">
+  <div class="warning-title">Essay Don'ts</div>
+  <ul>
+    <li>Don't list everything you know — answer the question</li>
+    <li>Don't ignore the Application step</li>
+    <li>Don't use bullet points — write paragraphs</li>
+    <li>Don't leave issues unresolved</li>
+  </ul>
+</div>
+
+<h3>Tort Law — Negligence</h3>
+<div class="card">
+  <div class="card-header"><span class="card-title">4 Elements + Key Cases</span><span class="card-tag">Critical</span></div>
+  <ol>
+    <li><strong>Duty of Care</strong> — <em>Donoghue v Stevenson</em> neighbour principle; <em>Sullivan v Moody</em></li>
+    <li><strong>Breach</strong> — Objective reasonable person test; <em>Bolton v Stone</em></li>
+    <li><strong>Causation</strong> — Factual: "but for" (<em>Barnett v Chelsea HMC</em>); Legal/remoteness: <em>Wagon Mound</em></li>
+    <li><strong>Damage</strong> — Foreseeable type of loss</li>
+  </ol>
+  <div class="trap"><div class="trap-label">⚠ Defences</div>Contributory negligence (<em>Podrebersek</em>), volenti (<em>ICI v Shatwell</em>), obvious risk (Civil Liability Acts)</div>
+</div>
+
+<h3>Australian Consumer Law</h3>
+<div class="card">
+  <div class="card-header"><span class="card-title">Key Provisions</span><span class="card-tag">ACL</span></div>
+  <div class="def"><div class="def-term">s 18 — Misleading or Deceptive Conduct</div><div class="def-meaning">Conduct in trade or commerce that is misleading or likely to mislead. Remedies: damages, injunctions, rescission. No need to prove intention. <em>Google v ACCC</em>; <em>ACCC v TPG</em></div></div>
+  <div class="def"><div class="def-term">s 23 — Unfair Contract Terms</div><div class="def-meaning">Void if causes significant imbalance, not reasonably necessary, and would cause detriment. Applies to standard form consumer/small business contracts.</div></div>
+  <table>
+    <tr><th>Guarantee</th><th>Applies To</th><th>Section</th></tr>
+    <tr><td>Acceptable quality</td><td>Goods</td><td>s 54</td></tr>
+    <tr><td>Due care and skill</td><td>Services</td><td>s 60</td></tr>
+    <tr><td>Fit for disclosed purpose</td><td>Both</td><td>s 55 / s 60</td></tr>
+    <tr><td>Reasonable time</td><td>Services</td><td>s 62</td></tr>
+    <tr><td>Clear title</td><td>Goods</td><td>s 51</td></tr>
+  </table>
+</div>
+
+<h3>Corporations Law</h3>
+<div class="card">
+  <div class="card-header"><span class="card-title">Directors' Duties</span><span class="card-tag">Corporations Act</span></div>
+  <table>
+    <tr><th>Section</th><th>Duty</th><th>Penalty</th></tr>
+    <tr><td>s 180</td><td>Care and diligence</td><td>Civil penalties</td></tr>
+    <tr><td>s 181</td><td>Good faith / proper purpose</td><td>Civil & criminal</td></tr>
+    <tr><td>s 182</td><td>Improper use of position</td><td>Civil & criminal</td></tr>
+    <tr><td>s 183</td><td>Improper use of information</td><td>Civil & criminal</td></tr>
+    <tr><td>s 588G</td><td>Insolvent trading</td><td>Civil & criminal</td></tr>
+  </table>
+  <div class="def"><div class="def-term">Defences to s 588G (s 588H)</div><div class="def-meaning">(a) reasonable expectation of solvency; (b) relied on competent advice; (c) took all reasonable steps; (d) illness. Safe harbour: s 588GA.</div></div>
+</div>
+
+<h3>5 Detailed Case Studies (ILAC)</h3>
+
+<div class="case-study">
+  <div class="case-title">Case 1: Contract Formation — Offer & Acceptance</div>
+  <div class="case-section"><div class="case-label">Facts</div><div class="case-content">Alice advertises car for $15k. Bob offers $12k. Alice counters at $14k. Bob says "I'll think about it." Alice sells to Charlie for $14.5k. Bob then accepts $14k. Alice refuses.</div></div>
+  <div class="case-section"><div class="case-label">Issue</div><div class="case-content">Is there a binding contract between Alice and Bob?</div></div>
+  <div class="case-section"><div class="case-label">Law</div><div class="case-content">Advertisement = invitation to treat (<em>Pharmaceutical Society v Boots</em>). Counter-offer destroys original offer (<em>Hyde v Wrench</em>).</div></div>
+  <div class="case-section"><div class="case-label">Application</div><div class="case-content">Alice's $14k was a counter-offer, rejecting Bob's $12k. Bob's later "acceptance" was a new offer. No contract formed.</div></div>
+  <div class="case-section"><div class="case-label">Conclusion</div><div class="case-content">No binding contract. Alice entitled to sell to Charlie. Bob has no remedy.</div></div>
+</div>
+
+<div class="case-study">
+  <div class="case-title">Case 2: Negligence — Medical Malpractice</div>
+  <div class="case-section"><div class="case-label">Facts</div><div class="case-content">Dr Chen leaves a surgical instrument inside Paul's leg during knee surgery. Paul develops serious infection requiring further surgery.</div></div>
+  <div class="case-section"><div class="case-label">Issue</div><div class="case-content">Is Dr Chen liable for negligence?</div></div>
+  <div class="case-section"><div class="case-label">Law</div><div class="case-content">Doctors owe duty of care (<em>Rogers v Whitaker</em>). Standard: reasonable medical practitioner. Causation: but for + remoteness.</div></div>
+  <div class="case-section"><div class="case-label">Application</div><div class="case-content">Duty established. Leaving instrument = well below standard of any reasonable surgeon. But for instrument, no infection. Infection is foreseeable consequence.</div></div>
+  <div class="case-section"><div class="case-label">Conclusion</div><div class="case-content">Dr Chen liable. Paul can claim medical expenses, lost income, pain and suffering, future care costs.</div></div>
+</div>
+
+<div class="case-study">
+  <div class="case-title">Case 3: Directors' Duties — Conflict of Interest</div>
+  <div class="case-section"><div class="case-label">Facts</div><div class="case-content">Director Sarah arranges for TechCo to buy software from her husband's company at 30% above market rate, without disclosing to the board.</div></div>
+  <div class="case-section"><div class="case-label">Issue</div><div class="case-content">What duties breached and what are the consequences?</div></div>
+  <div class="case-section"><div class="case-label">Law</div><div class="case-content">s 181 (good faith), s 182 (improper use of position), s 191 (disclosure of material personal interest). Common law fiduciary duty: avoid conflicts (<em>Regal v Gulliver</em>).</div></div>
+  <div class="case-section"><div class="case-label">Application</div><div class="case-content">Sarah failed to disclose (s 191). Used position for husband's benefit (s 182). Did not act in company's best interests (s 181).</div></div>
+  <div class="case-section"><div class="case-label">Conclusion</div><div class="case-content">Breached ss 181, 182, 191. Consequences: civil penalties, disqualification, compensation order. Shareholders may bring derivative action (s 236).</div></div>
+</div>
+
+<div class="case-study">
+  <div class="case-title">Case 4: ACL — Misleading & Deceptive Conduct</div>
+  <div class="case-section"><div class="case-label">Facts</div><div class="case-content">FastFitness advertises "Unlimited Access — $0 Joining Fee!" in large print. Tiny print reveals 24-month lock-in and $500 cancellation fee. Emma signs up, wants to cancel after 3 months.</div></div>
+  <div class="case-section"><div class="case-label">Issue</div><div class="case-content">Has FastFitness breached the ACL? Is the cancellation term enforceable?</div></div>
+  <div class="case-section"><div class="case-label">Law</div><div class="case-content">s 18 ACL: misleading/deceptive conduct in trade or commerce. s 23: unfair terms void. <em>ACCC v TPG</em>: fine print cannot cure misleading headline.</div></div>
+  <div class="case-section"><div class="case-label">Application</div><div class="case-content">Advertisement is misleading — prominent claim distracts from onerous terms. Cancellation clause may be unfair: significant imbalance, not necessary to protect legitimate interests, causes detriment.</div></div>
+  <div class="case-section"><div class="case-label">Conclusion</div><div class="case-content">Likely breached s 18. Cancellation term may be void under s 23. Emma can seek rescission, damages, and declaration that term is unenforceable.</div></div>
+</div>
+
+<div class="case-study">
+  <div class="case-title">Case 5: Insolvent Trading</div>
+  <div class="case-section"><div class="case-label">Facts</div><div class="case-content">BuildCo owes $500k, cannot pay. Director Mike knows company is insolvent but orders $100k materials on credit hoping a big contract will save the business. Contract falls through. Liquidation follows.</div></div>
+  <div class="case-section"><div class="case-label">Issue</div><div class="case-content">Has Mike breached s 588G? What defences apply?</div></div>
+  <div class="case-section"><div class="case-label">Law</div><div class="case-content">s 588G: director must prevent insolvent trading. Elements: director, debt incurred, insolvency, reasonable grounds to suspect, failure to prevent. Defences: s 588H. Safe harbour: s 588GA.</div></div>
+  <div class="case-section"><div class="case-label">Application</div><div class="case-content">Mike was director when $100k debt incurred. BuildCo was insolvent. Mike knew — reasonable grounds to suspect. No s 588H defence: no reasonable expectation of solvency, no reasonable steps taken. Safe harbour doesn't apply: no developed plan, just hope.</div></div>
+  <div class="case-section"><div class="case-label">Conclusion</div><div class="case-content">Mike breached s 588G. Faces civil penalties, disqualification, compensation order for $100k. Potential criminal liability under s 184 if dishonesty proven.</div></div>
+</div>
+
+<h3>Exam Checklist</h3>
+<div class="checklist">
+  <div class="checklist-item"><input type="checkbox"> <span>I can identify all 6 elements of contract formation</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I know condition vs warranty vs intermediate term</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I can apply ILAC to problem questions</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I know the 4 elements of negligence and key cases</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I know ACL s 18, s 23, and consumer guarantees</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I can identify directors' duties (ss 180-183, 588G)</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I know defences to insolvent trading (s 588H, s 588GA)</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I understand partnership law basics</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I can write a case study analysis using ILAC</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I know key cases: <em>Donoghue v Stevenson, Waltons Stores v Maher, Amadio, Healey</em></span></div>
+</div>
+
 <!-- ECM1953 -->
-
-
-<h3>Practice Questions</h3>
 <!-- MCQ 1 -->
 <div class="mcq">
   <div class="mcq-question">Q1: Which of the following is an essential element required for the formation of a valid contract?</div>
