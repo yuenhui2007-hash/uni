@@ -1120,15 +1120,12 @@ h4{
 ::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
 </style>
 <script>
-(function(){
-const token=localStorage.getItem('token');
-if(!token&&!location.pathname.includes('login')&&!location.pathname.includes('register')){location.href='login.html';}
-})();
+
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script>
-if (!localStorage.getItem('token')) location.href = 'login.html';
-function logout() { localStorage.removeItem('token'); localStorage.removeItem('username'); location.href = 'login.html'; }
+
+
 </script>
 </head>
 <body>
@@ -1153,8 +1150,7 @@ function logout() { localStorage.removeItem('token'); localStorage.removeItem('u
             <div class="user-profile">
                 <span style="color: #8C5B3E; font-size: 0.9rem;">Bachelor of Science</span>
                 <div class="user-avatar" id="userAvatar">JD</div>
-                <button onclick="logout()" style="background:transparent;border:1px solid rgba(191,155,122,0.18);color:#8C5B3E;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:all .2s" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#8C5B3E'">Logout</button>
-            </div>
+                </div>
         </header>
 
 

@@ -3,14 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BTW1042 - Business Law Study Guide</title>
+<title>BTW1042 — Business Law Complete Study Guide</title>
 <style>
-  :root{--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--accent:#38bdf8;--accent2:#f472b6;--green:#4ade80;--red:#f87171;--border:#334155;}
+  :root{--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--accent:#38bdf8;--accent2:#f472b6;--green:#4ade80;--red:#f87171;--border:#334155;--yellow:#fbbf24;--purple:#a78bfa;}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;padding:24px;max-width:900px;margin:0 auto}
-  h1{margin-bottom:6px;font-size:1.6rem}
-  h2{color:var(--accent);font-size:1.15rem;margin:28px 0 12px;border-bottom:1px solid var(--border);padding-bottom:6px}
-  .subtitle{color:var(--muted);font-size:.95rem;margin-bottom:20px}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:24px;max-width:1000px;margin:0 auto}
+  h1{margin-bottom:6px;font-size:1.8rem}
+  h2{color:var(--accent);font-size:1.25rem;margin:32px 0 14px;border-bottom:1px solid var(--border);padding-bottom:8px}
+  h3{color:var(--accent2);font-size:1.05rem;margin:24px 0 10px}
+  h4{color:var(--yellow);font-size:.95rem;margin:16px 0 8px}
+  .subtitle{color:var(--muted);font-size:1rem;margin-bottom:24px}
+  .toc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:28px}
+  .toc h3{margin-top:0;color:var(--accent)}
+  .toc ul{list-style:none;padding:0}
+  .toc li{padding:4px 0}
+  .toc a{color:var(--muted);text-decoration:none}
+  .toc a:hover{color:var(--accent)}
   .mcq{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
   .mcq-question{font-weight:600;margin-bottom:10px}
   .mcq-options{list-style:none;padding-left:0;margin-bottom:10px}
@@ -23,19 +31,58 @@
   .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px}
   .card-title{font-weight:600;font-size:1rem}
   .card-tag{font-size:.75rem;background:var(--accent2);color:#0f172a;padding:3px 10px;border-radius:999px;font-weight:700}
-  .def{display:flex;flex-direction:column;gap:6px}
+  .def{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
   .def-term{font-weight:700;color:var(--green)}
   .def-meaning{color:var(--muted)}
+  .case-study{background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+  .case-title{color:var(--yellow);font-weight:700;font-size:1.1rem;margin-bottom:12px}
+  .case-section{margin-bottom:12px}
+  .case-label{color:var(--accent);font-weight:600;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+  .case-content{color:var(--muted);font-size:.95rem}
+  .essay-box{background:var(--card);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:16px;margin-bottom:16px}
+  .essay-title{font-weight:700;color:var(--accent);margin-bottom:8px}
+  .tip-box{background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:12px;padding:14px;margin-bottom:16px}
+  .tip-title{color:var(--green);font-weight:700;margin-bottom:6px}
+  .warning-box{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:14px;margin-bottom:16px}
+  .warning-title{color:var(--red);font-weight:700;margin-bottom:6px}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.9rem}
+  th{background:#1e293b;color:var(--accent);padding:10px;text-align:left;border-bottom:2px solid var(--border)}
+  td{padding:10px;border-bottom:1px solid var(--border);color:var(--muted)}
+  tr:hover td{background:#1e293b}
+  ul,ol{padding-left:20px;margin:10px 0}
+  li{margin:6px 0}
+  code{background:#0b1220;padding:2px 6px;border-radius:4px;font-size:.9rem;color:var(--accent)}
+  .highlight{background:rgba(251,191,36,.15);padding:2px 6px;border-radius:4px;color:var(--yellow)}
+  .ilac-box{background:var(--card);border:1px solid var(--purple);border-radius:12px;padding:16px;margin-bottom:16px}
+  .ilac-title{color:var(--purple);font-weight:700;margin-bottom:10px;font-size:1.05rem}
+  .checklist{background:var(--card);border-radius:12px;padding:16px}
+  .checklist-item{display:flex;align-items:flex-start;gap:10px;margin:8px 0}
+  .checklist-item input{margin-top:4px}
 </style>
 </head>
 <body>
 
 <h1>BTW1042 — Business Law</h1>
-<div class="subtitle">Monash B2026 Accountancy Exam Study Guide</div>
+<div class="subtitle">Monash B2026 Complete Exam Study Guide with Case Studies & Essay Writing</div>
 
-<h2>Multiple Choice Questions</h2>
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <ul>
+    <li><a href="#mcq">1. Multiple Choice Questions</a></li>
+    <li><a href="#essay">2. How to Write a Business Law Essay (ILAC Method)</a></li>
+    <li><a href="#contract">3. Contract Law</a></li>
+    <li><a href="#tort">4. Tort Law — Negligence</a></li>
+    <li><a href="#acl">5. Australian Consumer Law</a></li>
+    <li><a href="#corp">6. Corporations Law</a></li>
+    <li><a href="#partnership">7. Partnership Law</a></li>
+    <li><a href="#cases">8. Detailed Case Studies</a></li>
+    <li><a href="#checklist">9. Exam Checklist</a></li>
+  </ul>
+</div>
 
-<!-- MCQ 1 -->
+<!-- ==================== MCQ SECTION ==================== -->
+<h2 id="mcq">1. Multiple Choice Questions</h2>
+
 <div class="mcq">
   <div class="mcq-question">Q1: Which of the following is an essential element required for the formation of a valid contract?</div>
   <ul class="mcq-options">
@@ -45,12 +92,11 @@
     <li>D) Payment of a stamp duty</li>
   </ul>
   <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
-  <div class="mcq-answer"><strong>Answer: B</strong><br>Essential elements for a valid contract under common law include offer, acceptance, consideration, intention to create legal relations, certainty, and capacity. Writing is not always required (except for specific contracts like land sales under the Statute of Frauds).</div>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>Essential elements for a valid contract under common law include: (1) offer, (2) acceptance, (3) consideration, (4) intention to create legal relations, (5) certainty, and (6) capacity. Writing is not always required except for specific contracts like land sales under the Statute of Frauds.</div>
 </div>
 
-<!-- MCQ 2 -->
 <div class="mcq">
-  <div class="mcq-question">Q2: In contract law, what does the doctrine of promissory estoppel prevent a party from doing?</div>
+  <div class="mcq-question">Q2: What does the doctrine of promissory estoppel prevent a party from doing?</div>
   <ul class="mcq-options">
     <li>A) Terminating a contract without notice</li>
     <li>B) Going back on a promise where the promisee has relied on it to their detriment</li>
@@ -58,12 +104,11 @@
     <li>D) Assigning contractual rights to a third party</li>
   </ul>
   <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
-  <div class="mcq-answer"><strong>Answer: B</strong><br>Promissory estoppel (central to the High Court's decision in <em>Waltons Stores v Maher</em>) prevents a promisor from retracting a promise when the promisee has relied on it to their detriment, even if no consideration was given for the promise.</div>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>Promissory estoppel (<em>Waltons Stores v Maher</em>) prevents a promisor from retracting a promise when the promisee has relied on it to their detriment, even without consideration.</div>
 </div>
 
-<!-- MCQ 3 -->
 <div class="mcq">
-  <div class="mcq-question">Q3: Under the Australian Consumer Law (ACL), a term in a standard form consumer contract is void if it is:</div>
+  <div class="mcq-question">Q3: Under the ACL, a term in a standard form consumer contract is void if it is:</div>
   <ul class="mcq-options">
     <li>A) Negotiated individually between the parties</li>
     <li>B) Transparent and expressed in plain language</li>
@@ -74,9 +119,8 @@
   <div class="mcq-answer"><strong>Answer: C</strong><br>Under ACL s 23, an unfair term in a standard form consumer or small business contract is void. A term is unfair if it causes significant imbalance, is not reasonably necessary to protect legitimate interests, and would cause detriment.</div>
 </div>
 
-<!-- MCQ 4 -->
 <div class="mcq">
-  <div class="mcq-question">Q4: Which of the following best describes the tort of negligence?</div>
+  <div class="mcq-question">Q4: Which best describes the tort of negligence?</div>
   <ul class="mcq-options">
     <li>A) Intentional interference with a person's goods</li>
     <li>B) A civil wrong involving breach of a duty of care causing foreseeable harm</li>
@@ -84,12 +128,11 @@
     <li>D) Strict liability for defective products regardless of fault</li>
   </ul>
   <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
-  <div class="mcq-answer"><strong>Answer: B</strong><br>Negligence requires: (1) a duty of care owed by the defendant, (2) breach of that duty, (3) causation (both factual and legal), and (4) foreseeable damage. It is not an intentional tort and does not require malice.</div>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>Negligence requires: (1) duty of care, (2) breach, (3) causation (factual + legal), and (4) foreseeable damage. Not an intentional tort.</div>
 </div>
 
-<!-- MCQ 5 -->
 <div class="mcq">
-  <div class="mcq-question">Q5: In a partnership under the Partnership Act 1958 (Vic), which of the following is TRUE?</div>
+  <div class="mcq-question">Q5: Under the Partnership Act 1958 (Vic), which is TRUE?</div>
   <ul class="mcq-options">
     <li>A) Partners have limited liability for partnership debts</li>
     <li>B) Each partner can bind the partnership in the ordinary course of business</li>
@@ -97,25 +140,23 @@
     <li>D) A partnership is a separate legal entity distinct from its partners</li>
   </ul>
   <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
-  <div class="mcq-answer"><strong>Answer: B</strong><br>Partners are agents of the partnership; each partner can bind the firm in the ordinary course of business (s 6). Partnerships are not separate legal entities, and partners generally have unlimited joint and several liability. Registration is not required for validity.</div>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>Partners are agents of the partnership (s 6). Partnerships are NOT separate legal entities, partners have unlimited joint and several liability, and registration is not required.</div>
 </div>
 
-<!-- MCQ 6 -->
 <div class="mcq">
-  <div class="mcq-question">Q6: What is the legal effect of a breach of a condition in a contract?</div>
+  <div class="mcq-question">Q6: What is the legal effect of breaching a condition?</div>
   <ul class="mcq-options">
     <li>A) The innocent party can only claim damages</li>
-    <li>B) The innocent party may terminate the contract and claim damages</li>
+    <li>B) The innocent party may terminate and claim damages</li>
     <li>C) The contract becomes void ab initio</li>
-    <li>D) Both parties are automatically discharged from all obligations</li>
+    <li>D) Both parties are automatically discharged</li>
   </ul>
   <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
-  <div class="mcq-answer"><strong>Answer: B</strong><br>A condition is an essential term; its breach gives the innocent party the right to terminate (repudiation) and sue for damages. In contrast, breach of a warranty only entitles the innocent party to damages, not termination.</div>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>A condition is an essential term; breach allows termination (repudiation) + damages. Warranty breach = damages only.</div>
 </div>
 
-<!-- MCQ 7 -->
 <div class="mcq">
-  <div class="mcq-question">Q7: Under the <em>Corporations Act 2001</em> (Cth), a company director's duty to act in good faith is found in:</div>
+  <div class="mcq-question">Q7: A director's duty to act in good faith is found in:</div>
   <ul class="mcq-options">
     <li>A) s 180</li>
     <li>B) s 181</li>
@@ -123,38 +164,35 @@
     <li>D) s 588G</li>
   </ul>
   <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
-  <div class="mcq-answer"><strong>Answer: B</strong><br>Section 181 requires directors and officers to exercise their powers and discharge their duties in good faith in the best interests of the corporation and for a proper purpose. Section 180 covers care and diligence; s 182 covers improper use of position; s 588G deals with insolvent trading.</div>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>s 181 = good faith & proper purpose. s 180 = care & diligence. s 182 = improper use of position. s 588G = insolvent trading.</div>
 </div>
 
-<!-- MCQ 8 -->
 <div class="mcq">
-  <div class="mcq-question">Q8: Which of the following is a remedy available for misleading or deceptive conduct under s 18 of the ACL?</div>
+  <div class="mcq-question">Q8: Remedies for misleading or deceptive conduct under s 18 ACL include:</div>
   <ul class="mcq-options">
     <li>A) Criminal imprisonment only</li>
-    <li>B) Damages, injunctions, and rescission of the contract</li>
-    <li>C) Only a public apology from the corporation</li>
+    <li>B) Damages, injunctions, and rescission</li>
+    <li>C) Only a public apology</li>
     <li>D) Automatic termination of the director's appointment</li>
   </ul>
   <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
-  <div class="mcq-answer"><strong>Answer: B</strong><br>Section 18 ACL prohibits misleading or deceptive conduct in trade or commerce. Remedies include damages, injunctions, rescission, orders for corrective advertising, and compensatory orders. It is a civil provision; criminal penalties apply under separate provisions for false representations.</div>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>s 18 ACL (civil) remedies: damages, injunctions, rescission, corrective advertising orders. Criminal penalties apply under separate provisions.</div>
 </div>
 
-<!-- MCQ 9 -->
 <div class="mcq">
-  <div class="mcq-question">Q9: The concept of 'frustration' in contract law applies when:</div>
+  <div class="mcq-question">Q9: Frustration in contract law applies when:</div>
   <ul class="mcq-options">
-    <li>A) A party deliberately refuses to perform the contract</li>
-    <li>B) An unforeseen event occurs, without the parties' fault, rendering performance impossible or radically different</li>
-    <li>C) One party suffers financial difficulty in fulfilling the contract</li>
-    <li>D) The contract was entered into under duress</li>
+    <li>A) A party deliberately refuses to perform</li>
+    <li>B) An unforeseen event renders performance impossible or radically different</li>
+    <li>C) One party suffers financial difficulty</li>
+    <li>D) The contract was entered under duress</li>
   </ul>
   <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
-  <div class="mcq-answer"><strong>Answer: B</strong><br>Frustration discharges a contract when a supervening event, not caused by either party and not contemplated by the contract, makes performance impossible or something radically different from what was agreed (e.g., destruction of subject matter, government prohibition).</div>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>Frustration discharges a contract when a supervening event (not caused by either party) makes performance impossible or radically different.</div>
 </div>
 
-<!-- MCQ 10 -->
 <div class="mcq">
-  <div class="mcq-question">Q10: Under the ACL, which of the following consumer guarantees applies to services?</div>
+  <div class="mcq-question">Q10: Which consumer guarantee applies to SERVICES under the ACL?</div>
   <ul class="mcq-options">
     <li>A) Guarantee of acceptable quality</li>
     <li>B) Guarantee of due care and skill</li>
@@ -162,69 +200,502 @@
     <li>D) Guarantee of clear title</li>
   </ul>
   <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
-  <div class="mcq-answer"><strong>Answer: B</strong><br>Under ACL s 60, services must be rendered with due care and skill. Acceptable quality, clear title, and undisturbed possession are guarantees that apply to goods (ss 54, 51, 52). Services also have guarantees as to reasonable time and fitness for a disclosed purpose.</div>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>s 60 ACL: services rendered with due care and skill. Acceptable quality, clear title = goods guarantees (ss 54, 51).</div>
 </div>
 
-<h2>Subjective Questions</h2>
+<!-- ==================== ESSAY WRITING SECTION ==================== -->
+<h2 id="essay">2. How to Write a Business Law Essay</h2>
 
-<!-- SQ 1 -->
-<div class="card">
-  <div class="card-header">
-    <span class="card-title">Q: Explain the doctrine of consideration and discuss whether it is always necessary for the enforcement of a promise under Australian contract law.</span>
-    <span class="card-tag">Contract Formation</span>
-  </div>
-  <div class="def">
-    <div class="def-term">Answer</div>
-    <div class="def-meaning">Consideration is something of value (a benefit or detriment) exchanged between parties to a contract; it is a fundamental requirement for enforceability of simple contracts. The promisee must provide consideration for the promisor's promise, and past consideration is generally insufficient (<em>Roscorla v Thomas</em>). However, consideration is not always necessary. Promissory estoppel, recognised in <em>Waltons Stores v Maher</em> and developed in <em>Commonwealth v Verwayen</em>, may enforce a promise where the promisee has relied on it to their detriment, even absent consideration. Additionally, deeds are enforceable without consideration because of their formal execution. Recent academic debate questions whether consideration remains a meaningful threshold or an unnecessary formality in modern contract law.</div>
-  </div>
+<div class="essay-box">
+  <div class="essay-title">The ILAC Method — Your Essay Blueprint</div>
+  <p>Every business law problem question should follow the <strong>ILAC</strong> structure. This is how examiners expect you to analyse legal problems.</p>
 </div>
 
-<!-- SQ 2 -->
-<div class="card">
-  <div class="card-header">
-    <span class="card-title">Q: A company director approves a transaction that benefits their spouse's business at the expense of the company. Identify the statutory duties breached and outline the potential consequences under the <em>Corporations Act 2001</em> (Cth).</span>
-    <span class="card-tag">Corporations Law</span>
-  </div>
-  <div class="def">
-    <div class="def-term">Answer</div>
-    <div class="def-meaning">The director likely breaches s 181 (good faith and proper purpose), s 182 (improper use of position), and s 183 (improper use of information) of the <em>Corporations Act</em>. Section 181 requires directors to act in the best interests of the company; s 182 prohibits using their position to gain an advantage for themselves or someone else or to cause detriment to the company. Consequences include civil penalties of up to $1.05 million per contravention (or three times the benefit gained), disqualification from managing corporations, compensation orders under s 1317H, and potential criminal liability under ss 184 if dishonesty is proven. ASIC may pursue civil penalty proceedings, and shareholders may bring a statutory derivative action under s 236.</div>
-  </div>
-</div>
+<table>
+  <tr><th>Letter</th><th>Meaning</th><th>What to Write</th></tr>
+  <tr><td><strong>I</strong></td><td>Issue</td><td>Identify the legal question(s) raised by the facts. Be specific. E.g., "Did Bob breach his duty of care to Alice?"</td></tr>
+  <tr><td><strong>L</strong></td><td>Law</td><td>State the relevant legal rule(s) with statutory references and case law. E.g., "Under <em>Donoghue v Stevenson</em>, a duty of care arises when..."</td></tr>
+  <tr><td><strong>A</strong></td><td>Application</td><td>Apply the law to the facts. This is the MOST IMPORTANT part. Use the facts given and show how the law fits.</td></tr>
+  <tr><td><strong>C</strong></td><td>Conclusion</td><td>Answer the issue directly. E.g., "Therefore, Bob is likely liable for negligence."</td></tr>
+</table>
 
-<!-- SQ 3 -->
+<h3>Essay Structure for Problem Questions</h3>
 <div class="card">
-  <div class="card-header">
-    <span class="card-title">Q: Distinguish between a condition, a warranty, and an intermediate term in a contract. Explain the remedies available for breach of each.</span>
-    <span class="card-tag">Contract Terms</span>
+  <div class="def">
+    <div class="def-term">Introduction (1 paragraph)</div>
+    <div class="def-meaning">Briefly identify the parties, the dispute, and the areas of law involved. Map out what you'll discuss. <em>Do NOT give conclusions here.</em></div>
   </div>
   <div class="def">
-    <div class="def-term">Answer</div>
-    <div class="def-meaning">A condition is an essential term going to the root of the contract; breach allows the innocent party to terminate and claim damages (<em>Associated Newspapers v Bancks</em>). A warranty is a less important, subsidiary term; breach only entitles the innocent party to damages, not termination (<em>Bettini v Gye</em>). An intermediate (or innominate) term does not fit neatly into either category; the remedy depends on the severity of the breach. If the consequences are serious and go to the root of the contract, the innocent party may terminate; otherwise, only damages are available (<em>Hong Kong Fir Shipping v Kawasaki</em>). This approach provides flexibility but introduces uncertainty at the time of contracting.</div>
+    <div class="def-term">Body — One ILAC per Issue (2-4 paragraphs each)</div>
+    <div class="def-meaning">Each issue gets its own ILAC. Start with the most central issue. Use headings for clarity. Cite cases and statutes. Explain <strong>why</strong> a case applies, not just <em>that</em> it applies.</div>
+  </div>
+  <div class="def">
+    <div class="def-term">Conclusion (1 paragraph)</div>
+    <div class="def-meaning">Summarise your findings. State the likely outcome for each party. Mention any remedies or defences that may reduce liability.</div>
   </div>
 </div>
 
-<!-- SQ 4 -->
+<h3>Essay Writing Tips</h3>
+<div class="tip-box">
+  <div class="tip-title">Do's</div>
+  <ul>
+    <li>Use <strong>signposting</strong>: "The first issue is...", "Turning to...", "In conclusion..."</li>
+    <li>Always cite <strong>both</strong> statute AND case law where possible</li>
+    <li>Use the <strong>facts</strong> — don't just describe the law, show how it applies</li>
+    <li>Consider <strong>counter-arguments</strong> and defences</li>
+    <li>Write in <strong>third person</strong> (no "I think", "I believe")</li>
+    <li>Use <strong>past tense</strong> for facts, <strong>present tense</strong> for law</li>
+  </ul>
+</div>
+
+<div class="warning-box">
+  <div class="warning-title">Don'ts</div>
+  <ul>
+    <li>Don't write everything you know about a topic — answer the <strong>question</strong></li>
+    <li>Don't just list cases — explain their <strong>relevance</strong></li>
+    <li>Don't ignore the <strong>Application</strong> step — it's where marks are earned</li>
+    <li>Don't use bullet points in essays — use <strong>paragraphs</strong></li>
+    <li>Don't leave issues unresolved — always reach a <strong>conclusion</strong></li>
+  </ul>
+</div>
+
+<h3>Key Phrases to Use</h3>
 <div class="card">
-  <div class="card-header">
-    <span class="card-title">Q: Discuss the liability of a company for the torts committed by its employees during the course of employment. Refer to the relevant legal principles and case law.</span>
-    <span class="card-tag">Torts &amp; Agency</span>
+  <ul>
+    <li>"It is well established that..." (for settled law)</li>
+    <li>"The High Court held in <em>[Case]</em> that..." (when citing authority)</li>
+    <li>"On the facts, [Party] appears to have..." (applying law)</li>
+    <li>"Conversely, [Party] may argue that..." (counter-argument)</li>
+    <li>"It is therefore likely/unlikely that..." (conclusion)</li>
+    <li>"In the alternative, if the court finds..." (secondary position)</li>
+  </ul>
+</div>
+
+<!-- ==================== CONTRACT LAW ==================== -->
+<h2 id="contract">3. Contract Law</h2>
+
+<h3>3.1 Formation of Contract</h3>
+<div class="card">
+  <div class="card-header"><span class="card-title">Elements of a Valid Contract</span><span class="card-tag">Essential</span></div>
+  <table>
+    <tr><th>Element</th><th>Description</th><th>Key Cases</th></tr>
+    <tr><td>Offer</td><td>A clear expression of willingness to be bound on specific terms</td><td><em>Carlill v Carbolic Smoke Ball</em></td></tr>
+    <tr><td>Acceptance</td><td>Unqualified agreement to the terms of the offer</td><td><em>Hyde v Wrench</em></td></tr>
+    <tr><td>Consideration</td><td>Something of value exchanged; must not be past</td><td><em>Roscorla v Thomas</em></td></tr>
+    <tr><td>Intention</td><td>Objective intention to create legal relations</td><td><em>Balfour v Balfour</em></td></tr>
+    <tr><td>Capacity</td><td>Parties must have legal capacity (minors, mental incapacity)</td><td><em>Nash v Inman</em></td></tr>
+    <tr><td>Certainty</td><td>Terms must be sufficiently certain and complete</td><td><em>Scammell v Ouston</em></td></tr>
+  </table>
+</div>
+
+<h3>3.2 Types of Terms</h3>
+<div class="card">
+  <table>
+    <tr><th>Type</th><th>Definition</th><th>Remedy for Breach</th><th>Key Case</th></tr>
+    <tr><td>Condition</td><td>Essential term going to the root of the contract</td><td>Terminate + damages</td><td><em>Associated Newspapers v Bancks</em></td></tr>
+    <tr><td>Warranty</td><td>Subsidiary term, not essential</td><td>Damages only</td><td><em>Bettini v Gye</em></td></tr>
+    <tr><td>Intermediate</td><td>Neither condition nor warranty; depends on severity</td><td>Serious = terminate + damages; minor = damages</td><td><em>Hong Kong Fir Shipping v Kawasaki</em></td></tr>
+  </table>
+</div>
+
+<h3>3.3 Vitiating Factors</h3>
+<div class="card">
+  <div class="def">
+    <div class="def-term">Misrepresentation</div>
+    <div class="def-meaning">A false statement of fact inducing contract. Types: fraudulent (<em>Derry v Peek</em>), negligent (<em>Esso v Mardon</em>), innocent. Remedies: rescission + damages (fraudulent/negligent).</div>
   </div>
   <div class="def">
-    <div class="def-term">Answer</div>
-    <div class="def-meaning">A company can be vicariously liable for torts committed by employees acting in the course of employment under the doctrine of <em>respondereat superior</em> (let the employer answer). The key test is whether the employee's conduct was authorised or a wrongful mode of performing an authorised act (<em>Bugge v Brown</em>; <em>Deatons v Flew</em>). The 'close connection' test from <em>Lister v Hesley Hall</em> (UK) and adopted in Australia determines whether the tort was so closely connected to employment that it is fair to impose liability. Companies may also be directly liable for negligence in hiring, training, or supervising employees. Defences include that the employee was on a 'frolic of their own' (acting outside the scope of employment), which breaks the chain of vicarious liability.</div>
+    <div class="def-term">Duress</div>
+    <div class="def-meaning">Illegitimate pressure vitiating consent. Types: threats to person, goods, economic duress (<em>Universe Tankships v ITWF</em>). Remedy: rescission.</div>
+  </div>
+  <div class="def">
+    <div class="def-term">Undue Influence</div>
+    <div class="def-meaning">Exploitation of a special relationship of trust. Presumed in fiduciary relationships (<em>Johnson v Buttress</em>). Remedy: rescission.</div>
+  </div>
+  <div class="def">
+    <div class="def-term">Unconscionability</div>
+    <div class="def-meaning">Taking advantage of a special disability (<em>Commercial Bank of Australia v Amadio</em>). Requires: (1) special disability, (2) knowledge, (3) unfair exploitation. Remedy: rescission or equitable compensation.</div>
   </div>
 </div>
 
-<!-- SQ 5 -->
+<h3>3.4 Discharge of Contract</h3>
 <div class="card">
-  <div class="card-header">
-    <span class="card-title">Q: Explain the concept of insolvent trading under s 588G of the <em>Corporations Act 2001</em> (Cth). What defences are available to a director accused of allowing a company to trade while insolvent?</span>
-    <span class="card-tag">Corporate Insolvency</span>
+  <ul>
+    <li><strong>Performance:</strong> Complete and exact performance (<em>Cutter v Powell</em> — substantial performance exception)</li>
+    <li><strong>Agreement:</strong> Mutual discharge, variation, or novation</li>
+    <li><strong>Breach:</strong> Actual breach or anticipatory breach (<em>Hochster v De La Tour</em>)</li>
+    <li><strong>Frustration:</strong> Supervening event making performance impossible (<em>Taylor v Caldwell</em>; <em>Davis Contractors v Fareham</em>). Effects: contract discharged prospectively; parties may recover money under <em>Fibrosa</em> principle.</li>
+  </ul>
+</div>
+
+<h3>3.5 Remedies for Breach</h3>
+<div class="card">
+  <table>
+    <tr><th>Remedy</th><th>When Available</th><th>Key Points</th></tr>
+    <tr><td>Damages</td><td>Any breach</td><td>Compensate for loss; expectation or reliance measure; remoteness (<em>Hadley v Baxendale</em>)</td></tr>
+    <tr><td>Specific Performance</td><td>Damages inadequate</td><td>Equitable remedy; not for personal services; discretionary</td></tr>
+    <tr><td>Injunction</td><td>Prevent breach</td><td>Negative stipulation; not if it compels positive performance</td></tr>
+    <tr><td>Liquidated Damages</td><td>Clause in contract</td><td>Must be a genuine pre-estimate, not a penalty (<em>Dunlop Pneumatic Tyre v New Garage</em>)</td></tr>
+  </table>
+</div>
+
+<!-- ==================== TORT LAW ==================== -->
+<h2 id="tort">4. Tort Law — Negligence</h2>
+
+<h3>4.1 Elements of Negligence</h3>
+<div class="card">
+  <div class="card-header"><span class="card-title">The Four-Step Test</span><span class="card-tag">Critical</span></div>
+  <ol>
+    <li><strong>Duty of Care</strong> — Was there a duty owed? Apply <em>Donoghue v Stevenson</em> neighbour principle. Modern test: reasonable foreseeability + salient features (<em>Sullivan v Moody</em>; <em>Modbury Triangle v Anzil</em>).</li>
+    <li><strong>Breach of Duty</strong> — Was the standard of care breached? Objective test: what would a reasonable person do? (<em>Paris v Stepney BC</em>; <em>Bolton v Stone</em>)</li>
+    <li><strong>Causation</strong> — 
+      <ul>
+        <li><strong>Factual causation:</strong> "But for" the breach, would the damage have occurred? (<em>Barnett v Chelsea & Kensington HMC</em>)</li>
+        <li><strong>Legal causation (remoteness):</strong> Was the damage a reasonably foreseeable kind? (<em>Overseas Tankship v Morts Dock — The Wagon Mound</em>)</li>
+      </ul>
+    </li>
+    <li><strong>Damage</strong> — Actual loss or damage suffered. Must be foreseeable type.</li>
+  </ol>
+</div>
+
+<h3>4.2 Defences to Negligence</h3>
+<div class="card">
+  <table>
+    <tr><th>Defence</th><th>Description</th><th>Key Case</th></tr>
+    <tr><td>Contributory Negligence</td><td>Plaintiff failed to take reasonable care for own safety; damages reduced proportionally</td><td><em>Podrebersek v Australian Iron & Steel</em></td></tr>
+    <tr><td>Volenti Non Fit Injuria</td><td>Plaintiff voluntarily assumed the risk</td><td><em>ICI v Shatwell</em></td></tr>
+    <tr><td>Obvious Risk</td><td>Risk was obvious to a reasonable person (Civil Liability Acts)</td><td>State legislation</td></tr>
+  </table>
+</div>
+
+<h3>4.3 Negligent Misstatement</h3>
+<div class="card">
+  <div class="def">
+    <div class="def-term">Requirements (<em>Esanda Finance v Peat Marwick</em>; <em>Perre v Apand</em>)</div>
+    <div class="def-meaning">
+      <ol>
+        <li>Reasonable foreseeability of reliance</li>
+        <li>Special relationship / proximity between parties</li>
+        <li>Knowledge of specific purpose and known reliance</li>
+        <li>Assumption of responsibility</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ACL ==================== -->
+<h2 id="acl">5. Australian Consumer Law</h2>
+
+<h3>5.1 Misleading or Deceptive Conduct (s 18)</h3>
+<div class="card">
+  <div class="def">
+    <div class="def-term">Elements</div>
+    <div class="def-meaning">
+      <ol>
+        <li>Conduct in <strong>trade or commerce</strong></li>
+        <li>Conduct that is <strong>misleading or deceptive</strong> or likely to mislead/deceive</li>
+        <li>No need to prove intention, reliance, or loss for contravention</li>
+        <li>For remedies: causation and loss must be shown</li>
+      </ol>
+    </div>
   </div>
   <div class="def">
-    <div class="def-term">Answer</div>
-    <div class="def-meaning">Section 588G imposes a duty on directors to prevent a company from incurring debts if there are reasonable grounds to suspect insolvency. A director breaches the provision if: (1) they are a director at the time the debt is incurred, (2) the company is insolvent or becomes insolvent by incurring the debt, and (3) there are reasonable grounds for suspecting insolvency. Defences under s 588H include: (a) the director had reasonable grounds to expect, and did expect, that the company was solvent (often relying on financial information); (b) the director reasonably relied on information from a competent and reliable person indicating solvency; (c) the director took all reasonable steps to prevent the debt from being incurred; or (d) due to illness, the director did not take part in management at that time. The safe harbour provision (s 588GA) may also protect directors who are pursuing a course of action reasonably likely to lead to a better outcome for the company than immediate administration or liquidation.</div>
+    <div class="def-term">Remedies</div>
+    <div class="def-meaning">Damages, injunctions, rescission, compensatory orders, corrective advertising. Key cases: <em>Google v ACCC</em> (search results); <em>ACCC v TPG</em> (fine print).</div>
   </div>
+</div>
+
+<h3>5.2 Unfair Contract Terms (s 23)</h3>
+<div class="card">
+  <div class="def">
+    <div class="def-term">Test for Unfairness</div>
+    <div class="def-meaning">A term is unfair if it: (a) causes significant imbalance; (b) is not reasonably necessary to protect legitimate interests; (c) would cause detriment. Must be in a <strong>standard form contract</strong> for consumer or small business.</div>
+  </div>
+  <div class="def">
+    <div class="def-term">Examples of Unfair Terms</div>
+    <div class="def-meaning">One-sided termination rights, excessive penalties, broad indemnities, automatic renewals without notice, unilateral variation clauses.</div>
+  </div>
+</div>
+
+<h3>5.3 Consumer Guarantees</h3>
+<div class="card">
+  <table>
+    <tr><th>Guarantee</th><th>Applies To</th><th>Statute</th></tr>
+    <tr><td>Acceptable quality</td><td>Goods</td><td>s 54</td></tr>
+    <tr><td>Fit for disclosed purpose</td><td>Goods & Services</td><td>s 55 (goods), s 60 (services)</td></tr>
+    <tr><td>Match description/sample</td><td>Goods</td><td>s 56-57</td></tr>
+    <tr><td>Due care and skill</td><td>Services</td><td>s 60</td></tr>
+    <tr><td>Reasonable time</td><td>Services</td><td>s 62</td></tr>
+    <tr><td>Clear title / undisturbed possession</td><td>Goods</td><td>s 51-52</td></tr>
+  </table>
+</div>
+
+<!-- ==================== CORPORATIONS LAW ==================== -->
+<h2 id="corp">6. Corporations Law</h2>
+
+<h3>6.1 Directors' Duties</h3>
+<div class="card">
+  <table>
+    <tr><th>Section</th><th>Duty</th><th>Key Points</th><th>Penalties</th></tr>
+    <tr><td>s 180</td><td>Care and Diligence</td><td>Reasonable person in similar position; includes continuous monitoring (<em>ASIC v Healey</em>)</td><td>Civil penalties</td></tr>
+    <tr><td>s 181</td><td>Good Faith / Proper Purpose</td><td>Act in best interests of corporation; no collateral purposes (<em>Parker v NRMA</em>)</td><td>Civil & criminal</td></tr>
+    <tr><td>s 182</td><td>Improper Use of Position</td><td>Cannot gain advantage for self/others or cause detriment to company</td><td>Civil & criminal</td></tr>
+    <tr><td>s 183</td><td>Improper Use of Information</td><td>Cannot use information improperly for personal gain</td><td>Civil & criminal</td></tr>
+    <tr><td>s 588G</td><td>Insolvent Trading</td><td>Prevent company from incurring debts while insolvent</td><td>Civil & criminal</td></tr>
+  </table>
+</div>
+
+<h3>6.2 Insolvent Trading (s 588G)</h3>
+<div class="card">
+  <div class="def">
+    <div class="def-term">Elements of Breach</div>
+    <div class="def-meaning">
+      <ol>
+        <li>Person is a director when debt is incurred</li>
+        <li>Company is insolvent or becomes insolvent by incurring the debt</li>
+        <li>There are reasonable grounds for suspecting insolvency</li>
+        <li>Director fails to prevent debt being incurred</li>
+      </ol>
+    </div>
+  </div>
+  <div class="def">
+    <div class="def-term">Defences (s 588H)</div>
+    <div class="def-meaning">
+      <ol>
+        <li>Reasonable grounds to expect solvency</li>
+        <li>Reliance on competent person's advice</li>
+        <li>Took all reasonable steps to prevent debt</li>
+        <li>Illness prevented participation in management</li>
+      </ol>
+    </div>
+  </div>
+  <div class="def">
+    <div class="def-term">Safe Harbour (s 588GA)</div>
+    <div class="def-meaning">Protects directors pursuing a course of action reasonably likely to lead to a better outcome than immediate administration/liquidation.</div>
+  </div>
+</div>
+
+<h3>6.3 Remedies for Breach of Directors' Duties</h3>
+<div class="card">
+  <ul>
+    <li><strong>Civil penalties:</strong> Up to $1.05M per contravention (or 3x benefit gained / loss avoided)</li>
+    <li><strong>Disqualification:</strong> From managing corporations</li>
+    <li><strong>Compensation orders:</strong> Under s 1317H to the company</li>
+    <li><strong>Statutory derivative action:</strong> Shareholders can sue on behalf of company (s 236)</li>
+    <li><strong>Criminal liability:</strong> Under ss 184 if dishonesty or recklessness proven</li>
+  </ul>
+</div>
+
+<!-- ==================== PARTNERSHIP LAW ==================== -->
+<h2 id="partnership">7. Partnership Law</h2>
+
+<div class="card">
+  <div class="def">
+    <div class="def-term">Definition (Partnership Act 1958 (Vic) s 1)</div>
+    <div class="def-meaning">"The relation which subsists between persons carrying on a business in common with a view of profit."</div>
+  </div>
+  <div class="def">
+    <div class="def-term">Key Features</div>
+    <div class="def-meaning">
+      <ul>
+        <li><strong>Not a separate legal entity</strong> — partners are personally liable</li>
+        <li><strong>Agency:</strong> Each partner can bind the firm (s 6)</li>
+        <li><strong>Liability:</strong> Unlimited, joint and several for partnership debts</li>
+        <li><strong>Fiduciary duties:</strong> Partners owe each other duties of good faith, not to compete, and to account for profits</li>
+        <li><strong>Registration:</strong> Not required for validity (but recommended for limited partnerships)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CASE STUDIES ==================== -->
+<h2 id="cases">8. Detailed Case Studies</h2>
+
+<div class="case-study">
+  <div class="case-title">Case Study 1: Contract Formation — Offer & Acceptance</div>
+  <div class="case-section">
+    <div class="case-label">Facts</div>
+    <div class="case-content">Alice advertises her car for sale at $15,000. Bob emails offering $12,000. Alice replies she will accept $14,000. Bob says "I'll think about it." The next day, Alice sells the car to Charlie for $14,500. Bob then emails accepting $14,000. Alice refuses.</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Issue</div>
+    <div class="case-content">Is there a binding contract between Alice and Bob?</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Law</div>
+    <div class="case-content">
+      <ul>
+        <li>An offer must be distinguished from an invitation to treat (<em>Pharmaceutical Society v Boots</em>)</li>
+        <li>A counter-offer destroys the original offer (<em>Hyde v Wrench</em>)</li>
+        <li>Acceptance must be communicated and unequivocal</li>
+      </ul>
+    </div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Application</div>
+    <div class="case-content">Alice's advertisement was an invitation to treat, not an offer. Bob's $12,000 was an offer. Alice's $14,000 was a <strong>counter-offer</strong>, which rejected Bob's offer. Bob did not accept. His later "acceptance" of $14,000 was an <strong>offer</strong> that Alice was free to reject. No contract was formed.</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Conclusion</div>
+    <div class="case-content">No binding contract. Alice was entitled to sell to Charlie. Bob has no remedy.</div>
+  </div>
+</div>
+
+<div class="case-study">
+  <div class="case-title">Case Study 2: Negligence — Duty of Care & Breach</div>
+  <div class="case-section">
+    <div class="case-label">Facts</div>
+    <div class="case-content">Dr Chen operates on Paul's knee. During surgery, Dr Chen leaves a surgical instrument inside Paul's leg. Paul develops a serious infection requiring further surgery and months of rehabilitation.</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Issue</div>
+    <div class="case-content">Is Dr Chen liable for negligence?</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Law</div>
+    <div class="case-content">
+      <ul>
+        <li>Doctors owe patients a duty of care (<em>Rogers v Whitaker</em>)</li>
+        <li>Standard of care: reasonable medical practitioner in same field (<em>Bolam</em> test modified in Australia by <em>Rogers v Whitaker</em>)</li>
+        <li>"But for" causation and remoteness apply</li>
+      </ul>
+    </div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Application</div>
+    <div class="case-content">
+      <strong>Duty:</strong> Clearly established doctor-patient relationship.<br>
+      <strong>Breach:</strong> Leaving a surgical instrument inside a patient falls well below the standard of any reasonable surgeon. This is not a matter of professional judgment but a fundamental error.<br>
+      <strong>Causation:</strong> But for the instrument, Paul would not have developed the infection. The infection is a direct and foreseeable consequence.<br>
+      <strong>Damage:</strong> Physical injury, pain, further surgery costs, lost earnings.
+    </div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Conclusion</div>
+    <div class="case-content">Dr Chen is liable for negligence. Paul can claim damages for medical expenses, lost income, pain and suffering, and future care costs.</div>
+  </div>
+</div>
+
+<div class="case-study">
+  <div class="case-title">Case Study 3: Directors' Duties — Conflict of Interest</div>
+  <div class="case-section">
+    <div class="case-label">Facts</div>
+    <div class="case-content">Sarah is a director of TechCo Pty Ltd. Without disclosing to the board, Sarah arranges for TechCo to purchase software from her husband's company at 30% above market rate. The board approves the transaction believing it to be arms-length.</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Issue</div>
+    <div class="case-content">What duties has Sarah breached and what are the consequences?</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Law</div>
+    <div class="case-content">
+      <ul>
+        <li>s 181: Good faith and proper purpose — directors must act in the company's best interests</li>
+        <li>s 182: Improper use of position — cannot use position to gain advantage for self/others</li>
+        <li>s 191: Material personal interest must be disclosed</li>
+        <li>Common law fiduciary duty: avoid conflicts of interest (<em>Regal v Gulliver</em>)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Application</div>
+    <div class="case-content">Sarah failed to disclose her material personal interest (s 191). She used her position to benefit her husband's business at TechCo's expense (s 182). She did not act in good faith or for a proper purpose (s 181). The transaction was not in TechCo's best interests.</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Conclusion</div>
+    <div class="case-content">Sarah breached ss 181, 182, and 191. Consequences: civil penalties, disqualification, compensation to TechCo for the overpayment. Shareholders may bring a derivative action (s 236).</div>
+  </div>
+</div>
+
+<div class="case-study">
+  <div class="case-title">Case Study 4: ACL — Misleading & Deceptive Conduct</div>
+  <div class="case-section">
+    <div class="case-label">Facts</div>
+    <div class="case-content">FastFitness Gym advertises "Unlimited Access — $0 Joining Fee!" in large print. In tiny print at the bottom, the contract requires a 24-month minimum term with a $500 cancellation fee. Emma signs up based on the advertisement but wants to cancel after 3 months.</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Issue</div>
+    <div class="case-content">Has FastFitness breached the ACL? Is the cancellation term enforceable?</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Law</div>
+    <div class="case-content">
+      <ul>
+        <li>s 18 ACL: Prohibits misleading or deceptive conduct in trade or commerce</li>
+        <li>s 23 ACL: Unfair terms in standard form consumer contracts are void</li>
+        <li><em>ACCC v TPG</em>: Fine print cannot cure a misleading headline</li>
+      </ul>
+    </div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Application</div>
+    <div class="case-content">The advertisement is misleading because the prominent claim "$0 Joining Fee" distracts from the onerous 24-month lock-in and $500 cancellation fee (<em>ACCC v TPG</em>). The cancellation clause in the standard form contract may be an <strong>unfair term</strong> under s 23: it causes significant imbalance, is not necessary to protect FastFitness's legitimate interests, and would cause detriment to Emma.</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Conclusion</div>
+    <div class="case-content">FastFitness likely breached s 18. The cancellation term may be void as unfair under s 23. Emma could seek rescission, damages, and an order that the unfair term is not enforceable.</div>
+  </div>
+</div>
+
+<div class="case-study">
+  <div class="case-title">Case Study 5: Insolvent Trading</div>
+  <div class="case-section">
+    <div class="case-label">Facts</div>
+    <div class="case-content">BuildCo Pty Ltd owes $500,000 to creditors and cannot pay. Director Mike knows the company is insolvent but continues to order $100,000 of building materials on credit, hoping a big contract will save the business. The contract falls through and BuildCo goes into liquidation.</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Issue</div>
+    <div class="case-content">Has Mike breached s 588G? What defences might he raise?</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Law</div>
+    <div class="case-content">
+      <ul>
+        <li>s 588G: Directors must prevent insolvent trading</li>
+        <li>Elements: director, debt incurred, insolvency, reasonable grounds to suspect, failure to prevent</li>
+        <li>Defences: s 588H (reasonable expectation of solvency, reliance on advice, reasonable steps, illness)</li>
+        <li>Safe harbour: s 588GA</li>
+      </ul>
+    </div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Application</div>
+    <div class="case-content">Mike was a director when the $100,000 debt was incurred. BuildCo was insolvent (cannot pay debts as they fall due). Mike <strong>knew</strong> of the insolvency — there were reasonable grounds to suspect. He failed to prevent the debt. No defence under s 588H applies: he had no reasonable grounds to expect solvency (he knew the company was broke), and he took no reasonable steps to prevent the debt. Safe harbour (s 588GA) does not apply because continuing to trade on hope without a developed plan is not "reasonably likely to lead to a better outcome."</div>
+  </div>
+  <div class="case-section">
+    <div class="case-label">Conclusion</div>
+    <div class="case-content">Mike breached s 588G. He faces civil penalties, disqualification, and a compensation order for the $100,000 debt. He may also face criminal liability under s 184 if dishonesty is proven.</div>
+  </div>
+</div>
+
+<!-- ==================== EXAM CHECKLIST ==================== -->
+<h2 id="checklist">9. Exam Checklist</h2>
+
+<div class="checklist">
+  <div class="checklist-item"><input type="checkbox"> <span>I can identify all 6 elements of contract formation</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I know the difference between conditions, warranties, and intermediate terms</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I can apply the ILAC method to problem questions</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I know the 4 elements of negligence and key cases for each</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I can explain defences to negligence</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I know the ACL provisions: s 18, s 23, consumer guarantees</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I can identify directors' duties (ss 180-183, 588G) and their elements</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I know the defences to insolvent trading (s 588H, s 588GA)</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I understand partnership law: agency, liability, fiduciary duties</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I can write a case study analysis using ILAC</span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I know key cases: <em>Donoghue v Stevenson, Waltons Stores v Maher, Amadio, Healey</em></span></div>
+  <div class="checklist-item"><input type="checkbox"> <span>I can distinguish between civil and criminal consequences under the Corporations Act</span></div>
+</div>
+
+<div class="tip-box" style="margin-top:24px">
+  <div class="tip-title">Final Exam Tips</div>
+  <ul>
+    <li><strong>Time management:</strong> Allocate time per question based on marks. A 20-mark question = ~30 minutes.</li>
+    <li><strong>Read the question twice</strong> before starting. Identify who is asking what.</li>
+    <li><strong>Use headings</strong> — examiners award marks for clear structure.</li>
+    <li><strong>Always conclude</strong> — even if uncertain, give your best assessment.</li>
+    <li><strong>Cite statutes precisely</strong> — "s 18 Australian Consumer Law" not just "the ACL".</li>
+    <li><strong>Case names in italics</strong> — <em>Donoghue v Stevenson</em>, not Donoghue v Stevenson.</li>
+  </ul>
 </div>
 
 </body>

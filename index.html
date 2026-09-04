@@ -391,14 +391,7 @@
         .delay-3 { animation-delay: 0.3s; opacity: 0; }
         .delay-4 { animation-delay: 0.4s; opacity: 0; }
     </style>
-<script>
-(function(){
-const token = localStorage.getItem('token');
-if(!token && !location.pathname.includes('login') && !location.pathname.includes('register')){
-location.href='login.html';
-}
-})();
-</script>
+
 </head>
 <body>
     <div class="bg-animation">
@@ -428,8 +421,7 @@ location.href='login.html';
             <div class="user-profile">
                 <span id="userDegree" style="color: var(--text-secondary); font-size: 0.9rem;">Bachelor of Science</span>
                 <div class="user-avatar" id="userAvatar">JD</div>
-                <button onclick="logout()" style="background:transparent;border:1px solid var(--border-light);color:var(--text-secondary);padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:all .2s" onmouseover="this.style.color='var(--danger)'" onmouseout="this.style.color='var(--text-secondary)'">Logout</button>
-            </div>
+                </div>
         </header>
 
         <div class="quote-bar animate-in">
@@ -1050,32 +1042,9 @@ location.href='login.html';
             document.getElementById('quoteAuthor').textContent = `— ${q.author}`;
         }
 
-        async function logout() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('username');
-            location.href = 'login.html';
-        }
-
         async function loadUser() {
-            const token = localStorage.getItem('token');
             const username = localStorage.getItem('username');
-            if (!token) return;
-            // Local mode: token starts with 'local_'
-            if (token.startsWith('local_')) {
-                if (username) document.getElementById('userAvatar').textContent = username.slice(0,2).toUpperCase();
-                return;
-            }
-            try {
-                const res = await fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } });
-                if (res.ok) {
-                    const user = await res.json();
-                    document.getElementById('userAvatar').textContent = user.username.slice(0,2).toUpperCase();
-                } else {
-                    logout();
-                }
-            } catch {
-                // offline, keep going
-            }
+            if (username) document.getElementById('userAvatar').textContent = username.slice(0,2).toUpperCase();
         }
 
         document.addEventListener('DOMContentLoaded', () => {

@@ -308,12 +308,7 @@
     }
   </style>
 <script>
-(function(){
-const token = localStorage.getItem('token');
-if(!token && !location.pathname.includes('login') && !location.pathname.includes('register')){
-location.href='login.html';
-}
-})();
+
 </script>
 </head>
 <body>
@@ -345,8 +340,7 @@ location.href='login.html';
       <div class="user-profile">
         <span id="userDegree" style="color: var(--text-secondary); font-size: 0.9rem;">Bachelor of Science</span>
         <div class="user-avatar" id="userAvatar">JD</div>
-        <button onclick="logout()" style="background:transparent;border:1px solid var(--border-light);color:var(--text-secondary);padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:all .2s" onmouseover="this.style.color='var(--danger)'" onmouseout="this.style.color='var(--text-secondary)'">Logout</button>
-      </div>
+        </div>
     </header>
 
     <nav class="tabs">
@@ -1085,11 +1079,7 @@ location.href='login.html';
       const d = document.createElement('div'); d.textContent = t; return d.innerHTML;
     }
 
-    function logout() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('username');
-      location.href = 'login.html';
-    }
+    
 
     // ===================== INIT =====================
     function init() {
