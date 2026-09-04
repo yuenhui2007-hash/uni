@@ -229,6 +229,7 @@ th{background:var(--surface-2);font-weight:600;color:var(--accent);font-size:.8r
 <aside class="sidebar">
   <div class="sidebar-title">Subjects</div>
   <ul class="sidebar-subjects">
+    <li><a href="#all" class="all-link"><span class="sub-code">All</span> — Show All Subjects</a></li>
     <li><a href="#acw1120"><span class="sub-code">ACW1120</span> — Financial Accounting 1</a></li>
     <li><a href="#bfw1001"><span class="sub-code">BFW1001</span> — Foundations of Finance</a></li>
     <li><a href="#btw1042"><span class="sub-code">BTW1042</span> — Business Law</a></li>
@@ -1735,7 +1736,7 @@ let activeFilter=null;
 function getSectionElements(h2){
   const els=[];
   let el=h2.nextElementSibling;
-  while(el && !el.matches('h2[id]')){
+  while(el && !(el.tagName==='H2' && el.hasAttribute('id'))){
     els.push(el);
     el=el.nextElementSibling;
   }
@@ -1743,29 +1744,40 @@ function getSectionElements(h2){
 }
 
 function showSubject(id){
-  if(id==='all'){
-    allH2.forEach(h2=>{h2.style.display='';getSectionElements(h2).forEach(e=>e.style.display='')});
-    activeFilter=null;
-  } else {
-    allH2.forEach(h2=>{
-      const show=h2.id===id;
-      h2.style.display=show?'':'none';
-      getSectionElements(h2).forEach(e=>e.style.display=show?'':'none');
-    });
-    activeFilter=id;
-    const target=document.querySelector('h2[id="'+id+'"]');
-    if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
+  try {
+    if(id==='all'){
+      allH2.forEach(h2=>{h2.style.display='';getSectionElements(h2).forEach(e=>e.style.display='')});
+      activeFilter=null;
+      window.scrollTo({top:0,behavior:'smooth'});
+    } else {
+      allH2.forEach(h2=>{
+        const show=h2.id===id;
+        h2.style.display=show?'':'none';
+        getSectionElements(h2).forEach(e=>e.style.display=show?'':'none');
+      });
+      activeFilter=id;
+      const target=document.getElementById(id);
+      if(target){
+        target.style.display='';
+        target.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    }
+    sbLinks.forEach(l=>l.classList.remove('active'));
+    const activeA=document.querySelector('.sidebar-subjects a[href="#'+id+'"]');
+    if(activeA)activeA.classList.add('active');
+    const sb=document.querySelector('.sidebar');
+    const overlay=document.querySelector('.sidebar-overlay');
+    if(sb)sb.classList.remove('open');
+    if(overlay)overlay.classList.remove('show');
+  } catch(err) {
+    console.error('showSubject error:',err);
   }
-  sbLinks.forEach(l=>l.classList.remove('active'));
-  const activeA=document.querySelector('.sidebar-subjects a[href="#'+id+'"]');
-  if(activeA)activeA.classList.add('active');
-  document.querySelector('.sidebar')?.classList.remove('open');
-  document.querySelector('.sidebar-overlay')?.classList.remove('show');
 }
 
 sbLinks.forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();showSubject(a.getAttribute('href').replace('#',''))})});
 function sbToggle(){document.querySelector('.sidebar').classList.toggle('open');document.querySelector('.sidebar-overlay').classList.toggle('show')}
-document.querySelector('.sidebar-overlay')?.addEventListener('click',()=>{document.querySelector('.sidebar').classList.remove('open');document.querySelector('.sidebar-overlay').classList.remove('show')});
+const overlayEl=document.querySelector('.sidebar-overlay');
+if(overlayEl)overlayEl.addEventListener('click',()=>{document.querySelector('.sidebar').classList.remove('open');document.querySelector('.sidebar-overlay').classList.remove('show')});
 </script>
 </div>
 </div>
