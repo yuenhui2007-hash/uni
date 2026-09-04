@@ -1774,10 +1774,12 @@ function showSubject(id){
   }
 }
 
-sbLinks.forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();showSubject(a.getAttribute('href').replace('#',''))})});
+sbLinks.forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const id=a.getAttribute('href').replace('#','');window.location.hash='#'+id;showSubject(id)})});
 function sbToggle(){document.querySelector('.sidebar').classList.toggle('open');document.querySelector('.sidebar-overlay').classList.toggle('show')}
 const overlayEl=document.querySelector('.sidebar-overlay');
 if(overlayEl)overlayEl.addEventListener('click',()=>{document.querySelector('.sidebar').classList.remove('open');document.querySelector('.sidebar-overlay').classList.remove('show')});
+window.addEventListener('hashchange',()=>{const id=window.location.hash.replace('#','');if(id)showSubject(id)});
+window.addEventListener('DOMContentLoaded',()=>{const id=window.location.hash.replace('#','');if(id)showSubject(id)});
 </script>
 </div>
 </div>
