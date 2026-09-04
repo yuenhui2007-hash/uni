@@ -134,6 +134,94 @@ th{background:var(--surface-2);font-weight:600;color:var(--accent);font-size:.8r
 .checklist-item input{margin-top:4px}
 
 @media(max-width:640px){header h1{font-size:1.55rem}.container{padding:16px}}
+
+/* ---- Sidebar Navigation ---- */
+.page-wrap{display:flex;max-width:1400px;margin:0 auto;gap:0}
+.sidebar{
+  width:260px;flex-shrink:0;
+  position:sticky;top:80px;height:calc(100vh - 100px);overflow-y:auto;
+  background:var(--surface);border-right:1px solid var(--border);
+  padding:20px 0 20px 0;border-radius:0;
+  z-index:50;
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:3px}
+.sidebar-title{
+  font-size:.75rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.08em;
+  padding:0 20px 12px;font-weight:700;
+}
+.sidebar-subjects{list-style:none;padding:0;margin:0}
+.sidebar-subjects li a{
+  display:block;padding:8px 20px;color:var(--text-secondary);text-decoration:none;
+  font-size:.9rem;border-left:3px solid transparent;transition:.2s;
+}
+.sidebar-subjects li a:hover,.sidebar-subjects li a.active{
+  color:var(--accent);background:rgba(96,165,250,0.08);border-left-color:var(--accent);
+}
+.sidebar-subjects li a .sub-code{font-weight:600;color:var(--text)}
+.main-content{flex:1;min-width:0;padding:30px 28px}
+
+/* mobile sidebar toggle */
+.sidebar-toggle{
+  display:none;position:fixed;top:72px;left:12px;z-index:200;
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:8px 12px;color:var(--text);cursor:pointer;font-size:.85rem;
+}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
+
+@media(max-width:1024px){
+  .sidebar{position:fixed;left:0;top:0;height:100vh;transform:translateX(-100%);transition:transform .3s;border-right:none;border-radius:0;z-index:100}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-toggle{display:block}
+  .sidebar-overlay.show{display:block}
+  .main-content{padding:30px 16px}
+}
+@media(max-width:640px){.main-content{padding:16px 12px}}
+
+
+/* ---- Sidebar Navigation ---- */
+.page-wrap{display:flex;max-width:1400px;margin:0 auto;gap:0}
+.sidebar{
+  width:260px;flex-shrink:0;
+  position:sticky;top:80px;height:calc(100vh - 100px);overflow-y:auto;
+  background:var(--surface);border-right:1px solid var(--border);
+  padding:20px 0 20px 0;border-radius:0;
+  z-index:50;
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:3px}
+.sidebar-title{
+  font-size:.75rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.08em;
+  padding:0 20px 12px;font-weight:700;
+}
+.sidebar-subjects{list-style:none;padding:0;margin:0}
+.sidebar-subjects li a{
+  display:block;padding:8px 20px;color:var(--text-secondary);text-decoration:none;
+  font-size:.9rem;border-left:3px solid transparent;transition:.2s;
+}
+.sidebar-subjects li a:hover,.sidebar-subjects li a.active{
+  color:var(--accent);background:rgba(96,165,250,0.08);border-left-color:var(--accent);
+}
+.sidebar-subjects li a .sub-code{font-weight:600;color:var(--text)}
+.main-content{flex:1;min-width:0;padding:30px 28px}
+
+/* mobile sidebar toggle */
+.sidebar-toggle{
+  display:none;position:fixed;top:72px;left:12px;z-index:200;
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:8px 12px;color:var(--text);cursor:pointer;font-size:.85rem;
+}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
+
+@media(max-width:1024px){
+  .sidebar{position:fixed;left:0;top:0;height:100vh;transform:translateX(-100%);transition:transform .3s;border-right:none;border-radius:0;z-index:100}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-toggle{display:block}
+  .sidebar-overlay.show{display:block}
+  .main-content{padding:30px 16px}
+}
+@media(max-width:640px){.main-content{padding:16px 12px}}
+
 </style>
 <script>
 
@@ -175,6 +263,42 @@ th{background:var(--surface-2);font-weight:600;color:var(--accent);font-size:.8r
 
 
 
+<button class="sidebar-toggle" onclick="sbToggle()">☰ Subjects</button>
+<div class="sidebar-overlay" onclick="sbToggle()"></div>
+<div class="page-wrap">
+<aside class="sidebar">
+  <div class="sidebar-title">Subjects</div>
+  <ul class="sidebar-subjects">
+    <li><a href="#acw1120"><span class="sub-code">ACW1120</span> — Financial Accounting 1</a></li>
+    <li><a href="#bfw1001"><span class="sub-code">BFW1001</span> — Foundations of Finance</a></li>
+    <li><a href="#btw1042"><span class="sub-code">BTW1042</span> — Business Law</a></li>
+    <li><a href="#ecm1953"><span class="sub-code">ECM1953</span> — Economics</a></li>
+    <li><a href="#etw1001"><span class="sub-code">ETW1001</span> — Business Statistics</a></li>
+    <li><a href="#mgw1010"><span class="sub-code">MGW1010</span> — Management</a></li>
+    <li><a href="#acw2220"><span class="sub-code">ACW2220</span> — Management Accounting</a></li>
+    <li><a href="#etc2440"><span class="sub-code">ETC2440</span> — Analytics &amp; Econometrics</a></li>
+    <li><a href="#quickref"><span class="sub-code">Quick Ref</span> — Formulas</a></li>
+  </ul>
+</aside>
+<div class="main-content">
+<button class="sidebar-toggle" onclick="sbToggle()">☰ Subjects</button>
+<div class="sidebar-overlay" onclick="sbToggle()"></div>
+<div class="page-wrap">
+<aside class="sidebar">
+  <div class="sidebar-title">Subjects</div>
+  <ul class="sidebar-subjects">
+    <li><a href="#acw1120"><span class="sub-code">ACW1120</span> — Financial Accounting 1</a></li>
+    <li><a href="#bfw1001"><span class="sub-code">BFW1001</span> — Foundations of Finance</a></li>
+    <li><a href="#btw1042"><span class="sub-code">BTW1042</span> — Business Law</a></li>
+    <li><a href="#ecm1953"><span class="sub-code">ECM1953</span> — Economics</a></li>
+    <li><a href="#etw1001"><span class="sub-code">ETW1001</span> — Business Statistics</a></li>
+    <li><a href="#mgw1010"><span class="sub-code">MGW1010</span> — Management</a></li>
+    <li><a href="#acw2220"><span class="sub-code">ACW2220</span> — Management Accounting</a></li>
+    <li><a href="#etc2440"><span class="sub-code">ETC2440</span> — Analytics &amp; Econometrics</a></li>
+    <li><a href="#quickref"><span class="sub-code">Quick Ref</span> — Formulas</a></li>
+  </ul>
+</aside>
+<div class="main-content">
 <div class="container">
 <div class="timer-bar">
 <span>📅 Exam season mode: Focus on highlighted sections</span>
@@ -1585,5 +1709,17 @@ th{background:var(--surface-2);font-weight:600;color:var(--accent);font-size:.8r
 
 <button class="cram-toggle" onclick="document.body.classList.toggle('cram-mode')">Toggle Cram Mode</button>
 
+<script>
+/* Sidebar scrollspy + smooth scroll */
+const sbLinks=document.querySelectorAll('.sidebar-subjects a');
+const sections=document.querySelectorAll('h2[id]');
+sbLinks.forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t){t.scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('.sidebar')?.classList.remove('open');document.querySelector('.sidebar-overlay')?.classList.remove('show')}})});
+const io=new IntersectionObserver((entries)=>{entries.forEach(en=>{if(en.isIntersecting){sbLinks.forEach(l=>l.classList.remove('active'));const a=document.querySelector('.sidebar-subjects a[href="#'+en.target.id+'"]');if(a)a.classList.add('active')}})},{rootMargin:'-80px 0px -60% 0px',threshold:0});
+sections.forEach(s=>io.observe(s));
+function sbToggle(){document.querySelector('.sidebar').classList.toggle('open');document.querySelector('.sidebar-overlay').classList.toggle('show')}
+document.querySelector('.sidebar-overlay')?.addEventListener('click',()=>{document.querySelector('.sidebar').classList.remove('open');document.querySelector('.sidebar-overlay').classList.remove('show')});
+</script>
+</div>
+</div>
 </body>
 </html>
