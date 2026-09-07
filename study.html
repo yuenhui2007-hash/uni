@@ -2002,7 +2002,6 @@ function getSectionElements(h2){
 
 function showSubject(id){
   try {
-    console.log('showSubject called with:', id);
     if(!id || id==='all'){
       allH2.forEach(h2=>{
         h2.style.display='';
@@ -2032,7 +2031,6 @@ function showSubject(id){
     if(overlay)overlay.classList.remove('show');
   } catch(err) {
     console.error('showSubject error:',err);
-    // Fallback: show everything
     allH2.forEach(h2=>{h2.style.display='';getSectionElements(h2).forEach(e=>e.style.display='');});
   }
 }
@@ -2041,8 +2039,11 @@ sbLinks.forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const id=a
 function sbToggle(){document.querySelector('.sidebar').classList.toggle('open');document.querySelector('.sidebar-overlay').classList.toggle('show')}
 const overlayEl=document.querySelector('.sidebar-overlay');
 if(overlayEl)overlayEl.addEventListener('click',()=>{document.querySelector('.sidebar').classList.remove('open');document.querySelector('.sidebar-overlay').classList.remove('show')});
-window.addEventListener('hashchange',()=>{const id=window.location.hash.replace('#','');showSubject(id||'all')});
-window.addEventListener('DOMContentLoaded',()=>{const id=window.location.hash.replace('#','');showSubject(id||'all')});
+
+// IMPORTANT: Show ALL content by default - no hash filtering on load
+window.addEventListener('DOMContentLoaded',()=>{
+  allH2.forEach(h2=>{h2.style.display='';getSectionElements(h2).forEach(e=>e.style.display='');});
+});
 </script>
 </div>
 </div>
