@@ -2002,8 +2002,12 @@ function getSectionElements(h2){
 
 function showSubject(id){
   try {
-    if(id==='all'){
-      allH2.forEach(h2=>{h2.style.display='';getSectionElements(h2).forEach(e=>e.style.display='')});
+    console.log('showSubject called with:', id);
+    if(!id || id==='all'){
+      allH2.forEach(h2=>{
+        h2.style.display='';
+        getSectionElements(h2).forEach(e=>e.style.display='');
+      });
       activeFilter=null;
       window.scrollTo({top:0,behavior:'smooth'});
     } else {
@@ -2016,7 +2020,7 @@ function showSubject(id){
       const target=document.getElementById(id);
       if(target){
         target.style.display='';
-        target.scrollIntoView({behavior:'smooth',block:'start'});
+        setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}),50);
       }
     }
     sbLinks.forEach(l=>l.classList.remove('active'));
@@ -2028,6 +2032,8 @@ function showSubject(id){
     if(overlay)overlay.classList.remove('show');
   } catch(err) {
     console.error('showSubject error:',err);
+    // Fallback: show everything
+    allH2.forEach(h2=>{h2.style.display='';getSectionElements(h2).forEach(e=>e.style.display='');});
   }
 }
 
@@ -2035,8 +2041,8 @@ sbLinks.forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const id=a
 function sbToggle(){document.querySelector('.sidebar').classList.toggle('open');document.querySelector('.sidebar-overlay').classList.toggle('show')}
 const overlayEl=document.querySelector('.sidebar-overlay');
 if(overlayEl)overlayEl.addEventListener('click',()=>{document.querySelector('.sidebar').classList.remove('open');document.querySelector('.sidebar-overlay').classList.remove('show')});
-window.addEventListener('hashchange',()=>{const id=window.location.hash.replace('#','');if(id)showSubject(id)});
-window.addEventListener('DOMContentLoaded',()=>{const id=window.location.hash.replace('#','');if(id)showSubject(id)});
+window.addEventListener('hashchange',()=>{const id=window.location.hash.replace('#','');showSubject(id||'all')});
+window.addEventListener('DOMContentLoaded',()=>{const id=window.location.hash.replace('#','');showSubject(id||'all')});
 </script>
 </div>
 </div>
