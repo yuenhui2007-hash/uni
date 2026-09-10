@@ -1,11 +1,1007 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=index.html">
-    <title>Redirecting...</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNI — Assignments</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+    --bg-primary: #15100C; --bg-secondary: #1C1510; --bg-card: #231A14; --bg-hover: #2E221A; --bg-elevated: #3A2C22;
+    --text-primary: #F2E6D8; --text-secondary: #BF9B7A; --text-muted: #8C5B3E; --text-faint: #593E2E;
+    --accent-cream: #F2E6D8; --accent-tan: #BF9B7A; --accent-rust: #8C5B3E; --accent-espresso: #593E2E;
+    --border-color: rgba(191,155,122,0.10); --border-light: rgba(191,155,122,0.18);
+    --gradient-primary: linear-gradient(135deg, #BF9B7A 0%, #8C5B3E 100%);
+    --font-serif: 'Cormorant Garamond', Georgia, serif; --font-sans: 'Inter', sans-serif; --font-mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; }
+
+/* Layout */
+.container { display: flex; min-height: 100vh; }
+
+/* Sidebar */
+.sidebar { width: 280px; background: var(--bg-secondary); border-right: 1px solid var(--border-color); padding: 2rem 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
+.sidebar-brand { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: var(--accent-cream); margin-bottom: 0.25rem; letter-spacing: -0.02em; }
+.sidebar-sub { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 2rem; }
+
+.subject-list { list-style: none; }
+.subject-list li { margin-bottom: 0.5rem; }
+.subject-btn {
+    width: 100%; text-align: left; padding: 0.85rem 1rem; border-radius: 10px;
+    border: 1px solid transparent; background: transparent; color: var(--text-secondary);
+    font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; cursor: pointer;
+    transition: all 0.2s ease; display: flex; align-items: center; gap: 0.75rem;
+}
+.subject-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+.subject-btn.active { background: var(--bg-elevated); border-color: var(--border-light); color: var(--accent-cream); }
+.subject-btn .code { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); min-width: 56px; }
+.subject-btn.active .code { color: var(--accent-tan); }
+
+/* Main Content */
+.main { flex: 1; margin-left: 280px; padding: 2.5rem 3rem; max-width: 900px; }
+.page-header { margin-bottom: 2.5rem; }
+.page-header h1 { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; color: var(--accent-cream); margin-bottom: 0.5rem; }
+.page-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+/* Subject Header */
+.subject-header { display: none; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); }
+.subject-header.active { display: block; }
+.subject-header h2 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 600; color: var(--accent-cream); margin-bottom: 0.25rem; }
+.subject-header .meta { color: var(--text-muted); font-size: 0.85rem; }
+
+/* Q&A Cards */
+.qa-list { display: none; }
+.qa-list.active { display: block; }
+
+.qa-card {
+    background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px;
+    margin-bottom: 1rem; overflow: hidden; transition: border-color 0.2s ease;
+}
+.qa-card:hover { border-color: var(--border-light); }
+
+.qa-question {
+    padding: 1.25rem 1.5rem; cursor: pointer; display: flex; align-items: flex-start; gap: 1rem;
+    transition: background 0.2s ease;
+}
+.qa-question:hover { background: var(--bg-hover); }
+.qa-num {
+    width: 32px; height: 32px; border-radius: 8px; background: var(--gradient-primary);
+    display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700;
+    color: var(--bg-primary); flex-shrink: 0; margin-top: 2px;
+}
+.qa-text { flex: 1; font-size: 0.95rem; line-height: 1.6; color: var(--text-primary); font-weight: 500; }
+.qa-toggle { color: var(--text-muted); font-size: 0.8rem; transition: transform 0.2s ease; margin-top: 4px; }
+.qa-card.open .qa-toggle { transform: rotate(180deg); }
+
+.qa-answer {
+    max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 1.5rem 0 3.5rem;
+}
+.qa-card.open .qa-answer {
+    max-height: 2000px; padding-bottom: 1.5rem;
+}
+.answer-inner {
+    background: var(--bg-secondary); border-left: 3px solid var(--accent-rust);
+    padding: 1.25rem 1.5rem; border-radius: 0 10px 10px 0; font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary);
+}
+.answer-inner strong { color: var(--accent-tan); }
+.answer-inner ul { margin: 0.75rem 0 0.75rem 1.25rem; }
+.answer-inner li { margin-bottom: 0.4rem; }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .sidebar { width: 100%; position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); }
+    .main { margin-left: 0; padding: 1.5rem; max-width: 100%; }
+    .container { flex-direction: column; }
+}
+</style>
 </head>
 <body>
-    <p>Redirecting to <a href="index.html">Dashboard</a>...</p>
+<div class="container">
+    <aside class="sidebar">
+        <div class="sidebar-brand">UNI</div>
+        <div class="sidebar-sub">Assignments — 5 per subject</div>
+        <ul class="subject-list">
+            <li><button class="subject-btn active" data-subject="acw1120"><span class="code">ACW1120</span> Financial Accounting</button></li>
+            <li><button class="subject-btn" data-subject="acw2220"><span class="code">ACW2220</span> Management Accounting</button></li>
+            <li><button class="subject-btn" data-subject="bfw1001"><span class="code">BFW1001</span> Business Frameworks</button></li>
+            <li><button class="subject-btn" data-subject="btw1042"><span class="code">BTW1042</span> Business Technology</button></li>
+            <li><button class="subject-btn" data-subject="ecm1953"><span class="code">ECM1953</span> Economics</button></li>
+            <li><button class="subject-btn" data-subject="etc2440"><span class="code">ETC2440</span> Business Statistics</button></li>
+            <li><button class="subject-btn" data-subject="etw1001"><span class="code">ETW1001</span> Business Law</button></li>
+            <li><button class="subject-btn" data-subject="mgw1010"><span class="code">MGW1010</span> Management</button></li>
+        </ul>
+    </aside>
+
+    <main class="main">
+        <div class="page-header">
+            <h1>Assignments</h1>
+            <p>Select a subject from the sidebar to view its 5 questions and model answers.</p>
+        </div>
+
+        <!-- ACW1120 -->
+        <div class="subject-header active" data-subject="acw1120">
+            <h2>Financial Accounting</h2>
+            <div class="meta">ACW1120 &middot; 5 Questions</div>
+        </div>
+        <div class="qa-list active" data-subject="acw1120">
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">1</div>
+                    <div class="qa-text">Hui Traders began business on 1 March 2026 with $50,000 cash. Record the opening entry and identify which accounting elements are affected.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Journal Entry:</strong><br>
+                        Debit: Cash $50,000<br>
+                        Credit: Capital $50,000<br><br>
+                        <strong>Accounting Elements:</strong><br>
+                        Assets (Cash) increase by $50,000.<br>
+                        Equity (Capital) increases by $50,000.<br>
+                        The accounting equation remains balanced: Assets = Liabilities + Equity.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">2</div>
+                    <div class="qa-text">On 3 March, Hui Traders purchased inventory on credit from Supplier A for $8,500. Prepare the journal entry and state the effect on the accounting equation.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Journal Entry:</strong><br>
+                        Debit: Inventory $8,500<br>
+                        Credit: Accounts Payable $8,500<br><br>
+                        <strong>Effect on Accounting Equation:</strong><br>
+                        Assets (Inventory) increase by $8,500.<br>
+                        Liabilities (Accounts Payable) increase by $8,500.<br>
+                        Equity is unchanged. Total assets = $58,500; Total liabilities + equity = $58,500.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">3</div>
+                    <div class="qa-text">On 5 March, goods were sold for cash $4,200 (cost $2,800). Prepare both the sales and cost of sales entries.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Entry 1 — Record Revenue:</strong><br>
+                        Debit: Cash $4,200<br>
+                        Credit: Sales Revenue $4,200<br><br>
+                        <strong>Entry 2 — Record Cost:</strong><br>
+                        Debit: Cost of Sales $2,800<br>
+                        Credit: Inventory $2,800<br><br>
+                        <strong>Gross Profit:</strong> $4,200 − $2,800 = <strong>$1,400</strong><br>
+                        Assets increase by $1,400 net (Cash +$4,200, Inventory −$2,800). Equity increases by $1,400 via Retained Earnings.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">4</div>
+                    <div class="qa-text">On 10 March, goods were sold on credit to Customer B for $6,000 (cost $4,000). Explain the difference between a cash sale and a credit sale in terms of asset changes.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Journal Entries:</strong><br>
+                        Debit: Accounts Receivable $6,000<br>
+                        Credit: Sales Revenue $6,000<br><br>
+                        Debit: Cost of Sales $4,000<br>
+                        Credit: Inventory $4,000<br><br>
+                        <strong>Cash Sale vs Credit Sale:</strong><br>
+                        <strong>Cash sale:</strong> Cash (asset) increases immediately. Liquidity improves instantly.<br>
+                        <strong>Credit sale:</strong> Accounts Receivable (asset) increases instead of Cash. Liquidity is delayed until payment is received. There is also a credit risk — the customer may not pay.<br><br>
+                        Net asset increase: $2,000 (Receivable +$6,000, Inventory −$4,000).
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">5</div>
+                    <div class="qa-text">At 31 March, extract a trial balance using the following balances: Cash $36,700; Inventory $1,700; Equipment $12,000; Accounts Receivable $3,000; Accounts Payable $3,500; Capital $50,000; Drawings $2,000; Sales $10,200; Cost of Sales $6,800; Rent Expense $1,500.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Hui Traders — Trial Balance at 31 March 2026</strong><br><br>
+                        <strong>Debits:</strong><br>
+                        Cash $36,700<br>
+                        Inventory $1,700<br>
+                        Equipment $12,000<br>
+                        Accounts Receivable $3,000<br>
+                        Drawings $2,000<br>
+                        Cost of Sales $6,800<br>
+                        Rent Expense $1,500<br>
+                        <strong>Total Debits: $63,700</strong><br><br>
+                        <strong>Credits:</strong><br>
+                        Accounts Payable $3,500<br>
+                        Capital $50,000<br>
+                        Sales $10,200<br>
+                        <strong>Total Credits: $63,700</strong><br><br>
+                        The trial balance balances, confirming arithmetical accuracy.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACW2220 -->
+        <div class="subject-header" data-subject="acw2220">
+            <h2>Management Accounting</h2>
+            <div class="meta">ACW2220 &middot; 5 Questions</div>
+        </div>
+        <div class="qa-list" data-subject="acw2220">
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">1</div>
+                    <div class="qa-text">Define management accounting and explain two key differences between management accounting and financial accounting.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Definition:</strong> Management accounting is the process of identifying, measuring, analysing, and communicating financial information to managers for planning, controlling, and decision-making within an organisation.<br><br>
+                        <strong>Key Differences:</strong><br>
+                        1. <strong>Users:</strong> Management accounting serves internal managers; financial accounting serves external stakeholders (investors, regulators, creditors).<br>
+                        2. <strong>Regulation:</strong> Financial accounting must comply with accounting standards (IFRS/AASB); management accounting has no mandatory standards — formats are tailored to managerial needs.<br>
+                        3. <strong>Time focus:</strong> Financial accounting is historical; management accounting is forward-looking (budgets, forecasts).
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">2</div>
+                    <div class="qa-text">A company produces 5,000 units with total fixed costs of $20,000 and variable costs of $8 per unit. Calculate the total cost and cost per unit at production levels of 4,000 and 6,000 units.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>At 4,000 units:</strong><br>
+                        Variable cost = 4,000 × $8 = $32,000<br>
+                        Total cost = $32,000 + $20,000 = <strong>$52,000</strong><br>
+                        Cost per unit = $52,000 ÷ 4,000 = <strong>$13.00</strong><br><br>
+                        <strong>At 5,000 units (original):</strong><br>
+                        Variable cost = 5,000 × $8 = $40,000<br>
+                        Total cost = $40,000 + $20,000 = <strong>$60,000</strong><br>
+                        Cost per unit = $60,000 ÷ 5,000 = <strong>$12.00</strong><br><br>
+                        <strong>At 6,000 units:</strong><br>
+                        Variable cost = 6,000 × $8 = $48,000<br>
+                        Total cost = $48,000 + $20,000 = <strong>$68,000</strong><br>
+                        Cost per unit = $68,000 ÷ 6,000 = <strong>$11.33</strong><br><br>
+                        <strong>Insight:</strong> As volume increases, fixed cost is spread over more units, reducing the per-unit cost (economies of scale).
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">3</div>
+                    <div class="qa-text">Explain the difference between direct costs and indirect costs, providing two examples of each for a furniture manufacturing business.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Direct Costs:</strong> Costs that can be specifically and conveniently traced to a particular cost object (product, department, or project).<br>
+                        <em>Examples for furniture manufacturing:</em><br>
+                        1. Timber and upholstery materials used in a specific sofa<br>
+                        2. Wages of carpenters working directly on the furniture<br><br>
+                        <strong>Indirect Costs (Overheads):</strong> Costs that cannot be easily traced to a specific cost object and must be allocated.<br>
+                        <em>Examples:</em><br>
+                        1. Factory rent and utilities<br>
+                        2. Depreciation of factory equipment<br><br>
+                        <strong>Why it matters:</strong> Accurate classification ensures proper product costing and pricing decisions. Misclassification distorts profitability analysis.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">4</div>
+                    <div class="qa-text">A product sells for $50 per unit, variable cost is $30 per unit, and total fixed costs are $10,000. Calculate the break-even point in units and in sales dollars.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Contribution Margin per unit:</strong><br>
+                        Selling price − Variable cost = $50 − $30 = <strong>$20</strong><br><br>
+                        <strong>Break-even in units:</strong><br>
+                        Fixed costs ÷ Contribution margin per unit<br>
+                        = $10,000 ÷ $20 = <strong>500 units</strong><br><br>
+                        <strong>Break-even in sales dollars:</strong><br>
+                        500 units × $50 = <strong>$25,000</strong><br><br>
+                        Alternatively: Fixed costs ÷ CM ratio<br>
+                        CM ratio = $20 ÷ $50 = 40%<br>
+                        $10,000 ÷ 0.40 = <strong>$25,000</strong><br><br>
+                        <strong>Interpretation:</strong> The company must sell 500 units (or $25,000 worth) to cover all costs. Every unit sold beyond 500 contributes $20 to profit.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">5</div>
+                    <div class="qa-text">Describe the three main purposes of budgeting and explain how a flexible budget differs from a static budget.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Three Main Purposes of Budgeting:</strong><br>
+                        1. <strong>Planning:</strong> Forces managers to think ahead, set targets, and allocate resources effectively.<br>
+                        2. <strong>Control:</strong> Provides a benchmark against which actual performance is compared; variances highlight areas needing attention.<br>
+                        3. <strong>Coordination & Communication:</strong> Aligns different departments toward common organisational goals.<br><br>
+                        <strong>Static vs Flexible Budget:</strong><br>
+                        <strong>Static budget:</strong> Prepared for a single, planned level of activity. Does not change even if actual output differs. Good for planning but poor for control when volumes vary.<br><br>
+                        <strong>Flexible budget:</strong> Adjusts costs and revenues to the actual level of activity achieved. Shows what costs <em>should have been</em> at the actual output level. Enables meaningful variance analysis by separating volume effects from efficiency effects.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BFW1001 -->
+        <div class="subject-header" data-subject="bfw1001">
+            <h2>Business Frameworks</h2>
+            <div class="meta">BFW1001 &middot; 5 Questions</div>
+        </div>
+        <div class="qa-list" data-subject="bfw1001">
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">1</div>
+                    <div class="qa-text">Explain Porter's Five Forces model and identify one force that is typically strongest for a new airline entering the Australian market.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Porter's Five Forces:</strong> A framework for analysing industry competition and profitability.<br><br>
+                        1. <strong>Threat of New Entrants:</strong> Barriers to entry (capital, regulations, brand loyalty) protect incumbents.<br>
+                        2. <strong>Bargaining Power of Suppliers:</strong> Few suppliers (e.g., aircraft manufacturers) can raise prices.<br>
+                        3. <strong>Bargaining Power of Buyers:</strong> Customers can switch easily if alternatives exist.<br>
+                        4. <strong>Threat of Substitutes:</strong> Trains, video conferencing, or driving can replace air travel.<br>
+                        5. <strong>Competitive Rivalry:</strong> Intensity of competition among existing firms.<br><br>
+                        <strong>Strongest force for a new airline in Australia:</strong><br>
+                        <strong>Competitive Rivalry</strong> — Qantas and Virgin Australia dominate; price wars are intense; customer loyalty programs create switching costs. A new entrant faces brutal competition for market share.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">2</div>
+                    <div class="qa-text">What is a SWOT analysis? Apply it to Netflix, identifying one strength, one weakness, one opportunity, and one threat.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>SWOT Analysis:</strong> A strategic planning tool that evaluates internal <strong>S</strong>trengths and <strong>W</strong>eaknesses, and external <strong>O</strong>pportunities and <strong>T</strong>hreats.<br><br>
+                        <strong>Netflix SWOT:</strong><br><br>
+                        <strong>Strength:</strong> Strong original content library and global brand recognition create customer loyalty and reduce churn.<br><br>
+                        <strong>Weakness:</strong> Heavy reliance on debt financing for content production; rising interest rates increase borrowing costs.<br><br>
+                        <strong>Opportunity:</strong> Expansion into gaming and live events (sports, concerts) to diversify revenue beyond subscription streaming.<br><br>
+                        <strong>Threat:</strong> Intensifying competition from Disney+, Amazon Prime, Apple TV+, and local platforms fragmenting market share and driving up content acquisition costs.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">3</div>
+                    <div class="qa-text">Describe the Business Model Canvas and name two of its nine building blocks.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Business Model Canvas (BMC):</strong> A visual strategic management tool developed by Alexander Osterwalder. It captures how a company creates, delivers, and captures value on a single page.<br><br>
+                        <strong>Nine Building Blocks:</strong><br>
+                        1. Customer Segments<br>
+                        2. Value Propositions<br>
+                        3. Channels<br>
+                        4. Customer Relationships<br>
+                        5. Revenue Streams<br>
+                        6. Key Resources<br>
+                        7. Key Activities<br>
+                        8. Key Partnerships<br>
+                        9. Cost Structure<br><br>
+                        <strong>Two blocks explained:</strong><br><br>
+                        <strong>Value Propositions:</strong> The bundle of products and services that create value for a specific customer segment. It solves a customer problem or satisfies a need. Example: Apple's value proposition is premium design, seamless ecosystem integration, and user experience.<br><br>
+                        <strong>Revenue Streams:</strong> How the company generates cash from each customer segment. Types include asset sales, subscription fees, licensing, advertising, and freemium models. Example: Spotify uses subscription fees (Premium) and advertising (Free tier).
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">4</div>
+                    <div class="qa-text">Distinguish between corporate-level strategy and business-level strategy, giving one example of each.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Corporate-Level Strategy:</strong> Concerns the overall scope of the organisation and how value is created across multiple business units. It answers: <em>What businesses should we be in?</em><br><br>
+                        <strong>Example:</strong> Alphabet (Google's parent) pursues a <strong>related diversification</strong> strategy — it operates in search (Google), cloud (Google Cloud), autonomous vehicles (Waymo), and life sciences (Verily), leveraging shared data and AI capabilities across units.<br><br>
+                        <strong>Business-Level Strategy:</strong> Concerns how a specific business unit competes within its industry. It answers: <em>How should we compete?</em><br><br>
+                        <strong>Example:</strong> Within Alphabet, Google Search pursues a <strong>cost leadership</strong> strategy for its advertising platform — massive scale, automated auctions, and low marginal cost per ad impression make it the dominant player. Meanwhile, Waymo pursues <strong>differentiation</strong> through technological leadership in autonomous driving.<br><br>
+                        <strong>Key distinction:</strong> Corporate strategy is about portfolio composition; business strategy is about competitive positioning within a market.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">5</div>
+                    <div class="qa-text">Explain the concept of the Triple Bottom Line (TBL) and why it matters for modern business strategy.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Triple Bottom Line (TBL):</strong> A sustainability framework coined by John Elkington that argues companies should measure success not just by profit (the traditional bottom line), but across three dimensions:<br><br>
+                        1. <strong>People (Social):</strong> Fair treatment of employees, community impact, ethical supply chains, diversity and inclusion.<br>
+                        2. <strong>Planet (Environmental):</strong> Carbon footprint, waste reduction, sustainable sourcing, circular economy practices.<br>
+                        3. <strong>Profit (Economic):</strong> Financial viability and shareholder returns — the traditional measure.<br><br>
+                        <strong>Why it matters:</strong><br>
+                        • <strong>Investor pressure:</strong> ESG (Environmental, Social, Governance) funds now manage trillions of dollars; poor ESG performance can limit capital access.<br>
+                        • <strong>Consumer preference:</strong> Studies show consumers (especially Gen Z) prefer brands with authentic sustainability commitments.<br>
+                        • <strong>Regulatory risk:</strong> Carbon pricing, emissions disclosure mandates, and supply chain due diligence laws are expanding globally.<br>
+                        • <strong>Long-term resilience:</strong> Resource-efficient operations and strong stakeholder relationships reduce operational and reputational risks.<br><br>
+                        <strong>Criticism:</strong> TBL can be vague and hard to quantify; "greenwashing" undermines credibility when companies claim sustainability without substance.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BTW1042 -->
+        <div class="subject-header" data-subject="btw1042">
+            <h2>Business Technology</h2>
+            <div class="meta">BTW1042 &middot; 5 Questions</div>
+        </div>
+        <div class="qa-list" data-subject="btw1042">
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">1</div>
+                    <div class="qa-text">Define cloud computing and explain the three main service models: IaaS, PaaS, and SaaS.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Cloud Computing:</strong> Delivery of computing services (servers, storage, databases, networking, software) over the internet ("the cloud") on a pay-as-you-go basis. It replaces capital-intensive on-premises infrastructure with scalable, flexible, and cost-efficient resources.<br><br>
+                        <strong>Three Service Models:</strong><br><br>
+                        1. <strong>IaaS (Infrastructure as a Service):</strong> Provides virtualised computing resources — servers, storage, networks. The user manages the OS, applications, and data. <em>Example:</em> Amazon EC2, Microsoft Azure VMs. Highest flexibility, highest management burden.<br><br>
+                        2. <strong>PaaS (Platform as a Service):</strong> Provides a development platform with tools, libraries, and middleware. The user writes code and manages data; the provider manages the infrastructure and runtime. <em>Example:</em> Google App Engine, Heroku. Balances control with convenience.<br><br>
+                        3. <strong>SaaS (Software as a Service):</strong> Delivers fully functional applications over the internet. The user simply uses the software; the provider manages everything. <em>Example:</em> Microsoft 365, Salesforce, Zoom. Lowest control, lowest management burden.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">2</div>
+                    <div class="qa-text">What is a database management system (DBMS)? Contrast SQL and NoSQL databases with one example of each.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>DBMS:</strong> Software that enables users to create, manage, and manipulate databases. It provides tools for data storage, retrieval, security, integrity, and concurrency control. Acts as an intermediary between users/applications and the physical database.<br><br>
+                        <strong>SQL (Relational) Databases:</strong><br>
+                        Store data in structured tables with predefined schemas. Use SQL (Structured Query Language) for queries. Best for complex transactions and relationships. <em>Example:</em> PostgreSQL — an open-source RDBMS used by enterprises for financial data, CRM systems, and complex reporting.<br><br>
+                        <strong>NoSQL (Non-relational) Databases:</strong><br>
+                        Store data in flexible formats (documents, key-value pairs, graphs, wide-columns). Schema is dynamic. Best for unstructured/big data, rapid scaling, and agile development. <em>Example:</em> MongoDB — a document-oriented database storing JSON-like documents. Used by companies like Uber and eBay for real-time analytics and content management.<br><br>
+                        <strong>When to choose:</strong> SQL for structured data with complex relationships; NoSQL for massive scale, unstructured data, or rapid iteration.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">3</div>
+                    <div class="qa-text">Explain the concept of cybersecurity and describe three common types of cyber threats facing businesses today.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Cybersecurity:</strong> The practice of protecting systems, networks, programs, devices, and data from digital attacks, unauthorised access, damage, or theft. It encompasses technologies, processes, and controls designed to safeguard confidentiality, integrity, and availability (the CIA triad).<br><br>
+                        <strong>Three Common Threats:</strong><br><br>
+                        1. <strong>Phishing:</strong> Fraudulent emails or messages that trick recipients into revealing credentials or downloading malware. Highly effective because it exploits human psychology (urgency, authority). Mitigation: email filtering, user training, multi-factor authentication (MFA).<br><br>
+                        2. <strong>Ransomware:</strong> Malware that encrypts a victim's data and demands payment for decryption. Can paralyse operations. High-profile cases: Colonial Pipeline (2021), Optus (2022). Mitigation: regular backups, network segmentation, endpoint detection.<br><br>
+                        3. <strong>SQL Injection:</strong> Attackers insert malicious SQL code into input fields to manipulate database queries. Can expose sensitive data, modify records, or delete databases. Mitigation: parameterized queries, input validation, web application firewalls (WAFs).<br><br>
+                        <strong>Business impact:</strong> Average cost of a data breach in Australia exceeds $4 million (IBM, 2023). Reputational damage and regulatory fines (under the Privacy Act and GDPR) compound the financial loss.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">4</div>
+                    <div class="qa-text">What is an ERP system? Describe two benefits and two challenges of implementing ERP in a mid-sized company.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>ERP (Enterprise Resource Planning):</strong> Integrated software suite that manages core business processes — finance, HR, manufacturing, supply chain, CRM, inventory — in a single unified database. Examples: SAP, Oracle NetSuite, Microsoft Dynamics.<br><br>
+                        <strong>Two Benefits:</strong><br><br>
+                        1. <strong>Data integration & visibility:</strong> Eliminates data silos. A sales order automatically updates inventory, triggers procurement if stock is low, and records revenue in finance. Real-time dashboards give managers a single source of truth.<br><br>
+                        2. <strong>Process standardisation:</strong> Enforces consistent workflows across departments and locations. Reduces errors, improves compliance, and enables scalable growth.<br><br>
+                        <strong>Two Challenges:</strong><br><br>
+                        1. <strong>High cost & complexity:</strong> Implementation can cost millions and take 12–24 months. Customisation, data migration, and change management are resource-intensive. Mid-sized companies may lack the budget and IT expertise.<br><br>
+                        2. <strong>Organisational resistance:</strong> Employees accustomed to legacy systems may resist new workflows. Without strong leadership support and training, adoption suffers and ROI is delayed. "The software is only as good as the people using it."
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">5</div>
+                    <div class="qa-text">Describe how artificial intelligence (AI) and machine learning (ML) are being used in modern business, with two practical examples.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>AI vs ML:</strong> AI is the broad capability of machines to perform tasks that require human intelligence (reasoning, perception, decision-making). ML is a subset of AI where systems learn from data without explicit programming, improving performance over time.<br><br>
+                        <strong>Two Practical Business Applications:</strong><br><br>
+                        1. <strong>Predictive analytics in retail:</strong> Amazon uses ML algorithms to analyse purchase history, browsing behaviour, and demographic data to predict what customers will buy next. This powers recommendation engines ("Customers who bought X also bought Y"), dynamic pricing, and demand forecasting — reducing inventory costs and increasing sales conversion.<br><br>
+                        2. <strong>Customer service automation:</strong> Banks like Commonwealth Bank deploy AI-powered chatbots (using natural language processing) to handle routine inquiries 24/7 — balance checks, transaction disputes, password resets. This reduces call centre costs, improves response times, and frees human agents for complex issues. Sentiment analysis can escalate angry customers to human supervisors automatically.<br><br>
+                        <strong>Ethical considerations:</strong> Bias in training data, lack of transparency ("black box" problem), and job displacement are significant concerns requiring governance frameworks.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ECM1953 -->
+        <div class="subject-header" data-subject="ecm1953">
+            <h2>Economics</h2>
+            <div class="meta">ECM1953 &middot; 5 Questions</div>
+        </div>
+        <div class="qa-list" data-subject="ecm1953">
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">1</div>
+                    <div class="qa-text">Define scarcity and explain why it is the fundamental economic problem that all societies face.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Scarcity:</strong> The condition where human wants for goods, services, and resources exceed what is available. Resources (land, labour, capital, entrepreneurship) are finite, but human desires are effectively infinite.<br><br>
+                        <strong>Why it is the fundamental economic problem:</strong><br><br>
+                        Because scarcity forces every society to make choices. We cannot have everything we want, so we must decide:<br>
+                        • <strong>What to produce?</strong> Should we build hospitals or highways?<br>
+                        • <strong>How to produce?</strong> Labour-intensive or capital-intensive methods?<br>
+                        • <strong>For whom to produce?</strong> Who gets the goods — the rich, the poor, or everyone equally?<br><br>
+                        These three questions form the core of economic systems. Different societies answer them differently: market economies use prices and incentives; command economies use central planning; mixed economies combine both.<br><br>
+                        <strong>Key insight:</strong> Economics is not the study of money — it is the study of how individuals, businesses, and societies allocate scarce resources to satisfy unlimited wants.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">2</div>
+                    <div class="qa-text">Distinguish between a change in demand and a change in quantity demanded, using a relevant example.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Change in Quantity Demanded:</strong> A movement <em>along</em> the demand curve caused solely by a change in the good's own price. All other factors held constant (ceteris paribus).<br><br>
+                        <strong>Example:</strong> If the price of coffee rises from $4 to $5 per cup, consumers buy less coffee. This is a movement upward along the demand curve — not a shift of the curve.<br><br>
+                        <strong>Change in Demand:</strong> A <em>shift</em> of the entire demand curve caused by non-price determinants: income, tastes, prices of related goods, expectations, or number of buyers.<br><br>
+                        <strong>Example:</strong> A health study reveals coffee reduces heart disease risk. Consumer tastes shift favourably toward coffee. At <em>every</em> price, more coffee is demanded. The demand curve shifts rightward. Even at $4 (the original price), quantity demanded is now higher.<br><br>
+                        <strong>Visual distinction:</strong><br>
+                        • Quantity demanded: point moves along the curve<br>
+                        • Demand: the entire curve moves left or right<br><br>
+                        This distinction is critical for businesses forecasting sales and policymakers predicting tax revenue.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">3</div>
+                    <div class="qa-text">Explain price elasticity of demand (PED) and calculate PED when price falls from $10 to $8 and quantity demanded rises from 100 to 140 units.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Price Elasticity of Demand (PED):</strong> Measures the responsiveness of quantity demanded to a change in price. It shows how much consumers adjust their purchases when price changes.<br><br>
+                        <strong>Formula:</strong> PED = (% change in quantity demanded) ÷ (% change in price)<br><br>
+                        Using the <strong>midpoint (arc elasticity) method</strong> for accuracy:<br><br>
+                        %ΔQ = (140 − 100) ÷ [(140 + 100) ÷ 2] × 100<br>
+                        = 40 ÷ 120 × 100 = <strong>33.33%</strong><br><br>
+                        %ΔP = ($8 − $10) ÷ [($8 + $10) ÷ 2] × 100<br>
+                        = (−$2) ÷ $9 × 100 = <strong>−22.22%</strong><br><br>
+                        PED = 33.33% ÷ (−22.22%) = <strong>−1.5</strong><br><br>
+                        (We typically use the absolute value: <strong>PED = 1.5</strong>)<br><br>
+                        <strong>Interpretation:</strong> Since |PED| > 1, demand is <strong>elastic</strong>. A 1% price decrease leads to a 1.5% increase in quantity demanded. Total revenue rises when price falls (because the % gain in quantity outweighs the % loss in price).<br><br>
+                        <strong>Business implication:</strong> The firm should lower price to increase total revenue.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">4</div>
+                    <div class="qa-text">Describe the four phases of the business cycle and identify which phase Australia was likely in during 2023.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>The Business Cycle:</strong> Fluctuations in economic activity (real GDP) around its long-term growth trend. Four phases:<br><br>
+                        1. <strong>Expansion:</strong> GDP grows, unemployment falls, consumer confidence rises, investment increases. Inflation may begin to build. The economy operates above potential.<br><br>
+                        2. <strong>Peak:</strong> The highest point of economic activity before contraction begins. Resources are fully employed; inflationary pressures are strongest. The turning point.<br><br>
+                        3. <strong>Contraction (Recession):</strong> GDP declines for two consecutive quarters. Unemployment rises, business investment falls, consumer spending drops. If severe and prolonged, becomes a depression.<br><br>
+                        4. <strong>Trough:</strong> The lowest point of economic activity. High unemployment, low output, weak confidence. The turning point before recovery begins.<br><br>
+                        <strong>Australia in 2023:</strong><br>
+                        Australia was in the <strong>late expansion / approaching peak</strong> phase. GDP growth was positive but slowing (1.5–2%). Unemployment was near 50-year lows (~3.5%). However, the RBA was aggressively raising interest rates (from 0.1% to 4.35%) to combat inflation (peaked at ~7.8%). This monetary tightening was designed to cool the economy and avoid overheating — a classic late-expansion policy response.<br><br>
+                        By late 2023, many economists expected Australia to enter a mild contraction in 2024 as rate hikes fully impacted mortgage holders and consumer spending.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">5</div>
+                    <div class="qa-text">Explain comparative advantage and use a numerical example to show how two countries can benefit from trade even when one is more productive in both goods.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Comparative Advantage:</strong> A country has comparative advantage in producing a good if it can produce it at a lower opportunity cost than another country. Even if one country has absolute advantage in everything, both can gain from trade by specialising according to comparative advantage.<br><br>
+                        <strong>Example: Australia and Vietnam</strong><br><br>
+                        Labour hours required per unit:<br>
+                        <table style="border-collapse:collapse;margin:0.5rem 0;">
+                        <tr><td style="border:1px solid var(--border-color);padding:4px 12px;"></td><td style="border:1px solid var(--border-color);padding:4px 12px;"><strong>Wheat (hrs/ton)</strong></td><td style="border:1px solid var(--border-color);padding:4px 12px;"><strong>Clothing (hrs/unit)</strong></td></tr>
+                        <tr><td style="border:1px solid var(--border-color);padding:4px 12px;">Australia</td><td style="border:1px solid var(--border-color);padding:4px 12px;">2</td><td style="border:1px solid var(--border-color);padding:4px 12px;">6</td></tr>
+                        <tr><td style="border:1px solid var(--border-color);padding:4px 12px;">Vietnam</td><td style="border:1px solid var(--border-color);padding:4px 12px;">8</td><td style="border:1px solid var(--border-color);padding:4px 12px;">4</td></tr>
+                        </table><br>
+                        <strong>Absolute advantage:</strong> Australia is more efficient at both (lower hours).<br><br>
+                        <strong>Opportunity costs:</strong><br>
+                        • Australia: 1 wheat costs 2/6 = <strong>0.33 clothing</strong>; 1 clothing costs 6/2 = <strong>3 wheat</strong><br>
+                        • Vietnam: 1 wheat costs 8/4 = <strong>2 clothing</strong>; 1 clothing costs 4/8 = <strong>0.5 wheat</strong><br><br>
+                        <strong>Comparative advantage:</strong><br>
+                        • Australia has lower opportunity cost in wheat (0.33 < 2) → specialise in wheat<br>
+                        • Vietnam has lower opportunity cost in clothing (0.5 < 3) → specialise in clothing<br><br>
+                        <strong>Gains from trade:</strong> Before trade, Australia spent 6 hrs per clothing. By trading 1 wheat (2 hrs) for 1 clothing, it saves 4 hours. Vietnam spent 8 hrs per wheat; by trading 1 clothing (4 hrs) for 1 wheat, it saves 4 hours. Both are better off.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ETC2440 -->
+        <div class="subject-header" data-subject="etc2440">
+            <h2>Business Statistics</h2>
+            <div class="meta">ETC2440 &middot; 5 Questions</div>
+        </div>
+        <div class="qa-list" data-subject="etc2440">
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">1</div>
+                    <div class="qa-text">Distinguish between descriptive statistics and inferential statistics, giving one example of each.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Descriptive Statistics:</strong> Methods for organising, summarising, and presenting data in an informative way. They describe the dataset itself — no generalisation beyond the data.<br><br>
+                        <strong>Example:</strong> A retail chain calculates that the average (mean) monthly sales across its 50 stores was $450,000 with a standard deviation of $80,000. A histogram shows sales are right-skewed. These describe the existing data but make no claims about other stores or future months.<br><br>
+                        <strong>Inferential Statistics:</strong> Methods for making predictions, estimates, or generalisations about a population based on a sample of data. It involves probability and hypothesis testing.<br><br>
+                        <strong>Example:</strong> A political pollster surveys 1,200 randomly selected voters and finds 52% support Party A. Using inferential statistics, they construct a 95% confidence interval (e.g., 52% ± 3%) and conclude with 95% confidence that the true population support lies between 49% and 55%. They are inferring something about all voters from a sample.<br><br>
+                        <strong>Key distinction:</strong> Descriptive = "What does the data show?" Inferential = "What does the data suggest about the wider world?"
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">2</div>
+                    <div class="qa-text">Calculate the mean, median, and mode for the dataset: 12, 15, 18, 18, 22, 25, 30. Which measure is most appropriate for skewed data and why?</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Dataset:</strong> 12, 15, 18, 18, 22, 25, 30 (n = 7)<br><br>
+                        <strong>Mean:</strong><br>
+                        (12 + 15 + 18 + 18 + 22 + 25 + 30) ÷ 7 = 140 ÷ 7 = <strong>20</strong><br><br>
+                        <strong>Median:</strong><br>
+                        Ordered data has 7 values. The middle value (4th) = <strong>18</strong><br><br>
+                        <strong>Mode:</strong><br>
+                        Most frequent value = <strong>18</strong> (appears twice)<br><br>
+                        <strong>For skewed data:</strong><br>
+                        The <strong>median</strong> is most appropriate. Unlike the mean, the median is not affected by extreme values (outliers).<br><br>
+                        <strong>Example:</strong> House prices in a suburb are typically right-skewed — most houses cluster around $600k–$800k, but a few mansions at $5m+ pull the mean up to $1.2m. The median ($720k) better represents what a "typical" buyer pays. The mean would be misleading.<br><br>
+                        Similarly, income data is right-skewed (most earn modestly, a few earn millions). Reports use median household income, not mean, for this reason.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">3</div>
+                    <div class="qa-text">A normal distribution has a mean of 100 and standard deviation of 15. What percentage of values fall between 85 and 115? Explain using the empirical rule.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Empirical Rule (68-95-99.7 Rule):</strong> For a normal distribution:<br>
+                        • ~68% of data falls within μ ± 1σ<br>
+                        • ~95% of data falls within μ ± 2σ<br>
+                        • ~99.7% of data falls within μ ± 3σ<br><br>
+                        <strong>Given:</strong> μ = 100, σ = 15<br><br>
+                        <strong>Range 85 to 115:</strong><br>
+                        85 = 100 − 15 = μ − 1σ<br>
+                        115 = 100 + 15 = μ + 1σ<br><br>
+                        This range is exactly <strong>one standard deviation from the mean</strong>.<br><br>
+                        Therefore, approximately <strong>68%</strong> of values fall between 85 and 115.<br><br>
+                        <strong>Practical example:</strong> IQ scores are normally distributed with μ = 100, σ = 15. About 68% of the population has an IQ between 85 and 115. Only ~2.5% score above 130 (μ + 2σ) and ~2.5% below 70 (μ − 2σ).<br><br>
+                        <strong>Extension:</strong> Between 70 and 130 (μ ± 2σ), approximately 95% of values lie. Between 55 and 145 (μ ± 3σ), approximately 99.7% lie.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">4</div>
+                    <div class="qa-text">Explain Type I and Type II errors in hypothesis testing, using a courtroom analogy.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Hypothesis Testing Setup:</strong><br>
+                        • H₀ (null hypothesis): The default assumption (e.g., "the defendant is innocent")<br>
+                        • H₁ (alternative hypothesis): The claim we seek evidence for (e.g., "the defendant is guilty")<br><br>
+                        <strong>Type I Error (False Positive):</strong><br>
+                        Rejecting H₀ when it is actually true. Concluding there is an effect when there isn't.<br><br>
+                        <strong>Courtroom analogy:</strong> Convicting an innocent person. The jury rejects innocence (H₀) when the defendant is actually innocent. The probability of Type I error is α (significance level), typically set at 0.05.<br><br>
+                        <strong>Type II Error (False Negative):</strong><br>
+                        Failing to reject H₀ when it is actually false. Missing a real effect.<br><br>
+                        <strong>Courtroom analogy:</strong> Acquitting a guilty person. The jury fails to reject innocence (H₀) when the defendant is actually guilty. The probability of Type II error is β. Statistical power (1 − β) is the probability of correctly rejecting a false null.<br><br>
+                        <strong>Trade-off:</strong> Reducing α (stricter standards) increases β, and vice versa. In criminal courts, we set α very low ("beyond reasonable doubt") to minimise Type I errors — better to let 10 guilty go free than convict 1 innocent. In medical screening, we may accept higher α to catch more true cases (minimising Type II errors).
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">5</div>
+                    <div class="qa-text">A company surveys 100 customers and finds average satisfaction is 7.2 out of 10 with a standard deviation of 1.5. Construct a 95% confidence interval for the true population mean.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Formula for confidence interval (large sample, z-distribution):</strong><br>
+                        CI = x̄ ± z* × (s ÷ √n)<br><br>
+                        <strong>Given:</strong><br>
+                        • Sample mean (x̄) = 7.2<br>
+                        • Sample standard deviation (s) = 1.5<br>
+                        • Sample size (n) = 100<br>
+                        • Confidence level = 95% → z* = 1.96<br><br>
+                        <strong>Standard error (SE):</strong><br>
+                        SE = s ÷ √n = 1.5 ÷ √100 = 1.5 ÷ 10 = <strong>0.15</strong><br><br>
+                        <strong>Margin of error (ME):</strong><br>
+                        ME = z* × SE = 1.96 × 0.15 = <strong>0.294</strong><br><br>
+                        <strong>95% Confidence Interval:</strong><br>
+                        7.2 ± 0.294 = <strong>(6.91, 7.49)</strong><br><br>
+                        <strong>Interpretation:</strong> We are 95% confident that the true mean satisfaction score for all customers lies between 6.91 and 7.49. If we repeated this survey many times, 95% of the intervals constructed this way would contain the true population mean.<br><br>
+                        <strong>Note:</strong> With n = 100, using the z-distribution is appropriate. For smaller samples (n < 30), the t-distribution should be used instead.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ETW1001 -->
+        <div class="subject-header" data-subject="etw1001">
+            <h2>Business Law</h2>
+            <div class="meta">ETW1001 &middot; 5 Questions</div>
+        </div>
+        <div class="qa-list" data-subject="etw1001">
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">1</div>
+                    <div class="qa-text">What are the three essential elements required for a valid contract? Briefly explain each.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>1. Agreement (Offer and Acceptance):</strong><br>
+                        One party must make a clear offer, and the other must accept it unequivocally. The acceptance must mirror the offer ("mirror image rule"). Any variation constitutes a counter-offer, not acceptance. Communication of acceptance is generally required, though silence can constitute acceptance in certain ongoing business relationships.<br><br>
+                        <strong>2. Consideration:</strong><br>
+                        Each party must give something of legal value — money, goods, services, a promise, or forbearance. Consideration must be sufficient (has some value) but need not be adequate (fair market value). Past consideration is not valid. The doctrine of promissory estoppel can enforce promises without consideration in some cases.<br><br>
+                        <strong>3. Intention to Create Legal Relations:</strong><br>
+                        The parties must intend their agreement to be legally binding. In commercial contexts, this is presumed. In social or domestic agreements (e.g., between family members), it is presumed absent unless proven otherwise. Courts examine the language, context, and circumstances to determine intent.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">2</div>
+                    <div class="qa-text">Explain the difference between express terms and implied terms in a contract, giving one example of each.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Express Terms:</strong> Stated explicitly by the parties, either orally or in writing. They are the negotiated, agreed-upon provisions of the contract.<br><br>
+                        <strong>Example:</strong> A software licence agreement states: "The licence fee is $10,000 per year, payable annually in advance. Support is included for business hours only (9am–5pm AEST)." These are express terms — clearly written and agreed.<br><br>
+                        <strong>Implied Terms:</strong> Not explicitly stated but read into the contract by law, custom, or the courts. They fill gaps to make the contract workable or fair.<br><br>
+                        <strong>Example:</strong> When you buy a refrigerator from a retailer, the Australian Consumer Law implies a term that the goods are of "acceptable quality" — fit for purpose, free from defects, safe, and durable. Even if the contract says nothing about quality, this term is implied by statute and cannot be excluded in consumer contracts.<br><br>
+                        <strong>Sources of implied terms:</strong><br>
+                        • <strong>Statute:</strong> Australian Consumer Law, Fair Work Act<br>
+                        • <strong>Common law:</strong> Terms implied by courts (e.g., duty of care in employment)<br>
+                        • <strong>Custom/trade usage:</strong> Standard practices in a particular industry
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">3</div>
+                    <div class="qa-text">What is negligence? Outline the four elements a plaintiff must prove to succeed in a negligence claim.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Negligence:</strong> A tort (civil wrong) where a person breaches their duty of care, causing foreseeable harm to another. It is the most common basis for personal injury and property damage claims.<br><br>
+                        <strong>Four Elements (Donoghue v Stevenson [1932]):</strong><br><br>
+                        1. <strong>Duty of Care:</strong> The defendant owed the plaintiff a legal duty to take reasonable care. Established by the "neighbour principle" — you must take reasonable care to avoid acts or omissions reasonably foreseeable as likely to injure your neighbour (anyone closely and directly affected).<br><br>
+                        2. <strong>Breach of Duty:</strong> The defendant failed to meet the standard of care expected. The standard is that of a "reasonable person" in the defendant's position. Courts consider the likelihood of harm, severity of potential harm, cost of precautions, and social utility of the defendant's activity.<br><br>
+                        3. <strong>Causation:</strong> The breach caused the plaintiff's loss. Two tests:<br>
+                        • <strong>Factual causation ("but for"):</strong> But for the defendant's breach, would the harm have occurred?<br>
+                        • <strong>Legal causation (remoteness):</strong> Was the harm a reasonably foreseeable consequence of the breach?<br><br>
+                        4. <strong>Damage:</strong> The plaintiff suffered actual loss — physical injury, property damage, psychiatric harm, or pure economic loss (in limited circumstances). Nominal damages are not available in negligence; without loss, there is no claim.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">4</div>
+                    <div class="qa-text">Describe the Australian Consumer Law (ACL) guarantee that goods must be of "acceptable quality" and explain when a consumer can seek a remedy.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Acceptable Quality (ACL s 54):</strong> Goods sold to consumers in trade or commerce must be of acceptable quality. This is a statutory guarantee that cannot be excluded. "Acceptable quality" means the goods are:<br><br>
+                        • <strong>Fit for all purposes disclosed or implicit</strong> (e.g., a toaster must toast bread)<br>
+                        • <strong>Safe, durable, and free from defects</strong> (minor defects may be acceptable at low price points)<br>
+                        • <strong>Acceptable in appearance and finish</strong><br>
+                        • <strong>Reasonably priced in relation to their condition</strong> (a $2,000 phone should last longer than a $200 phone)<br><br>
+                        Quality is assessed objectively — what a reasonable consumer, fully acquainted with the state and condition of the goods, would regard as acceptable.<br><br>
+                        <strong>Remedies:</strong><br><br>
+                        If goods fail to meet the guarantee, the consumer has rights against the <strong>supplier</strong> (and sometimes the manufacturer):<br><br>
+                        • <strong>Minor failure:</strong> The supplier can choose to repair, replace, or refund.<br>
+                        • <strong>Major failure:</strong> The consumer chooses the remedy — repair, replacement, or refund. A major failure occurs if the goods would not have been acquired had the consumer known of the problem, or if they are substantially unfit for purpose and cannot be remedied within a reasonable time.<br><br>
+                        <strong>Example:</strong> A $1,500 laptop fails after 3 months due to a motherboard defect. This is a major failure. The consumer can demand a full refund or replacement, regardless of the retailer's "no returns" policy.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">5</div>
+                    <div class="qa-text">Distinguish between a company and a sole trader as business structures, noting one advantage and one disadvantage of each.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Sole Trader:</strong> An individual operating a business in their own name. No separate legal entity — the business and the person are one.<br><br>
+                        <strong>Advantage:</strong> <strong>Simplicity and control.</strong> No registration fees, no complex reporting, minimal compliance. The owner makes all decisions and keeps all profits.<br><br>
+                        <strong>Disadvantage:</strong> <strong>Unlimited liability.</strong> The owner's personal assets (house, car, savings) are at risk if the business incurs debts or is sued. Bankruptcy of the business means personal bankruptcy.<br><br>
+                        <strong>Company (Pty Ltd):</strong> A separate legal entity registered under the Corporations Act 2001. It exists independently of its owners (shareholders).<br><br>
+                        <strong>Advantage:</strong> <strong>Limited liability.</strong> Shareholders' liability is generally limited to the amount unpaid on their shares. Personal assets are protected from business debts (unless personal guarantees are given).<br><br>
+                        <strong>Disadvantage:</strong> <strong>Complexity and cost.</strong> Registration with ASIC, annual review fees, audited financial statements (for large companies), director duties under the Corporations Act, and more onerous tax compliance. Losses cannot be offset against the owner's other personal income.<br><br>
+                        <strong>When to choose:</strong> Sole trader for low-risk, small-scale operations. Company for businesses with significant assets, employees, contractual risk, or growth ambitions requiring external investment.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MGW1010 -->
+        <div class="subject-header" data-subject="mgw1010">
+            <h2>Management</h2>
+            <div class="meta">MGW1010 &middot; 5 Questions</div>
+        </div>
+        <div class="qa-list" data-subject="mgw1010">
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">1</div>
+                    <div class="qa-text">Describe Fayol's five functions of management and explain how they remain relevant in modern organisations.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Henri Fayol (1841–1925)</strong> proposed five universal functions of management that still form the backbone of management theory:<br><br>
+                        1. <strong>Planning:</strong> Defining goals, establishing strategies, and developing plans to coordinate activities. Modern relevance: Strategic planning, OKRs (Objectives and Key Results), agile sprint planning, scenario analysis.<br><br>
+                        2. <strong>Organising:</strong> Arranging work, allocating resources, and assigning tasks. Modern relevance: Organisational design (flat vs hierarchical), remote team structures, cross-functional project teams, resource allocation software.<br><br>
+                        3. <strong>Commanding (Directing):</strong> Leading, motivating, and communicating with staff. Modern relevance: Transformational leadership, emotional intelligence, coaching cultures, transparent communication via Slack/Teams.<br><br>
+                        4. <strong>Coordinating:</strong> Harmonising activities across departments. Modern relevance: ERP systems, project management tools (Asana, Monday.com), matrix management structures, regular cross-functional stand-ups.<br><br>
+                        5. <strong>Controlling:</strong> Monitoring performance, comparing against standards, and taking corrective action. Modern relevance: KPI dashboards, balanced scorecards, real-time analytics, continuous feedback loops (not just annual reviews).<br><br>
+                        <strong>Why they remain relevant:</strong> Despite changes in technology and work patterns (remote work, AI, gig economy), the fundamental activities of setting direction, organising resources, leading people, aligning efforts, and monitoring results are timeless. Modern tools enhance execution but don't replace the functions.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">2</div>
+                    <div class="qa-text">Compare and contrast Maslow's hierarchy of needs with Herzberg's two-factor theory as motivation frameworks.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Maslow's Hierarchy of Needs (1943):</strong><br>
+                        A content theory proposing five levels of human needs, arranged hierarchically. Lower needs must be satisfied before higher needs motivate behaviour:<br>
+                        1. Physiological (food, shelter)<br>
+                        2. Safety (security, stability)<br>
+                        3. Social/Belonging (friendship, love)<br>
+                        4. Esteem (recognition, achievement)<br>
+                        5. Self-actualisation (fulfilling potential)<br><br>
+                        <strong>Herzberg's Two-Factor Theory (1959):</strong><br>
+                        Distinguishes between <strong>hygiene factors</strong> (prevent dissatisfaction) and <strong>motivators</strong> (create satisfaction):<br><br>
+                        <strong>Hygiene factors:</strong> Salary, working conditions, company policy, supervision, job security. Their absence causes dissatisfaction; their presence merely prevents it. They do not motivate.<br><br>
+                        <strong>Motivators:</strong> Achievement, recognition, meaningful work, responsibility, advancement, growth. These create positive satisfaction and drive high performance.<br><br>
+                        <strong>Key Contrasts:</strong><br>
+                        • Maslow is general (all human needs); Herzberg is workplace-specific.<br>
+                        • Maslow suggests one level must be met before the next; Herzberg says hygiene and motivators operate independently.<br>
+                        • Maslow implies money (physiological) is a basic motivator; Herzberg classifies salary as a hygiene factor (not a true motivator).<br><br>
+                        <strong>Practical implication:</strong> Managers must ensure hygiene factors are adequate (fair pay, safe conditions) and then focus on motivators (challenging work, autonomy, recognition) to drive engagement.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">3</div>
+                    <div class="qa-text">What is organisational culture? Describe two ways a strong culture can benefit a company and one potential risk.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Organisational Culture:</strong> The shared values, beliefs, assumptions, norms, and practices that shape how members of an organisation think, feel, and behave. It is "the way we do things around here." Edgar Schein described three levels: artefacts (visible behaviours), espoused values (stated norms), and basic underlying assumptions (unconscious beliefs).<br><br>
+                        <strong>Two Benefits of Strong Culture:</strong><br><br>
+                        1. <strong>Alignment and reduced coordination costs:</strong> When employees share values and norms, less formal control is needed. Decisions are made consistently without micromanagement. Example: At Netflix, the culture of "freedom and responsibility" means employees are trusted to make big decisions without layers of approval.<br><br>
+                        2. <strong>Employee engagement and retention:</strong> A positive, distinctive culture attracts talent and fosters loyalty. Employees who identify with organisational values are more motivated and less likely to leave. Example: Patagonia's environmental mission attracts employees passionate about sustainability, reducing turnover.<br><br>
+                        <strong>One Risk:</strong><br><br>
+                        <strong>Resistance to change and groupthink:</strong> A very strong culture can become rigid. "This is how we've always done it" blocks innovation and adaptation. Enron had an aggressive, results-at-all-costs culture that enabled fraud. Strong cultures can also marginalise diverse perspectives, reducing creativity and problem-solving capacity.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">4</div>
+                    <div class="qa-text">Explain the difference between centralised and decentralised organisational structures, giving one advantage of each.</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Centralised Structure:</strong> Decision-making authority is concentrated at the top of the organisation (senior management / head office). Lower levels implement decisions but have limited autonomy.<br><br>
+                        <strong>Advantage:</strong> <strong>Consistency and control.</strong> Senior leaders ensure all divisions follow the same strategy, standards, and brand identity. Policies are uniform. Useful in crises or highly regulated industries where compliance is critical. Example: Military organisations and banks use centralisation for operational discipline and risk management.<br><br>
+                        <strong>Decentralised Structure:</strong> Decision-making authority is distributed to middle and lower-level managers, often close to the customer or operation. Divisions or regions operate with significant autonomy.<br><br>
+                        <strong>Advantage:</strong> <strong>Responsiveness and empowerment.</strong> Local managers can adapt quickly to market conditions, customer needs, and competitive threats without waiting for head office approval. Employees feel empowered, which can boost motivation and innovation. Example: Starbucks gives store managers discretion over local marketing, community engagement, and staffing to suit neighbourhood preferences.<br><br>
+                        <strong>Modern trend:</strong> Many organisations adopt a hybrid approach — strategic decisions are centralised, while operational decisions are decentralised. This balances control with agility.
+                    </div>
+                </div>
+            </div>
+            <div class="qa-card">
+                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="qa-num">5</div>
+                    <div class="qa-text">What is the difference between leadership and management? Can a person be an effective leader without being a good manager, and vice versa?</div>
+                    <i class="fas fa-chevron-down qa-toggle"></i>
+                </div>
+                <div class="qa-answer">
+                    <div class="answer-inner">
+                        <strong>Management:</strong> About <strong>coping with complexity</strong> — planning, budgeting, organising, staffing, controlling, and problem-solving. Managers bring order and predictability. They ask: "Are we doing things right?"<br><br>
+                        <strong>Leadership:</strong> About <strong>coping with change</strong> — setting direction, aligning people, motivating, and inspiring. Leaders create vision and movement. They ask: "Are we doing the right things?"<br><br>
+                        <strong>Key distinction (Kotter):</strong><br>
+                        • Management produces <strong>degree of predictability and order</strong><br>
+                        • Leadership produces <strong>movement and useful change</strong><br><br>
+                        <strong>Can you be one without the other?</strong><br><br>
+                        <strong>Yes — effective leader, poor manager:</strong><br>
+                        A charismatic founder with a brilliant vision may lack operational discipline. They inspire teams and attract investors but struggle with budgets, deadlines, and process. The company may grow chaotically or burn cash. Example: Some early-stage tech founders excel at product vision but need COOs to handle execution.<br><br>
+                        <strong>Yes — good manager, poor leader:</strong><br>
+                        A highly efficient operations manager may keep processes running smoothly but fail to inspire teams, adapt to market shifts, or articulate a compelling vision. Morale may stagnate; innovation suffers. The team performs adequately but doesn't excel or grow.<br><br>
+                        <strong>Ideal:</strong> The most effective executives combine both — they manage resources efficiently AND lead people toward a meaningful future. Organisations need both capabilities, whether in one person or a complementary leadership team.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Subject switching
+    document.querySelectorAll('.subject-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const subject = this.dataset.subject;
+
+            // Update buttons
+            document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            // Update headers
+            document.querySelectorAll('.subject-header').forEach(h => h.classList.remove('active'));
+            document.querySelector('.subject-header[data-subject="' + subject + '"]').classList.add('active');
+
+            // Update Q&A lists
+            document.querySelectorAll('.qa-list').forEach(l => l.classList.remove('active'));
+            document.querySelector('.qa-list[data-subject="' + subject + '"]').classList.add('active');
+
+            // Close all open cards when switching
+            document.querySelectorAll('.qa-card.open').forEach(c => c.classList.remove('open'));
+        });
+    });
+</script>
 </body>
 </html>
