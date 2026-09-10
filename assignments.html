@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNI - Assignments</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#1C1510',
+                        surface: '#2A2018',
+                        text: '#F2E6D8',
+                        accent: '#BF9B7A',
+                        green: '#555934',
+                        purple: '#F2E6D8',
+                        yellow: '#F2E6D8',
+                        red: '#C05040',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #1C1510;
+            color: #F2E6D8;
+            font-family: 'DM Sans', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .glass {
+            background: rgba(33, 38, 45, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(191, 155, 122, 0.1);
+        }
+        .assignment-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .assignment-card:hover {
+            border-left-color: #BF9B7A;
+        }
+        .priority-high { border-left-color: #C05040; }
+        .priority-medium { border-left-color: #F2E6D8; }
+        .priority-low { border-left-color: #555934; }
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .assignment-number {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(191, 155, 122, 0.15);
+            background: rgba(42, 32, 24, 0.8);
+            color: #BF9B7A;
+        }
+        .assignment-number:hover {
+            background: rgba(191, 155, 122, 0.15);
+            border-color: rgba(191, 155, 122, 0.4);
+            transform: scale(1.05);
+        }
+        .assignment-number.active {
+            background: rgba(191, 155, 122, 0.25);
+            border-color: #BF9B7A;
+            color: #F2E6D8;
+            box-shadow: 0 0 10px rgba(191, 155, 122, 0.2);
+        }
+        .assignment-number.completed {
+            background: rgba(92, 230, 160, 0.15);
+            border-color: rgba(92, 230, 160, 0.4);
+            color: #555934;
+        }
+        .assignment-number.overdue {
+            position: relative;
+        }
+        .assignment-number.overdue::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #C05040;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <style>
+        .nav-link{font-family:'DM Sans',sans-serif;letter-spacing:0.03em;text-transform:uppercase;font-size:0.72rem;padding:7px 14px;border-radius:999px;color:#BF9B7A;text-decoration:none;font-weight:600;transition:all .2s;white-space:nowrap;border:1px solid transparent}
+        .nav-link:hover{background:rgba(191,155,122,0.12);color:#F2E6D8;border-color:rgba(191,155,122,0.25)}
+        .nav-link.active{background:rgba(191,155,122,0.12);border:1px solid rgba(191,155,122,0.25);color:#BF9B7A}
+    </style>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 border-b" style="background:rgba(28,21,16,0.95);backdrop-filter:blur(20px);border-color:rgba(191,155,122,0.10);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="text-accent font-bold mr-4 hover:underline">← Back</a>
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-tasks text-accent text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-text">UNI</h1>
+                        <p class="text-xs text-text/60">Assignments</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-3 px-4 py-2 rounded-lg bg-surface border border-accent/10">
+                        <div class="text-sm">
+                            <span class="text-text/60">Progress:</span>
+                            <span id="overall-progress" class="font-bold text-accent">0/0</span>
+                        </div>
+                        <div class="w-24 h-2 rounded-full bg-text/10 overflow-hidden">
+                            <div id="overall-progress-bar" class="h-full bg-accent rounded-full progress-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Stats Dashboard -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="glass rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-text/60 text-sm">Total Assignments</p>
+                        <p id="stat-total" class="text-2xl font-bold text-accent">0</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-tasks text-accent text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="glass rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-text/60 text-sm">Completed</p>
+                        <p id="stat-completed" class="text-2xl font-bold text-green">0</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg bg-green/20 flex items-center justify-center">
+                        <i class="fas fa-check-circle text-green text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="glass rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-text/60 text-sm">In Progress</p>
+                        <p id="stat-inprogress" class="text-2xl font-bold text-yellow">0</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg bg-yellow/20 flex items-center justify-center">
+                        <i class="fas fa-spinner text-yellow text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="glass rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-text/60 text-sm">Overdue</p>
+                        <p id="stat-overdue" class="text-2xl font-bold text-red">0</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg bg-red/20 flex items-center justify-center">
+                        <i class="fas fa-exclamation-circle text-red text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="glass rounded-xl p-6 mb-8">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold mb-4 text-text">Filter Assignments</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterByStatus('all')" class="filter-status px-3 py-1 rounded-full text-sm bg-accent text-dark font-medium transition" data-status="all">All</button>
+                        <button onclick="filterByStatus('pending')" class="filter-status px-3 py-1 rounded-full text-sm bg-surface border border-yellow/30 text-yellow transition" data-status="pending">Pending</button>
+                        <button onclick="filterByStatus('inprogress')" class="filter-status px-3 py-1 rounded-full text-sm bg-surface border border-accent/30 text-accent transition" data-status="inprogress">In Progress</button>
+                        <button onclick="filterByStatus('completed')" class="filter-status px-3 py-1 rounded-full text-sm bg-surface border border-green/30 text-green transition" data-status="completed">Completed</button>
+                        <button onclick="filterByStatus('overdue')" class="filter-status px-3 py-1 rounded-full text-sm bg-surface border border-red/30 text-red transition" data-status="overdue">Overdue</button>
+                    </div>
+                </div>
+                <div class="lg:w-80 space-y-4">
+                    <h3 class="text-lg font-bold text-text">Priority</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterByPriority('all')" class="filter-priority px-3 py-1 rounded-full text-sm bg-accent text-dark font-medium transition" data-priority="all">All</button>
+                        <button onclick="filterByPriority('high')" class="filter-priority px-3 py-1 rounded-full text-sm bg-surface border border-red/30 text-red transition" data-priority="high">High</button>
+                        <button onclick="filterByPriority('medium')" class="filter-priority px-3 py-1 rounded-full text-sm bg-surface border border-yellow/30 text-yellow transition" data-priority="medium">Medium</button>
+                        <button onclick="filterByPriority('low')" class="filter-priority px-3 py-1 rounded-full text-sm bg-surface border border-green/30 text-green transition" data-priority="low">Low</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assignments Container -->
+        <div class="flex gap-6">
+            <div id="assignments-container" class="flex-1 space-y-6">
+                <!-- Generated by JS -->
+            </div>
+            <div id="assignment-sidebar" class="hidden lg:block w-16 shrink-0">
+                <div class="sticky top-24 space-y-2" id="assignment-sidebar-inner">
+                    <!-- Generated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===================== DATA =====================
+        // Load from localStorage if available, otherwise use defaults
+        let assignments = JSON.parse(localStorage.getItem('deadlines') || '[]');
+
+        // Default demo assignments if none exist
+        if (assignments.length === 0) {
+            assignments = [
+                {
+                    id: 1,
+                    title: "Financial Statements Analysis Report",
+                    subject: "ACW1120 - Financial Accounting",
+                    date: "2026-09-15",
+                    priority: "high",
+                    type: "assignment",
+                    progress: 30,
+                    description: "Analyze and interpret the financial statements of a listed company. Include ratio analysis, trend analysis, and recommendations."
+                },
+                {
+                    id: 2,
+                    title: "CVP Analysis Case Study",
+                    subject: "ACW2220 - Management Accounting",
+                    date: "2026-09-18",
+                    priority: "medium",
+                    type: "assignment",
+                    progress: 60,
+                    description: "Complete a cost-volume-profit analysis for the provided case study company. Calculate break-even points and prepare recommendations."
+                },
+                {
+                    id: 3,
+                    title: "Time Value of Money Problem Set",
+                    subject: "BFW1001 - Foundations of Finance",
+                    date: "2026-09-12",
+                    priority: "high",
+                    type: "assignment",
+                    progress: 10,
+                    description: "Solve problems on present value, future value, annuities, and perpetuities. Show all working and formulas used."
+                },
+                {
+                    id: 4,
+                    title: "Contract Law Essay",
+                    subject: "BTW1042 - Business Law",
+                    date: "2026-09-20",
+                    priority: "medium",
+                    type: "assignment",
+                    progress: 0,
+                    description: "Write a 2000-word essay on the elements of a valid contract, using at least three case law examples."
+                },
+                {
+                    id: 5,
+                    title: "Market Structure Analysis",
+                    subject: "ECM1953 - Economics",
+                    date: "2026-09-25",
+                    priority: "low",
+                    type: "assignment",
+                    progress: 0,
+                    description: "Compare and contrast perfect competition, monopoly, and oligopoly markets with real-world examples."
+                },
+                {
+                    id: 6,
+                    title: "Regression Analysis Project",
+                    subject: "ETW1001 - Business Statistics",
+                    date: "2026-09-22",
+                    priority: "high",
+                    type: "project",
+                    progress: 45,
+                    description: "Perform linear regression analysis on the provided dataset. Include hypothesis testing and interpretation of results."
+                },
+                {
+                    id: 7,
+                    title: "Leadership Styles Presentation",
+                    subject: "MGW1010 - Management",
+                    date: "2026-09-28",
+                    priority: "low",
+                    type: "assignment",
+                    progress: 0,
+                    description: "Prepare a 10-minute presentation on different leadership styles and their effectiveness in modern organizations."
+                },
+                {
+                    id: 8,
+                    title: "Econometrics Model Building",
+                    subject: "ETC2440 - Analytics & Econometrics",
+                    date: "2026-09-30",
+                    priority: "medium",
+                    type: "project",
+                    progress: 20,
+                    description: "Build and evaluate an econometric model using provided time series data. Test for autocorrelation and heteroskedasticity."
+                }
+            ];
+        }
+
+        let currentFilter = { status: 'all', priority: 'all' };
+
+        // ===================== HELPERS =====================
+        function getDaysUntil(dateStr) {
+            const now = new Date();
+            const due = new Date(dateStr + 'T23:59:59');
+            const diff = Math.ceil((due - now) / (1000 * 60 * 60 * 24));
+            return diff;
+        }
+
+        function getStatus(assignment) {
+            if (assignment.progress >= 100) return 'completed';
+            const days = getDaysUntil(assignment.date);
+            if (days < 0) return 'overdue';
+            if (assignment.progress > 0) return 'inprogress';
+            return 'pending';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ===================== RENDERING =====================
+        function renderAssignments() {
+            const container = document.getElementById('assignments-container');
+            let filtered = [...assignments];
+
+            // Apply status filter
+            if (currentFilter.status !== 'all') {
+                filtered = filtered.filter(a => getStatus(a) === currentFilter.status);
+            }
+
+            // Apply priority filter
+            if (currentFilter.priority !== 'all') {
+                filtered = filtered.filter(a => a.priority === currentFilter.priority);
+            }
+
+            // Sort by due date
+            filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="glass rounded-xl p-12 text-center">
+                        <i class="fas fa-search text-4xl text-text/20 mb-4"></i>
+                        <p class="text-text/60">No assignments match the current filters.</p>
+                        <button onclick="resetFilters()" class="mt-4 px-4 py-2 rounded-lg bg-accent/20 text-accent hover:bg-accent/30 transition">
+                            Reset Filters
+                        </button>
+                    </div>
+                `;
+                renderSidebar([]);
+                updateStats();
+                return;
+            }
+
+            container.innerHTML = filtered.map(a => {
+                const days = getDaysUntil(a.date);
+                const status = getStatus(a);
+                const priorityColor = a.priority === 'high' ? 'red' : a.priority === 'medium' ? 'yellow' : 'green';
+                const statusLabel = status === 'completed' ? 'Completed' : status === 'overdue' ? 'Overdue' : status === 'inprogress' ? 'In Progress' : 'Pending';
+                const statusColor = status === 'completed' ? 'green' : status === 'overdue' ? 'red' : status === 'inprogress' ? 'accent' : 'yellow';
+
+                return `
+                    <div class="assignment-card glass rounded-xl p-6 priority-${a.priority}" id="assignment-${a.id}">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex items-center gap-3 flex-wrap">
+                                <span class="px-2 py-1 rounded text-xs font-medium bg-${priorityColor}/20 text-${priorityColor} uppercase">${a.priority}</span>
+                                <span class="px-2 py-1 rounded text-xs font-medium bg-${statusColor}/20 text-${statusColor} uppercase">${statusLabel}</span>
+                                <span class="px-2 py-1 rounded text-xs bg-accent/10 text-accent">${a.type}</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm font-bold ${days < 0 ? 'text-red' : days <= 3 ? 'text-red' : days <= 7 ? 'text-yellow' : 'text-green'}">
+                                    ${days < 0 ? 'Overdue' : days + ' days left'}
+                                </div>
+                                <div class="text-xs text-text/60">Due: ${new Date(a.date).toLocaleDateString()}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <span class="text-sm text-text/40 font-mono">${a.subject}</span>
+                            <h3 class="text-lg font-semibold text-text mt-1">${escapeHtml(a.title)}</h3>
+                            <p class="text-text/70 mt-2 text-sm">${escapeHtml(a.description || '')}</p>
+                        </div>
+
+                        <div class="mt-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-text/60">Progress</span>
+                                <span class="text-sm font-bold text-accent">${a.progress}%</span>
+                            </div>
+                            <div class="w-full h-3 rounded-full bg-text/10 overflow-hidden">
+                                <div class="h-full bg-accent rounded-full progress-bar" style="width: ${a.progress}%"></div>
+                            </div>
+                            <input type="range" min="0" max="100" value="${a.progress}" 
+                                class="w-full mt-3 accent-accent cursor-pointer"
+                                onchange="updateProgress(${a.id}, this.value)">
+                        </div>
+
+                        <div class="mt-4 flex gap-2">
+                            <button onclick="deleteAssignment(${a.id})" class="px-3 py-1.5 rounded-lg bg-red/20 text-red hover:bg-red/30 transition text-sm">
+                                <i class="fas fa-trash mr-1"></i>Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            renderSidebar(filtered);
+            updateStats();
+        }
+
+        function renderSidebar(filtered) {
+            const sidebar = document.getElementById('assignment-sidebar-inner');
+            if (!sidebar) return;
+
+            if (filtered.length === 0) {
+                sidebar.innerHTML = '';
+                return;
+            }
+
+            sidebar.innerHTML = filtered.map((a, index) => {
+                const status = getStatus(a);
+                const num = index + 1;
+
+                let classes = 'assignment-number';
+                if (status === 'completed') classes += ' completed';
+                if (status === 'overdue') classes += ' overdue';
+
+                return `<div class="${classes}" onclick="scrollToAssignment(${a.id})" title="${escapeHtml(a.title)}">${num}</div>`;
+            }).join('');
+        }
+
+        function scrollToAssignment(id) {
+            const el = document.getElementById(`assignment-${id}`);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                el.style.boxShadow = '0 0 20px rgba(191, 155, 122, 0.3)';
+                setTimeout(() => { el.style.boxShadow = ''; }, 1000);
+            }
+        }
+
+        function updateStats() {
+            const total = assignments.length;
+            const completed = assignments.filter(a => getStatus(a) === 'completed').length;
+            const inprogress = assignments.filter(a => getStatus(a) === 'inprogress').length;
+            const overdue = assignments.filter(a => getStatus(a) === 'overdue').length;
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-completed').textContent = completed;
+            document.getElementById('stat-inprogress').textContent = inprogress;
+            document.getElementById('stat-overdue').textContent = overdue;
+
+            const overallProgress = total > 0 ? Math.round(assignments.reduce((sum, a) => sum + a.progress, 0) / total) : 0;
+            document.getElementById('overall-progress').textContent = `${overallProgress}%`;
+            document.getElementById('overall-progress-bar').style.width = `${overallProgress}%`;
+        }
+
+        // ===================== INTERACTIONS =====================
+        function filterByStatus(status) {
+            currentFilter.status = status;
+            document.querySelectorAll('.filter-status').forEach(btn => {
+                if (btn.dataset.status === status) {
+                    btn.classList.remove('bg-surface', 'border');
+                    btn.classList.add('bg-accent', 'text-dark');
+                } else {
+                    btn.classList.remove('bg-accent', 'text-dark');
+                    btn.classList.add('bg-surface', 'border');
+                }
+            });
+            renderAssignments();
+        }
+
+        function filterByPriority(priority) {
+            currentFilter.priority = priority;
+            document.querySelectorAll('.filter-priority').forEach(btn => {
+                if (btn.dataset.priority === priority) {
+                    btn.classList.remove('bg-surface', 'border');
+                    btn.classList.add('bg-accent', 'text-dark');
+                } else {
+                    btn.classList.remove('bg-accent', 'text-dark');
+                    btn.classList.add('bg-surface', 'border');
+                }
+            });
+            renderAssignments();
+        }
+
+        function resetFilters() {
+            currentFilter = { status: 'all', priority: 'all' };
+            filterByStatus('all');
+            filterByPriority('all');
+        }
+
+        function updateProgress(id, value) {
+            const a = assignments.find(x => x.id === id);
+            if (a) {
+                a.progress = +value;
+                localStorage.setItem('deadlines', JSON.stringify(assignments));
+                renderAssignments();
+            }
+        }
+
+        function deleteAssignment(id) {
+            if (confirm('Delete this assignment?')) {
+                assignments = assignments.filter(a => a.id !== id);
+                localStorage.setItem('deadlines', JSON.stringify(assignments));
+                renderAssignments();
+            }
+        }
+
+        // ===================== INIT =====================
+        function init() {
+            renderAssignments();
+        }
+
+        init();
+    </script>
+</body>
+</html>
