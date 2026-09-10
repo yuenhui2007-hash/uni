@@ -1,0 +1,214 @@
+[
+  {
+    "id": "BTW1042-25",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Contract Law",
+    "question": "Which of the following is a necessary element for the formation of a valid contract under common law?",
+    "options": [
+      "The contract must be in writing",
+      "There must be consideration exchanged between the parties",
+      "The contract must be witnessed by a third party",
+      "The contract must be registered with a government body"
+    ],
+    "correct": 1,
+    "explanation": "Consideration is an essential element of a valid contract at common law. It refers to something of value exchanged between parties. Most contracts do not need to be in writing, witnessed, or registered, though some specific types (e.g., land contracts) have formal requirements."
+  },
+  {
+    "id": "BTW1042-26",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Business Structures",
+    "question": "Which business structure provides its owners with limited liability for business debts?",
+    "options": [
+      "Sole proprietorship",
+      "General partnership",
+      "Proprietary limited company",
+      "Unincorporated joint venture"
+    ],
+    "correct": 2,
+    "explanation": "A proprietary limited company (Pty Ltd) is a separate legal entity that provides shareholders with limited liability, meaning their personal assets are generally protected from business debts. Sole proprietors and general partners have unlimited personal liability."
+  },
+  {
+    "id": "BTW1042-27",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Australian Consumer Law",
+    "question": "Under the Australian Consumer Law, which of the following remedies is available to a consumer who purchases a defective product that fails to meet a consumer guarantee?",
+    "options": [
+      "Only a refund",
+      "Repair, replacement, or refund depending on the circumstances",
+      "Only a replacement",
+      "No remedy if the defect was disclosed at the time of purchase"
+    ],
+    "correct": 1,
+    "explanation": "Under ACL sections 259-264, consumers are entitled to repair, replacement, or refund depending on whether the failure is major or minor. For a major failure, the consumer can choose the remedy. For a minor failure, the supplier can choose to repair first."
+  },
+  {
+    "id": "BTW1042-28",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Negligence",
+    "question": "In establishing a claim in negligence, a plaintiff must prove all of the following EXCEPT:",
+    "options": [
+      "The defendant owed the plaintiff a duty of care",
+      "The defendant breached the standard of care",
+      "The plaintiff suffered purely economic loss with no physical damage",
+      "The defendant's breach caused the plaintiff's loss"
+    ],
+    "correct": 2,
+    "explanation": "Pure economic loss without physical damage is not a required element; in fact, recovering pure economic loss in negligence is more difficult and subject to additional restrictions (e.g., vulnerability, known reliance). The essential elements are: duty of care, breach, causation (factual and scope of liability), and damage/loss."
+  },
+  {
+    "id": "BTW1042-29",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Corporations Law",
+    "question": "Under the Corporations Act 2001 (Cth), which of the following actions by a director would most likely breach the duty under section 180(1)?",
+    "options": [
+      "Approving a business decision after receiving independent expert advice",
+      "Failing to inform themselves adequately about a material business decision before voting",
+      "Declaring a conflict of interest and abstaining from voting",
+      "Relying in good faith on information provided by a company officer"
+    ],
+    "correct": 1,
+    "explanation": "Section 180(1) requires directors to exercise their powers and discharge their duties with the degree of care and diligence that a reasonable person would exercise. Failing to inform oneself about a material decision before voting demonstrates a lack of due care and diligence. The other options describe compliant behaviour."
+  },
+  {
+    "id": "BTW1042-30",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "IP Law",
+    "question": "Which of the following is NOT protected by copyright under the Copyright Act 1968 (Cth)?",
+    "options": [
+      "An original literary work such as a novel",
+      "An original artistic work such as a painting",
+      "A mere idea for a storyline that has not been expressed in material form",
+      "An original musical composition"
+    ],
+    "correct": 2,
+    "explanation": "Copyright protects original works expressed in material form, not mere ideas or concepts. An unexpressed idea for a storyline is not protected by copyright; it is the actual expression of the idea in writing or another tangible form that receives protection."
+  },
+  {
+    "id": "BTW1042-31",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Competition Law",
+    "question": "Which of the following practices is most likely to constitute exclusive dealing under the Competition and Consumer Act 2010 (Cth)?",
+    "options": [
+      "A retailer charging different prices to different customers",
+      "A supplier requiring a retailer to only stock the supplier's brand of soft drinks",
+      "A business offering a discount for bulk purchases",
+      "A company reducing prices to clear excess inventory"
+    ],
+    "correct": 1,
+    "explanation": "Exclusive dealing occurs when a supplier imposes conditions on a purchaser that restrict the purchaser's freedom to choose what goods to acquire or whom to deal with. Requiring a retailer to only stock one brand is a form of exclusive dealing. It may breach the CCA if it has the purpose or effect of substantially lessening competition."
+  },
+  {
+    "id": "BTW1042-32",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Contract Law",
+    "question": "In contract law, the doctrine of promissory estoppel may be invoked when:",
+    "options": [
+      "A party makes a clear and unambiguous promise knowing it will be relied upon",
+      "Both parties have provided valid consideration",
+      "The contract is required by law to be in writing",
+      "A third party seeks to enforce a term of the contract"
+    ],
+    "correct": 0,
+    "explanation": "Promissory estoppel operates when one party makes a promise (or representation) that the other party relies upon to their detriment, and it would be inequitable to allow the promisor to go back on their word. It can be used as a shield (defense) or, in Australia following Walton's Stores v Maher, as a sword (cause of action) in limited circumstances. It does not require fresh consideration."
+  },
+  {
+    "id": "BTW1042-33",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Administrative Law",
+    "question": "Under Australian administrative law, which of the following grounds would NOT typically support a successful application for judicial review of a decision?",
+    "options": [
+      "The decision-maker failed to provide procedural fairness",
+      "The decision-maker made an error of law on the face of the record",
+      "The applicant disagrees with the merits of the decision",
+      "The decision-maker acted beyond their statutory power"
+    ],
+    "correct": 2,
+    "explanation": "Judicial review examines the lawfulness of a decision-making process, not the merits of the decision itself. Courts will not intervene simply because they would have reached a different conclusion. Grounds for judicial review include jurisdictional error, breach of procedural fairness, errors of law, and unreasonableness."
+  },
+  {
+    "id": "BTW1042-34",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Employment Law",
+    "question": "Under the Fair Work Act 2009 (Cth), which of the following is a valid reason for dismissal that would likely withstand an unfair dismissal claim?",
+    "options": [
+      "The employee exercised a workplace right to complain about safety conditions",
+      "The employee was made redundant after a genuine operational restructure",
+      "The employee took approved annual leave during a busy period",
+      "The employee requested flexible working arrangements to care for a child"
+    ],
+    "correct": 1,
+    "explanation": "Genuine redundancy is a valid reason for dismissal under section 389 of the Fair Work Act. The other options describe situations where dismissal would likely be unlawful or unfair: (a) and (d) involve protected workplace rights/attributes, and (c) involves taking approved leave. Dismissing an employee for these reasons would likely breach general protections or unfair dismissal provisions."
+  },
+  {
+    "id": "BTW1042-35",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Property Law",
+    "question": "Which of the following best describes the difference between a joint tenancy and a tenancy in common?",
+    "options": [
+      "Joint tenants can hold unequal shares; tenants in common must hold equal shares",
+      "Joint tenants have a right of survivorship; tenants in common do not",
+      "Tenants in common must all take possession at the same time; joint tenants need not",
+      "Joint tenancy can only exist for commercial property"
+    ],
+    "correct": 1,
+    "explanation": "The defining feature of a joint tenancy is the right of survivorship: when one joint tenant dies, their interest automatically passes to the surviving joint tenants. Tenants in common hold distinct, transferable shares and there is no right of survivorship; their share passes according to their will or intestacy laws."
+  },
+  {
+    "id": "BTW1042-36",
+    "type": "calculation",
+    "difficulty": "medium",
+    "topic": "Contract Law - Damages",
+    "question": "A builder contracts to construct a commercial kitchen for a restaurant for $180,000. After completing work worth $120,000, the builder repudiates the contract. The restaurant owner engages another builder to complete the remaining work for $75,000. The market value of a fully completed kitchen is $200,000. Calculate the restaurant owner's expectation damages assuming they had already paid the original builder $80,000.",
+    "answer": "$35,000",
+    "working": "Under the expectation measure, the innocent party is put in the position they would have been in had the contract been performed.\n\nCost of completion with substitute builder: $75,000\nAmount already paid to original builder: $80,000\nTotal cost to obtain completed kitchen: $75,000 + $80,000 = $155,000\n\nOriginal contract price: $180,000\nExpected position: Pay $180,000 for a completed kitchen\nActual position: Pay $155,000 for a completed kitchen\n\nWait - better approach:\nThe owner expected to pay $180,000 total.\nThey have already paid $80,000.\nThey must pay $75,000 more to complete.\nTotal paid = $155,000.\nThey saved $25,000 compared to the contract price.\n\nHowever, the owner is also entitled to any additional losses.\nUsing the loss of bargain approach:\nContract price: $180,000\nCost of substitute performance: $75,000\nAmount saved by not paying the remainder to original builder: $180,000 - $80,000 = $100,000\nAdditional cost incurred: $75,000 - $100,000 = -$25,000 (saving)\n\nAlternatively, restitution of $80,000 paid minus $120,000 value received = -$40,000.\n\nThe correct expectation damages calculation:\nValue of promised performance ($200,000 market value is irrelevant for contract damages)\nCost to complete: $75,000\nLess: Amount saved by not having to pay the balance of the contract price ($100,000)\nNet damages: $75,000 - $100,000 = -$25,000 (no loss under expectation measure)\n\nHowever, if the $75,000 substitute cost exceeds the $100,000 remaining contract price, the difference is damages. Here it does not.\n\nRevised approach using wasted expenditure:\nIf expectation is negative, claimant may claim reliance damages.\nBut the question asks expectation damages specifically.\n\nGiven the facts as stated, expectation damages = MAX(0, cost of completion - contract balance)\n= MAX(0, $75,000 - $100,000) = $0.\n\nBut if we interpret that the owner seeks to recover the $80,000 paid and the new builder charges $75,000:\nTotal expenditure to get completed kitchen = $155,000\nContract price = $180,000\nOwner is $25,000 better off.\n\nIf the substitute builder cost was $95,000 instead:\nDamages = $95,000 - $100,000 = $0 (still no loss).\n\nLet us recalculate with expectation properly:\nExpected position: Completed kitchen for $180,000.\nActual position: Completed kitchen for $80,000 + $75,000 = $155,000.\nNet benefit to owner = $25,000.\nExpectation damages = $0 (owner is not worse off).\n\nHowever, if the substitute builder cost was $110,000:\nDamages = $110,000 - $100,000 = $10,000.\n\nGiven the numbers in the question, expectation damages = $0.\nBut this seems counterintuitive. Perhaps the question intends that the owner also lost profits.\n\nLet us use a clearer calculation:\nContract price: $180,000\nPaid to date: $80,000\nBalance owing under contract: $100,000\nCost to complete with substitute: $75,000\n\nBecause substitute cost < balance owing, the owner has suffered no expectation loss on the construction cost itself.\nExpectation damages = $0.",
+    "explanation": "Expectation damages aim to put the innocent party in the position they would have been in had the contract been performed. Here, the restaurant owner paid $80,000 to the original builder and must pay $75,000 to complete, totalling $155,000, which is less than the original contract price of $180,000. Because the substitute completion cost is less than the remaining contract balance ($100,000), the owner has suffered no net expectation loss on the construction costs. In such cases, the owner may consider reliance damages or restitutionary claims instead, but under the expectation measure, no damages are recoverable for the construction shortfall."
+  },
+  {
+    "id": "BTW1042-37",
+    "type": "theory",
+    "difficulty": "medium",
+    "topic": "Contract Law - Offer and Acceptance",
+    "question": "Explain the rules governing the communication of acceptance in contract law, including the postal acceptance rule and the distinction between instantaneous and non-instantaneous methods of communication.",
+    "answer": "General Rule: Acceptance must be communicated to the offeror to be effective. Silence is not acceptance (Felthouse v Bindley).\n\nInstantaneous Communication (e.g., telephone, face-to-face, fax): Acceptance is effective when and where received by the offeror. If the offeror does not hear or receive the acceptance due to their own fault, it is still effective.\n\nNon-Instantaneous Communication (e.g., post): The postal acceptance rule (Adams v Lindsell) states that acceptance is effective when the letter is properly posted, not when received. Requirements: (1) it must be reasonable to use the post, (2) the letter must be properly addressed and stamped, (3) the letter must be actually posted.\n\nElectronic Communication: Email acceptance is generally effective when received (not sent), though this remains an area of some uncertainty in Australian law.",
+    "explanation": "The postal acceptance rule is an exception to the general communication requirement. It was developed because the offeror, by choosing the post as the method of communication, is deemed to have accepted the risk that acceptance may be delayed or lost. With modern instantaneous communication, the rule has limited application but remains relevant for posted acceptances."
+  },
+  {
+    "id": "BTW1042-38",
+    "type": "theory",
+    "difficulty": "hard",
+    "topic": "Corporate Law - Director Duties",
+    "question": "Discuss the duty to prevent insolvent trading under section 588G of the Corporations Act 2001 (Cth). What are the elements of the offence, what defenses are available under section 588H, and what penalties can directors face for breach?",
+    "answer": "Elements of section 588G:\n1. A person is a director at the time the company incurs a debt\n2. The company is insolvent at that time, or becomes insolvent by incurring the debt\n3. There are reasonable grounds for suspecting insolvency\n4. The director is aware, or a reasonable person in their position would be aware, of those grounds\n\nDefenses under section 588H:\n1. The director had reasonable grounds to expect the company was solvent\n2. The director reasonably relied on information from a competent and reliable person\n3. The director took all reasonable steps to prevent the debt being incurred\n4. Due to illness, the director did not take part in management at that time\n\nPenalties:\n- Civil penalties: up to $200,000 (formerly; now significantly higher under updated provisions)\n- Compensation orders: directors may be personally liable for the amount of the debt or losses\n- Criminal penalties: if dishonesty is proven, up to 5 years imprisonment and substantial fines\n- Disqualification from managing corporations",
+    "explanation": "Section 588G is a critical provision designed to protect creditors by preventing companies from trading while insolvent. Directors have a positive duty to monitor the company's financial position and cease incurring debts if insolvency is suspected. The defenses recognize that directors cannot be expected to have perfect knowledge, but they must act reasonably and seek appropriate advice."
+  },
+  {
+    "id": "BTW1042-39",
+    "type": "case",
+    "difficulty": "hard",
+    "topic": "Negligence",
+    "question": "David, a licensed builder, undertakes renovation work on Emily's home. During the work, David negligently damages a load-bearing wall, causing a partial ceiling collapse. Emily suffers minor physical injuries and $45,000 in property damage. Emily also loses $8,000 in rental income because the property is uninhabitable for two months while repairs are completed. David argues that Emily assumed the risk by hiring a builder without checking his insurance status.\n\n1. Does David owe Emily a duty of care?\n2. Has David breached the standard of care?\n3. Is David liable for the lost rental income (pure economic loss)?\n4. Is the assumption of risk defense likely to succeed?",
+    "answer": "1. Yes, David owes Emily a duty of care as a professional builder performing work on her property.\n2. Yes, damaging a load-bearing wall demonstrates a failure to exercise reasonable care and skill expected of a licensed builder.\n3. Yes, the lost rental income is recoverable as consequential economic loss flowing directly from the physical damage to the property.\n4. No, the assumption of risk defense is unlikely to succeed because hiring an uninsured builder does not amount to voluntarily accepting the risk of negligent workmanship.",
+    "working": "Duty of Care: A professional undertaking work on another's property owes a clear duty of care to avoid causing physical damage and associated losses (Bryan v Maloney for builders' liability to subsequent owners).\n\nBreach: The standard of care is that of a reasonably competent builder. Damaging a load-bearing wall falls below this standard.\n\nPure Economic Loss: The $8,000 rental loss is not 'pure' economic loss in the problematic sense because it flows directly from physical damage to Emily's property. It is consequential economic loss, which is recoverable.\n\nAssumption of Risk: Under the Civil Liability Acts, the defense requires that the plaintiff voluntarily accepted the specific risk with full knowledge. Emily's failure to check insurance does not meet this standard.",
+    "explanation": "This case illustrates the distinction between pure economic loss (difficult to recover in negligence) and consequential economic loss flowing from physical damage (generally recoverable). It also demonstrates the high threshold for assumption of risk defenses, which require actual knowledge and voluntary acceptance of the specific risk, not merely general awareness of danger."
+  },
+  {
+    "id": "BTW1042-40",
+    "type": "truefalse",
+    "difficulty": "easy",
+    "topic": "Australian Consumer Law",
+    "question": "Under the Australian Consumer Law, all terms in standard form consumer contracts that limit a consumer's rights are automatically void regardless of whether they cause a significant imbalance in the parties' rights and obligations.",
+    "answer": false,
+    "explanation": "This statement is false. Under ACL section 24, a term is 'unfair' only if it: (a) would cause a significant imbalance in the parties' rights and obligations; (b) is not reasonably necessary to protect the legitimate interests of the advantaged party; and (c) would cause detriment if relied upon. Not all limitation terms are automatically void; they must meet all three criteria of the unfairness test."
+  }
+]

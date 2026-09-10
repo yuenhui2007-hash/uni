@@ -1,0 +1,220 @@
+[
+  {
+    "id": "ECM1953-25",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Supply and Demand",
+    "question": "If the price of a substitute good increases, what happens to the demand curve for the original good, ceteris paribus?",
+    "options": [
+      "It shifts to the left",
+      "It shifts to the right",
+      "There is a movement up along the curve",
+      "There is a movement down along the curve"
+    ],
+    "correct": 1,
+    "explanation": "When the price of a substitute rises, consumers switch to the relatively cheaper original good, increasing demand at every price level. This is represented by a rightward shift of the demand curve. A movement along the curve (C or D) would be caused by a change in the good's own price, not a substitute's price."
+  },
+  {
+    "id": "ECM1953-26",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Elasticity",
+    "question": "A government imposes a per-unit tax on a good. Under which condition will consumers bear the greater share of the tax burden?",
+    "options": [
+      "Demand is elastic and supply is inelastic",
+      "Demand is inelastic and supply is elastic",
+      "Both demand and supply are elastic",
+      "Both demand and supply are inelastic"
+    ],
+    "correct": 1,
+    "explanation": "Tax incidence falls more heavily on the side of the market that is less elastic. If demand is inelastic, consumers are less responsive to price changes and will continue purchasing near the same quantity even when price rises, causing them to bear most of the tax burden. Conversely, elastic supply means producers can more easily adjust output or shift resources elsewhere."
+  },
+  {
+    "id": "ECM1953-27",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "GDP and National Income",
+    "question": "Which of the following is NOT included in the calculation of Australia's GDP using the expenditure approach?",
+    "options": [
+      "Household consumption expenditure",
+      "Government spending on goods and services",
+      "Transfer payments by the government",
+      "Net exports"
+    ],
+    "correct": 2,
+    "explanation": "Transfer payments (such as pensions and unemployment benefits) are not included in GDP under the expenditure approach because they do not represent payment for currently produced goods or services; they are simply redistributions of income. The expenditure approach sums C + I + G + (X - M)."
+  },
+  {
+    "id": "ECM1953-28",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Market Structures",
+    "question": "In a perfectly competitive market in long-run equilibrium, which of the following statements is true?",
+    "options": [
+      "Firms earn positive economic profit",
+      "Price equals marginal cost but exceeds average total cost",
+      "Firms produce at the minimum point of their average total cost curve",
+      "There are barriers to entry preventing new firms from joining"
+    ],
+    "correct": 2,
+    "explanation": "In long-run perfect competition, free entry and exit drive economic profit to zero. This occurs where P = MC = minimum ATC, meaning firms produce at the efficient scale. Positive economic profit (A) attracts entry, and barriers to entry (D) violate the definition of perfect competition."
+  },
+  {
+    "id": "ECM1953-29",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Exchange Rates",
+    "question": "Under a floating exchange rate regime, if the Reserve Bank of Australia raises the domestic cash rate while other central banks keep rates constant, what is the most likely short-run effect on the Australian dollar?",
+    "options": [
+      "The AUD depreciates because higher rates reduce export competitiveness",
+      "The AUD appreciates because higher rates attract capital inflows",
+      "The AUD remains unchanged because purchasing power parity dominates",
+      "The AUD depreciates because inflation expectations rise"
+    ],
+    "correct": 1,
+    "explanation": "Higher relative interest rates increase the return on Australian dollar-denominated assets, attracting foreign capital inflows. Increased demand for the AUD in foreign exchange markets causes appreciation in the short run. While higher rates could eventually slow the economy, the immediate portfolio rebalancing effect dominates."
+  },
+  {
+    "id": "ECM1953-30",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Monetary Policy",
+    "question": "Which of the following is a contractionary monetary policy action by the Reserve Bank of Australia?",
+    "options": [
+      "Lowering the cash rate target",
+      "Purchasing government securities through open market operations",
+      "Increasing the cash rate target",
+      "Reducing the reserve requirement ratio"
+    ],
+    "correct": 2,
+    "explanation": "Increasing the cash rate target is contractionary because it raises the cost of borrowing, reducing consumption and investment, which dampens aggregate demand. Lowering the cash rate (A), purchasing securities (B), and reducing reserve requirements (D) are all expansionary actions that increase the money supply and stimulate demand."
+  },
+  {
+    "id": "ECM1953-31",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Consumer and Producer Surplus",
+    "question": "If a price ceiling is set below the market equilibrium price, what is the likely outcome?",
+    "options": [
+      "A surplus of the good",
+      "A shortage of the good",
+      "An increase in producer surplus",
+      "No effect on market outcomes"
+    ],
+    "correct": 1,
+    "explanation": "A binding price ceiling (below equilibrium) prevents the price from rising to clear the market. At the lower price, quantity demanded exceeds quantity supplied, creating a shortage. Producer surplus typically decreases because producers receive a lower price and sell fewer units."
+  },
+  {
+    "id": "ECM1953-32",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Externalities",
+    "question": "A negative production externality, such as pollution from a factory, leads to which of the following market outcomes?",
+    "options": [
+      "The market quantity is below the socially optimal quantity",
+      "The market quantity is above the socially optimal quantity",
+      "Marginal private cost equals marginal social benefit",
+      "Producer surplus is necessarily zero"
+    ],
+    "correct": 1,
+    "explanation": "With a negative production externality, the marginal social cost (MSC) exceeds the marginal private cost (MPC) because society bears additional costs (pollution) not reflected in the firm's private costs. The firm overproduces relative to the social optimum, meaning market quantity exceeds the socially optimal quantity where MSB = MSC."
+  },
+  {
+    "id": "ECM1953-33",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Fiscal Policy",
+    "question": "In the Keynesian model, if the marginal propensity to consume (MPC) is 0.75 and the government increases spending by $400 million with no change in taxes, what is the total impact on aggregate demand assuming no crowding out?",
+    "options": [
+      "$300 million",
+      "$400 million",
+      "$1,200 million",
+      "$1,600 million"
+    ],
+    "correct": 3,
+    "explanation": "The spending multiplier is calculated as 1 / (1 - MPC) = 1 / (1 - 0.75) = 4. Total impact on aggregate demand = Multiplier × Change in Government Spending = 4 × $400 million = $1,600 million. The multiplier effect arises because each round of spending becomes income, of which 75% is re-spent."
+  },
+  {
+    "id": "ECM1953-34",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Unemployment",
+    "question": "Frictional unemployment occurs when:",
+    "options": [
+      "Workers lose jobs due to an economic recession",
+      "Workers are between jobs or entering the labour market",
+      "Workers' skills become obsolete due to technological change",
+      "Workers voluntarily choose not to work at the prevailing wage"
+    ],
+    "correct": 1,
+    "explanation": "Frictional unemployment is short-term and occurs during normal labour market transitions, such as when workers voluntarily leave one job to search for another or when new graduates enter the workforce. Cyclical unemployment (A) is caused by downturns, structural unemployment (C) by skill mismatches, and voluntary unemployment (D) by reservation wages exceeding market wages."
+  },
+  {
+    "id": "ECM1953-35",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Inflation",
+    "question": "Which of the following best describes cost-push inflation?",
+    "options": [
+      "Inflation caused by excessive aggregate demand",
+      "Inflation caused by an increase in production costs",
+      "Inflation caused by expansionary monetary policy",
+      "Inflation caused by rising consumer confidence"
+    ],
+    "correct": 1,
+    "explanation": "Cost-push inflation occurs when rising input costs (such as wages, raw materials, or energy prices) shift the short-run aggregate supply curve leftward, raising the price level and reducing output. Demand-pull inflation (A, C, D) is driven by increases in aggregate demand."
+  },
+  {
+    "id": "ECM1953-36",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "International Trade",
+    "question": "If Australia has a comparative advantage in producing wheat relative to Japan, which of the following must be true?",
+    "options": [
+      "Australia can produce more wheat than Japan using the same resources",
+      "Australia has a lower opportunity cost of producing wheat than Japan",
+      "Australia has an absolute advantage in producing wheat",
+      "Australia must have an absolute advantage in all goods"
+    ],
+    "correct": 1,
+    "explanation": "Comparative advantage is defined by lower opportunity cost, not greater absolute output. Australia may produce less wheat in absolute terms (lacking absolute advantage) but still have a comparative advantage if it gives up fewer other goods to produce wheat. Countries specialize according to comparative advantage, not absolute advantage."
+  },
+  {
+    "id": "ECM1953-37",
+    "type": "calculation",
+    "difficulty": "medium",
+    "topic": "Elasticity",
+    "question": "The demand function for coffee in a local market is given by Qd = 200 - 4P, and the supply function is Qs = 20 + 2P, where P is price in dollars and Q is quantity in cups per day.\n\n1. Calculate the equilibrium price and quantity.\n2. If the government imposes a $6 per-unit tax on suppliers, write the new supply equation and find the new equilibrium price paid by consumers and quantity traded.\n3. Calculate the tax revenue and the deadweight loss.",
+    "answer": "1. Equilibrium: P = $30, Q = 80 cups. 2. New supply: Qs = 20 + 2(P - 6) = 8 + 2P. New consumer price = $32, quantity = 72 cups. 3. Tax revenue = $432, Deadweight loss = $24.",
+    "working": "1. Set Qd = Qs: 200 - 4P = 20 + 2P → 180 = 6P → P = $30. Q = 200 - 4(30) = 80 cups.\n\n2. New supply after $6 tax: Qs = 20 + 2(P - 6) = 8 + 2P. Set equal to demand: 200 - 4P = 8 + 2P → 192 = 6P → P_consumer = $32. Quantity = 200 - 4(32) = 72 cups. Price received by suppliers = $32 - $6 = $26.\n\n3. Tax revenue = $6 × 72 = $432. Deadweight loss = 0.5 × tax × reduction in quantity = 0.5 × $6 × (80 - 72) = 0.5 × $6 × 8 = $24.",
+    "explanation": "A per-unit tax drives a wedge between the price consumers pay and the price suppliers receive. The statutory incidence (who remits the tax) does not affect the economic incidence, which depends on relative elasticities. Here, because the demand curve is steeper (less elastic) than supply, consumers bear $2 of the $6 tax while suppliers bear $4. The deadweight loss represents the reduction in total surplus due to the tax distorting incentives."
+  },
+  {
+    "id": "ECM1953-38",
+    "type": "theory",
+    "difficulty": "medium",
+    "topic": "Market Structures",
+    "question": "Compare and contrast monopolistic competition and oligopoly as market structures. In your answer, discuss product differentiation, barriers to entry, pricing power, and the role of strategic interdependence.",
+    "answer": "Monopolistic competition features many firms, low barriers to entry, and differentiated products. Each firm has a small degree of market power due to brand loyalty, but competition erodes long-run economic profit to zero as new entrants imitate successful product variations. Firms face downward-sloping demand curves but produce with excess capacity.\n\nOligopoly consists of a few dominant firms with significant barriers to entry (such as economies of scale, patents, or capital requirements). Products may be differentiated or homogeneous. Firms possess substantial pricing power and are strategically interdependent: each firm's optimal price and output depend on rivals' expected reactions. This interdependence leads to game-theoretic behavior, including collusion, price leadership, or non-cooperative Nash equilibrium outcomes.\n\nKey differences: (1) Number of firms and concentration; (2) Barriers to entry are low in monopolistic competition but high in oligopoly; (3) Strategic interdependence is negligible in monopolistic competition but central in oligopoly; (4) Long-run profits are zero under monopolistic competition but can be positive in oligopoly if barriers are sustained.",
+    "explanation": "Understanding market structure distinctions is essential for predicting firm behavior and policy implications. Monopolistic competition emphasizes product variety and consumer choice at the cost of excess capacity, while oligopoly raises concerns about market power, collusion, and welfare losses that may justify antitrust intervention."
+  },
+  {
+    "id": "ECM1953-39",
+    "type": "case",
+    "difficulty": "hard",
+    "topic": "Fiscal Policy",
+    "question": "Case Study: The Australian economy is experiencing a recessionary gap with real GDP $40 billion below potential output. The government is considering a fiscal stimulus package. Economic advisors provide the following estimates: marginal propensity to consume (MPC) = 0.8, marginal propensity to import (MPM) = 0.1, and the proportional tax rate = 0.25.\n\n1. Calculate the expenditure multiplier in this open economy with proportional taxes.\n2. Determine the required increase in government spending to close the recessionary gap.\n3. If instead the government chose an equal-sized tax cut, how large would the cut need to be to achieve the same effect on aggregate demand? Explain why the required tax cut differs from the spending increase.\n4. Discuss one limitation of using fiscal multipliers in real-world policy making.",
+    "answer": "1. Multiplier ≈ 2.5. 2. Required spending increase = $16 billion. 3. Required tax cut = $20 billion. 4. Limitations include crowding out, implementation lags, and uncertainty about parameter values.",
+    "working": "1. In an open economy with proportional taxes, the multiplier = 1 / [1 - MPC(1 - t) + MPM] = 1 / [1 - 0.8(0.75) + 0.1] = 1 / [1 - 0.6 + 0.1] = 1 / 0.5 = 2.0. Correction: 1 - 0.6 + 0.1 = 0.5, so multiplier = 2.0.\n\nWait, recalculate: MPC(1-t) = 0.8 × 0.75 = 0.6. Then multiplier denominator = 1 - 0.6 + 0.1 = 0.5. Multiplier = 1 / 0.5 = 2.0.\n\n2. Required spending increase = Gap / Multiplier = $40 billion / 2.0 = $20 billion.\n\n3. The tax multiplier = -MPC(1-t) / [1 - MPC(1-t) + MPM] = -0.6 / 0.5 = -1.2. To increase AD by $40 billion: Tax cut = $40 billion / 1.2 ≈ $33.3 billion. Alternatively, using the simpler tax multiplier -MPC/(1-MPC) in a closed economy with lump-sum taxes would give a different number, but in this open proportional-tax model the tax multiplier is smaller in absolute value than the spending multiplier because part of the tax cut is saved and leaked to imports.\n\n4. Real-world limitations: crowding out (higher government borrowing raises interest rates, reducing private investment); recognition, decision, and implementation lags; uncertainty about true MPC and MPM values; and potential Ricardian equivalence where households save the tax cut anticipating future tax increases.",
+    "explanation": "Fiscal policy effectiveness depends critically on multiplier size, which is reduced by leakages (savings, taxes, imports). Government spending has a larger multiplier than tax cuts because the entire spending injection enters the circular flow, whereas only a fraction of a tax cut is spent. Real-world policy must account for timing, uncertainty, and offsetting private sector behavior."
+  },
+  {
+    "id": "ECM1953-40",
+    "type": "truefalse",
+    "difficulty": "easy",
+    "topic": "Supply and Demand",
+    "question": "An increase in consumer income will always shift the demand curve for a good to the right.",
+    "answer": false,
+    "explanation": "This statement is false. Whether demand increases (shifts right) depends on whether the good is normal or inferior. For normal goods, higher income increases demand. For inferior goods (such as instant noodles or bus travel), higher income reduces demand as consumers switch to superior alternatives, shifting the demand curve to the left."
+  }
+]

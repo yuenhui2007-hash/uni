@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// Ensure data directory exists
+// Ensure directories exist
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
 function readFile(filename, defaultValue = {}) {
@@ -53,7 +53,6 @@ app.post('/api/streak/today', (req, res) => {
   const today = new Date().getDate() - 1;
   const level = Math.min(5, (streak.days[today] || 0) + 1);
   streak.days[today] = level;
-  // Recalc current streak
   let current = 0;
   for (let i = today; i >= 0; i--) { if ((streak.days[i] || 0) > 0) current++; else break; }
   streak.stats.currentStreak = current;
@@ -137,16 +136,11 @@ app.get('/api/badges', (req, res) => res.json(readFile('badges.json', [])));
 
 // ── CONFIG ──
 app.get('/api/config', (req, res) => res.json(readFile('config.json', {
-  name: 'Yuen Hui', degree: 'Bachelor of Commerce', avatarInitials: 'YH',
+  name: 'User', degree: 'Bachelor of Commerce', avatarInitials: 'US',
   subjects: [
-    { id: 1, name: 'Business Law', color: '#d8c2b5' },
-    { id: 2, name: 'Accounting', color: '#a78bfa' },
-    { id: 3, name: 'Economics', color: '#60a5fa' },
-    { id: 4, name: 'Marketing', color: '#34d399' },
-    { id: 5, name: 'Finance', color: '#f472b6' },
-    { id: 6, name: 'Management', color: '#fbbf24' },
-    { id: 7, name: 'Statistics', color: '#fb923c' },
-    { id: 8, name: 'IT for Business', color: '#22d3ee' }
+    { id: 1, name: 'Business Law', color: '#d8c2b5' }, { id: 2, name: 'Accounting', color: '#a78bfa' }, { id: 3, name: 'Economics', color: '#60a5fa' },
+    { id: 4, name: 'Marketing', color: '#34d399' }, { id: 5, name: 'Finance', color: '#f472b6' }, { id: 6, name: 'Management', color: '#fbbf24' },
+    { id: 7, name: 'Statistics', color: '#fb923c' }, { id: 8, name: 'IT for Business', color: '#22d3ee' }
   ]
 })));
 app.put('/api/config', (req, res) => { writeFile('config.json', req.body); res.json({ ok: true }); });

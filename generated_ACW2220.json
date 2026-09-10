@@ -1,0 +1,220 @@
+[
+  {
+    "id": "ACW2220-25",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Cost Classification",
+    "question": "Which of the following is an example of a period cost?",
+    "options": [
+      "Direct materials used in production",
+      "Factory supervisor salary",
+      "Salesperson commissions",
+      "Machine depreciation in the plant"
+    ],
+    "correct": 2,
+    "explanation": "Period costs are expensed in the period incurred and are not tied to production. Salesperson commissions are selling expenses, a period cost. Direct materials, factory supervisor salaries, and machine depreciation are product costs."
+  },
+  {
+    "id": "ACW2220-26",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Cost-Volume-Profit Analysis",
+    "question": "If a company's contribution margin ratio is 40% and fixed costs are $120,000, what is the break-even point in sales dollars?",
+    "options": [
+      "$48,000",
+      "$300,000",
+      "$200,000",
+      "$150,000"
+    ],
+    "correct": 1,
+    "explanation": "Break-even sales dollars = Fixed Costs / Contribution Margin Ratio = $120,000 / 0.40 = $300,000."
+  },
+  {
+    "id": "ACW2220-27",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Cost Behaviour",
+    "question": "Which of the following best describes a mixed cost?",
+    "options": [
+      "A cost that remains constant in total regardless of activity level",
+      "A cost that varies in direct proportion to activity level",
+      "A cost that contains both fixed and variable components",
+      "A cost that increases in steps as activity increases"
+    ],
+    "correct": 2,
+    "explanation": "A mixed cost has both a fixed component (the base amount) and a variable component (that changes with activity). Examples include utility bills with a fixed service charge plus usage-based charges."
+  },
+  {
+    "id": "ACW2220-28",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Variance Analysis",
+    "question": "A favorable direct labor efficiency variance indicates that:",
+    "options": [
+      "The actual wage rate was lower than the standard rate",
+      "The actual hours worked were less than the standard hours allowed for actual output",
+      "The actual hours worked exceeded the standard hours allowed",
+      "The standard wage rate was set too high"
+    ],
+    "correct": 1,
+    "explanation": "Labor efficiency variance = (Actual Hours - Standard Hours Allowed) x Standard Rate. A favorable variance means fewer hours were used than standard, indicating efficient labor utilization."
+  },
+  {
+    "id": "ACW2220-29",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Activity-Based Costing",
+    "question": "In activity-based costing, a cost driver is defined as:",
+    "options": [
+      "The total cost of an activity pool",
+      "A factor that causes or influences the cost of an activity",
+      "The allocation base used in traditional costing only",
+      "The difference between actual and budgeted costs"
+    ],
+    "correct": 1,
+    "explanation": "A cost driver is any factor that causes a change in the cost of an activity. ABC uses multiple cost drivers to allocate overhead more accurately than traditional systems that often rely solely on volume-based drivers."
+  },
+  {
+    "id": "ACW2220-30",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Process Costing",
+    "question": "A process has beginning WIP of 5,000 units (60% complete for conversion), 20,000 units started, and ending WIP of 4,000 units (25% complete for conversion). Using the FIFO method, what are the equivalent units for conversion costs?",
+    "options": [
+      "20,600",
+      "19,600",
+      "20,000",
+      "18,600"
+    ],
+    "correct": 1,
+    "explanation": "FIFO equivalent units = (Beginning WIP x % to complete) + Units started and completed + (Ending WIP x % complete). Units completed = 5,000 + 20,000 - 4,000 = 21,000. Started and completed = 21,000 - 5,000 = 16,000. EU = (5,000 x 40%) + 16,000 + (4,000 x 25%) = 2,000 + 16,000 + 1,000 = 19,600."
+  },
+  {
+    "id": "ACW2220-31",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Relevant Costing",
+    "question": "Which of the following costs is always irrelevant to a future business decision?",
+    "options": [
+      "Incremental fixed costs",
+      "Opportunity costs",
+      "Sunk costs",
+      "Variable costs"
+    ],
+    "correct": 2,
+    "explanation": "Sunk costs are past costs that cannot be changed by any future decision. They are irrelevant because they do not differ among alternatives. Incremental costs, opportunity costs, and variable costs are typically relevant."
+  },
+  {
+    "id": "ACW2220-32",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Transfer Pricing",
+    "question": "When a selling division has no spare capacity, the minimum transfer price should generally be set at:",
+    "options": [
+      "Variable cost only",
+      "Variable cost plus opportunity cost of lost external sales",
+      "Market price less a discount",
+      "Full cost only"
+    ],
+    "correct": 1,
+    "explanation": "With no spare capacity, transferring internally means forgoing external sales. The minimum transfer price must cover variable cost plus the opportunity cost (contribution margin lost from external sales) to ensure the selling division is no worse off."
+  },
+  {
+    "id": "ACW2220-33",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Performance Measurement",
+    "question": "A division reports controllable margin of $400,000 and average operating assets of $2,000,000. The company requires a minimum return of 15%. What is the division's residual income?",
+    "options": [
+      "$100,000",
+      "$300,000",
+      "$400,000",
+      "$70,000"
+    ],
+    "correct": 0,
+    "explanation": "Residual Income = Controllable Margin - (Minimum Required Return x Average Operating Assets) = $400,000 - (0.15 x $2,000,000) = $400,000 - $300,000 = $100,000."
+  },
+  {
+    "id": "ACW2220-34",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Budgeting",
+    "question": "Which budget is typically prepared first in the master budgeting process?",
+    "options": [
+      "Production budget",
+      "Cash budget",
+      "Sales budget",
+      "Direct materials budget"
+    ],
+    "correct": 2,
+    "explanation": "The sales budget is the foundation of the master budget. All other operational budgets (production, materials, labor, overhead) and financial budgets flow from the expected sales volume and revenue."
+  },
+  {
+    "id": "ACW2220-35",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Overhead Allocation",
+    "question": "In a traditional costing system, manufacturing overhead is typically allocated to products using:",
+    "options": [
+      "Multiple activity-based cost drivers",
+      "A single plantwide overhead rate based on direct labor hours or machine hours",
+      "Only direct materials cost",
+      "Actual overhead costs without any allocation base"
+    ],
+    "correct": 1,
+    "explanation": "Traditional costing systems often use a single predetermined overhead rate based on a volume-related measure such as direct labor hours or machine hours. ABC systems, by contrast, use multiple cost drivers."
+  },
+  {
+    "id": "ACW2220-36",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Cost-Volume-Profit Analysis",
+    "question": "A company sells two products: X (contribution margin $20, sales mix 60%) and Y (contribution margin $30, sales mix 40%). Fixed costs are $144,000. What is the break-even point in total units assuming the sales mix remains constant?",
+    "options": [
+      "4,800 units",
+      "6,000 units",
+      "7,200 units",
+      "5,400 units"
+    ],
+    "correct": 1,
+    "explanation": "Weighted-average CM per unit = ($20 x 0.60) + ($30 x 0.40) = $12 + $12 = $24. Break-even total units = $144,000 / $24 = 6,000 units. At break-even: X = 3,600 units, Y = 2,400 units."
+  },
+  {
+    "id": "ACW2220-37",
+    "type": "calculation",
+    "difficulty": "medium",
+    "topic": "Variance Analysis",
+    "question": "The following data relate to direct labor for the month: Standard hours allowed for actual output = 2,500 hours; Standard rate = $18 per hour; Actual hours worked = 2,200 hours; Actual rate = $20 per hour. Calculate the direct labor rate variance and the direct labor efficiency variance, and state whether each is favorable or unfavorable.",
+    "answer": "Rate variance = $4,400 Unfavorable; Efficiency variance = $5,400 Favorable.",
+    "working": "Rate variance = (Actual Rate - Standard Rate) x Actual Hours = ($20 - $18) x 2,200 = $4,400 Unfavorable. Efficiency variance = (Actual Hours - Standard Hours Allowed) x Standard Rate = (2,200 - 2,500) x $18 = -$5,400 = $5,400 Favorable.",
+    "explanation": "The unfavorable rate variance indicates workers were paid more per hour than standard, possibly due to overtime or higher-skilled labor. The favorable efficiency variance shows workers completed output faster than standard, which may offset the higher wage rate."
+  },
+  {
+    "id": "ACW2220-38",
+    "type": "theory",
+    "difficulty": "medium",
+    "topic": "Activity-Based Costing",
+    "question": "Explain why traditional costing systems may distort product costs in modern manufacturing environments, and describe how activity-based costing addresses this problem.",
+    "answer": "Traditional costing systems allocate overhead using a single volume-based driver (e.g., direct labor hours). In modern environments, overhead is a large proportion of total cost and products consume overhead resources differently. High-volume simple products are overcosted while low-volume complex products are undercosted. ABC addresses this by identifying activities that drive overhead costs, creating cost pools for each activity, and using multiple activity-specific cost drivers to trace overhead to products more accurately.",
+    "explanation": "Product cost distortion can lead to poor pricing and product mix decisions. ABC provides more accurate costing by reflecting the actual consumption of resources across diverse products, improving managerial decision-making."
+  },
+  {
+    "id": "ACW2220-39",
+    "type": "case",
+    "difficulty": "hard",
+    "topic": "Decision Making",
+    "question": "Epsilon Ltd produces a component with the following unit costs at a volume of 10,000 units: Direct materials $12, Direct labor $8, Variable overhead $5, Fixed overhead $10 (of which $6 is unavoidable). An outside supplier offers the component at $32 per unit. If Epsilon buys from the supplier, the freed facilities can be used to produce another product generating additional contribution margin of $25,000 per year. Should Epsilon make or buy the component? Provide calculations and reasoning.",
+    "answer": "Epsilon should buy the component.",
+    "working": "Relevant cost to make per unit = $12 + $8 + $5 + $4 avoidable fixed overhead = $29. Total relevant cost to make = 10,000 x $29 = $290,000. Cost to buy = 10,000 x $32 = $320,000. Less opportunity benefit from freed facilities = $25,000. Net cost to buy = $320,000 - $25,000 = $295,000. Buying is cheaper by $5,000.",
+    "explanation": "Only avoidable costs are relevant. The $6 unavoidable fixed overhead is irrelevant because it continues regardless of the decision. The opportunity benefit of using freed facilities reduces the effective cost of buying, making outsourcing the better choice."
+  },
+  {
+    "id": "ACW2220-40",
+    "type": "truefalse",
+    "difficulty": "easy",
+    "topic": "Cost-Volume-Profit Analysis",
+    "question": "At the break-even point, total contribution margin equals total fixed costs, and net operating income is zero.",
+    "answer": true,
+    "explanation": "By definition, break-even occurs where total revenue equals total costs (fixed + variable). Since contribution margin = sales - variable costs, at break-even contribution margin exactly covers fixed costs, leaving zero profit."
+  }
+]

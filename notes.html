@@ -4,8 +4,52 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UNI — Notes</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+
+    .header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 40px; margin-bottom: 30px;
+      border-bottom: 1px solid rgba(191,155,122,0.10);
+      background: rgba(21,16,12,0.90);
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(20px) saturate(1.2);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon {
+      width: 48px; height: 48px; background: linear-gradient(135deg, #BF9B7A, #8C5B3E);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 24px; box-shadow: 0 0 40px rgba(191,155,122,0.08);
+    }
+    .logo-text h1 {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: #F2E6D8; letter-spacing: -0.02em;
+    }
+    .logo-text h1 em { font-style: italic; color: #BF9B7A; }
+    .logo-text span { font-size: 0.8rem; color: #8C5B3E; letter-spacing: 0.05em; }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      padding: 10px 18px; border-radius: 10px; text-decoration: none;
+      color: #8C5B3E; font-weight: 500;
+      transition: all 0.3s ease; border: 1px solid transparent;
+      font-size: 0.85rem;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #BF9B7A; background: rgba(191,155,122,0.08);
+      border-color: rgba(191,155,122,0.18);
+    }
+    .nav-links a i { margin-right: 6px; }
+    .user-profile { display: flex; align-items: center; gap: 12px; }
+    .user-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, #555934, #BF9B7A); display: flex;
+      align-items: center; justify-content: center; font-weight: 700;
+      cursor: pointer; transition: transform 0.3s ease;
+      color: #F2E6D8;
+    }
+    .user-avatar:hover { transform: scale(1.1); }
+
 /* ═══════════════════════════════════════════════════════════════
    🎨 SÉL HAUS — Premium Interior Design Aesthetic
    Adobe Palette: #555934 #F2E6D8 #BF9B7A #8C5B3E #593E2E
@@ -33,7 +77,7 @@
   --border-light:rgba(191,155,122,0.18);
   --border-hover:rgba(191,155,122,0.30);
 
-  --font-serif:'Cormorant Garamond',Georgia,serif;
+  --font-serif:'Source Serif 4',Georgia,serif;
   --font-sans:'Inter',system-ui,sans-serif;
   --font-mono:'JetBrains Mono',monospace;
 
@@ -252,6 +296,61 @@ body::before{
   border-left-color:var(--accent-rust);
   background:rgba(191,155,122,0.05);
 }
+.unit-filter{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-bottom:16px;
+  padding-bottom:16px;
+  border-bottom:1px solid var(--border);
+}
+.unit-filter label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:0.78rem;
+  color:var(--text-muted);
+  cursor:pointer;
+  padding:4px 8px;
+  border-radius:var(--radius-sm);
+  transition:all .2s ease;
+}
+.unit-filter label:hover{
+  background:rgba(191,155,122,0.06);
+  color:var(--text-secondary);
+}
+.unit-filter input[type="radio"]{
+  accent-color:var(--accent-tan);
+  width:14px;height:14px;
+  cursor:pointer;
+}
+.unit-section.hidden-unit{display:none}
+
+.toc .subject-link{
+  display:block;
+  color:var(--text-muted);
+  text-decoration:none;
+  font-size:0.78rem;
+  padding:6px 10px;
+  border-radius:var(--radius-sm);
+  transition:all .25s ease;
+  border-left:2px solid transparent;
+  margin-bottom:2px;
+  font-weight:400;
+  cursor:pointer;
+}
+.toc .subject-link:hover{
+  color:var(--accent-tan);
+  border-left-color:var(--accent-rust);
+  background:rgba(191,155,122,0.05);
+}
+.toc .subject-link.active{
+  color:var(--accent-tan);
+  border-left-color:var(--accent-rust);
+  background:rgba(191,155,122,0.08);
+  font-weight:600;
+}
+
 .toc a.unit{
   color:var(--text-secondary);
   font-weight:500;
@@ -356,11 +455,9 @@ body::before{
 
 /* ═══ SECTION HEADERS ═══ */
 .collapsible-header{
-  cursor:pointer;
   display:flex;
   align-items:center;
   gap:12px;
-  user-select:none;
   transition:color .3s ease;
   font-family:var(--font-serif);
   font-size:1.25rem;
@@ -377,15 +474,9 @@ body::before{
   color:var(--text-faint);
   font-family:var(--font-sans);
 }
-.collapsible-header.open .chevron{transform:rotate(90deg)}
 .collapsible-content{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .5s cubic-bezier(0.22,1,0.36,1),opacity .4s ease;
-  opacity:0;
-}
-.collapsible-content.open{
-  max-height:20000px;
+  max-height:none;
+  overflow:visible;
   opacity:1;
 }
 
@@ -1020,26 +1111,42 @@ h4{
 
 ::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
 </style>
+<script>
+
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+
+
+</script>
 </head>
 <body>
+<header class="header">
+<div style="display:flex;align-items:center;gap:16px">
+<div class="logo">
+                <div class="logo-icon">📚</div>
+                <div class="logo-text">
+                    <h1>UNI <em>Notes</em></h1>
+                    <span>Your Academic Hub</span>
+                </div>
+            </div>
+</div>
+            <nav class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="notes.html" class="active"><i class="fas fa-sticky-note"></i> Notes</a>
+                <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+                <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+                <a href="study.html"><i class="fas fa-book"></i> Study</a>
+                <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+                <a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a>
+            </nav>
+            <div class="user-profile">
+                <span style="color: #8C5B3E; font-size: 0.9rem;">Bachelor of Science</span>
+                <div class="user-avatar" id="userAvatar">JD</div>
+                </div>
+        </header>
 
-<nav class="navbar">
-<div class="navbar-inner">
-<a href="index.html" class="navbar-brand">
-  <div class="logo">🎓</div>
-  <span>UNI</span>
-</a>
-<div class="nav-links">
-  <a href="index.html" class="nav-link" style="font-weight:600">← Back</a>
-  <a href="index.html" class="nav-link">Home</a>
-  <a href="notes.html" class="nav-link active">Notes</a>
-  <a href="visual.html" class="nav-link">Visual</a>
-  <a href="study.html" class="nav-link">Guide</a>
-  <a href="exercise.html" class="nav-link">Exercise</a>
-  <a href="planner.html" class="nav-link">Planner</a>
-</div>
-</div>
-</nav>
+
 
 <div class="hero">
 <div class="hero-label">Study Collection</div>
@@ -1052,18 +1159,18 @@ h4{
 <input type="text" class="search-input" id="searchInput" placeholder="Search definitions, formulas, concepts...">
 </div>
 
-<nav class="toc">
-<h3>Units</h3>
-<a href="#acw1120" class="unit">📊 ACW1120 — Financial Accounting 1</a>
-<a href="#bfw1001" class="unit">💰 BFW1001 — Foundations of Finance</a>
-<a href="#btw1042" class="unit">⚖️ BTW1042 — Business Law</a>
-<a href="#ecm1953" class="unit">📉 ECM1953 — Economics</a>
-<a href="#etw1001" class="unit">📈 ETW1001 — Business Statistics</a>
-<a href="#mgw1010" class="unit">👔 MGW1010 — Management</a>
-<a href="#acw2220" class="unit">📈 ACW2220 — Management Accounting</a>
-<a href="#etc2440" class="unit">🔬 ETC2440 — Business Analytics & Econometrics</a>
-
-</nav>
+<div class="toc">
+  <h3>Subjects</h3>
+  <a class="subject-link active" data-subject="all">All</a>
+  <a class="subject-link" data-subject="acw1120">ACW1120</a>
+  <a class="subject-link" data-subject="bfw1001">BFW1001</a>
+  <a class="subject-link" data-subject="btw1042">BTW1042</a>
+  <a class="subject-link" data-subject="ecm1953">ECM1953</a>
+  <a class="subject-link" data-subject="etw1001">ETW1001</a>
+  <a class="subject-link" data-subject="mgw1010">MGW1010</a>
+  <a class="subject-link" data-subject="acw2220">ACW2220</a>
+  <a class="subject-link" data-subject="etc2440">ETC2440</a>
+</div>
 
 <div class="content-wrap">
 
@@ -1083,17 +1190,17 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
-<div class="collapsible-content open">
+<h3 class="collapsible-header">Key Definitions</h3>
+<div class="collapsible-content">
 <div class="def-grid" id="acw1120-defs"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
+<h3 class="collapsible-header">Key Formulas</h3>
 <div class="collapsible-content">
 <div class="card" id="acw1120-formulas"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 1. Introduction to Accounting</h3>
+<h3 class="collapsible-header">1. Introduction to Accounting</h3>
 <div class="collapsible-content">
 
 
@@ -1157,7 +1264,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 2. Recording Transactions</h3>
+<h3 class="collapsible-header">2. Recording Transactions</h3>
 <div class="collapsible-content">
 
 
@@ -1251,7 +1358,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 3. Adjustments</h3>
+<h3 class="collapsible-header">3. Adjustments</h3>
 <div class="collapsible-content">
 
 
@@ -1407,7 +1514,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 4. Financial Statements</h3>
+<h3 class="collapsible-header">4. Financial Statements</h3>
 <div class="collapsible-content">
 
 
@@ -1502,7 +1609,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 5. Inventory Valuation</h3>
+<h3 class="collapsible-header">5. Inventory Valuation</h3>
 <div class="collapsible-content">
 
 
@@ -1584,7 +1691,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 6. Bank Reconciliation</h3>
+<h3 class="collapsible-header">6. Bank Reconciliation</h3>
 <div class="collapsible-content">
 
 
@@ -1675,7 +1782,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 7. Control Accounts</h3>
+<h3 class="collapsible-header">7. Control Accounts</h3>
 <div class="collapsible-content">
 
 
@@ -1761,7 +1868,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 8. Correction of Errors</h3>
+<h3 class="collapsible-header">8. Correction of Errors</h3>
 <div class="collapsible-content">
 
 
@@ -1828,7 +1935,7 @@ h4{
 
 
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Practice MCQs</h3>
+<h3 class="collapsible-header">Practice MCQs</h3>
 <div class="collapsible-content">
 <div id="acw1120-mcqs"></div>
 <div class="mcq-score" id="acw1120-score" style="display:none"></div>
@@ -1851,17 +1958,17 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
-<div class="collapsible-content open">
+<h3 class="collapsible-header">Key Definitions</h3>
+<div class="collapsible-content">
 <div class="def-grid" id="bfw1001-defs"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
+<h3 class="collapsible-header">Key Formulas</h3>
 <div class="collapsible-content">
 <div class="card" id="bfw1001-formulas"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 1. Business Environment</h3>
+<h3 class="collapsible-header">1. Business Environment</h3>
 <div class="collapsible-content">
 
 
@@ -1913,7 +2020,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 2. Business Ownership</h3>
+<h3 class="collapsible-header">2. Business Ownership</h3>
 <div class="collapsible-content">
 
 
@@ -1969,7 +2076,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 3. Management Functions (POLC)</h3>
+<h3 class="collapsible-header">3. Management Functions (POLC)</h3>
 <div class="collapsible-content">
 
 
@@ -2030,7 +2137,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 4. Human Resource Management</h3>
+<h3 class="collapsible-header">4. Human Resource Management</h3>
 <div class="collapsible-content">
 
 
@@ -2111,7 +2218,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 5. Marketing</h3>
+<h3 class="collapsible-header">5. Marketing</h3>
 <div class="collapsible-content">
 
 
@@ -2180,7 +2287,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 6. Operations Management</h3>
+<h3 class="collapsible-header">6. Operations Management</h3>
 <div class="collapsible-content">
 
 
@@ -2226,7 +2333,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 7. Finance for Business</h3>
+<h3 class="collapsible-header">7. Finance for Business</h3>
 <div class="collapsible-content">
 
 
@@ -2295,7 +2402,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 8. Business Ethics and CSR</h3>
+<h3 class="collapsible-header">8. Business Ethics and CSR</h3>
 <div class="collapsible-content">
 
 
@@ -2351,7 +2458,7 @@ h4{
 
 
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Practice MCQs</h3>
+<h3 class="collapsible-header">Practice MCQs</h3>
 <div class="collapsible-content">
 <div id="bfw1001-mcqs"></div>
 <div class="mcq-score" id="bfw1001-score" style="display:none"></div>
@@ -2374,17 +2481,17 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
-<div class="collapsible-content open">
+<h3 class="collapsible-header">Key Definitions</h3>
+<div class="collapsible-content">
 <div class="def-grid" id="btw1042-defs"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
+<h3 class="collapsible-header">Key Formulas</h3>
 <div class="collapsible-content">
 <div class="card" id="btw1042-formulas"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 1. Australian Legal System</h3>
+<h3 class="collapsible-header">1. Australian Legal System</h3>
 <div class="collapsible-content">
 
 
@@ -2435,7 +2542,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 2. Contract Law</h3>
+<h3 class="collapsible-header">2. Contract Law</h3>
 <div class="collapsible-content">
 
 
@@ -2559,7 +2666,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 3. Tort Law</h3>
+<h3 class="collapsible-header">3. Tort Law</h3>
 <div class="collapsible-content">
 
 
@@ -2619,7 +2726,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 4. Consumer Law (Australian Consumer Law)</h3>
+<h3 class="collapsible-header">4. Consumer Law (Australian Consumer Law)</h3>
 <div class="collapsible-content">
 
 
@@ -2687,7 +2794,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 5. Business Structures and Legal Implications</h3>
+<h3 class="collapsible-header">5. Business Structures and Legal Implications</h3>
 <div class="collapsible-content">
 
 
@@ -2733,7 +2840,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 6. Property and Employment Law</h3>
+<h3 class="collapsible-header">6. Property and Employment Law</h3>
 <div class="collapsible-content">
 
 
@@ -2770,7 +2877,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 7. Dispute Resolution</h3>
+<h3 class="collapsible-header">7. Dispute Resolution</h3>
 <div class="collapsible-content">
 
 
@@ -2839,7 +2946,7 @@ h4{
 
 
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Practice MCQs</h3>
+<h3 class="collapsible-header">Practice MCQs</h3>
 <div class="collapsible-content">
 <div id="btw1042-mcqs"></div>
 <div class="mcq-score" id="btw1042-score" style="display:none"></div>
@@ -2862,17 +2969,17 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
-<div class="collapsible-content open">
+<h3 class="collapsible-header">Key Definitions</h3>
+<div class="collapsible-content">
 <div class="def-grid" id="ecm1953-defs"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
+<h3 class="collapsible-header">Key Formulas</h3>
 <div class="collapsible-content">
 <div class="card" id="ecm1953-formulas"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 1. Demand and Supply</h3>
+<h3 class="collapsible-header">1. Demand and Supply</h3>
 <div class="collapsible-content">
 
 
@@ -2955,7 +3062,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 2. Elasticity</h3>
+<h3 class="collapsible-header">2. Elasticity</h3>
 <div class="collapsible-content">
 
 
@@ -3053,7 +3160,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 3. Consumer and Producer Theory</h3>
+<h3 class="collapsible-header">3. Consumer and Producer Theory</h3>
 <div class="collapsible-content">
 
 
@@ -3119,7 +3226,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 4. Market Structures</h3>
+<h3 class="collapsible-header">4. Market Structures</h3>
 <div class="collapsible-content">
 
 
@@ -3187,7 +3294,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 5. Macroeconomics</h3>
+<h3 class="collapsible-header">5. Macroeconomics</h3>
 <div class="collapsible-content">
 
 
@@ -3254,7 +3361,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 6. Government Policy</h3>
+<h3 class="collapsible-header">6. Government Policy</h3>
 <div class="collapsible-content">
 
 
@@ -3308,7 +3415,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 7. International Economics</h3>
+<h3 class="collapsible-header">7. International Economics</h3>
 <div class="collapsible-content">
 
 
@@ -3395,7 +3502,7 @@ h4{
 
 
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Practice MCQs</h3>
+<h3 class="collapsible-header">Practice MCQs</h3>
 <div class="collapsible-content">
 <div id="ecm1953-mcqs"></div>
 <div class="mcq-score" id="ecm1953-score" style="display:none"></div>
@@ -3418,17 +3525,17 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
-<div class="collapsible-content open">
+<h3 class="collapsible-header">Key Definitions</h3>
+<div class="collapsible-content">
 <div class="def-grid" id="etw1001-defs"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
+<h3 class="collapsible-header">Key Formulas</h3>
 <div class="collapsible-content">
 <div class="card" id="etw1001-formulas"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 1. Introduction to Statistics</h3>
+<h3 class="collapsible-header">1. Introduction to Statistics</h3>
 <div class="collapsible-content">
 
 
@@ -3464,7 +3571,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 2. Descriptive Statistics</h3>
+<h3 class="collapsible-header">2. Descriptive Statistics</h3>
 <div class="collapsible-content">
 
 
@@ -3560,7 +3667,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 3. Data Visualization</h3>
+<h3 class="collapsible-header">3. Data Visualization</h3>
 <div class="collapsible-content">
 
 
@@ -3604,7 +3711,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 4. Probability</h3>
+<h3 class="collapsible-header">4. Probability</h3>
 <div class="collapsible-content">
 
 
@@ -3668,7 +3775,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 5. Probability Distributions</h3>
+<h3 class="collapsible-header">5. Probability Distributions</h3>
 <div class="collapsible-content">
 
 
@@ -3742,7 +3849,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 6. Sampling and Central Limit Theorem</h3>
+<h3 class="collapsible-header">6. Sampling and Central Limit Theorem</h3>
 <div class="collapsible-content">
 
 
@@ -3778,7 +3885,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 7. Confidence Intervals</h3>
+<h3 class="collapsible-header">7. Confidence Intervals</h3>
 <div class="collapsible-content">
 
 
@@ -3848,7 +3955,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 8. Hypothesis Testing</h3>
+<h3 class="collapsible-header">8. Hypothesis Testing</h3>
 <div class="collapsible-content">
 
 
@@ -3926,7 +4033,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 9. Simple Linear Regression</h3>
+<h3 class="collapsible-header">9. Simple Linear Regression</h3>
 <div class="collapsible-content">
 
 
@@ -4012,7 +4119,7 @@ h4{
 
 
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Practice MCQs</h3>
+<h3 class="collapsible-header">Practice MCQs</h3>
 <div class="collapsible-content">
 <div id="etw1001-mcqs"></div>
 <div class="mcq-score" id="etw1001-score" style="display:none"></div>
@@ -4035,17 +4142,17 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
-<div class="collapsible-content open">
+<h3 class="collapsible-header">Key Definitions</h3>
+<div class="collapsible-content">
 <div class="def-grid" id="mgw1010-defs"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
+<h3 class="collapsible-header">Key Formulas</h3>
 <div class="collapsible-content">
 <div class="card" id="mgw1010-formulas"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 1. Evolution of Management Theory</h3>
+<h3 class="collapsible-header">1. Evolution of Management Theory</h3>
 <div class="collapsible-content">
 
 
@@ -4139,7 +4246,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 2. Planning</h3>
+<h3 class="collapsible-header">2. Planning</h3>
 <div class="collapsible-content">
 
 
@@ -4206,7 +4313,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 3. Organizing</h3>
+<h3 class="collapsible-header">3. Organizing</h3>
 <div class="collapsible-content">
 
 
@@ -4252,7 +4359,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 4. Leading</h3>
+<h3 class="collapsible-header">4. Leading</h3>
 <div class="collapsible-content">
 
 
@@ -4354,7 +4461,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 5. Controlling</h3>
+<h3 class="collapsible-header">5. Controlling</h3>
 <div class="collapsible-content">
 
 
@@ -4408,7 +4515,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 6. Organizational Culture</h3>
+<h3 class="collapsible-header">6. Organizational Culture</h3>
 <div class="collapsible-content">
 
 
@@ -4459,7 +4566,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 7. Change Management</h3>
+<h3 class="collapsible-header">7. Change Management</h3>
 <div class="collapsible-content">
 
 
@@ -4514,7 +4621,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 8. Teams and Communication</h3>
+<h3 class="collapsible-header">8. Teams and Communication</h3>
 <div class="collapsible-content">
 
 
@@ -4587,7 +4694,7 @@ h4{
 
 
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Practice MCQs</h3>
+<h3 class="collapsible-header">Practice MCQs</h3>
 <div class="collapsible-content">
 <div id="mgw1010-mcqs"></div>
 <div class="mcq-score" id="mgw1010-score" style="display:none"></div>
@@ -4610,17 +4717,17 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
-<div class="collapsible-content open">
+<h3 class="collapsible-header">Key Definitions</h3>
+<div class="collapsible-content">
 <div class="def-grid" id="acw2220-defs"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
+<h3 class="collapsible-header">Key Formulas</h3>
 <div class="collapsible-content">
 <div class="card" id="acw2220-formulas"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 1. Partnership Accounts</h3>
+<h3 class="collapsible-header">1. Partnership Accounts</h3>
 <div class="collapsible-content">
 
 
@@ -4756,7 +4863,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 2. Company Accounts</h3>
+<h3 class="collapsible-header">2. Company Accounts</h3>
 <div class="collapsible-content">
 
 
@@ -4878,7 +4985,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 3. Cash Flow Statements</h3>
+<h3 class="collapsible-header">3. Cash Flow Statements</h3>
 <div class="collapsible-content">
 
 
@@ -4986,7 +5093,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 4. Ratio Analysis</h3>
+<h3 class="collapsible-header">4. Ratio Analysis</h3>
 <div class="collapsible-content">
 
 
@@ -5119,7 +5226,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 5. Manufacturing Accounts</h3>
+<h3 class="collapsible-header">5. Manufacturing Accounts</h3>
 <div class="collapsible-content">
 
 
@@ -5202,7 +5309,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 6. Not-for-Profit Accounts</h3>
+<h3 class="collapsible-header">6. Not-for-Profit Accounts</h3>
 <div class="collapsible-content">
 
 
@@ -5306,7 +5413,7 @@ h4{
 
 
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Practice MCQs</h3>
+<h3 class="collapsible-header">Practice MCQs</h3>
 <div class="collapsible-content">
 <div id="acw2220-mcqs"></div>
 <div class="mcq-score" id="acw2220-score" style="display:none"></div>
@@ -5329,17 +5436,17 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Definitions</h3>
-<div class="collapsible-content open">
+<h3 class="collapsible-header">Key Definitions</h3>
+<div class="collapsible-content">
 <div class="def-grid" id="etc2440-defs"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Key Formulas</h3>
+<h3 class="collapsible-header">Key Formulas</h3>
 <div class="collapsible-content">
 <div class="card" id="etc2440-formulas"></div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 1. Functions and Graphs</h3>
+<h3 class="collapsible-header">1. Functions and Graphs</h3>
 <div class="collapsible-content">
 
 
@@ -5418,7 +5525,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 2. Differentiation</h3>
+<h3 class="collapsible-header">2. Differentiation</h3>
 <div class="collapsible-content">
 
 
@@ -5532,7 +5639,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 3. Integration</h3>
+<h3 class="collapsible-header">3. Integration</h3>
 <div class="collapsible-content">
 
 
@@ -5586,7 +5693,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 4. Matrices</h3>
+<h3 class="collapsible-header">4. Matrices</h3>
 <div class="collapsible-content">
 
 
@@ -5671,7 +5778,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 5. Linear Programming</h3>
+<h3 class="collapsible-header">5. Linear Programming</h3>
 <div class="collapsible-content">
 
 
@@ -5734,7 +5841,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 6. Financial Mathematics</h3>
+<h3 class="collapsible-header">6. Financial Mathematics</h3>
 <div class="collapsible-content">
 
 
@@ -5804,7 +5911,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 7. Time Series Analysis</h3>
+<h3 class="collapsible-header">7. Time Series Analysis</h3>
 <div class="collapsible-content">
 
 
@@ -5860,7 +5967,7 @@ h4{
 </div>
 </div>
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> 8. Index Numbers</h3>
+<h3 class="collapsible-header">8. Index Numbers</h3>
 <div class="collapsible-content">
 
 
@@ -5909,7 +6016,7 @@ h4{
 
 
 
-<h3 class="collapsible-header" onclick="toggleSection(this)"><span class="chevron">▶</span> Practice MCQs</h3>
+<h3 class="collapsible-header">Practice MCQs</h3>
 <div class="collapsible-content">
 <div id="etc2440-mcqs"></div>
 <div class="mcq-score" id="etc2440-score" style="display:none"></div>
@@ -6158,6 +6265,52 @@ const NOTES_CONFIG = {
       { label: "Prime Cost", formula: "Direct Materials + Direct Labour + Direct Expenses" },
       { label: "Cost of Production", formula: "Prime Cost + Factory Overheads + Opening WIP - Closing WIP" },
     ],
+    bfw1001: [
+      { label: "Contribution per unit", formula: "Selling Price - Variable Cost per unit" },
+      { label: "Break-Even (units)", formula: "Fixed Costs / Contribution per unit" },
+      { label: "Break-Even ($)", formula: "Fixed Costs / Contribution Margin Ratio" },
+      { label: "Contribution Margin Ratio", formula: "Contribution per unit / Selling Price" },
+      { label: "Margin of Safety", formula: "Actual Sales - Break-Even Sales" },
+      { label: "Margin of Safety %", formula: "(Margin of Safety / Actual Sales) x 100%" },
+      { label: "Net Cash Flow", formula: "Cash Inflows - Cash Outflows" },
+    ],
+    ecm1953: [
+      { label: "PED", formula: "(% change in Qd) / (% change in P)" },
+      { label: "YED", formula: "(% change in Qd) / (% change in Income)" },
+      { label: "XED", formula: "(% change in Qd of A) / (% change in P of B)" },
+      { label: "PES", formula: "(% change in Qs) / (% change in P)" },
+      { label: "Total Revenue", formula: "Price x Quantity" },
+      { label: "GDP (expenditure)", formula: "C + I + G + (X - M)" },
+      { label: "Inflation Rate", formula: "((CPI_current - CPI_previous) / CPI_previous) x 100%" },
+      { label: "Real GDP", formula: "(Nominal GDP / GDP Deflator) x 100" },
+      { label: "MPC + MPS", formula: "1" },
+      { label: "Multiplier", formula: "1 / (1 - MPC) or 1 / MPS" },
+      { label: "Unemployment Rate", formula: "(Unemployed / Labour Force) x 100%" },
+    ],
+    etw1001: [
+      { label: "Mean", formula: "Sum of all values / Number of values" },
+      { label: "Median", formula: "Middle value when data is ordered" },
+      { label: "Mode", formula: "Most frequently occurring value" },
+      { label: "Standard Deviation", formula: "Square root of variance" },
+      { label: "Variance", formula: "Sum of squared deviations / (n - 1)" },
+      { label: "Z-Score", formula: "(X - Mean) / Standard Deviation" },
+      { label: "Correlation Coefficient (r)", formula: "Cov(X,Y) / (Sx * Sy)" },
+      { label: "Regression Slope (b)", formula: "Sum((X - Xmean)(Y - Ymean)) / Sum((X - Xmean)^2)" },
+    ],
+    mgw1010: [
+      { label: "Vroom Expectancy", formula: "Motivation = Expectancy x Instrumentality x Valence" },
+      { label: "Break-Even", formula: "Fixed Costs / (Price per Unit - Variable Cost per Unit)" },
+    ],
+    etc2440: [
+      { label: "First-order condition", formula: "f'(x) = 0 (critical point)" },
+      { label: "Second-order condition (max)", formula: "f''(x) < 0" },
+      { label: "Second-order condition (min)", formula: "f''(x) > 0" },
+    ],
+    btw1042: [
+      { label: "Offer", formula: "Clear expression of willingness to be bound" },
+      { label: "Consideration", formula: "Something of value exchanged between parties" },
+      { label: "Exclusion Clause", formula: "Clause limiting or excluding liability" },
+    ],
   },
 
   mcqs: {
@@ -6382,6 +6535,35 @@ function toggleSection(header) {
   content.classList.toggle('open');
 }
 
+function initSubjectBar() {
+  document.querySelectorAll('.toc .subject-link').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.toc .subject-link').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const subject = btn.dataset.subject;
+      document.querySelectorAll('.unit-section').forEach(section => {
+        if (subject === 'all' || section.id === subject) {
+          section.classList.remove('hidden-unit');
+        } else {
+          section.classList.add('hidden-unit');
+        }
+      });
+    });
+  });
+}
+
+function filterUnits() {
+  const selected = document.querySelector('#unitFilter input[name="unitSelect"]:checked');
+  const selectedValue = selected ? selected.value : 'all';
+  document.querySelectorAll('.unit-section').forEach(section => {
+    if (selectedValue === 'all' || section.id === selectedValue) {
+      section.classList.remove('hidden-unit');
+    } else {
+      section.classList.add('hidden-unit');
+    }
+  });
+}
+
 function initSearch() {
   const input = document.getElementById('searchInput');
   input.addEventListener('input', e => {
@@ -6407,6 +6589,7 @@ function initBackToTop() {
 
 document.addEventListener('DOMContentLoaded', () => {
   renderProgress();
+  initSubjectBar();
   initSearch();
   initBackToTop();
 

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ETC2440 Study Guide</title>
+<style>
+body { font-family: Georgia, serif; max-width: 900px; margin: 40px auto; padding: 0 20px; background: #fdfdfd; color: #222; }
+h1, h2 { color: #003366; }
+h2 { border-bottom: 2px solid #003366; padding-bottom: 6px; margin-top: 40px; }
+.mcq { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 18px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+.mcq-question { font-weight: bold; margin-bottom: 10px; }
+.mcq-options { list-style: none; padding-left: 0; margin-bottom: 10px; }
+.mcq-options li { margin-bottom: 6px; padding: 6px 10px; background: #f6f8fa; border-radius: 4px; }
+.mcq-options li:hover { background: #eef2f7; }
+.mcq-toggle { display: inline-block; cursor: pointer; color: #005599; font-weight: bold; padding: 6px 12px; border: 1px solid #005599; border-radius: 5px; font-size: 0.9rem; }
+.mcq-toggle:hover { background: #005599; color: #fff; }
+.mcq-answer { display: none; margin-top: 12px; padding: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; }
+.mcq-answer.show { display: block; }
+.card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 18px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.card-title { font-weight: bold; font-size: 1.05rem; }
+.card-tag { background: #003366; color: #fff; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; }
+.def { margin-top: 10px; }
+.def-term { font-weight: bold; color: #2e7d32; margin-bottom: 6px; }
+.def-meaning { line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<h1>ETC2440 — Mathematics for Economics and Business / Analytics &amp; Econometrics</h1>
+<h2>Multiple Choice Questions</h2>
+
+<div class="mcq">
+<div class="mcq-question">Q1: Which of the following best describes the ordinary least squares (OLS) estimator?</div>
+<ul class="mcq-options"><li>A) The estimator that maximises the likelihood function</li><li>B) The estimator that minimises the sum of squared residuals</li><li>C) The estimator that minimises the sum of absolute residuals</li><li>D) The estimator that maximises the R-squared value</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>OLS obtains coefficient estimates by minimising the sum of squared differences between observed and predicted values (the residuals). This is the defining feature of the OLS estimation procedure.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q2: In a simple linear regression model Y = β₀ + β₁X + ε, the slope coefficient β₁ represents:</div>
+<ul class="mcq-options"><li>A) The value of Y when X equals zero</li><li>B) The change in Y for a one-unit change in X, holding other factors constant</li><li>C) The correlation coefficient between X and Y</li><li>D) The proportion of variance in Y explained by X</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>β₁ measures the marginal effect: the expected change in the dependent variable Y associated with a one-unit increase in the independent variable X, ceteris paribus.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q3: What is the primary consequence of perfect multicollinearity in a multiple regression model?</div>
+<ul class="mcq-options"><li>A) The OLS estimators become biased</li><li>B) The OLS estimators cannot be computed because the matrix X'X is singular</li><li>C) The standard errors of all coefficients become smaller</li><li>D) The R-squared value becomes negative</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>Perfect multicollinearity means one explanatory variable is an exact linear function of others. The X'X matrix becomes singular (non-invertible), so OLS coefficients cannot be uniquely determined.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q4: Which of the following is a standard Gauss-Markov assumption?</div>
+<ul class="mcq-options"><li>A) The error terms are normally distributed</li><li>B) The error terms have constant variance (homoscedasticity)</li><li>C) The explanatory variables are non-stochastic and independent of the error term</li><li>D) Both B and C</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: D</strong><br>The Gauss-Markov assumptions include: linearity in parameters, random sampling, zero conditional mean (E[ε|X]=0), no perfect multicollinearity, and homoscedasticity. Normality is required for exact finite-sample inference but not for OLS to be BLUE under Gauss-Markov.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q5: If the p-value for a t-test of a regression coefficient is 0.03, and the significance level α is 0.05, what is the correct conclusion?</div>
+<ul class="mcq-options"><li>A) Fail to reject the null hypothesis</li><li>B) Reject the null hypothesis</li><li>C) The coefficient is economically significant</li><li>D) The model has heteroscedasticity</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>When p-value < α (0.03 < 0.05), we reject the null hypothesis that the coefficient equals zero. This indicates statistical significance, though it does not imply economic significance or diagnose heteroscedasticity.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q6: The Durbin-Watson statistic is used primarily to detect:</div>
+<ul class="mcq-options"><li>A) Heteroscedasticity in the error terms</li><li>B) Autocorrelation in the error terms</li><li>C) Multicollinearity among explanatory variables</li><li>D) Omitted variable bias</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>The Durbin-Watson statistic tests for first-order serial correlation (autocorrelation) in the residuals. Values near 2 suggest no autocorrelation; values significantly below 2 indicate positive autocorrelation.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q7: In time-series analysis, a stationary process is one in which:</div>
+<ul class="mcq-options"><li>A) The mean and variance are constant over time and covariance depends only on the lag</li><li>B) The trend component increases linearly over time</li><li>C) The series exhibits structural breaks at regular intervals</li><li>D) The variance grows with the sample size</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: A</strong><br>Weak (covariance) stationarity requires a constant mean, constant variance, and an autocovariance function that depends only on the time lag, not on the actual time period.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q8: Heteroscedasticity-consistent (robust) standard errors are used when:</div>
+<ul class="mcq-options"><li>A) The error terms are homoscedastic</li><li>B) The error terms have non-constant variance but the model is otherwise correctly specified</li><li>C) There is perfect multicollinearity in the model</li><li>D) The dependent variable is binary</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>Robust standard errors (e.g., White's heteroscedasticity-consistent standard errors) correct for unknown forms of heteroscedasticity, allowing valid inference when the variance of errors is not constant.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q9: Which of the following correctly describes the difference between R-squared and Adjusted R-squared?</div>
+<ul class="mcq-options"><li>A) Adjusted R-squared always increases when a new variable is added</li><li>B) Adjusted R-squared penalises the addition of irrelevant explanatory variables</li><li>C) R-squared can be negative, but Adjusted R-squared cannot</li><li>D) They are mathematically identical in all sample sizes</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>Adjusted R-squared imposes a penalty for adding extra regressors that do not contribute sufficiently to explaining the variation in Y. Unlike R-squared, it can decrease when a variable with low explanatory power is added.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q10: The Breusch-Pagan test is used to:</div>
+<ul class="mcq-options"><li>A) Test for serial correlation in time-series data</li><li>B) Test for heteroscedasticity by regressing squared residuals on explanatory variables</li><li>C) Test for unit roots in a time series</li><li>D) Test for normality of the error terms</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>The Breusch-Pagan test regresses the squared residuals from the original regression on the explanatory variables (or a subset thereof). A significant F-statistic or LM statistic indicates the presence of heteroscedasticity.</div>
+</div>
+
+<h2>Subjective Questions</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q1: Derive the OLS estimators for the simple linear regression model Y = β₀ + β₁X + ε, showing the first-order conditions and solving for β̂₀ and β̂₁.</span><span class="card-tag">Derivation / OLS</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning">The objective is to minimise the sum of squared residuals: S = Σ(Yᵢ − β₀ − β₁Xᵢ)². Taking partial derivatives and setting to zero: <br><br>∂S/∂β₀ = −2Σ(Yᵢ − β̂₀ − β̂₁Xᵢ) = 0 → ΣYᵢ = nβ̂₀ + β̂₁ΣXᵢ <br>∂S/∂β₁ = −2ΣXᵢ(Yᵢ − β̂₀ − β̂₁Xᵢ) = 0 → ΣXᵢYᵢ = β̂₀ΣXᵢ + β̂₁ΣXᵢ² <br><br>Solving the normal equations simultaneously yields: <br>β̂₁ = Σ(Xᵢ − X̄)(Yᵢ − Ȳ) / Σ(Xᵢ − X̄)² = Sₓᵧ / Sₓₓ <br>β̂₀ = Ȳ − β̂₁X̄ <br><br>These estimators minimise the residual sum of squares and are unbiased under the Gauss-Markov assumptions.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q2: Explain the consequences of omitted variable bias in multiple regression. Under what conditions does it arise, and how can it be addressed?</span><span class="card-tag">Econometric Theory</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning">Omitted variable bias (OVB) occurs when a relevant variable correlated with both the dependent variable and an included regressor is excluded from the model. The bias in the estimated coefficient is: <br><br>Bias(β̂₁) = β₂ · δ₁ <br><br>where β₂ is the effect of the omitted variable on Y, and δ₁ is the coefficient from regressing the omitted variable on the included regressor. OVB requires two conditions: (1) the omitted variable affects Y (β₂ ≠ 0), and (2) the omitted variable is correlated with an included regressor (δ₁ ≠ 0). <br><br>Remedies include: including the omitted variable if observable; using instrumental variables (IV) if the variable is unobservable but valid instruments exist; exploiting natural experiments or panel data methods (e.g., fixed effects) to control for time-invariant omitted factors.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q3: A researcher estimates a consumption function: C = β₀ + β₁Y + β₂Y² + ε, where C is consumption and Y is income. Interpret the coefficients and explain how to test whether the relationship is non-linear.</span><span class="card-tag">Model Specification</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning">In the model C = β₀ + β₁Y + β₂Y² + ε, β₁ and β₂ cannot be interpreted independently because the marginal effect of income depends on the level of income: dC/dY = β₁ + 2β₂Y. If β₂ > 0, the consumption function is convex (marginal propensity to consume rises with income); if β₂ < 0, it is concave (diminishing marginal propensity). <br><br>To test for non-linearity, conduct a t-test of H₀: β₂ = 0. Rejection implies a statistically significant quadratic relationship. Alternatively, compare the restricted linear model (β₂ = 0) with the unrestricted model using an F-test or adjusted R-squared. Diagnostic checks (RESET test) can also detect neglected non-linearity by testing whether polynomial terms of fitted values are significant.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q4: Describe the White test for heteroscedasticity and contrast it with the Breusch-Pagan test. Why might a researcher prefer one over the other?</span><span class="card-tag">Diagnostics</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning">The <strong>Breusch-Pagan test</strong> assumes heteroscedasticity is a linear function of the original regressors: regress û² on X₁, X₂, ..., Xₖ and test joint significance. It is powerful when the variance specification is linear but may miss non-linear forms. <br><br>The <strong>White test</strong> is more general: it regresses û² on the original regressors, their squares, and their cross-products. This captures a broader range of heteroscedastic structures without imposing a specific functional form. <br><br>A researcher may prefer the Breusch-Pagan test when the sample is small (the White test consumes many degrees of freedom) or when theory suggests a specific linear variance relationship. The White test is preferred when the form of heteroscedasticity is unknown. For large samples, White's general specification is safer but can be implemented more parsimoniously using a modified version (White's special case using fitted values and their squares).</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q5: Using an AR(1) model Yₜ = c + φYₜ₋₁ + εₜ, explain the concepts of stationarity, the long-run mean, and the half-life of a shock. Calculate these for c = 2 and φ = 0.8.</span><span class="card-tag">Time Series</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning">An AR(1) process is (covariance) stationary if |φ| < 1. Stationarity implies a constant mean, constant variance, and autocovariances depending only on lag. <br><br><strong>Long-run (unconditional) mean:</strong> μ = c / (1 − φ) = 2 / (1 − 0.8) = 2 / 0.2 = <strong>10</strong>. <br><br><strong>Half-life of a shock:</strong> The time required for the effect of a shock to decay to half its initial impact. For an AR(1), this is approximately: <br>h ≈ ln(0.5) / ln(φ) = ln(0.5) / ln(0.8) ≈ −0.6931 / −0.2231 ≈ <strong>3.11 periods</strong>. <br><br>The variance is σ²ᵧ = σ²ε / (1 − φ²). With φ = 0.8, shocks persist but gradually diminish; the series mean-reverts to 10. If |φ| ≥ 1, the process is non-stationary (unit root or explosive), and the long-run mean and half-life concepts do not apply in the same way.</div></div>
+</div>
+
+</body>
+</html>

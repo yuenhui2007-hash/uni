@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ETW1001 Business Statistics - Study Questions</title>
+<style>
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; max-width: 900px; margin: 2rem auto; padding: 1rem; line-height: 1.6; color: #222; background: #f6f7f9; }
+h1 { color: #006dae; border-bottom: 3px solid #006dae; padding-bottom: .4rem; }
+h2 { color: #004c8c; margin-top: 2rem; }
+.mcq { background: #fff; border-left: 4px solid #006dae; padding: 1rem 1.2rem; margin: 1rem 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.mcq-question { font-weight: 700; margin-bottom: .6rem; }
+.mcq-options { margin: .4rem 0 .8rem 1.2rem; padding: 0; }
+.mcq-options li { margin-bottom: .35rem; }
+.mcq-toggle { display: inline-block; background: #006dae; color: #fff; padding: .35rem .8rem; border-radius: 4px; cursor: pointer; font-size: .9rem; user-select: none; }
+.mcq-toggle:hover { background: #005a9e; }
+.mcq-answer { display: none; margin-top: .6rem; padding: .8rem; background: #eef6fc; border-radius: 4px; }
+.mcq-answer.show { display: block; }
+.card { background: #fff; border-left: 4px solid #8e44ad; padding: 1rem 1.2rem; margin: 1rem 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; flex-wrap: wrap; gap: .4rem; }
+.card-title { font-weight: 700; color: #333; }
+.card-tag { background: #8e44ad; color: #fff; font-size: .75rem; padding: .2rem .55rem; border-radius: 999px; }
+.def { margin-top: .6rem; }
+.def-term { font-weight: 700; color: #8e44ad; margin-bottom: .2rem; }
+.def-meaning { color: #444; }
+</style>
+</head>
+<body>
+
+<h1>ETW1001 — Business Statistics</h1>
+<p>Monash B2026 Accountancy | Study Questions</p>
+
+<h2>Multiple Choice Questions</h2>
+
+<div class="mcq">
+<div class="mcq-question">Q1: A survey asks Monash students to rate their satisfaction with campus facilities on a scale of 1 to 5. What is the measurement scale of this variable?</div>
+<ul class="mcq-options"><li>A) Nominal</li><li>B) Ordinal</li><li>C) Interval</li><li>D) Ratio</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>The satisfaction rating is ordinal because the categories have a meaningful order (1 &lt; 2 &lt; 3 &lt; 4 &lt; 5), but the differences between values are not necessarily equal or meaningful. It is not interval because there is no true zero point.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q2: Which measure of central tendency is most appropriate for describing the typical value of a dataset that contains extreme outliers?</div>
+<ul class="mcq-options"><li>A) Mean</li><li>B) Mode</li><li>C) Median</li><li>D) Range</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br>The median is robust to outliers because it depends only on the middle value(s) of the ordered dataset. The mean is strongly influenced by extreme values, while the range is a measure of dispersion, not central tendency.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q3: In a normal distribution, approximately what percentage of observations fall within two standard deviations of the mean?</div>
+<ul class="mcq-options"><li>A) 68%</li><li>B) 75%</li><li>C) 95%</li><li>D) 99.7%</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br>According to the empirical rule (68-95-99.7 rule), approximately 68% of data falls within one standard deviation, 95% within two standard deviations, and 99.7% within three standard deviations of the mean in a normal distribution.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q4: A hypothesis test yields a p-value of 0.03. If the significance level is set at α = 0.05, what is the appropriate conclusion?</div>
+<ul class="mcq-options"><li>A) Fail to reject the null hypothesis</li><li>B) Reject the null hypothesis</li><li>C) Accept the alternative hypothesis with 97% confidence</li><li>D) The test is inconclusive</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>When the p-value (0.03) is less than the significance level (0.05), we reject the null hypothesis. This indicates that the observed data would be unlikely if the null hypothesis were true. We do not "accept" the alternative; we only reject or fail to reject the null.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q5: Which of the following best describes the difference between a population parameter and a sample statistic?</div>
+<ul class="mcq-options"><li>A) A parameter describes a sample; a statistic describes a population</li><li>B) A parameter is a fixed but usually unknown value describing a population; a statistic is a computed value from sample data used to estimate the parameter</li><li>C) A parameter and a statistic are always equal in value</li><li>D) A statistic is always more accurate than a parameter</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>A population parameter (e.g., μ, σ) is a fixed, typically unknown value that describes a characteristic of the entire population. A sample statistic (e.g., x̄, s) is calculated from sample data and used as an estimator of the population parameter. Due to sampling variability, statistics vary from sample to sample.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q6: In simple linear regression, the coefficient of determination (R²) represents:</div>
+<ul class="mcq-options"><li>A) The correlation between the independent and dependent variables</li><li>B) The proportion of variation in the dependent variable explained by the independent variable</li><li>C) The slope of the regression line</li><li>D) The standard error of the estimate</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>R² measures the proportion of the total variation in the dependent variable (Y) that is explained by the linear relationship with the independent variable (X). It ranges from 0 to 1, where 1 indicates a perfect fit. Note that R² is the square of the correlation coefficient r, not the correlation itself.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q7: Which sampling method ensures that every member of the population has an equal and independent chance of being selected?</div>
+<ul class="mcq-options"><li>A) Stratified sampling</li><li>B) Convenience sampling</li><li>C) Simple random sampling</li><li>D) Quota sampling</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br>Simple random sampling (SRS) gives every member of the population an equal probability of selection, and the selection of one member does not affect the probability of selecting another (independence). Stratified sampling requires dividing the population into subgroups first, while convenience and quota sampling are non-probability methods.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q8: A 95% confidence interval for the population mean is calculated as (45, 55). Which interpretation is correct?</div>
+<ul class="mcq-options"><li>A) There is a 95% probability that the population mean lies between 45 and 55</li><li>B) 95% of the sample means fall between 45 and 55</li><li>C) We are 95% confident that the interval (45, 55) contains the true population mean</li><li>D) The sample mean is definitely between 45 and 55</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br>The correct frequentist interpretation is that if we were to take many samples and construct confidence intervals in the same way, approximately 95% of those intervals would contain the true population mean. The population mean is fixed; the interval is random. We do not say there is a 95% probability that μ is in this specific interval.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q9: In a chi-square test of independence, the null hypothesis states that:</div>
+<ul class="mcq-options"><li>A) The two categorical variables are associated</li><li>B) The two categorical variables are independent</li><li>C) The observed frequencies equal the expected frequencies</li><li>D) The population proportions are all equal</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>The null hypothesis in a chi-square test of independence states that the two categorical variables are independent (no association). The alternative hypothesis states that they are dependent (associated). A large chi-square statistic leads to rejection of the null hypothesis.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q10: Which of the following conditions must be satisfied for the sampling distribution of the sample mean to be approximately normal by the Central Limit Theorem?</div>
+<ul class="mcq-options"><li>A) The population must be normally distributed</li><li>B) The sample size must be sufficiently large (typically n ≥ 30)</li><li>C) The population standard deviation must be known</li><li>D) The data must be measured on a ratio scale</li></ul>
+<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>The Central Limit Theorem states that for a sufficiently large sample size (commonly n ≥ 30 as a rule of thumb), the sampling distribution of the sample mean will be approximately normal regardless of the shape of the population distribution. If the population is already normal, the sampling distribution is normal for any n.</div>
+</div>
+
+<h2>Subjective Questions</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q: A dataset of 50 weekly sales figures has a mean of $12,000 and a standard deviation of $2,500. Assuming the data is approximately normally distributed, calculate the z-score for a week with sales of $16,500 and interpret its meaning.</span><span class="card-tag">Descriptive Statistics</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning">The z-score formula is: z = (X - μ) / σ<br><br>Substituting the values:<br>z = (16,500 - 12,000) / 2,500<br>z = 4,500 / 2,500<br>z = 1.8<br><br>Interpretation: A z-score of 1.8 means that a weekly sales figure of $16,500 is 1.8 standard deviations above the mean. Using the standard normal table, the area to the left of z = 1.8 is approximately 0.9641, so about 96.4% of weekly sales figures fall below $16,500. Alternatively, only about 3.6% of weeks have sales higher than this value.<br><br>In business terms, this was an exceptionally strong sales week relative to the typical performance of the firm.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q: Explain the difference between Type I and Type II errors in hypothesis testing, and describe a business scenario where each would be costly.</span><span class="card-tag">Hypothesis Testing</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Type I Error (False Positive):</strong> Rejecting the null hypothesis when it is actually true. The probability of a Type I error is denoted by α (significance level).<br><br><strong>Type II Error (False Negative):</strong> Failing to reject the null hypothesis when it is actually false. The probability of a Type II error is denoted by β. The power of a test is 1 - β.<br><br>Business scenario — Pharmaceutical company testing a new drug:<br>• <strong>Type I Error (costly):</strong> The company concludes the drug is effective when it actually is not. They invest millions in production, marketing, and distribution. When the drug fails to help patients, the company faces lawsuits, regulatory penalties, and reputational damage.<br><br>• <strong>Type II Error (costly):</strong> The company concludes the drug is ineffective when it actually works. They abandon a potentially life-saving treatment, losing future revenue and failing to help patients who could have benefited. A competitor might later develop and patent a similar drug.<br><br>In practice, businesses must balance these risks. Lowering α reduces Type I errors but increases Type II errors (for fixed sample size), so the choice of significance level should reflect the relative costs of each error type.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q: A market researcher wants to estimate the proportion of Monash students who prefer online classes. How large a sample is needed to estimate this proportion within ±0.04 with 95% confidence, assuming no prior estimate is available?</span><span class="card-tag">Sample Size Determination</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning">The formula for sample size when estimating a population proportion is:<br><br>n = (z² × p̂ × (1 - p̂)) / E²<br><br>Where:<br>• z = 1.96 for 95% confidence<br>• p̂ = 0.5 when no prior estimate is available (this maximises the variance and gives the most conservative sample size)<br>• E = 0.04 (margin of error)<br><br>Calculation:<br>n = (1.96² × 0.5 × 0.5) / 0.04²<br>n = (3.8416 × 0.25) / 0.0016<br>n = 0.9604 / 0.0016<br>n = 600.25<br><br>Since we cannot survey a fraction of a person, we round up to n = 601 students.<br><br>Using p̂ = 0.5 ensures the sample size is large enough regardless of the true population proportion. If prior research suggested the proportion was closer to 0.2, the required sample size would be smaller: n = (3.8416 × 0.2 × 0.8) / 0.0016 = 384.16 → 385 students.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q: Given the following data on advertising spend (X, in $000s) and sales revenue (Y, in $000s) for 6 months, calculate the least-squares regression line and predict sales when advertising spend is $50,000.</span><span class="card-tag">Regression Analysis</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning">Data:<br>Month | X (Adv) | Y (Sales)<br>1 | 20 | 150<br>2 | 30 | 200<br>3 | 40 | 240<br>4 | 50 | 300<br>5 | 60 | 340<br>6 | 70 | 400<br><br>Calculations:<br>n = 6<br>ΣX = 270, ΣY = 1,630<br>ΣXY = (20×150) + (30×200) + (40×240) + (50×300) + (60×340) + (70×400) = 3,000 + 6,000 + 9,600 + 15,000 + 20,400 + 28,000 = 82,000<br>ΣX² = 400 + 900 + 1,600 + 2,500 + 3,600 + 4,900 = 13,900<br><br>Slope (b₁) = [n(ΣXY) - (ΣX)(ΣY)] / [n(ΣX²) - (ΣX)²]<br>b₁ = [6(82,000) - 270(1,630)] / [6(13,900) - 270²]<br>b₁ = [492,000 - 440,100] / [83,400 - 72,900]<br>b₁ = 51,900 / 10,500 = 4.943<br><br>Intercept (b₀) = (ΣY - b₁ΣX) / n<br>b₀ = (1,630 - 4.943 × 270) / 6<br>b₀ = (1,630 - 1,334.61) / 6<br>b₀ = 295.39 / 6 = 49.23<br><br>Regression equation: Ŷ = 49.23 + 4.943X<br><br>Prediction for X = 50 ($50,000):<br>Ŷ = 49.23 + 4.943(50) = 49.23 + 247.15 = 296.38<br><br>Predicted sales revenue when advertising spend is $50,000 is approximately $296,380 (or $296,000 rounded).<br><br>The positive slope indicates that each additional $1,000 spent on advertising is associated with an estimated $4,943 increase in sales revenue, on average.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q: A factory produces light bulbs. A random sample of 100 bulbs has a mean lifetime of 1,200 hours with a standard deviation of 100 hours. Construct a 99% confidence interval for the true mean lifetime of all bulbs produced by this factory and interpret the result.</span><span class="card-tag">Confidence Intervals</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning">Given:<br>• Sample size n = 100<br>• Sample mean x̄ = 1,200 hours<br>• Sample standard deviation s = 100 hours<br>• Confidence level = 99%<br><br>Since n = 100 is large, we can use the z-distribution. For 99% confidence, z₀.₀₀₅ = 2.576.<br><br>Standard error (SE) = s / √n = 100 / √100 = 100 / 10 = 10 hours<br><br>Margin of error (ME) = z × SE = 2.576 × 10 = 25.76 hours<br><br>Confidence interval:<br>Lower bound = 1,200 - 25.76 = 1,174.24 hours<br>Upper bound = 1,200 + 25.76 = 1,225.76 hours<br><br>99% CI ≈ (1,174, 1,226) hours<br><br>Interpretation: We are 99% confident that the true mean lifetime of all light bulbs produced by this factory lies between 1,174 and 1,226 hours. This means that if we were to take many random samples of 100 bulbs and construct confidence intervals in the same manner, approximately 99% of those intervals would contain the true population mean.<br><br>Note: If using the t-distribution with df = 99, t₀.₀₀₅,₉₉ ≈ 2.626, giving a slightly wider interval of (1,174, 1,226) — practically the same due to the large sample size.</div></div>
+</div>
+
+</body>
+</html>

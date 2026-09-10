@@ -1,0 +1,221 @@
+[
+  {
+    "id": "ETC2440-25",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Basic Econometrics",
+    "question": "In ordinary least squares regression, the residual for each observation is defined as:",
+    "options": [
+      "The difference between the actual value and the predicted value",
+      "The difference between the predicted value and the mean of the dependent variable",
+      "The ratio of the explained variance to the total variance",
+      "The correlation between the independent and dependent variables"
+    ],
+    "correct": 0,
+    "explanation": "The residual (or error term for an observation) is e_i = y_i - ŷ_i, the difference between the actual observed value and the value predicted by the regression model. It measures what the model fails to explain for that observation."
+  },
+  {
+    "id": "ETC2440-26",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "OLS Regression",
+    "question": "Which of the following is NOT an assumption required for OLS estimators to be unbiased?",
+    "options": [
+      "Zero conditional mean of the error term",
+      "Random sampling of observations",
+      "Homoskedasticity of the error term",
+      "Linearity in parameters"
+    ],
+    "correct": 2,
+    "explanation": "Unbiasedness of OLS requires zero conditional mean (E(u|X) = 0), random sampling, no perfect multicollinearity, and linearity in parameters. Homoskedasticity (constant error variance) is not required for unbiasedness; it is needed for OLS to be the Best Linear Unbiased Estimator (BLUE) under the Gauss-Markov theorem and for the usual standard errors to be valid."
+  },
+  {
+    "id": "ETC2440-27",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Hypothesis Testing",
+    "question": "In a regression output, the p-value for a coefficient is reported as 0.032. Using a 5% significance level, which of the following statements is correct?",
+    "options": [
+      "We fail to reject the null hypothesis that the coefficient is zero",
+      "We reject the null hypothesis that the coefficient is zero",
+      "The coefficient is economically significant",
+      "The model has no omitted variable bias"
+    ],
+    "correct": 1,
+    "explanation": "Since the p-value (0.032) is less than the significance level (0.05), we reject the null hypothesis that the true coefficient is zero. Statistical significance does not imply economic significance (C), nor does it address model specification issues such as omitted variable bias (D)."
+  },
+  {
+    "id": "ETC2440-28",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Dummy Variables",
+    "question": "In a wage regression, a researcher includes a dummy variable 'female' (1 if female, 0 if male) and an interaction term 'female × experience'. What does the coefficient on the interaction term represent?",
+    "options": [
+      "The average wage difference between men and women at zero years of experience",
+      "The difference in the return to an additional year of experience for women compared to men",
+      "The total effect of being female on wages",
+      "The average experience level of women in the sample"
+    ],
+    "correct": 1,
+    "explanation": "The interaction coefficient captures how the slope of experience differs between groups. If the coefficient on female × experience is -0.50, women receive $0.50 less per additional year of experience compared to men. The intercept shift (female dummy) captures the gap at zero experience, not the interaction term."
+  },
+  {
+    "id": "ETC2440-29",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Forecasting",
+    "question": "Which of the following is a key limitation of using simple exponential smoothing for forecasting?",
+    "options": [
+      "It can only handle seasonal data",
+      "It does not incorporate a trend component, so it lags behind trending data",
+      "It requires at least 100 observations to produce reliable forecasts",
+      "It assumes the data follows a normal distribution"
+    ],
+    "correct": 1,
+    "explanation": "Simple exponential smoothing produces forecasts that are essentially a weighted average of past observations. When the data exhibit a trend, simple exponential smoothing forecasts will systematically lag behind the actual series because there is no trend component. Holt's linear method or Holt-Winters would be more appropriate for trending or seasonal data."
+  },
+  {
+    "id": "ETC2440-30",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Time Series",
+    "question": "A Dickey-Fuller test is conducted on a time series and the test statistic is -1.8, while the 5% critical value is -2.86. What conclusion should be drawn?",
+    "options": [
+      "The series is stationary",
+      "We fail to reject the null hypothesis of a unit root; the series is non-stationary",
+      "The series is cointegrated with another variable",
+      "The series exhibits autocorrelation but is stationary"
+    ],
+    "correct": 1,
+    "explanation": "The null hypothesis of the Dickey-Fuller test is that the series has a unit root (is non-stationary). Since the test statistic (-1.8) is less negative than the critical value (-2.86), we fail to reject the null and conclude the series is non-stationary. Cointegration (C) requires testing the relationship between two or more series, not a single series."
+  },
+  {
+    "id": "ETC2440-31",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Model Specification",
+    "question": "A researcher estimates a linear relationship between output and capital, but theory suggests diminishing marginal returns. Which of the following specifications would best capture diminishing returns?",
+    "options": [
+      "output = beta0 + beta1 × capital + u",
+      "output = beta0 + beta1 × capital + beta2 × capital² + u, where beta2 < 0",
+      "log(output) = beta0 + beta1 × log(capital) + u",
+      "output = beta0 + beta1 × (1/capital) + u"
+    ],
+    "correct": 1,
+    "explanation": "A quadratic specification with a negative coefficient on the squared term (beta2 < 0) captures diminishing marginal returns: the positive effect of capital on output increases at a decreasing rate and eventually turns negative. Option A implies constant returns, option C implies constant elasticity, and option D implies output decreases as capital increases."
+  },
+  {
+    "id": "ETC2440-32",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Model Evaluation",
+    "question": "The F-test in multiple regression is used to test whether:",
+    "options": [
+      "Each individual slope coefficient is significantly different from zero",
+      "The model as a whole has explanatory power (at least one slope coefficient is non-zero)",
+      "The residuals are normally distributed",
+      "There is autocorrelation in the error terms"
+    ],
+    "correct": 1,
+    "explanation": "The F-test evaluates the joint significance of all slope coefficients, testing H0: beta1 = beta2 = ... = betak = 0. Rejection means the model has some explanatory power overall. Individual t-tests assess each coefficient separately, while normality and autocorrelation require other diagnostics."
+  },
+  {
+    "id": "ETC2440-33",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Panel Data",
+    "question": "In a fixed effects panel data model, time-invariant variables such as gender or country of birth:",
+    "options": [
+      "Can be estimated with higher precision than in pooled OLS",
+      "Are perfectly collinear with the unit fixed effects and cannot be separately identified",
+      "Are automatically excluded by statistical software",
+      "Require instrumental variables to be estimated"
+    ],
+    "correct": 1,
+    "explanation": "Fixed effects models demean variables within each cross-sectional unit. Because time-invariant variables do not vary within units, their demeaned values are identically zero, making them perfectly collinear with the fixed effects. They are absorbed and cannot be estimated. Random effects models can estimate time-invariant variable coefficients because they do not remove all between-unit variation."
+  },
+  {
+    "id": "ETC2440-34",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Instrumental Variables",
+    "question": "A researcher uses an instrumental variable to address endogeneity. Which of the following additional assumptions is required for valid causal inference beyond instrument relevance and the exclusion restriction?",
+    "options": [
+      "The model must be homoskedastic",
+      "The instrument must affect every unit in the sample (no defiers)",
+      "The error term must be normally distributed",
+      "All control variables must be exogenous"
+    ],
+    "correct": 1,
+    "explanation": "For valid causal interpretation in a heterogeneous treatment effects framework (as in Imbens and Angrist's local average treatment effect, LATE), the monotonicity assumption requires that the instrument moves all individuals in the same direction (no defiers). Homoskedasticity (A) is not required for consistency. Normality (C) is a distributional assumption for exact finite-sample inference, not for causal identification. Exogeneity of controls (D) is desirable but monotonicity is the specific additional identifying assumption in the LATE framework."
+  },
+  {
+    "id": "ETC2440-35",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Heteroskedasticity",
+    "question": "A Breusch-Pagan test yields a test statistic of 15.2 with a p-value of 0.0005. Which of the following is the most appropriate response?",
+    "options": [
+      "Reject the null of homoskedasticity and report OLS standard errors",
+      "Fail to reject the null and proceed with standard OLS inference",
+      "Reject the null of homoskedasticity and report heteroskedasticity-robust standard errors",
+      "Transform all variables using logarithms and re-estimate without testing"
+    ],
+    "correct": 2,
+    "explanation": "The small p-value leads us to reject the null hypothesis of homoskedasticity, indicating that the error variance is not constant. The appropriate response is to use heteroskedasticity-robust (White/Huber-White) standard errors, which provide valid inference without requiring knowledge of the exact form of heteroskedasticity. Blind log transformation (D) may not solve the problem and can change the interpretation of coefficients."
+  },
+  {
+    "id": "ETC2440-36",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Logistic Regression",
+    "question": "In a logistic regression, the marginal effect of an independent variable on the probability of the outcome:",
+    "options": [
+      "Is constant regardless of the values of the independent variables",
+      "Depends on the values of all independent variables in the model",
+      "Is equal to the estimated coefficient",
+      "Cannot be computed from the estimated coefficients"
+    ],
+    "correct": 1,
+    "explanation": "Unlike linear regression, logistic regression is nonlinear. The marginal effect (change in probability for a one-unit change in x) depends on the point at which it is evaluated because the logistic function is S-shaped. The estimated coefficient represents the change in log-odds, not the change in probability. Marginal effects are typically calculated at the mean of the covariates or averaged across observations."
+  },
+  {
+    "id": "ETC2440-37",
+    "type": "calculation",
+    "difficulty": "easy",
+    "topic": "Descriptive Statistics and Regression",
+    "question": "A researcher collects data on advertising spend (X, in $000s) and sales (Y, in $000s) for 6 firms: (X, Y) = (1, 3), (2, 5), (3, 4), (4, 7), (5, 8), (6, 9). Calculate the sample means of X and Y, the slope (b1), and the intercept (b0) of the OLS regression line Y = b0 + b1X.",
+    "answer": "Mean X = 3.5, Mean Y = 6.0, b1 = 1.2, b0 = 1.8",
+    "working": "Mean X = (1+2+3+4+5+6)/6 = 21/6 = 3.5. Mean Y = (3+5+4+7+8+9)/6 = 36/6 = 6.0.\n\nNumerator for b1 = Σ(Xi - X̄)(Yi - Ȳ):\n(1-3.5)(3-6) + (2-3.5)(5-6) + (3-3.5)(4-6) + (4-3.5)(7-6) + (5-3.5)(8-6) + (6-3.5)(9-6)\n= (-2.5)(-3) + (-1.5)(-1) + (-0.5)(-2) + (0.5)(1) + (1.5)(2) + (2.5)(3)\n= 7.5 + 1.5 + 1.0 + 0.5 + 3.0 + 7.5 = 21.0\n\nDenominator = Σ(Xi - X̄)² = 6.25 + 2.25 + 0.25 + 0.25 + 2.25 + 6.25 = 17.5\n\nb1 = 21.0 / 17.5 = 1.2\nb0 = Ȳ - b1X̄ = 6.0 - 1.2(3.5) = 6.0 - 4.2 = 1.8",
+    "explanation": "The OLS slope is the ratio of the covariance between X and Y to the variance of X. The intercept ensures the regression line passes through the point of means (X̄, Ȳ). The positive slope indicates that higher advertising spend is associated with higher sales."
+  },
+  {
+    "id": "ETC2440-38",
+    "type": "calculation",
+    "difficulty": "medium",
+    "topic": "Hypothesis Testing",
+    "question": "A researcher estimates a wage equation and obtains b_education = 0.085 with a standard error of 0.025. The sample size is 500 and there are 4 independent variables. Construct a 95% confidence interval for the coefficient on education and interpret it. Is the coefficient statistically significant at the 5% level?",
+    "answer": "95% CI: (0.036, 0.134). The coefficient is statistically significant at the 5% level.",
+    "working": "Degrees of freedom = n - k - 1 = 500 - 4 - 1 = 495. For a 95% confidence interval, the critical t-value (two-tailed) is approximately 1.965 (using the normal approximation or t-distribution with large df).\n\nMargin of error = 1.965 × 0.025 = 0.0491.\n\nLower bound = 0.085 - 0.0491 = 0.0359 ≈ 0.036.\nUpper bound = 0.085 + 0.0491 = 0.1341 ≈ 0.134.\n\nSince the interval does not contain zero, the coefficient is statistically significant at the 5% level. The t-statistic = 0.085 / 0.025 = 3.4, which exceeds the critical value of 1.965.",
+    "explanation": "A 95% confidence interval means that if we were to repeat the sampling process many times, approximately 95% of the constructed intervals would contain the true population parameter. Because zero is excluded, we reject the null hypothesis that the true effect of education on log-wages is zero. The point estimate suggests each additional year of education is associated with an 8.5% increase in wages (in a log-level model)."
+  },
+  {
+    "id": "ETC2440-39",
+    "type": "theory",
+    "difficulty": "medium",
+    "topic": "Model Specification and Diagnostics",
+    "question": "Explain the problem of omitted variable bias in regression analysis. Under what conditions does it occur, and why can simply adding more variables to a model be an inadequate or even harmful solution?",
+    "answer": "Omitted variable bias occurs when a relevant variable that affects the dependent variable and is correlated with an included regressor is left out of the model. Mathematically, the bias in the estimated coefficient is proportional to the effect of the omitted variable on Y and its correlation with the included regressor. Two conditions must hold: (1) the omitted variable must be a determinant of the dependent variable, and (2) it must be correlated with an included independent variable.\n\nSimply adding more variables is not always adequate because: (a) data on the true omitted variable may be unavailable; (b) adding irrelevant variables reduces efficiency (increases standard errors) without reducing bias; (c) adding proxy variables can induce measurement error bias; (d) including too many variables relative to sample size leads to overfitting and poor out-of-sample performance; and (e) adding variables that are outcomes of the treatment (bad controls) can open backdoor paths and induce collider bias. Sound model building requires theoretical justification, careful consideration of causal pathways, and diagnostic testing rather than indiscriminate variable inclusion.",
+    "explanation": "Omitted variable bias is one of the most pervasive threats to internal validity in observational studies. Understanding its conditions helps researchers evaluate whether coefficient estimates are likely biased and informs decisions about model specification, data collection, and the use of quasi-experimental methods when key variables are unobserved."
+  },
+  {
+    "id": "ETC2440-40",
+    "type": "case",
+    "difficulty": "hard",
+    "topic": "Policy Evaluation and Causal Inference",
+    "question": "Case Study: The Victorian government introduces a mandatory minimum wage increase for the hospitality sector and wishes to evaluate its effect on employment levels. Data are available for all states and territories from 2015 to 2025. The wage increase was implemented in Victoria in 2020 but did not occur in other states. A policy analyst estimates: employment_it = beta0 + beta1 × victoria_i + beta2 × post_t + beta3 × (victoria_i × post_t) + u_it, where victoria_i is a dummy for Victoria and post_t is a dummy for years 2020 and later.\n\n1. What econometric method is the analyst using?\n2. What is the interpretation of beta3?\n3. What is the key identifying assumption, and how could it be assessed?\n4. What concerns might arise if other states implemented similar policies at different times?",
+    "answer": "1. The analyst is using a difference-in-differences (DiD) design.\n2. Beta3 is the treatment effect: the change in employment in Victoria after the policy, relative to the change in employment in the control states over the same period.\n3. The key identifying assumption is the parallel trends assumption: in the absence of the policy, employment in Victoria and the control states would have followed similar trends. This can be assessed using an event study or dynamic DiD specification with leads of the treatment indicator to test for pre-trends, and by examining graphical trends in the pre-period.\n4. If other states implemented similar policies at different times, the standard two-way fixed effects DiD estimator with a single treated unit and uniform post-period can be biased due to heterogeneous treatment effects and staggered adoption. Alternative estimators such as Callaway-Sant'Anna or Sun-Abraham would be more appropriate.",
+    "working": "The DiD estimator leverages two dimensions of variation: cross-sectional (Victoria vs. other states) and temporal (pre-2020 vs. post-2020). The interaction term isolates the policy effect by differencing out time-invariant state differences and common national trends. Mathematically, beta3 = (E[Y_V,post] - E[Y_V,pre]) - (E[Y_C,post] - E[Y_C,pre]). Parallel trends ensures the second difference is a valid counterfactual. Staggered adoption complicates inference because early-treated units serve as controls for later-treated units, potentially biasing the standard estimator toward the treatment effect of the control group.",
+    "explanation": "Difference-in-differences is a cornerstone method in policy evaluation, but its validity depends critically on the parallel trends assumption and the structure of treatment timing. Modern econometric research has highlighted the biases in two-way fixed effects estimators under staggered adoption and developed robust alternatives that applied researchers should consider."
+  }
+]

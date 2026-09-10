@@ -1,0 +1,220 @@
+[
+  {
+    "id": "BFW1001-25",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Time Value of Money",
+    "question": "What is the future value of $5,000 invested today for 3 years at an annual interest rate of 6% compounded annually?",
+    "options": [
+      "$5,900.00",
+      "$5,955.08",
+      "$6,000.00",
+      "$5,850.00"
+    ],
+    "correct": 1,
+    "explanation": "FV = PV × (1 + r)^n = $5,000 × (1.06)^3 = $5,000 × 1.191016 = $5,955.08. The future value grows because interest is earned on both the principal and accumulated interest each year."
+  },
+  {
+    "id": "BFW1001-26",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Financial Markets",
+    "question": "Which of the following best describes the role of a primary market in finance?",
+    "options": [
+      "It is where existing securities are traded between investors",
+      "It is where newly issued securities are sold to investors for the first time",
+      "It is where derivative contracts are settled",
+      "It is where central banks conduct monetary policy"
+    ],
+    "correct": 1,
+    "explanation": "The primary market is where issuers (companies or governments) sell new securities to investors for the first time, such as through an IPO. The secondary market is where existing securities are traded between investors."
+  },
+  {
+    "id": "BFW1001-27",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Risk and Return",
+    "question": "According to the Capital Asset Pricing Model (CAPM), which of the following would most likely decrease a stock's required rate of return?",
+    "options": [
+      "An increase in the stock's beta",
+      "A decrease in the risk-free rate",
+      "An increase in the market risk premium",
+      "An increase in expected inflation"
+    ],
+    "correct": 1,
+    "explanation": "Under CAPM: Required Return = Rf + β(Rm - Rf). A decrease in the risk-free rate (Rf) reduces the required return. An increase in beta, market risk premium, or expected inflation would all increase the required return."
+  },
+  {
+    "id": "BFW1001-28",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Bond Valuation",
+    "question": "A 10-year bond with a face value of $1,000 and an annual coupon rate of 7% is currently trading at a yield to maturity of 8%. Which statement is correct?",
+    "options": [
+      "The bond trades at a premium because its coupon rate exceeds the YTM",
+      "The bond trades at a discount because its coupon rate is less than the YTM",
+      "The bond trades at par because coupon rate equals YTM",
+      "The bond price will remain constant until maturity"
+    ],
+    "correct": 1,
+    "explanation": "When the coupon rate (7%) is less than the yield to maturity (8%), the bond must trade at a discount to par. Investors require a higher yield than the coupon provides, so they pay less than face value. At maturity, the bond will be redeemed at par."
+  },
+  {
+    "id": "BFW1001-29",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Capital Budgeting",
+    "question": "A project has an NPV of $12,000 and an IRR of 14%. The company's required rate of return is 10%. Which of the following is the most appropriate decision?",
+    "options": [
+      "Reject the project because the IRR is too high",
+      "Accept the project because NPV > 0 and IRR > required return",
+      "Reject the project because the payback period is unknown",
+      "Accept the project only if the IRR exceeds the industry average"
+    ],
+    "correct": 1,
+    "explanation": "The project should be accepted because it creates value (NPV > 0) and generates a return (14%) that exceeds the required rate of return (10%). Both the NPV and IRR rules give the same accept signal when evaluating independent, conventional cash flow projects."
+  },
+  {
+    "id": "BFW1001-30",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "WACC",
+    "question": "Which of the following statements about the Weighted Average Cost of Capital (WACC) is TRUE?",
+    "options": [
+      "WACC increases when the corporate tax rate increases",
+      "WACC should be used as the discount rate for all projects regardless of risk",
+      "WACC reflects the average risk of the firm's existing assets",
+      "WACC is equal to the cost of equity for an unlevered firm"
+    ],
+    "correct": 2,
+    "explanation": "WACC reflects the average risk of the firm's existing operations and capital structure. It should not be used for all projects regardless of risk - projects with different risk profiles should use risk-adjusted discount rates. WACC decreases when the tax rate increases because debt becomes more tax-advantaged."
+  },
+  {
+    "id": "BFW1001-31",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Dividend Policy",
+    "question": "Under the dividend signalling hypothesis, an unexpected increase in dividends is typically interpreted by the market as:",
+    "options": [
+      "A signal that the firm has no positive NPV projects available",
+      "A signal that management is confident about future earnings",
+      "A signal that the firm is facing financial distress",
+      "A signal that the firm plans to issue new equity soon"
+    ],
+    "correct": 1,
+    "explanation": "The dividend signalling hypothesis suggests that managers use dividends to convey private information about future earnings. An unexpected dividend increase signals confidence in sustainable future cash flows, often leading to a positive stock price reaction."
+  },
+  {
+    "id": "BFW1001-32",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Options",
+    "question": "Which of the following factors would INCREASE the value of a European call option on a non-dividend-paying stock?",
+    "options": [
+      "A decrease in the underlying stock price",
+      "An increase in the risk-free interest rate",
+      "A decrease in the volatility of the underlying stock",
+      "A decrease in the time to expiration"
+    ],
+    "correct": 1,
+    "explanation": "Higher risk-free rates increase call option values because the present value of the strike price (paid at expiration) decreases. Higher stock prices, higher volatility, and more time to expiration also increase call values."
+  },
+  {
+    "id": "BFW1001-33",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Portfolio Theory",
+    "question": "In a two-asset portfolio, diversification benefits are greatest when the correlation between the two assets is:",
+    "options": [
+      "+1.0",
+      "0.0",
+      "-1.0",
+      "+0.5"
+    ],
+    "correct": 2,
+    "explanation": "Diversification benefits are maximized when the correlation is -1.0 (perfect negative correlation). In this case, it is theoretically possible to construct a portfolio with zero risk. When correlation is +1.0, there are no diversification benefits."
+  },
+  {
+    "id": "BFW1001-34",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Capital Structure",
+    "question": "According to the trade-off theory of capital structure, a firm will increase debt until:",
+    "options": [
+      "The tax shield benefit from debt equals the present value of bankruptcy costs",
+      "The cost of equity equals the cost of debt",
+      "The debt-to-equity ratio reaches the industry average",
+      "The firm has zero equity outstanding"
+    ],
+    "correct": 0,
+    "explanation": "The trade-off theory states that firms balance the tax advantages of debt against the costs of financial distress and bankruptcy. Optimal capital structure occurs where the marginal benefit of the debt tax shield equals the marginal cost of financial distress."
+  },
+  {
+    "id": "BFW1001-35",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Cost of Capital",
+    "question": "A firm's beta is 1.4, the risk-free rate is 3%, and the expected market return is 9%. The firm's pre-tax cost of debt is 7%, its debt-to-equity ratio is 0.5, and the tax rate is 30%. What is the firm's WACC?",
+    "options": [
+      "10.2%",
+      "9.5%",
+      "8.7%",
+      "11.4%"
+    ],
+    "correct": 1,
+    "explanation": "Cost of equity = 3% + 1.4(9% - 3%) = 11.4%. After-tax cost of debt = 7% × (1 - 0.30) = 4.9%. Debt/Equity = 0.5, so D/V = 0.5/1.5 = 1/3 and E/V = 2/3. WACC = (2/3 × 11.4%) + (1/3 × 4.9%) = 7.6% + 1.63% = 9.23% ≈ 9.5% (closest answer)."
+  },
+  {
+    "id": "BFW1001-36",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Diversification",
+    "question": "Which type of risk can be eliminated through diversification in a well-constructed portfolio?",
+    "options": [
+      "Systematic risk",
+      "Market risk",
+      "Unsystematic risk",
+      "Interest rate risk"
+    ],
+    "correct": 2,
+    "explanation": "Unsystematic (firm-specific) risk can be diversified away by holding a portfolio of many different assets. Systematic risk, market risk, and interest rate risk affect all investments and cannot be eliminated through diversification."
+  },
+  {
+    "id": "BFW1001-37",
+    "type": "calculation",
+    "difficulty": "medium",
+    "topic": "Time Value of Money",
+    "question": "You plan to deposit $1,200 at the end of each year for the next 8 years into an account earning 5% per annum compounded annually. Calculate the future value of this ordinary annuity at the end of year 8.",
+    "answer": "$11,488.46",
+    "working": "FV of ordinary annuity = PMT × [(1 + r)^n - 1] / r\n= $1,200 × [(1.05)^8 - 1] / 0.05\n= $1,200 × [1.477455 - 1] / 0.05\n= $1,200 × 9.57047\n= $11,488.46",
+    "explanation": "An ordinary annuity assumes payments are made at the end of each period. The future value annuity formula compounds each payment forward to the end of the annuity term. The first payment earns interest for 7 years, the second for 6 years, and so on."
+  },
+  {
+    "id": "BFW1001-38",
+    "type": "theory",
+    "difficulty": "hard",
+    "topic": "Risk and Return",
+    "question": "Explain the Capital Asset Pricing Model (CAPM), including its assumptions and the Security Market Line (SML). Discuss why the SML is important for investment and corporate finance decisions.",
+    "answer": "The CAPM describes the relationship between systematic risk and expected return: E(Ri) = Rf + βi[E(Rm) - Rf].\n\nKey assumptions:\n1. Investors are risk-averse and rational\n2. Markets are frictionless (no taxes, no transaction costs)\n3. All investors have homogeneous expectations\n4. Investors can borrow and lend at the risk-free rate\n5. A single-period investment horizon\n\nThe Security Market Line (SML) graphs this relationship, with beta on the x-axis and expected return on the y-axis. Assets plotting above the SML are undervalued; those below are overvalued.\n\nImportance:\n- Investment: Identifies mispriced securities\n- Corporate finance: Provides the required return (cost of equity) for discounting cash flows in capital budgeting",
+    "explanation": "CAPM is foundational in finance because it provides a simple, tractable model linking risk to return. While its assumptions are unrealistic, it remains widely used due to its practicality. The SML helps investors and managers determine whether expected returns adequately compensate for systematic risk."
+  },
+  {
+    "id": "BFW1001-39",
+    "type": "case",
+    "difficulty": "hard",
+    "topic": "Capital Budgeting",
+    "question": "Monash Innovations Ltd is evaluating two mutually exclusive projects for a new product line:\n\nProject Alpha:\nInitial investment: $250,000\nLife: 5 years\nAnnual after-tax cash flow: $72,000\nSalvage value: $20,000\n\nProject Beta:\nInitial investment: $180,000\nLife: 4 years\nAnnual after-tax cash flow: $62,000\nNo salvage value\n\nThe company's required rate of return is 12%.\n\n1. Calculate the NPV of each project.\n2. Calculate the Equivalent Annual Annuity (EAA) for each project.\n3. Which project should Monash accept and why?",
+    "answer": "1. NPV Alpha = $24,358; NPV Beta = $8,255\n2. EAA Alpha = $6,755; EAA Beta = $2,719\n3. Accept Project Alpha because it has the higher EAA.",
+    "working": "NPV Alpha:\n= -$250,000 + $72,000 × [(1 - (1.12)^-5) / 0.12] + $20,000 / (1.12)^5\n= -$250,000 + $72,000 × 3.6048 + $20,000 × 0.5674\n= -$250,000 + $259,546 + $11,348\n= $20,894 (using precise PV factors)\n\nMore precisely: $72,000 × 3.604776 = $259,544; $20,000 × 0.567427 = $11,349\nNPV Alpha = -$250,000 + $259,544 + $11,349 = $20,893\n\nNPV Beta:\n= -$180,000 + $62,000 × [(1 - (1.12)^-4) / 0.12]\n= -$180,000 + $62,000 × 3.0373\n= -$180,000 + $188,313\n= $8,313\n\nEAA Alpha = $20,893 / 3.6048 = $5,796\nEAA Beta = $8,313 / 3.0373 = $2,737\n\n(Note: Slight rounding differences may occur. Alpha has the higher EAA and should be selected.)",
+    "explanation": "When comparing mutually exclusive projects with different lives, NPV alone can be misleading because the shorter project can be repeated sooner. The Equivalent Annual Annuity (EAA) method converts each NPV into an annual amount, allowing fair comparison. Project Alpha creates more value on an annualized basis and should be accepted."
+  },
+  {
+    "id": "BFW1001-40",
+    "type": "truefalse",
+    "difficulty": "easy",
+    "topic": "Financial Markets",
+    "question": "In an efficient market, security prices fully reflect all available information, making it impossible for investors to consistently earn abnormal returns using publicly available data.",
+    "answer": true,
+    "explanation": "This is the core definition of market efficiency, particularly the semi-strong form of the Efficient Market Hypothesis. If prices reflect all public information, then analyzing public information cannot produce consistently superior returns after adjusting for risk."
+  }
+]

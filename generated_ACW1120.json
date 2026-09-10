@@ -1,0 +1,220 @@
+[
+  {
+    "id": "ACW1120-25",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Financial Statements",
+    "question": "Which financial statement reports a company's financial position at a specific point in time?",
+    "options": [
+      "Statement of Profit or Loss",
+      "Statement of Financial Position",
+      "Statement of Changes in Equity",
+      "Statement of Cash Flows"
+    ],
+    "correct": 1,
+    "explanation": "The Statement of Financial Position (Balance Sheet) reports assets, liabilities, and equity at a specific date. The Statement of Profit or Loss covers a period, as do the other statements."
+  },
+  {
+    "id": "ACW1120-26",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "The Accounting Equation",
+    "question": "If a company borrows $50,000 from a bank, how are the accounting equation elements affected?",
+    "options": [
+      "Assets increase by $50,000; Equity increases by $50,000",
+      "Assets increase by $50,000; Liabilities increase by $50,000",
+      "Assets decrease by $50,000; Liabilities decrease by $50,000",
+      "Assets increase by $50,000; Liabilities decrease by $50,000"
+    ],
+    "correct": 1,
+    "explanation": "Borrowing cash increases the asset Cash and increases the liability Loans Payable by $50,000. The accounting equation (Assets = Liabilities + Equity) remains in balance."
+  },
+  {
+    "id": "ACW1120-27",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Double Entry",
+    "question": "A debit entry to an asset account will:",
+    "options": [
+      "Decrease the asset",
+      "Increase the asset",
+      "Have no effect on the asset",
+      "Decrease equity"
+    ],
+    "correct": 1,
+    "explanation": "Asset accounts have a normal debit balance. A debit entry increases an asset account, while a credit entry decreases it."
+  },
+  {
+    "id": "ACW1120-28",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Depreciation",
+    "question": "Which of the following depreciation methods results in a higher expense in the earlier years of an asset's life?",
+    "options": [
+      "Straight-line method",
+      "Units-of-production method",
+      "Diminishing balance method",
+      "Residual value method"
+    ],
+    "correct": 2,
+    "explanation": "The diminishing balance method applies a constant rate to the declining carrying amount, producing higher depreciation expense in earlier years and lower expense in later years compared to straight-line."
+  },
+  {
+    "id": "ACW1120-29",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Receivables and Bad Debts",
+    "question": "When a previously written-off bad debt is recovered, which accounts are affected?",
+    "options": [
+      "Debit Bad Debt Expense; Credit Accounts Receivable",
+      "Debit Cash; Credit Allowance for Doubtful Debts",
+      "Debit Accounts Receivable; Credit Bad Debt Expense",
+      "Debit Cash; Credit Accounts Receivable"
+    ],
+    "correct": 1,
+    "explanation": "Under the allowance method, a recovery is recorded by debiting Cash and crediting Allowance for Doubtful Debts (or Bad Debt Expense under the direct write-off method). The receivable was already written off, so it is not credited."
+  },
+  {
+    "id": "ACW1120-30",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Inventory Valuation",
+    "question": "During a period of rising prices, which inventory costing method results in the lowest ending inventory balance on the Statement of Financial Position?",
+    "options": [
+      "FIFO",
+      "Weighted average",
+      "LIFO (if permitted)",
+      "Specific identification"
+    ],
+    "correct": 2,
+    "explanation": "LIFO assigns the most recent higher costs to cost of goods sold, leaving the older lower costs in ending inventory. This produces the lowest ending inventory value during inflation. Note: LIFO is not permitted under AASB 102 but is tested conceptually."
+  },
+  {
+    "id": "ACW1120-31",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "Revenue Recognition",
+    "question": "Under AASB 15, revenue is recognized when:",
+    "options": [
+      "Cash is received from the customer",
+      "The contract is signed",
+      "The performance obligation is satisfied",
+      "The goods are manufactured"
+    ],
+    "correct": 2,
+    "explanation": "AASB 15 requires revenue to be recognized when (or as) the entity satisfies a performance obligation by transferring control of goods or services to the customer."
+  },
+  {
+    "id": "ACW1120-32",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Leases",
+    "question": "Under AASB 16, which of the following is NOT typically recognized by a lessee at lease commencement?",
+    "options": [
+      "Right-of-use asset",
+      "Lease liability",
+      "Gain on bargain purchase option",
+      "Initial direct costs as part of the right-of-use asset"
+    ],
+    "correct": 2,
+    "explanation": "AASB 16 requires recognition of a right-of-use asset and lease liability. Initial direct costs are included in the right-of-use asset. A gain on bargain purchase is not recognized at commencement; it would only arise at the end of the lease if exercised."
+  },
+  {
+    "id": "ACW1120-33",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Statement of Cash Flows",
+    "question": "A company sells equipment with a carrying amount of $40,000 for $35,000 cash. How is this transaction classified and reported in the Statement of Cash Flows?",
+    "options": [
+      "Investing inflow of $35,000 and operating outflow of $5,000",
+      "Investing inflow of $35,000 with no operating adjustment",
+      "Operating inflow of $35,000 and investing outflow of $5,000",
+      "Investing inflow of $40,000 and operating outflow of $5,000"
+    ],
+    "correct": 0,
+    "explanation": "The $35,000 cash received is an investing inflow. The $5,000 loss ($40,000 carrying amount - $35,000 proceeds) was deducted in profit or loss but is a non-operating item, so it is added back in operating activities under the indirect method."
+  },
+  {
+    "id": "ACW1120-34",
+    "type": "mcq",
+    "difficulty": "medium",
+    "topic": "Adjusting Entries",
+    "question": "A company receives $18,000 on 1 December for a 6-month consulting contract. The year-end is 31 December. What amount of revenue should be recognized in the current year?",
+    "options": [
+      "$18,000",
+      "$3,000",
+      "$6,000",
+      "$12,000"
+    ],
+    "correct": 1,
+    "explanation": "Revenue is recognized over time as the service is provided. For 1 month (December) out of 6 months: $18,000 x 1/6 = $3,000. The remaining $15,000 is unearned revenue (liability)."
+  },
+  {
+    "id": "ACW1120-35",
+    "type": "mcq",
+    "difficulty": "easy",
+    "topic": "The Accounting Equation",
+    "question": "Payment of an account payable with cash will:",
+    "options": [
+      "Increase total assets and decrease total liabilities",
+      "Decrease total assets and decrease total liabilities",
+      "Have no effect on total assets or liabilities",
+      "Decrease total assets and increase total liabilities"
+    ],
+    "correct": 1,
+    "explanation": "Paying a liability with cash decreases the asset Cash and decreases the liability Accounts Payable by the same amount. Total assets and total liabilities both decrease, but the accounting equation remains in balance."
+  },
+  {
+    "id": "ACW1120-36",
+    "type": "mcq",
+    "difficulty": "hard",
+    "topic": "Financial Analysis",
+    "question": "A company has a current ratio of 2.5 and a quick ratio of 1.2. What does this comparison suggest?",
+    "options": [
+      "The company has minimal inventory",
+      "The company relies heavily on inventory for liquidity",
+      "The company has no current liabilities",
+      "The company's receivables are uncollectible"
+    ],
+    "correct": 1,
+    "explanation": "The current ratio includes all current assets while the quick ratio excludes inventory. A significantly higher current ratio relative to the quick ratio indicates that a substantial portion of current assets is tied up in inventory, which may be less liquid."
+  },
+  {
+    "id": "ACW1120-37",
+    "type": "calculation",
+    "difficulty": "medium",
+    "topic": "Statement of Cash Flows",
+    "question": "During the year, a company reported net profit of $85,000. Depreciation expense was $15,000, accounts receivable increased by $8,000, inventory decreased by $5,000, and accounts payable increased by $3,000. Calculate net cash provided by operating activities using the indirect method.",
+    "answer": "$100,000",
+    "working": "Net profit $85,000 + Depreciation $15,000 - Increase in AR $8,000 + Decrease in inventory $5,000 + Increase in AP $3,000 = $100,000.",
+    "explanation": "Under the indirect method, non-cash expenses like depreciation are added back. Decreases in current assets and increases in current liabilities are added; increases in current assets and decreases in current liabilities are subtracted."
+  },
+  {
+    "id": "ACW1120-38",
+    "type": "theory",
+    "difficulty": "medium",
+    "topic": "Financial Statements",
+    "question": "Explain the purpose and structure of the Statement of Changes in Equity, and identify the main components typically reported.",
+    "answer": "The Statement of Changes in Equity reconciles the opening and closing balances of each component of equity. It shows total comprehensive income for the period, transactions with owners in their capacity as owners (e.g., dividends, share issues, buy-backs), and the effects of changes in accounting policies or corrections of errors. Main components include share capital, reserves, retained earnings, and other comprehensive income.",
+    "explanation": "This statement provides a bridge between the Statement of Profit or Loss and the Statement of Financial Position, explaining how equity has changed due to performance, owner contributions/distributions, and other comprehensive income items."
+  },
+  {
+    "id": "ACW1120-39",
+    "type": "case",
+    "difficulty": "hard",
+    "topic": "Adjusting Entries",
+    "question": "On 30 June 2025, the unadjusted trial balance of Omega Ltd shows: Supplies $8,000 (debit), Prepaid Rent $12,000 (debit), Wages Payable $0, and Unearned Revenue $6,000 (credit). Additional information: (1) A physical count reveals only $2,500 of supplies remain. (2) Rent of $12,000 was paid on 1 April 2025 for 12 months. (3) Wages of $4,500 are owed but unrecorded. (4) $2,000 of the unearned revenue has been earned. Prepare all necessary adjusting journal entries.",
+    "answer": "(1) Dr Supplies Expense $5,500; Cr Supplies $5,500. (2) Dr Rent Expense $3,000; Cr Prepaid Rent $3,000. (3) Dr Wages Expense $4,500; Cr Wages Payable $4,500. (4) Dr Unearned Revenue $2,000; Cr Revenue $2,000.",
+    "working": "Supplies used = $8,000 - $2,500 = $5,500. Rent expired = $12,000 x 3/12 = $3,000 (April to June). Wages accrued = $4,500. Revenue earned = $2,000.",
+    "explanation": "Adjusting entries ensure that expenses and revenues are recognized in the correct period under accrual accounting. Supplies expense reflects consumption, prepaid rent is amortized over the benefit period, accrued wages match labour costs to the period worked, and earned revenue reduces the liability."
+  },
+  {
+    "id": "ACW1120-40",
+    "type": "truefalse",
+    "difficulty": "easy",
+    "topic": "Depreciation",
+    "question": "Depreciation is the systematic allocation of an asset's cost over its useful life, not a valuation process that reflects current market value.",
+    "answer": true,
+    "explanation": "Depreciation allocates the depreciable amount (cost less residual value) over the useful life to match the expense with the periods benefited. It does not attempt to report the asset at fair value, which is a common misconception among introductory students."
+  }
+]

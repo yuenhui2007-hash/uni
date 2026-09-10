@@ -314,6 +314,41 @@
 
         .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
+        .study-hours-edit {
+            display: none;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        .study-hours-edit.active { display: block; }
+        .study-hours-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .study-hours-row label {
+            width: 60px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .study-hours-row input {
+            width: 60px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        .study-hours-row input:focus { border-color: var(--accent-tan); outline: none; }
+        .study-hours-btns {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
         .edit-btn {
             background: transparent; border: 1px solid var(--border-color); color: var(--text-muted);
             padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s;
@@ -356,6 +391,7 @@
         .delay-3 { animation-delay: 0.3s; opacity: 0; }
         .delay-4 { animation-delay: 0.4s; opacity: 0; }
     </style>
+
 </head>
 <body>
     <div class="bg-animation">
@@ -366,7 +402,8 @@
 
     <div class="container">
         <header class="header">
-            <div class="logo">
+            <div style="display:flex;align-items:center;gap:16px">
+<div class="logo">
                 <div class="logo-icon">📚</div>
                 <div class="logo-text">
                     <h1>UNI <em>Dashboard</em></h1>
@@ -381,11 +418,12 @@
                 <a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a>
                 <a href="study.html"><i class="fas fa-book"></i> Study</a>
                 <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+                <a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a>
             </nav>
             <div class="user-profile">
                 <span id="userDegree" style="color: var(--text-secondary); font-size: 0.9rem;">Bachelor of Science</span>
                 <div class="user-avatar" id="userAvatar">JD</div>
-            </div>
+                </div>
         </header>
 
         <div class="quote-bar animate-in">
@@ -403,9 +441,17 @@
             <div class="card animate-in">
                 <div class="card-header">
                     <div class="card-title"><i class="fas fa-chart-pie"></i> Subject Progress</div>
-                    <button class="card-action">View All</button>
+                    <button class="edit-btn" onclick="toggleProgressEdit()">Edit</button>
                 </div>
                 <div class="progress-rings" id="progressRings"></div>
+                <div class="inline-edit" id="progressEditPanel" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border-color);">
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;">Set Progress %</div>
+                    <div id="progressInputs"></div>
+                    <div class="study-hours-btns">
+                        <button class="edit-btn" onclick="saveProgress()">Save</button>
+                        <button class="edit-btn" onclick="toggleProgressEdit()">Cancel</button>
+                    </div>
+                </div>
             </div>
 
             <div class="card animate-in delay-2">
@@ -427,18 +473,42 @@
             <div class="card animate-in">
                 <div class="card-header">
                     <div class="card-title"><i class="fas fa-chart-bar"></i> Weekly Study Hours</div>
-                    <button class="card-action">This Month</button>
+                    <button class="edit-btn" onclick="toggleStudyHoursEdit()">Edit</button>
                 </div>
                 <div class="chart-container">
                     <canvas id="studyChart"></canvas>
+                </div>
+                <div class="study-hours-edit" id="studyHoursEditPanel">
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;">This Week</div>
+                    <div id="studyHoursThisWeekInputs"></div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin:10px 0 10px;">Last Week</div>
+                    <div id="studyHoursLastWeekInputs"></div>
+                    <div class="study-hours-btns">
+                        <button class="edit-btn" onclick="saveStudyHours()">Save</button>
+                        <button class="edit-btn" onclick="toggleStudyHoursEdit()">Cancel</button>
+                    </div>
                 </div>
             </div>
 
             <div class="card animate-in delay-2">
                 <div class="card-header">
                     <div class="card-title"><i class="fas fa-hourglass-half"></i> Upcoming Deadlines</div>
+                    <button class="edit-btn" onclick="toggleDeadlineEdit()">Edit</button>
                 </div>
                 <div class="countdown-list" id="countdownList"></div>
+                <div class="inline-edit" id="deadlineEditPanel" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border-color);">
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+                        <input type="text" id="dlTitle" placeholder="Title" style="flex:1;min-width:120px;padding:6px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);font-size:0.85rem;">
+                        <input type="date" id="dlDate" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);font-size:0.85rem;">
+                        <select id="dlType" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);font-size:0.85rem;">
+                            <option value="exam">Exam</option>
+                            <option value="assignment">Assignment</option>
+                            <option value="quiz">Quiz</option>
+                        </select>
+                        <button class="btn-add" style="padding:6px 14px;font-size:0.8rem;" onclick="addDeadline()">Add</button>
+                    </div>
+                    <div id="dlListEdit" style="font-size:0.8rem;"></div>
+                </div>
             </div>
         </div>
 
@@ -564,14 +634,14 @@
         function renderProgressRings() {
             const container = document.getElementById('progressRings');
             container.innerHTML = '';
-            const subjects = appData.config.subjects || [
-                { name: "Financial Accounting", code: "ACW1120", progress: 78, gradient: "grad1" },
-                { name: "Foundations of Finance", code: "BFW1001", progress: 65, gradient: "grad2" },
-                { name: "Business Law", code: "BTW1042", progress: 92, gradient: "grad3" },
-                { name: "Economics", code: "ECM1953", progress: 54, gradient: "grad4" }
-            ];
+            // Ensure each subject has a progress value
+            const subjects = (appData.config.subjects || []).map((sub, i) => ({
+                ...sub,
+                progress: sub.progress ?? [78, 65, 92, 54][i] ?? 50,
+                gradient: sub.gradient || `grad${(i % 4) + 1}`
+            }));
             subjects.forEach((sub, i) => {
-                const grad = GRADIENTS[sub.gradient || 'grad1'];
+                const grad = GRADIENTS[sub.gradient] || GRADIENTS.grad1;
                 const item = document.createElement('div');
                 item.className = 'ring-item';
                 item.innerHTML = `
@@ -596,6 +666,37 @@
                 `;
                 container.appendChild(item);
             });
+        }
+
+        let progressEditMode = false;
+        function toggleProgressEdit() {
+            progressEditMode = !progressEditMode;
+            const panel = document.getElementById('progressEditPanel');
+            panel.style.display = progressEditMode ? 'block' : 'none';
+            if (progressEditMode) renderProgressInputs();
+        }
+
+        function renderProgressInputs() {
+            const container = document.getElementById('progressInputs');
+            const subjects = appData.config.subjects || [];
+            container.innerHTML = subjects.map((sub, i) => `
+                <div class="study-hours-row">
+                    <label>${sub.name}</label>
+                    <input type="number" min="0" max="100" id="prog_${i}" value="${sub.progress ?? 50}">
+                </div>
+            `).join('');
+        }
+
+        async function saveProgress() {
+            const subjects = appData.config.subjects || [];
+            subjects.forEach((sub, i) => {
+                sub.progress = parseInt(document.getElementById(`prog_${i}`).value) || 0;
+            });
+            appData.config.subjects = subjects;
+            await api('PUT', '/api/config', appData.config);
+            toggleProgressEdit();
+            renderProgressRings();
+            animateRings();
         }
 
         function renderGPA() {
@@ -628,6 +729,9 @@
         function renderCountdowns() {
             const container = document.getElementById('countdownList');
             container.innerHTML = '';
+            // Load from localStorage if available
+            const saved = localStorage.getItem('uni_deadlines');
+            if (saved) appData.deadlines = JSON.parse(saved);
             const deadlines = appData.deadlines.length ? appData.deadlines : [
                 { title: "Mid-Semester Exam", subject: "ACW1120 - Financial Accounting", date: "2026-09-05T09:00:00", urgent: true },
                 { title: "Assignment 2 Due", subject: "BFW1001 - Foundations of Finance", date: "2026-09-12T23:59:00", urgent: false },
@@ -654,6 +758,56 @@
         function toggleStreakEdit() {
             streakEditMode = !streakEditMode;
             document.getElementById('streakEditPanel').classList.toggle('active');
+        }
+
+        let deadlineEditMode = false;
+        function toggleDeadlineEdit() {
+            deadlineEditMode = !deadlineEditMode;
+            const panel = document.getElementById('deadlineEditPanel');
+            panel.style.display = deadlineEditMode ? 'block' : 'none';
+            if (deadlineEditMode) renderDeadlineEditList();
+        }
+
+        function renderDeadlineEditList() {
+            const container = document.getElementById('dlListEdit');
+            const deadlines = appData.deadlines.length ? appData.deadlines : [
+                { title: "Mid-Semester Exam", subject: "ACW1120 - Financial Accounting", date: "2026-09-05T09:00:00", urgent: true },
+                { title: "Assignment 2 Due", subject: "BFW1001 - Foundations of Finance", date: "2026-09-12T23:59:00", urgent: false },
+                { title: "Lab Report", subject: "BTW1042 - Business Law", date: "2026-09-18T17:00:00", urgent: false }
+            ];
+            container.innerHTML = deadlines.map((d, i) => `
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--border-color);">
+                    <span>${d.title} — ${d.date.split('T')[0]}</span>
+                    <button onclick="deleteDeadline(${i})" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:0.8rem;">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function addDeadline() {
+            const title = document.getElementById('dlTitle').value.trim();
+            const date = document.getElementById('dlDate').value;
+            const type = document.getElementById('dlType').value;
+            if (!title || !date) { alert('Please fill in title and date'); return; }
+            const subjectMap = { exam: 'Exam', assignment: 'Assignment', quiz: 'Quiz' };
+            const newDl = {
+                title: title,
+                subject: subjectMap[type] || type,
+                date: date + 'T09:00:00',
+                urgent: Math.floor((new Date(date) - new Date()) / (1000*60*60*24)) <= 3
+            };
+            appData.deadlines.push(newDl);
+            localStorage.setItem('uni_deadlines', JSON.stringify(appData.deadlines));
+            document.getElementById('dlTitle').value = '';
+            document.getElementById('dlDate').value = '';
+            renderCountdowns();
+            renderDeadlineEditList();
+        }
+
+        function deleteDeadline(index) {
+            appData.deadlines.splice(index, 1);
+            localStorage.setItem('uni_deadlines', JSON.stringify(appData.deadlines));
+            renderCountdowns();
+            renderDeadlineEditList();
         }
 
         async function logToday() {
@@ -764,7 +918,22 @@
         }
 
         let studyChartInstance = null;
+        let studyHoursData = {
+            thisWeek: [3.5, 4, 2.5, 5, 3, 6, 4],
+            lastWeek: [2, 3, 3.5, 4, 2.5, 5, 3.5]
+        };
+
+        function loadStudyHours() {
+            const saved = localStorage.getItem('uni_study_hours');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                studyHoursData.thisWeek = parsed.thisWeek || studyHoursData.thisWeek;
+                studyHoursData.lastWeek = parsed.lastWeek || studyHoursData.lastWeek;
+            }
+        }
+
         function initStudyChart() {
+            loadStudyHours();
             const ctx = document.getElementById('studyChart');
             if (!ctx) return;
             if (studyChartInstance) studyChartInstance.destroy();
@@ -781,14 +950,14 @@
                     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
                     datasets: [{
                         label: 'This Week',
-                        data: [3.5, 4, 2.5, 5, 3, 6, 4],
+                        data: studyHoursData.thisWeek,
                         backgroundColor: gradient1,
                         borderColor: '#BF9B7A',
                         borderWidth: 1,
                         borderRadius: 8,
                     }, {
                         label: 'Last Week',
-                        data: [2, 3, 3.5, 4, 2.5, 5, 3.5],
+                        data: studyHoursData.lastWeek,
                         backgroundColor: gradient2,
                         borderColor: '#8C5B3E',
                         borderWidth: 1,
@@ -816,6 +985,45 @@
                     }
                 }
             });
+        }
+
+        let studyHoursEditMode = false;
+        function toggleStudyHoursEdit() {
+            studyHoursEditMode = !studyHoursEditMode;
+            const panel = document.getElementById('studyHoursEditPanel');
+            panel.classList.toggle('active', studyHoursEditMode);
+            if (studyHoursEditMode) renderStudyHoursInputs();
+        }
+
+        function renderStudyHoursInputs() {
+            const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+            const thisWeekContainer = document.getElementById('studyHoursThisWeekInputs');
+            const lastWeekContainer = document.getElementById('studyHoursLastWeekInputs');
+
+            thisWeekContainer.innerHTML = days.map((day, i) => `
+                <div class="study-hours-row">
+                    <label>${day}</label>
+                    <input type="number" step="0.1" min="0" max="24" id="sw_this_${i}" value="${studyHoursData.thisWeek[i]}">
+                </div>
+            `).join('');
+
+            lastWeekContainer.innerHTML = days.map((day, i) => `
+                <div class="study-hours-row">
+                    <label>${day}</label>
+                    <input type="number" step="0.1" min="0" max="24" id="sw_last_${i}" value="${studyHoursData.lastWeek[i]}">
+                </div>
+            `).join('');
+        }
+
+        function saveStudyHours() {
+            for (let i = 0; i < 7; i++) {
+                studyHoursData.thisWeek[i] = parseFloat(document.getElementById(`sw_this_${i}`).value) || 0;
+                studyHoursData.lastWeek[i] = parseFloat(document.getElementById(`sw_last_${i}`).value) || 0;
+            }
+            localStorage.setItem('uni_study_hours', JSON.stringify(studyHoursData));
+            studyHoursEditMode = false;
+            document.getElementById('studyHoursEditPanel').classList.remove('active');
+            initStudyChart();
         }
 
         function calculateGPA() {
@@ -875,8 +1083,14 @@
             document.getElementById('quoteAuthor').textContent = `— ${q.author}`;
         }
 
+        async function loadUser() {
+            const username = localStorage.getItem('username');
+            if (username) document.getElementById('userAvatar').textContent = username.slice(0,2).toUpperCase();
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             loadAll();
+            loadUser();
             setInterval(updateCountdowns, 1000);
             setInterval(rotateQuotes, 15000);
         });

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BFW1001 - Foundations of Finance Study Guide</title>
+<style>
+  :root{--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--accent:#38bdf8;--accent2:#a78bfa;--green:#4ade80;--red:#f87171;--border:#334155;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;padding:24px;max-width:900px;margin:0 auto}
+  h1{margin-bottom:6px;font-size:1.6rem}
+  h2{color:var(--accent);font-size:1.15rem;margin:28px 0 12px;border-bottom:1px solid var(--border);padding-bottom:6px}
+  .subtitle{color:var(--muted);font-size:.95rem;margin-bottom:20px}
+  .mcq{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
+  .mcq-question{font-weight:600;margin-bottom:10px}
+  .mcq-options{list-style:none;padding-left:0;margin-bottom:10px}
+  .mcq-options li{padding:6px 8px;border-radius:6px;margin-bottom:4px;cursor:default}
+  .mcq-options li:hover{background:#334155}
+  .mcq-toggle{display:inline-block;color:var(--accent);cursor:pointer;font-weight:600;user-select:none}
+  .mcq-answer{display:none;margin-top:10px;padding:12px;background:#0b1220;border:1px solid var(--border);border-radius:8px}
+  .mcq-answer.show{display:block}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
+  .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+  .card-title{font-weight:600;font-size:1rem}
+  .card-tag{font-size:.75rem;background:var(--accent2);color:#0f172a;padding:3px 10px;border-radius:999px;font-weight:700}
+  .def{display:flex;flex-direction:column;gap:6px}
+  .def-term{font-weight:700;color:var(--green)}
+  .def-meaning{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<h1>BFW1001 — Foundations of Finance</h1>
+<div class="subtitle">Monash B2026 Accountancy Exam Study Guide</div>
+
+<h2>Multiple Choice Questions</h2>
+
+<!-- MCQ 1 -->
+<div class="mcq">
+  <div class="mcq-question">Q1: Which of the following best describes the time value of money?</div>
+  <ul class="mcq-options">
+    <li>A) Money loses value over time due to inflation only</li>
+    <li>B) A dollar today is worth more than a dollar in the future because it can be invested</li>
+    <li>C) Future cash flows are always riskier than present cash flows</li>
+    <li>D) Interest rates always decrease over long time horizons</li>
+  </ul>
+  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>The time value of money reflects that money available now can earn a return, making it more valuable than the same nominal amount received later.</div>
+</div>
+
+<!-- MCQ 2 -->
+<div class="mcq">
+  <div class="mcq-question">Q2: What is the primary advantage of the Net Present Value (NPV) method over the Payback Period?</div>
+  <ul class="mcq-options">
+    <li>A) NPV is easier to calculate</li>
+    <li>B) NPV considers all cash flows and the time value of money</li>
+    <li>C) NPV ignores the cost of capital</li>
+    <li>D) NPV does not require forecasting future cash flows</li>
+  </ul>
+  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>NPV discounts all future cash flows using the required rate of return, capturing profitability and timing, whereas Payback ignores cash flows after payback and does not discount them.</div>
+</div>
+
+<!-- MCQ 3 -->
+<div class="mcq">
+  <div class="mcq-question">Q3: A project has an NPV of $12,000 at a discount rate of 10%. If the discount rate increases to 12%, what is the likely effect on NPV?</div>
+  <ul class="mcq-options">
+    <li>A) NPV increases</li>
+    <li>B) NPV decreases</li>
+    <li>C) NPV stays the same</li>
+    <li>D) NPV becomes exactly zero</li>
+  </ul>
+  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>Higher discount rates reduce the present value of future cash inflows, which typically lowers NPV. NPV and discount rate are inversely related for conventional projects.</div>
+</div>
+
+<!-- MCQ 4 -->
+<div class="mcq">
+  <div class="mcq-question">Q4: Which measure reflects the return earned per unit of risk taken, using standard deviation as the risk measure?</div>
+  <ul class="mcq-options">
+    <li>A) Jensen's Alpha</li>
+    <li>B) Sharpe Ratio</li>
+    <li>C) Treynor Ratio</li>
+    <li>D) Beta Coefficient</li>
+  </ul>
+  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>The Sharpe Ratio calculates excess return over the risk-free rate divided by total risk (standard deviation). The Treynor Ratio uses systematic risk (beta) instead.</div>
+</div>
+
+<!-- MCQ 5 -->
+<div class="mcq">
+  <div class="mcq-question">Q5: In the Capital Asset Pricing Model (CAPM), what does Beta measure?</div>
+  <ul class="mcq-options">
+    <li>A) Total risk of the asset</li>
+    <li>B) Systematic risk relative to the market</li>
+    <li>C) Unsystematic risk that can be diversified away</li>
+    <li>D) The risk-free rate of return</li>
+  </ul>
+  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>Beta measures an asset's sensitivity to market movements (systematic risk). A beta of 1 means the asset moves with the market; above 1 means more volatile than the market.</div>
+</div>
+
+<!-- MCQ 6 -->
+<div class="mcq">
+  <div class="mcq-question">Q6: Which of the following is a source of unsystematic risk?</div>
+  <ul class="mcq-options">
+    <li>A) Interest rate changes</li>
+    <li>B) Inflation fluctuations</li>
+    <li>C) A company's product recall</li>
+    <li>D) Changes in exchange rates</li>
+  </ul>
+  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <div class="mcq-answer"><strong>Answer: C</strong><br>Unsystematic (idiosyncratic) risk is firm-specific and can be reduced through diversification. Product recalls, management changes, and labour strikes are examples. The other options are systematic risks affecting the whole market.</div>
+</div>
+
+<!-- MCQ 7 -->
+<div class="mcq">
+  <div class="mcq-question">Q7: According to the pecking order theory, which financing source do firms prefer first?</div>
+  <ul class="mcq-options">
+    <li>A) Issuing new equity</li>
+    <li>B) Debt financing</li>
+    <li>C) Retained earnings / internal funds</li>
+    <li>D) Convertible bonds</li>
+  </ul>
+  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <div class="mcq-answer"><strong>Answer: C</strong><br>Pecking order theory states firms prefer internal financing first, then debt, and issue equity only as a last resort due to asymmetric information costs.</div>
+</div>
+
+<!-- MCQ 8 -->
+<div class="mcq">
+  <div class="mcq-question">Q8: What happens to the Weighted Average Cost of Capital (WACC) if a firm increases its debt level, assuming the traditional view of capital structure?</div>
+  <ul class="mcq-options">
+    <li>A) WACC always increases because debt is expensive</li>
+    <li>B) WACC initially decreases due to the tax shield, then increases as financial distress costs rise</li>
+    <li>C) WACC remains constant regardless of capital structure</li>
+    <li>D) WACC decreases continuously as more debt is added</li>
+  </ul>
+  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>Under the traditional view, moderate debt lowers WACC because debt is cheaper and interest is tax-deductible. Beyond an optimal point, financial distress and agency costs cause WACC to rise.</div>
+</div>
+
+<!-- MCQ 9 -->
+<div class="mcq">
+  <div class="mcq-question">Q9: An annuity due differs from an ordinary annuity in that:</div>
+  <ul class="mcq-options">
+    <li>A) Payments occur at the beginning rather than the end of each period</li>
+    <li>B) It has a variable interest rate</li>
+    <li>C) It has no fixed number of periods</li>
+    <li>D) It is always risk-free</li>
+  </ul>
+  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <div class="mcq-answer"><strong>Answer: A</strong><br>An annuity due has payments at the start of each period (e.g., rent), whereas an ordinary annuity has payments at the end (e.g., loan repayments). The timing difference affects present and future value calculations.</div>
+</div>
+
+<!-- MCQ 10 -->
+<div class="mcq">
+  <div class="mcq-question">Q10: Which dividend policy suggests that dividends should be paid only after all acceptable investment opportunities are funded?</div>
+  <ul class="mcq-options">
+    <li>A) Constant payout ratio policy</li>
+    <li>B) Residual dividend policy</li>
+    <li>C) Stable dividend policy</li>
+    <li>D) Bird-in-hand policy</li>
+  </ul>
+  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <div class="mcq-answer"><strong>Answer: B</strong><br>The residual dividend policy prioritises positive-NPV investments; dividends are paid from whatever earnings remain. This aligns with value maximisation but can lead to volatile dividend payments.</div>
+</div>
+
+<h2>Subjective Questions</h2>
+
+<!-- SQ 1 -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-title">Q: Explain the concept of the Security Market Line (SML) and how it is used to determine whether a security is fairly priced.</span>
+    <span class="card-tag">CAPM &amp; Asset Pricing</span>
+  </div>
+  <div class="def">
+    <div class="def-term">Answer</div>
+    <div class="def-meaning">The Security Market Line (SML) is a graphical representation of the Capital Asset Pricing Model (CAPM), plotting expected return against systematic risk (beta). The formula is E(Ri) = Rf + βi(E(Rm) − Rf), where Rf is the risk-free rate, βi is the asset's beta, and E(Rm) is the expected market return. If a security plots above the SML, it is undervalued (offers higher return than required for its risk). If below, it is overvalued. Securities on the line are fairly priced. Investors use the SML to make buy/sell decisions and to evaluate portfolio performance relative to risk-adjusted benchmarks.</div>
+  </div>
+</div>
+
+<!-- SQ 2 -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-title">Q: Calculate the future value of $5,000 invested today for 8 years at an annual interest rate of 6%, compounded annually. Show your working.</span>
+    <span class="card-tag">Time Value of Money</span>
+  </div>
+  <div class="def">
+    <div class="def-term">Answer</div>
+    <div class="def-meaning">Using the future value formula: FV = PV × (1 + r)^n. Here PV = $5,000, r = 0.06, n = 8. FV = 5,000 × (1.06)^8 = 5,000 × 1.593848 = $7,969.24 (rounded to two decimal places). Compounding means interest earns interest over time, so the growth accelerates each year. If compounding were semi-annual, the rate per period would be 3% over 16 periods, yielding a slightly higher FV.</div>
+  </div>
+</div>
+
+<!-- SQ 3 -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-title">Q: Discuss the trade-off theory of capital structure and explain why firms do not finance entirely with debt despite the tax shield benefit.</span>
+    <span class="card-tag">Capital Structure</span>
+  </div>
+  <div class="def">
+    <div class="def-term">Answer</div>
+    <div class="def-meaning">The trade-off theory posits that firms balance the benefits of debt (tax shields from interest deductibility) against the costs (financial distress, bankruptcy risk, and agency costs). As leverage increases, the probability of default rises, leading to higher expected bankruptcy costs, loss of customer/supplier confidence, and restrictive covenants. At low debt levels, the tax shield dominates and firm value rises. Beyond an optimal debt ratio, marginal distress costs exceed marginal tax benefits, causing firm value to decline. Thus, firms target an optimal capital structure rather than 100% debt.</div>
+  </div>
+</div>
+
+<!-- SQ 4 -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-title">Q: Compare and contrast systematic risk and unsystematic risk. Why can only one of these be priced in equilibrium according to the CAPM?</span>
+    <span class="card-tag">Risk &amp; Return</span>
+  </div>
+  <div class="def">
+    <div class="def-term">Answer</div>
+    <div class="def-meaning">Systematic risk (market risk) affects all assets and cannot be eliminated through diversification; examples include interest rate changes, inflation, and geopolitical events. Unsystematic risk (specific risk) is unique to a firm or industry—such as management quality, product recalls, or strikes—and can be reduced or eliminated by holding a well-diversified portfolio. In equilibrium, only systematic risk is priced because rational investors can diversify away unsystematic risk at no cost. Therefore, the market only rewards investors for bearing non-diversifiable risk, which is measured by beta in the CAPM framework.</div>
+  </div>
+</div>
+
+<!-- SQ 5 -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-title">Q: A company is evaluating two mutually exclusive projects, X and Y. Project X has an IRR of 18% and NPV of $8,000 at a 10% discount rate. Project Y has an IRR of 15% and NPV of $12,000 at the same rate. Which project should the firm accept and why?</span>
+    <span class="card-tag">Capital Budgeting</span>
+  </div>
+  <div class="def">
+    <div class="def-term">Answer</div>
+    <div class="def-meaning">The firm should accept Project Y because it has the higher NPV ($12,000 vs $8,000). For mutually exclusive projects, NPV is the superior decision criterion because it measures the absolute increase in shareholder wealth and assumes reinvestment at the required rate of return. IRR can be misleading here: it assumes reinvestment at the IRR itself, and scale differences or timing differences can cause IRR to rank projects differently from NPV. Since the goal is to maximise firm value, the project adding the most dollar value (higher NPV) should be chosen, even if its percentage return (IRR) is lower.</div>
+  </div>
+</div>
+
+</body>
+</html>
