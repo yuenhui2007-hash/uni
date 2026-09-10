@@ -2346,9 +2346,17 @@ function initAssignmentSidebar(){
 
   // Only count cards in visible sections
   const visibleCards = Array.from(document.querySelectorAll('.unit-section:not([style*="display: none"]) .assignment-card'));
-  if(visibleCards.length === 0) return;
 
   sidebar.innerHTML = '';
+
+  if(currentSubjectFilter === 'all'){
+    sidebar.innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:0.75rem;padding:8px 4px;">Select a subject to jump between questions 1–5</div>';
+    if(sidebarObserver) sidebarObserver.disconnect();
+    return;
+  }
+
+  if(visibleCards.length === 0) return;
+
   visibleCards.forEach((card, index) => {
     const num = index + 1;
     const btn = document.createElement('a');
@@ -2384,7 +2392,7 @@ function initAssignmentSidebar(){
 
 document.addEventListener('DOMContentLoaded', () => {
   initBackToTop();
-  initAssignmentSidebar();
+  filterSubject('acw1120');
 });
 </script>
 </body>
