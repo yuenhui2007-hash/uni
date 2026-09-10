@@ -4,1004 +4,2201 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UNI — Assignments</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root {
-    --bg-primary: #15100C; --bg-secondary: #1C1510; --bg-card: #231A14; --bg-hover: #2E221A; --bg-elevated: #3A2C22;
-    --text-primary: #F2E6D8; --text-secondary: #BF9B7A; --text-muted: #8C5B3E; --text-faint: #593E2E;
-    --accent-cream: #F2E6D8; --accent-tan: #BF9B7A; --accent-rust: #8C5B3E; --accent-espresso: #593E2E;
-    --border-color: rgba(191,155,122,0.10); --border-light: rgba(191,155,122,0.18);
-    --gradient-primary: linear-gradient(135deg, #BF9B7A 0%, #8C5B3E 100%);
-    --font-serif: 'Cormorant Garamond', Georgia, serif; --font-sans: 'Inter', sans-serif; --font-mono: 'JetBrains Mono', monospace;
+:root{
+  --bg-primary:#15100C;
+  --bg-secondary:#1C1510;
+  --bg-card:#231A14;
+  --bg-hover:#2E221A;
+  --bg-elevated:#3A2C22;
+
+  --text-primary:#F2E6D8;
+  --text-secondary:#BF9B7A;
+  --text-muted:#8C5B3E;
+  --text-faint:#593E2E;
+
+  --accent-cream:#F2E6D8;
+  --accent-tan:#BF9B7A;
+  --accent-rust:#8C5B3E;
+  --accent-espresso:#593E2E;
+  --accent-olive:#555934;
+
+  --border:rgba(191,155,122,0.10);
+  --border-light:rgba(191,155,122,0.18);
+  --border-hover:rgba(191,155,122,0.30);
+
+  --font-serif:'Source Serif 4',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+
+  --shadow-soft:0 8px 32px rgba(0,0,0,0.35);
+  --shadow-card:0 4px 24px rgba(0,0,0,0.25);
+  --shadow-glow:0 0 40px rgba(191,155,122,0.06);
+
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+  --radius-xl:28px;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; }
 
-/* Layout */
-.container { display: flex; min-height: 100vh; }
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 
-/* Sidebar */
-.sidebar { width: 280px; background: var(--bg-secondary); border-right: 1px solid var(--border-color); padding: 2rem 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
-.sidebar-brand { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: var(--accent-cream); margin-bottom: 0.25rem; letter-spacing: -0.02em; }
-.sidebar-sub { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 2rem; }
-
-.subject-list { list-style: none; }
-.subject-list li { margin-bottom: 0.5rem; }
-.subject-btn {
-    width: 100%; text-align: left; padding: 0.85rem 1rem; border-radius: 10px;
-    border: 1px solid transparent; background: transparent; color: var(--text-secondary);
-    font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; cursor: pointer;
-    transition: all 0.2s ease; display: flex; align-items: center; gap: 0.75rem;
+body{
+  font-family:var(--font-sans);
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font-size:15px;
+  line-height:1.7;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
 }
-.subject-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
-.subject-btn.active { background: var(--bg-elevated); border-color: var(--border-light); color: var(--accent-cream); }
-.subject-btn .code { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); min-width: 56px; }
-.subject-btn.active .code { color: var(--accent-tan); }
 
-/* Main Content */
-.main { flex: 1; margin-left: 280px; padding: 2.5rem 3rem; max-width: 900px; }
-.page-header { margin-bottom: 2.5rem; }
-.page-header h1 { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; color: var(--accent-cream); margin-bottom: 0.5rem; }
-.page-header p { color: var(--text-muted); font-size: 0.95rem; }
+body::before{
+  content:'';
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:9999;
+}
 
-/* Subject Header */
-.subject-header { display: none; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); }
-.subject-header.active { display: block; }
-.subject-header h2 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 600; color: var(--accent-cream); margin-bottom: 0.25rem; }
-.subject-header .meta { color: var(--text-muted); font-size: 0.85rem; }
+.header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:20px 40px; margin-bottom:30px;
+  border-bottom:1px solid rgba(191,155,122,0.10);
+  background:rgba(21,16,12,0.90);
+  position:sticky; top:0; z-index:100;
+  backdrop-filter:blur(20px) saturate(1.2);
+}
+.logo { display:flex; align-items:center; gap:12px; }
+.logo-icon {
+  width:48px; height:48px; background:linear-gradient(135deg, #BF9B7A, #8C5B3E);
+  border-radius:12px; display:flex; align-items:center; justify-content:center;
+  font-size:24px; box-shadow:0 0 40px rgba(191,155,122,0.08);
+}
+.logo-text h1 {
+  font-family:var(--font-serif); font-size:1.5rem; font-weight:700;
+  color:#F2E6D8; letter-spacing:-0.02em;
+}
+.logo-text h1 em { font-style:italic; color:#BF9B7A; }
+.logo-text span { font-size:0.8rem; color:#8C5B3E; letter-spacing:0.05em; }
+.nav-links { display:flex; gap:8px; }
+.nav-links a {
+  padding:10px 18px; border-radius:10px; text-decoration:none;
+  color:#8C5B3E; font-weight:500;
+  transition:all 0.3s ease; border:1px solid transparent;
+  font-size:0.85rem;
+}
+.nav-links a:hover, .nav-links a.active {
+  color:#BF9B7A; background:rgba(191,155,122,0.08);
+  border-color:rgba(191,155,122,0.18);
+}
+.nav-links a i { margin-right:6px; }
+.user-profile { display:flex; align-items:center; gap:12px; }
+.user-avatar {
+  width:40px; height:40px; border-radius:50%;
+  background:linear-gradient(135deg, #555934, #BF9B7A); display:flex;
+  align-items:center; justify-content:center; font-weight:700;
+  cursor:pointer; transition:transform 0.3s ease;
+  color:#F2E6D8;
+}
+.user-avatar:hover { transform:scale(1.1); }
 
-/* Q&A Cards */
-.qa-list { display: none; }
-.qa-list.active { display: block; }
+.hero{
+  text-align:center;
+  padding:60px 24px 40px;
+  position:relative;
+}
+.hero-label{
+  font-family:var(--font-sans);
+  font-size:0.72rem;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.2em;
+  color:var(--accent-rust);
+  margin-bottom:20px;
+}
+.hero h1{
+  font-family:var(--font-serif);
+  font-size:clamp(2.4rem,5vw,3.8rem);
+  font-weight:500;
+  color:var(--text-primary);
+  letter-spacing:-0.03em;
+  line-height:1.05;
+  margin-bottom:16px;
+}
+.hero h1 em{
+  font-style:italic;
+  color:var(--accent-tan);
+}
+.hero p{
+  font-family:var(--font-sans);
+  color:var(--text-muted);
+  font-size:0.95rem;
+  max-width:520px;
+  margin:0 auto;
+  font-weight:300;
+  line-height:1.6;
+}
+.hero-divider{
+  width:40px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent-rust),transparent);
+  margin:32px auto 0;
+}
 
-.qa-card {
-    background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px;
-    margin-bottom: 1rem; overflow: hidden; transition: border-color 0.2s ease;
+.toc{
+  position:sticky;
+  top:88px;
+  width:240px;
+  float:left;
+  margin-left:32px;
+  background:var(--bg-secondary);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:24px;
+  max-height:calc(100vh - 120px);
+  overflow-y:auto;
 }
-.qa-card:hover { border-color: var(--border-light); }
+.toc h3{
+  font-family:var(--font-sans);
+  font-size:0.65rem;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.15em;
+  color:var(--text-faint);
+  margin-bottom:16px;
+}
+.toc a{
+  display:block;
+  color:var(--text-muted);
+  text-decoration:none;
+  font-size:0.78rem;
+  padding:6px 10px;
+  border-radius:var(--radius-sm);
+  transition:all .25s ease;
+  border-left:2px solid transparent;
+  margin-bottom:2px;
+  font-weight:400;
+}
+.toc a:hover{
+  color:var(--accent-tan);
+  border-left-color:var(--accent-rust);
+  background:rgba(191,155,122,0.05);
+}
 
-.qa-question {
-    padding: 1.25rem 1.5rem; cursor: pointer; display: flex; align-items: flex-start; gap: 1rem;
-    transition: background 0.2s ease;
+.content-wrap{
+  max-width:860px;
+  margin:0 auto;
+  padding:0 24px 100px;
+  margin-left:300px;
+  margin-right:100px;
 }
-.qa-question:hover { background: var(--bg-hover); }
-.qa-num {
-    width: 32px; height: 32px; border-radius: 8px; background: var(--gradient-primary);
-    display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700;
-    color: var(--bg-primary); flex-shrink: 0; margin-top: 2px;
-}
-.qa-text { flex: 1; font-size: 0.95rem; line-height: 1.6; color: var(--text-primary); font-weight: 500; }
-.qa-toggle { color: var(--text-muted); font-size: 0.8rem; transition: transform 0.2s ease; margin-top: 4px; }
-.qa-card.open .qa-toggle { transform: rotate(180deg); }
 
-.qa-answer {
-    max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;
-    padding: 0 1.5rem 0 3.5rem;
+/* Right sidebar for assignment navigation */
+.assignment-sidebar{
+  position:fixed;
+  top:140px;
+  right:24px;
+  width:64px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  z-index:50;
+  max-height:calc(100vh - 180px);
+  overflow-y:auto;
+  padding-right:4px;
 }
-.qa-card.open .qa-answer {
-    max-height: 2000px; padding-bottom: 1.5rem;
+.assignment-sidebar::-webkit-scrollbar{width:4px}
+.assignment-sidebar::-webkit-scrollbar-thumb{background:rgba(191,155,122,0.2);border-radius:4px}
+.assignment-nav-item{
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  font-size:0.85rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  border:1px solid rgba(191,155,122,0.15);
+  background:rgba(35,26,20,0.9);
+  color:#BF9B7A;
+  text-decoration:none;
+  backdrop-filter:blur(10px);
 }
-.answer-inner {
-    background: var(--bg-secondary); border-left: 3px solid var(--accent-rust);
-    padding: 1.25rem 1.5rem; border-radius: 0 10px 10px 0; font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary);
+.assignment-nav-item:hover{
+  background:rgba(191,155,122,0.15);
+  border-color:rgba(191,155,122,0.4);
+  transform:scale(1.08);
 }
-.answer-inner strong { color: var(--accent-tan); }
-.answer-inner ul { margin: 0.75rem 0 0.75rem 1.25rem; }
-.answer-inner li { margin-bottom: 0.4rem; }
+.assignment-nav-item.active{
+  background:rgba(191,155,122,0.25);
+  border-color:#BF9B7A;
+  color:#F2E6D8;
+  box-shadow:0 0 12px rgba(191,155,122,0.15);
+}
+@media(max-width:1200px){
+  .assignment-sidebar{display:none}
+  .content-wrap{margin-right:32px}
+}
 
-/* Mobile */
-@media (max-width: 768px) {
-    .sidebar { width: 100%; position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); }
-    .main { margin-left: 0; padding: 1.5rem; max-width: 100%; }
-    .container { flex-direction: column; }
+.unit-section{margin-bottom:80px}
+
+.unit-header{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  padding:28px 32px;
+  background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card));
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  margin-bottom:32px;
+  position:relative;
+  overflow:hidden;
+  transition:all .4s ease;
 }
+.unit-header:hover{
+  border-color:var(--border-light);
+  box-shadow:var(--shadow-card);
+}
+.unit-header::before{
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--c),transparent 70%);
+}
+.unit-icon{
+  width:52px; height:52px; border-radius:var(--radius-md);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.6rem;
+  background:var(--c-dim);
+  border:1px solid var(--c-weak);
+  flex-shrink:0;
+}
+.unit-title{
+  font-family:var(--font-serif);
+  font-size:1.6rem;
+  font-weight:600;
+  color:var(--text-primary);
+  letter-spacing:-0.01em;
+  line-height:1.2;
+}
+.unit-code{
+  font-family:var(--font-mono);
+  font-size:0.72rem;
+  color:var(--c);
+  font-weight:500;
+  margin-top:4px;
+  letter-spacing:0.05em;
+}
+
+.assignment-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  padding:28px;
+  margin-bottom:20px;
+  transition:all .35s ease;
+}
+.assignment-card:hover{
+  border-color:var(--border-light);
+  box-shadow:var(--shadow-card);
+}
+.assignment-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:18px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+.assignment-title{
+  font-family:var(--font-serif);
+  font-weight:600;
+  color:var(--accent-tan);
+  font-size:1.15rem;
+  letter-spacing:-0.01em;
+}
+.assignment-meta{
+  display:flex;
+  gap:10px;
+  flex-shrink:0;
+}
+.assignment-tag{
+  font-size:0.68rem;
+  background:var(--bg-elevated);
+  padding:4px 12px;
+  border-radius:999px;
+  color:var(--text-muted);
+  border:1px solid var(--border);
+  font-weight:500;
+  letter-spacing:0.03em;
+  text-transform:uppercase;
+}
+.assignment-tag.calc{background:rgba(85,89,52,0.15);color:var(--accent-olive);border-color:rgba(85,89,52,0.3)}
+.assignment-tag.theory{background:rgba(191,155,122,0.08);color:var(--accent-tan);border-color:rgba(191,155,122,0.2)}
+.assignment-tag.graph{background:rgba(140,91,62,0.1);color:var(--accent-rust);border-color:rgba(140,91,62,0.25)}
+
+.question{
+  margin-bottom:16px;
+}
+.question-text{
+  font-weight:500;
+  color:var(--text-primary);
+  margin-bottom:10px;
+  font-size:0.95rem;
+}
+.question-sub{
+  color:var(--text-muted);
+  font-size:0.88rem;
+  font-weight:300;
+  margin-bottom:8px;
+  padding-left:16px;
+}
+.question-sub ul, .question-sub ol{
+  margin-left:20px;
+  margin-top:6px;
+}
+.question-sub li{
+  margin-bottom:4px;
+}
+
+.answer-box{
+  background:rgba(85,89,52,0.06);
+  border:1px solid rgba(85,89,52,0.2);
+  border-radius:var(--radius-sm);
+  padding:18px 22px;
+  margin-top:14px;
+}
+.answer-label{
+  font-family:var(--font-sans);
+  font-weight:600;
+  color:var(--accent-olive);
+  font-size:0.75rem;
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  margin-bottom:10px;
+}
+.answer-content{
+  color:var(--text-secondary);
+  font-size:0.88rem;
+  line-height:1.7;
+  font-weight:300;
+}
+.answer-content ul, .answer-content ol{
+  margin-left:20px;
+  margin-top:8px;
+}
+.answer-content li{
+  margin-bottom:6px;
+}
+.answer-content strong{
+  color:var(--accent-tan);
+  font-weight:500;
+}
+
+.formula-inline{
+  background:rgba(191,155,122,0.04);
+  border-left:2px solid var(--accent-rust);
+  padding:12px 18px;
+  margin:12px 0;
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  font-family:var(--font-mono);
+  font-size:0.95rem;
+  color:var(--accent-tan);
+}
+
+.table-data{
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0;
+  font-size:0.85rem;
+}
+.table-data th, .table-data td{
+  padding:10px 12px;
+  text-align:left;
+  border-bottom:1px solid var(--border);
+}
+.table-data th{
+  background:var(--bg-hover);
+  font-weight:600;
+  color:var(--accent-tan);
+  font-size:0.72rem;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+}
+.table-data td{
+  color:var(--text-secondary);
+  font-weight:300;
+}
+
+.back-to-top{
+  position:fixed;
+  bottom:28px;
+  right:28px;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  color:var(--text-secondary);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  opacity:0;
+  transition:all .3s ease;
+  z-index:1000;
+  font-size:1.1rem;
+  backdrop-filter:blur(12px);
+}
+.back-to-top.visible{opacity:1}
+.back-to-top:hover{
+  background:var(--accent-rust);
+  color:var(--text-primary);
+  border-color:var(--accent-rust);
+  box-shadow:0 4px 20px rgba(140,91,62,0.3);
+}
+
+@media(max-width:980px){
+  .toc{display:none}
+  .content-wrap{margin-left:24px;margin-right:24px}
+}
+@media(max-width:640px){
+  .header{padding:16px 20px}
+  .nav-links{flex-wrap:wrap;gap:4px}
+  .nav-links a{padding:6px 10px;font-size:0.75rem}
+  .hero{padding:40px 16px 24px}
+  .hero h1{font-size:2rem}
+  .unit-header{padding:20px;gap:14px}
+  .unit-icon{width:42px;height:42px;font-size:1.3rem}
+  .unit-title{font-size:1.25rem}
+  .assignment-header{flex-direction:column;gap:10px}
+}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--accent-espresso);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent-rust)}
+::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
 </style>
 </head>
 <body>
-<div class="container">
-    <aside class="sidebar">
-        <div class="sidebar-brand">UNI</div>
-        <div class="sidebar-sub">Assignments — 5 per subject</div>
-        <ul class="subject-list">
-            <li><button class="subject-btn active" data-subject="acw1120"><span class="code">ACW1120</span> Financial Accounting</button></li>
-            <li><button class="subject-btn" data-subject="acw2220"><span class="code">ACW2220</span> Management Accounting</button></li>
-            <li><button class="subject-btn" data-subject="bfw1001"><span class="code">BFW1001</span> Business Frameworks</button></li>
-            <li><button class="subject-btn" data-subject="btw1042"><span class="code">BTW1042</span> Business Technology</button></li>
-            <li><button class="subject-btn" data-subject="ecm1953"><span class="code">ECM1953</span> Economics</button></li>
-            <li><button class="subject-btn" data-subject="etc2440"><span class="code">ETC2440</span> Business Statistics</button></li>
-            <li><button class="subject-btn" data-subject="etw1001"><span class="code">ETW1001</span> Business Law</button></li>
-            <li><button class="subject-btn" data-subject="mgw1010"><span class="code">MGW1010</span> Management</button></li>
-        </ul>
-    </aside>
 
-    <main class="main">
-        <div class="page-header">
-            <h1>Assignments</h1>
-            <p>Select a subject from the sidebar to view its 5 questions and model answers.</p>
-        </div>
+<header class="header">
+<div style="display:flex;align-items:center;gap:16px">
+<div class="logo">
+  <div class="logo-icon">📚</div>
+  <div class="logo-text">
+    <h1>UNI <em>Assignments</em></h1>
+    <span>Practice Questions & Solutions</span>
+  </div>
+</div>
+</div>
+<nav class="nav-links">
+  <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+  <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+  <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+  <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+  <a href="study.html"><i class="fas fa-book"></i> Study</a>
+  <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+  <a href="assignments.html" class="active"><i class="fas fa-tasks"></i> Assignments</a>
+</nav>
+<div class="user-profile">
+  <span style="color: #8C5B3E; font-size: 0.9rem;">Bachelor of Science</span>
+  <div class="user-avatar" id="userAvatar">JD</div>
+</div>
+</header>
 
-        <!-- ACW1120 -->
-        <div class="subject-header active" data-subject="acw1120">
-            <h2>Financial Accounting</h2>
-            <div class="meta">ACW1120 &middot; 5 Questions</div>
-        </div>
-        <div class="qa-list active" data-subject="acw1120">
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">1</div>
-                    <div class="qa-text">Hui Traders began business on 1 March 2026 with $50,000 cash. Record the opening entry and identify which accounting elements are affected.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Journal Entry:</strong><br>
-                        Debit: Cash $50,000<br>
-                        Credit: Capital $50,000<br><br>
-                        <strong>Accounting Elements:</strong><br>
-                        Assets (Cash) increase by $50,000.<br>
-                        Equity (Capital) increases by $50,000.<br>
-                        The accounting equation remains balanced: Assets = Liabilities + Equity.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">2</div>
-                    <div class="qa-text">On 3 March, Hui Traders purchased inventory on credit from Supplier A for $8,500. Prepare the journal entry and state the effect on the accounting equation.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Journal Entry:</strong><br>
-                        Debit: Inventory $8,500<br>
-                        Credit: Accounts Payable $8,500<br><br>
-                        <strong>Effect on Accounting Equation:</strong><br>
-                        Assets (Inventory) increase by $8,500.<br>
-                        Liabilities (Accounts Payable) increase by $8,500.<br>
-                        Equity is unchanged. Total assets = $58,500; Total liabilities + equity = $58,500.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">3</div>
-                    <div class="qa-text">On 5 March, goods were sold for cash $4,200 (cost $2,800). Prepare both the sales and cost of sales entries.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Entry 1 — Record Revenue:</strong><br>
-                        Debit: Cash $4,200<br>
-                        Credit: Sales Revenue $4,200<br><br>
-                        <strong>Entry 2 — Record Cost:</strong><br>
-                        Debit: Cost of Sales $2,800<br>
-                        Credit: Inventory $2,800<br><br>
-                        <strong>Gross Profit:</strong> $4,200 − $2,800 = <strong>$1,400</strong><br>
-                        Assets increase by $1,400 net (Cash +$4,200, Inventory −$2,800). Equity increases by $1,400 via Retained Earnings.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">4</div>
-                    <div class="qa-text">On 10 March, goods were sold on credit to Customer B for $6,000 (cost $4,000). Explain the difference between a cash sale and a credit sale in terms of asset changes.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Journal Entries:</strong><br>
-                        Debit: Accounts Receivable $6,000<br>
-                        Credit: Sales Revenue $6,000<br><br>
-                        Debit: Cost of Sales $4,000<br>
-                        Credit: Inventory $4,000<br><br>
-                        <strong>Cash Sale vs Credit Sale:</strong><br>
-                        <strong>Cash sale:</strong> Cash (asset) increases immediately. Liquidity improves instantly.<br>
-                        <strong>Credit sale:</strong> Accounts Receivable (asset) increases instead of Cash. Liquidity is delayed until payment is received. There is also a credit risk — the customer may not pay.<br><br>
-                        Net asset increase: $2,000 (Receivable +$6,000, Inventory −$4,000).
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">5</div>
-                    <div class="qa-text">At 31 March, extract a trial balance using the following balances: Cash $36,700; Inventory $1,700; Equipment $12,000; Accounts Receivable $3,000; Accounts Payable $3,500; Capital $50,000; Drawings $2,000; Sales $10,200; Cost of Sales $6,800; Rent Expense $1,500.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Hui Traders — Trial Balance at 31 March 2026</strong><br><br>
-                        <strong>Debits:</strong><br>
-                        Cash $36,700<br>
-                        Inventory $1,700<br>
-                        Equipment $12,000<br>
-                        Accounts Receivable $3,000<br>
-                        Drawings $2,000<br>
-                        Cost of Sales $6,800<br>
-                        Rent Expense $1,500<br>
-                        <strong>Total Debits: $63,700</strong><br><br>
-                        <strong>Credits:</strong><br>
-                        Accounts Payable $3,500<br>
-                        Capital $50,000<br>
-                        Sales $10,200<br>
-                        <strong>Total Credits: $63,700</strong><br><br>
-                        The trial balance balances, confirming arithmetical accuracy.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ACW2220 -->
-        <div class="subject-header" data-subject="acw2220">
-            <h2>Management Accounting</h2>
-            <div class="meta">ACW2220 &middot; 5 Questions</div>
-        </div>
-        <div class="qa-list" data-subject="acw2220">
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">1</div>
-                    <div class="qa-text">Define management accounting and explain two key differences between management accounting and financial accounting.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Definition:</strong> Management accounting is the process of identifying, measuring, analysing, and communicating financial information to managers for planning, controlling, and decision-making within an organisation.<br><br>
-                        <strong>Key Differences:</strong><br>
-                        1. <strong>Users:</strong> Management accounting serves internal managers; financial accounting serves external stakeholders (investors, regulators, creditors).<br>
-                        2. <strong>Regulation:</strong> Financial accounting must comply with accounting standards (IFRS/AASB); management accounting has no mandatory standards — formats are tailored to managerial needs.<br>
-                        3. <strong>Time focus:</strong> Financial accounting is historical; management accounting is forward-looking (budgets, forecasts).
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">2</div>
-                    <div class="qa-text">A company produces 5,000 units with total fixed costs of $20,000 and variable costs of $8 per unit. Calculate the total cost and cost per unit at production levels of 4,000 and 6,000 units.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>At 4,000 units:</strong><br>
-                        Variable cost = 4,000 × $8 = $32,000<br>
-                        Total cost = $32,000 + $20,000 = <strong>$52,000</strong><br>
-                        Cost per unit = $52,000 ÷ 4,000 = <strong>$13.00</strong><br><br>
-                        <strong>At 5,000 units (original):</strong><br>
-                        Variable cost = 5,000 × $8 = $40,000<br>
-                        Total cost = $40,000 + $20,000 = <strong>$60,000</strong><br>
-                        Cost per unit = $60,000 ÷ 5,000 = <strong>$12.00</strong><br><br>
-                        <strong>At 6,000 units:</strong><br>
-                        Variable cost = 6,000 × $8 = $48,000<br>
-                        Total cost = $48,000 + $20,000 = <strong>$68,000</strong><br>
-                        Cost per unit = $68,000 ÷ 6,000 = <strong>$11.33</strong><br><br>
-                        <strong>Insight:</strong> As volume increases, fixed cost is spread over more units, reducing the per-unit cost (economies of scale).
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">3</div>
-                    <div class="qa-text">Explain the difference between direct costs and indirect costs, providing two examples of each for a furniture manufacturing business.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Direct Costs:</strong> Costs that can be specifically and conveniently traced to a particular cost object (product, department, or project).<br>
-                        <em>Examples for furniture manufacturing:</em><br>
-                        1. Timber and upholstery materials used in a specific sofa<br>
-                        2. Wages of carpenters working directly on the furniture<br><br>
-                        <strong>Indirect Costs (Overheads):</strong> Costs that cannot be easily traced to a specific cost object and must be allocated.<br>
-                        <em>Examples:</em><br>
-                        1. Factory rent and utilities<br>
-                        2. Depreciation of factory equipment<br><br>
-                        <strong>Why it matters:</strong> Accurate classification ensures proper product costing and pricing decisions. Misclassification distorts profitability analysis.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">4</div>
-                    <div class="qa-text">A product sells for $50 per unit, variable cost is $30 per unit, and total fixed costs are $10,000. Calculate the break-even point in units and in sales dollars.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Contribution Margin per unit:</strong><br>
-                        Selling price − Variable cost = $50 − $30 = <strong>$20</strong><br><br>
-                        <strong>Break-even in units:</strong><br>
-                        Fixed costs ÷ Contribution margin per unit<br>
-                        = $10,000 ÷ $20 = <strong>500 units</strong><br><br>
-                        <strong>Break-even in sales dollars:</strong><br>
-                        500 units × $50 = <strong>$25,000</strong><br><br>
-                        Alternatively: Fixed costs ÷ CM ratio<br>
-                        CM ratio = $20 ÷ $50 = 40%<br>
-                        $10,000 ÷ 0.40 = <strong>$25,000</strong><br><br>
-                        <strong>Interpretation:</strong> The company must sell 500 units (or $25,000 worth) to cover all costs. Every unit sold beyond 500 contributes $20 to profit.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">5</div>
-                    <div class="qa-text">Describe the three main purposes of budgeting and explain how a flexible budget differs from a static budget.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Three Main Purposes of Budgeting:</strong><br>
-                        1. <strong>Planning:</strong> Forces managers to think ahead, set targets, and allocate resources effectively.<br>
-                        2. <strong>Control:</strong> Provides a benchmark against which actual performance is compared; variances highlight areas needing attention.<br>
-                        3. <strong>Coordination & Communication:</strong> Aligns different departments toward common organisational goals.<br><br>
-                        <strong>Static vs Flexible Budget:</strong><br>
-                        <strong>Static budget:</strong> Prepared for a single, planned level of activity. Does not change even if actual output differs. Good for planning but poor for control when volumes vary.<br><br>
-                        <strong>Flexible budget:</strong> Adjusts costs and revenues to the actual level of activity achieved. Shows what costs <em>should have been</em> at the actual output level. Enables meaningful variance analysis by separating volume effects from efficiency effects.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- BFW1001 -->
-        <div class="subject-header" data-subject="bfw1001">
-            <h2>Business Frameworks</h2>
-            <div class="meta">BFW1001 &middot; 5 Questions</div>
-        </div>
-        <div class="qa-list" data-subject="bfw1001">
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">1</div>
-                    <div class="qa-text">Explain Porter's Five Forces model and identify one force that is typically strongest for a new airline entering the Australian market.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Porter's Five Forces:</strong> A framework for analysing industry competition and profitability.<br><br>
-                        1. <strong>Threat of New Entrants:</strong> Barriers to entry (capital, regulations, brand loyalty) protect incumbents.<br>
-                        2. <strong>Bargaining Power of Suppliers:</strong> Few suppliers (e.g., aircraft manufacturers) can raise prices.<br>
-                        3. <strong>Bargaining Power of Buyers:</strong> Customers can switch easily if alternatives exist.<br>
-                        4. <strong>Threat of Substitutes:</strong> Trains, video conferencing, or driving can replace air travel.<br>
-                        5. <strong>Competitive Rivalry:</strong> Intensity of competition among existing firms.<br><br>
-                        <strong>Strongest force for a new airline in Australia:</strong><br>
-                        <strong>Competitive Rivalry</strong> — Qantas and Virgin Australia dominate; price wars are intense; customer loyalty programs create switching costs. A new entrant faces brutal competition for market share.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">2</div>
-                    <div class="qa-text">What is a SWOT analysis? Apply it to Netflix, identifying one strength, one weakness, one opportunity, and one threat.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>SWOT Analysis:</strong> A strategic planning tool that evaluates internal <strong>S</strong>trengths and <strong>W</strong>eaknesses, and external <strong>O</strong>pportunities and <strong>T</strong>hreats.<br><br>
-                        <strong>Netflix SWOT:</strong><br><br>
-                        <strong>Strength:</strong> Strong original content library and global brand recognition create customer loyalty and reduce churn.<br><br>
-                        <strong>Weakness:</strong> Heavy reliance on debt financing for content production; rising interest rates increase borrowing costs.<br><br>
-                        <strong>Opportunity:</strong> Expansion into gaming and live events (sports, concerts) to diversify revenue beyond subscription streaming.<br><br>
-                        <strong>Threat:</strong> Intensifying competition from Disney+, Amazon Prime, Apple TV+, and local platforms fragmenting market share and driving up content acquisition costs.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">3</div>
-                    <div class="qa-text">Describe the Business Model Canvas and name two of its nine building blocks.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Business Model Canvas (BMC):</strong> A visual strategic management tool developed by Alexander Osterwalder. It captures how a company creates, delivers, and captures value on a single page.<br><br>
-                        <strong>Nine Building Blocks:</strong><br>
-                        1. Customer Segments<br>
-                        2. Value Propositions<br>
-                        3. Channels<br>
-                        4. Customer Relationships<br>
-                        5. Revenue Streams<br>
-                        6. Key Resources<br>
-                        7. Key Activities<br>
-                        8. Key Partnerships<br>
-                        9. Cost Structure<br><br>
-                        <strong>Two blocks explained:</strong><br><br>
-                        <strong>Value Propositions:</strong> The bundle of products and services that create value for a specific customer segment. It solves a customer problem or satisfies a need. Example: Apple's value proposition is premium design, seamless ecosystem integration, and user experience.<br><br>
-                        <strong>Revenue Streams:</strong> How the company generates cash from each customer segment. Types include asset sales, subscription fees, licensing, advertising, and freemium models. Example: Spotify uses subscription fees (Premium) and advertising (Free tier).
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">4</div>
-                    <div class="qa-text">Distinguish between corporate-level strategy and business-level strategy, giving one example of each.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Corporate-Level Strategy:</strong> Concerns the overall scope of the organisation and how value is created across multiple business units. It answers: <em>What businesses should we be in?</em><br><br>
-                        <strong>Example:</strong> Alphabet (Google's parent) pursues a <strong>related diversification</strong> strategy — it operates in search (Google), cloud (Google Cloud), autonomous vehicles (Waymo), and life sciences (Verily), leveraging shared data and AI capabilities across units.<br><br>
-                        <strong>Business-Level Strategy:</strong> Concerns how a specific business unit competes within its industry. It answers: <em>How should we compete?</em><br><br>
-                        <strong>Example:</strong> Within Alphabet, Google Search pursues a <strong>cost leadership</strong> strategy for its advertising platform — massive scale, automated auctions, and low marginal cost per ad impression make it the dominant player. Meanwhile, Waymo pursues <strong>differentiation</strong> through technological leadership in autonomous driving.<br><br>
-                        <strong>Key distinction:</strong> Corporate strategy is about portfolio composition; business strategy is about competitive positioning within a market.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">5</div>
-                    <div class="qa-text">Explain the concept of the Triple Bottom Line (TBL) and why it matters for modern business strategy.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Triple Bottom Line (TBL):</strong> A sustainability framework coined by John Elkington that argues companies should measure success not just by profit (the traditional bottom line), but across three dimensions:<br><br>
-                        1. <strong>People (Social):</strong> Fair treatment of employees, community impact, ethical supply chains, diversity and inclusion.<br>
-                        2. <strong>Planet (Environmental):</strong> Carbon footprint, waste reduction, sustainable sourcing, circular economy practices.<br>
-                        3. <strong>Profit (Economic):</strong> Financial viability and shareholder returns — the traditional measure.<br><br>
-                        <strong>Why it matters:</strong><br>
-                        • <strong>Investor pressure:</strong> ESG (Environmental, Social, Governance) funds now manage trillions of dollars; poor ESG performance can limit capital access.<br>
-                        • <strong>Consumer preference:</strong> Studies show consumers (especially Gen Z) prefer brands with authentic sustainability commitments.<br>
-                        • <strong>Regulatory risk:</strong> Carbon pricing, emissions disclosure mandates, and supply chain due diligence laws are expanding globally.<br>
-                        • <strong>Long-term resilience:</strong> Resource-efficient operations and strong stakeholder relationships reduce operational and reputational risks.<br><br>
-                        <strong>Criticism:</strong> TBL can be vague and hard to quantify; "greenwashing" undermines credibility when companies claim sustainability without substance.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- BTW1042 -->
-        <div class="subject-header" data-subject="btw1042">
-            <h2>Business Technology</h2>
-            <div class="meta">BTW1042 &middot; 5 Questions</div>
-        </div>
-        <div class="qa-list" data-subject="btw1042">
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">1</div>
-                    <div class="qa-text">Define cloud computing and explain the three main service models: IaaS, PaaS, and SaaS.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Cloud Computing:</strong> Delivery of computing services (servers, storage, databases, networking, software) over the internet ("the cloud") on a pay-as-you-go basis. It replaces capital-intensive on-premises infrastructure with scalable, flexible, and cost-efficient resources.<br><br>
-                        <strong>Three Service Models:</strong><br><br>
-                        1. <strong>IaaS (Infrastructure as a Service):</strong> Provides virtualised computing resources — servers, storage, networks. The user manages the OS, applications, and data. <em>Example:</em> Amazon EC2, Microsoft Azure VMs. Highest flexibility, highest management burden.<br><br>
-                        2. <strong>PaaS (Platform as a Service):</strong> Provides a development platform with tools, libraries, and middleware. The user writes code and manages data; the provider manages the infrastructure and runtime. <em>Example:</em> Google App Engine, Heroku. Balances control with convenience.<br><br>
-                        3. <strong>SaaS (Software as a Service):</strong> Delivers fully functional applications over the internet. The user simply uses the software; the provider manages everything. <em>Example:</em> Microsoft 365, Salesforce, Zoom. Lowest control, lowest management burden.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">2</div>
-                    <div class="qa-text">What is a database management system (DBMS)? Contrast SQL and NoSQL databases with one example of each.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>DBMS:</strong> Software that enables users to create, manage, and manipulate databases. It provides tools for data storage, retrieval, security, integrity, and concurrency control. Acts as an intermediary between users/applications and the physical database.<br><br>
-                        <strong>SQL (Relational) Databases:</strong><br>
-                        Store data in structured tables with predefined schemas. Use SQL (Structured Query Language) for queries. Best for complex transactions and relationships. <em>Example:</em> PostgreSQL — an open-source RDBMS used by enterprises for financial data, CRM systems, and complex reporting.<br><br>
-                        <strong>NoSQL (Non-relational) Databases:</strong><br>
-                        Store data in flexible formats (documents, key-value pairs, graphs, wide-columns). Schema is dynamic. Best for unstructured/big data, rapid scaling, and agile development. <em>Example:</em> MongoDB — a document-oriented database storing JSON-like documents. Used by companies like Uber and eBay for real-time analytics and content management.<br><br>
-                        <strong>When to choose:</strong> SQL for structured data with complex relationships; NoSQL for massive scale, unstructured data, or rapid iteration.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">3</div>
-                    <div class="qa-text">Explain the concept of cybersecurity and describe three common types of cyber threats facing businesses today.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Cybersecurity:</strong> The practice of protecting systems, networks, programs, devices, and data from digital attacks, unauthorised access, damage, or theft. It encompasses technologies, processes, and controls designed to safeguard confidentiality, integrity, and availability (the CIA triad).<br><br>
-                        <strong>Three Common Threats:</strong><br><br>
-                        1. <strong>Phishing:</strong> Fraudulent emails or messages that trick recipients into revealing credentials or downloading malware. Highly effective because it exploits human psychology (urgency, authority). Mitigation: email filtering, user training, multi-factor authentication (MFA).<br><br>
-                        2. <strong>Ransomware:</strong> Malware that encrypts a victim's data and demands payment for decryption. Can paralyse operations. High-profile cases: Colonial Pipeline (2021), Optus (2022). Mitigation: regular backups, network segmentation, endpoint detection.<br><br>
-                        3. <strong>SQL Injection:</strong> Attackers insert malicious SQL code into input fields to manipulate database queries. Can expose sensitive data, modify records, or delete databases. Mitigation: parameterized queries, input validation, web application firewalls (WAFs).<br><br>
-                        <strong>Business impact:</strong> Average cost of a data breach in Australia exceeds $4 million (IBM, 2023). Reputational damage and regulatory fines (under the Privacy Act and GDPR) compound the financial loss.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">4</div>
-                    <div class="qa-text">What is an ERP system? Describe two benefits and two challenges of implementing ERP in a mid-sized company.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>ERP (Enterprise Resource Planning):</strong> Integrated software suite that manages core business processes — finance, HR, manufacturing, supply chain, CRM, inventory — in a single unified database. Examples: SAP, Oracle NetSuite, Microsoft Dynamics.<br><br>
-                        <strong>Two Benefits:</strong><br><br>
-                        1. <strong>Data integration & visibility:</strong> Eliminates data silos. A sales order automatically updates inventory, triggers procurement if stock is low, and records revenue in finance. Real-time dashboards give managers a single source of truth.<br><br>
-                        2. <strong>Process standardisation:</strong> Enforces consistent workflows across departments and locations. Reduces errors, improves compliance, and enables scalable growth.<br><br>
-                        <strong>Two Challenges:</strong><br><br>
-                        1. <strong>High cost & complexity:</strong> Implementation can cost millions and take 12–24 months. Customisation, data migration, and change management are resource-intensive. Mid-sized companies may lack the budget and IT expertise.<br><br>
-                        2. <strong>Organisational resistance:</strong> Employees accustomed to legacy systems may resist new workflows. Without strong leadership support and training, adoption suffers and ROI is delayed. "The software is only as good as the people using it."
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">5</div>
-                    <div class="qa-text">Describe how artificial intelligence (AI) and machine learning (ML) are being used in modern business, with two practical examples.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>AI vs ML:</strong> AI is the broad capability of machines to perform tasks that require human intelligence (reasoning, perception, decision-making). ML is a subset of AI where systems learn from data without explicit programming, improving performance over time.<br><br>
-                        <strong>Two Practical Business Applications:</strong><br><br>
-                        1. <strong>Predictive analytics in retail:</strong> Amazon uses ML algorithms to analyse purchase history, browsing behaviour, and demographic data to predict what customers will buy next. This powers recommendation engines ("Customers who bought X also bought Y"), dynamic pricing, and demand forecasting — reducing inventory costs and increasing sales conversion.<br><br>
-                        2. <strong>Customer service automation:</strong> Banks like Commonwealth Bank deploy AI-powered chatbots (using natural language processing) to handle routine inquiries 24/7 — balance checks, transaction disputes, password resets. This reduces call centre costs, improves response times, and frees human agents for complex issues. Sentiment analysis can escalate angry customers to human supervisors automatically.<br><br>
-                        <strong>Ethical considerations:</strong> Bias in training data, lack of transparency ("black box" problem), and job displacement are significant concerns requiring governance frameworks.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ECM1953 -->
-        <div class="subject-header" data-subject="ecm1953">
-            <h2>Economics</h2>
-            <div class="meta">ECM1953 &middot; 5 Questions</div>
-        </div>
-        <div class="qa-list" data-subject="ecm1953">
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">1</div>
-                    <div class="qa-text">Define scarcity and explain why it is the fundamental economic problem that all societies face.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Scarcity:</strong> The condition where human wants for goods, services, and resources exceed what is available. Resources (land, labour, capital, entrepreneurship) are finite, but human desires are effectively infinite.<br><br>
-                        <strong>Why it is the fundamental economic problem:</strong><br><br>
-                        Because scarcity forces every society to make choices. We cannot have everything we want, so we must decide:<br>
-                        • <strong>What to produce?</strong> Should we build hospitals or highways?<br>
-                        • <strong>How to produce?</strong> Labour-intensive or capital-intensive methods?<br>
-                        • <strong>For whom to produce?</strong> Who gets the goods — the rich, the poor, or everyone equally?<br><br>
-                        These three questions form the core of economic systems. Different societies answer them differently: market economies use prices and incentives; command economies use central planning; mixed economies combine both.<br><br>
-                        <strong>Key insight:</strong> Economics is not the study of money — it is the study of how individuals, businesses, and societies allocate scarce resources to satisfy unlimited wants.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">2</div>
-                    <div class="qa-text">Distinguish between a change in demand and a change in quantity demanded, using a relevant example.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Change in Quantity Demanded:</strong> A movement <em>along</em> the demand curve caused solely by a change in the good's own price. All other factors held constant (ceteris paribus).<br><br>
-                        <strong>Example:</strong> If the price of coffee rises from $4 to $5 per cup, consumers buy less coffee. This is a movement upward along the demand curve — not a shift of the curve.<br><br>
-                        <strong>Change in Demand:</strong> A <em>shift</em> of the entire demand curve caused by non-price determinants: income, tastes, prices of related goods, expectations, or number of buyers.<br><br>
-                        <strong>Example:</strong> A health study reveals coffee reduces heart disease risk. Consumer tastes shift favourably toward coffee. At <em>every</em> price, more coffee is demanded. The demand curve shifts rightward. Even at $4 (the original price), quantity demanded is now higher.<br><br>
-                        <strong>Visual distinction:</strong><br>
-                        • Quantity demanded: point moves along the curve<br>
-                        • Demand: the entire curve moves left or right<br><br>
-                        This distinction is critical for businesses forecasting sales and policymakers predicting tax revenue.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">3</div>
-                    <div class="qa-text">Explain price elasticity of demand (PED) and calculate PED when price falls from $10 to $8 and quantity demanded rises from 100 to 140 units.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Price Elasticity of Demand (PED):</strong> Measures the responsiveness of quantity demanded to a change in price. It shows how much consumers adjust their purchases when price changes.<br><br>
-                        <strong>Formula:</strong> PED = (% change in quantity demanded) ÷ (% change in price)<br><br>
-                        Using the <strong>midpoint (arc elasticity) method</strong> for accuracy:<br><br>
-                        %ΔQ = (140 − 100) ÷ [(140 + 100) ÷ 2] × 100<br>
-                        = 40 ÷ 120 × 100 = <strong>33.33%</strong><br><br>
-                        %ΔP = ($8 − $10) ÷ [($8 + $10) ÷ 2] × 100<br>
-                        = (−$2) ÷ $9 × 100 = <strong>−22.22%</strong><br><br>
-                        PED = 33.33% ÷ (−22.22%) = <strong>−1.5</strong><br><br>
-                        (We typically use the absolute value: <strong>PED = 1.5</strong>)<br><br>
-                        <strong>Interpretation:</strong> Since |PED| > 1, demand is <strong>elastic</strong>. A 1% price decrease leads to a 1.5% increase in quantity demanded. Total revenue rises when price falls (because the % gain in quantity outweighs the % loss in price).<br><br>
-                        <strong>Business implication:</strong> The firm should lower price to increase total revenue.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">4</div>
-                    <div class="qa-text">Describe the four phases of the business cycle and identify which phase Australia was likely in during 2023.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>The Business Cycle:</strong> Fluctuations in economic activity (real GDP) around its long-term growth trend. Four phases:<br><br>
-                        1. <strong>Expansion:</strong> GDP grows, unemployment falls, consumer confidence rises, investment increases. Inflation may begin to build. The economy operates above potential.<br><br>
-                        2. <strong>Peak:</strong> The highest point of economic activity before contraction begins. Resources are fully employed; inflationary pressures are strongest. The turning point.<br><br>
-                        3. <strong>Contraction (Recession):</strong> GDP declines for two consecutive quarters. Unemployment rises, business investment falls, consumer spending drops. If severe and prolonged, becomes a depression.<br><br>
-                        4. <strong>Trough:</strong> The lowest point of economic activity. High unemployment, low output, weak confidence. The turning point before recovery begins.<br><br>
-                        <strong>Australia in 2023:</strong><br>
-                        Australia was in the <strong>late expansion / approaching peak</strong> phase. GDP growth was positive but slowing (1.5–2%). Unemployment was near 50-year lows (~3.5%). However, the RBA was aggressively raising interest rates (from 0.1% to 4.35%) to combat inflation (peaked at ~7.8%). This monetary tightening was designed to cool the economy and avoid overheating — a classic late-expansion policy response.<br><br>
-                        By late 2023, many economists expected Australia to enter a mild contraction in 2024 as rate hikes fully impacted mortgage holders and consumer spending.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">5</div>
-                    <div class="qa-text">Explain comparative advantage and use a numerical example to show how two countries can benefit from trade even when one is more productive in both goods.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Comparative Advantage:</strong> A country has comparative advantage in producing a good if it can produce it at a lower opportunity cost than another country. Even if one country has absolute advantage in everything, both can gain from trade by specialising according to comparative advantage.<br><br>
-                        <strong>Example: Australia and Vietnam</strong><br><br>
-                        Labour hours required per unit:<br>
-                        <table style="border-collapse:collapse;margin:0.5rem 0;">
-                        <tr><td style="border:1px solid var(--border-color);padding:4px 12px;"></td><td style="border:1px solid var(--border-color);padding:4px 12px;"><strong>Wheat (hrs/ton)</strong></td><td style="border:1px solid var(--border-color);padding:4px 12px;"><strong>Clothing (hrs/unit)</strong></td></tr>
-                        <tr><td style="border:1px solid var(--border-color);padding:4px 12px;">Australia</td><td style="border:1px solid var(--border-color);padding:4px 12px;">2</td><td style="border:1px solid var(--border-color);padding:4px 12px;">6</td></tr>
-                        <tr><td style="border:1px solid var(--border-color);padding:4px 12px;">Vietnam</td><td style="border:1px solid var(--border-color);padding:4px 12px;">8</td><td style="border:1px solid var(--border-color);padding:4px 12px;">4</td></tr>
-                        </table><br>
-                        <strong>Absolute advantage:</strong> Australia is more efficient at both (lower hours).<br><br>
-                        <strong>Opportunity costs:</strong><br>
-                        • Australia: 1 wheat costs 2/6 = <strong>0.33 clothing</strong>; 1 clothing costs 6/2 = <strong>3 wheat</strong><br>
-                        • Vietnam: 1 wheat costs 8/4 = <strong>2 clothing</strong>; 1 clothing costs 4/8 = <strong>0.5 wheat</strong><br><br>
-                        <strong>Comparative advantage:</strong><br>
-                        • Australia has lower opportunity cost in wheat (0.33 < 2) → specialise in wheat<br>
-                        • Vietnam has lower opportunity cost in clothing (0.5 < 3) → specialise in clothing<br><br>
-                        <strong>Gains from trade:</strong> Before trade, Australia spent 6 hrs per clothing. By trading 1 wheat (2 hrs) for 1 clothing, it saves 4 hours. Vietnam spent 8 hrs per wheat; by trading 1 clothing (4 hrs) for 1 wheat, it saves 4 hours. Both are better off.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ETC2440 -->
-        <div class="subject-header" data-subject="etc2440">
-            <h2>Business Statistics</h2>
-            <div class="meta">ETC2440 &middot; 5 Questions</div>
-        </div>
-        <div class="qa-list" data-subject="etc2440">
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">1</div>
-                    <div class="qa-text">Distinguish between descriptive statistics and inferential statistics, giving one example of each.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Descriptive Statistics:</strong> Methods for organising, summarising, and presenting data in an informative way. They describe the dataset itself — no generalisation beyond the data.<br><br>
-                        <strong>Example:</strong> A retail chain calculates that the average (mean) monthly sales across its 50 stores was $450,000 with a standard deviation of $80,000. A histogram shows sales are right-skewed. These describe the existing data but make no claims about other stores or future months.<br><br>
-                        <strong>Inferential Statistics:</strong> Methods for making predictions, estimates, or generalisations about a population based on a sample of data. It involves probability and hypothesis testing.<br><br>
-                        <strong>Example:</strong> A political pollster surveys 1,200 randomly selected voters and finds 52% support Party A. Using inferential statistics, they construct a 95% confidence interval (e.g., 52% ± 3%) and conclude with 95% confidence that the true population support lies between 49% and 55%. They are inferring something about all voters from a sample.<br><br>
-                        <strong>Key distinction:</strong> Descriptive = "What does the data show?" Inferential = "What does the data suggest about the wider world?"
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">2</div>
-                    <div class="qa-text">Calculate the mean, median, and mode for the dataset: 12, 15, 18, 18, 22, 25, 30. Which measure is most appropriate for skewed data and why?</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Dataset:</strong> 12, 15, 18, 18, 22, 25, 30 (n = 7)<br><br>
-                        <strong>Mean:</strong><br>
-                        (12 + 15 + 18 + 18 + 22 + 25 + 30) ÷ 7 = 140 ÷ 7 = <strong>20</strong><br><br>
-                        <strong>Median:</strong><br>
-                        Ordered data has 7 values. The middle value (4th) = <strong>18</strong><br><br>
-                        <strong>Mode:</strong><br>
-                        Most frequent value = <strong>18</strong> (appears twice)<br><br>
-                        <strong>For skewed data:</strong><br>
-                        The <strong>median</strong> is most appropriate. Unlike the mean, the median is not affected by extreme values (outliers).<br><br>
-                        <strong>Example:</strong> House prices in a suburb are typically right-skewed — most houses cluster around $600k–$800k, but a few mansions at $5m+ pull the mean up to $1.2m. The median ($720k) better represents what a "typical" buyer pays. The mean would be misleading.<br><br>
-                        Similarly, income data is right-skewed (most earn modestly, a few earn millions). Reports use median household income, not mean, for this reason.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">3</div>
-                    <div class="qa-text">A normal distribution has a mean of 100 and standard deviation of 15. What percentage of values fall between 85 and 115? Explain using the empirical rule.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Empirical Rule (68-95-99.7 Rule):</strong> For a normal distribution:<br>
-                        • ~68% of data falls within μ ± 1σ<br>
-                        • ~95% of data falls within μ ± 2σ<br>
-                        • ~99.7% of data falls within μ ± 3σ<br><br>
-                        <strong>Given:</strong> μ = 100, σ = 15<br><br>
-                        <strong>Range 85 to 115:</strong><br>
-                        85 = 100 − 15 = μ − 1σ<br>
-                        115 = 100 + 15 = μ + 1σ<br><br>
-                        This range is exactly <strong>one standard deviation from the mean</strong>.<br><br>
-                        Therefore, approximately <strong>68%</strong> of values fall between 85 and 115.<br><br>
-                        <strong>Practical example:</strong> IQ scores are normally distributed with μ = 100, σ = 15. About 68% of the population has an IQ between 85 and 115. Only ~2.5% score above 130 (μ + 2σ) and ~2.5% below 70 (μ − 2σ).<br><br>
-                        <strong>Extension:</strong> Between 70 and 130 (μ ± 2σ), approximately 95% of values lie. Between 55 and 145 (μ ± 3σ), approximately 99.7% lie.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">4</div>
-                    <div class="qa-text">Explain Type I and Type II errors in hypothesis testing, using a courtroom analogy.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Hypothesis Testing Setup:</strong><br>
-                        • H₀ (null hypothesis): The default assumption (e.g., "the defendant is innocent")<br>
-                        • H₁ (alternative hypothesis): The claim we seek evidence for (e.g., "the defendant is guilty")<br><br>
-                        <strong>Type I Error (False Positive):</strong><br>
-                        Rejecting H₀ when it is actually true. Concluding there is an effect when there isn't.<br><br>
-                        <strong>Courtroom analogy:</strong> Convicting an innocent person. The jury rejects innocence (H₀) when the defendant is actually innocent. The probability of Type I error is α (significance level), typically set at 0.05.<br><br>
-                        <strong>Type II Error (False Negative):</strong><br>
-                        Failing to reject H₀ when it is actually false. Missing a real effect.<br><br>
-                        <strong>Courtroom analogy:</strong> Acquitting a guilty person. The jury fails to reject innocence (H₀) when the defendant is actually guilty. The probability of Type II error is β. Statistical power (1 − β) is the probability of correctly rejecting a false null.<br><br>
-                        <strong>Trade-off:</strong> Reducing α (stricter standards) increases β, and vice versa. In criminal courts, we set α very low ("beyond reasonable doubt") to minimise Type I errors — better to let 10 guilty go free than convict 1 innocent. In medical screening, we may accept higher α to catch more true cases (minimising Type II errors).
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">5</div>
-                    <div class="qa-text">A company surveys 100 customers and finds average satisfaction is 7.2 out of 10 with a standard deviation of 1.5. Construct a 95% confidence interval for the true population mean.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Formula for confidence interval (large sample, z-distribution):</strong><br>
-                        CI = x̄ ± z* × (s ÷ √n)<br><br>
-                        <strong>Given:</strong><br>
-                        • Sample mean (x̄) = 7.2<br>
-                        • Sample standard deviation (s) = 1.5<br>
-                        • Sample size (n) = 100<br>
-                        • Confidence level = 95% → z* = 1.96<br><br>
-                        <strong>Standard error (SE):</strong><br>
-                        SE = s ÷ √n = 1.5 ÷ √100 = 1.5 ÷ 10 = <strong>0.15</strong><br><br>
-                        <strong>Margin of error (ME):</strong><br>
-                        ME = z* × SE = 1.96 × 0.15 = <strong>0.294</strong><br><br>
-                        <strong>95% Confidence Interval:</strong><br>
-                        7.2 ± 0.294 = <strong>(6.91, 7.49)</strong><br><br>
-                        <strong>Interpretation:</strong> We are 95% confident that the true mean satisfaction score for all customers lies between 6.91 and 7.49. If we repeated this survey many times, 95% of the intervals constructed this way would contain the true population mean.<br><br>
-                        <strong>Note:</strong> With n = 100, using the z-distribution is appropriate. For smaller samples (n < 30), the t-distribution should be used instead.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ETW1001 -->
-        <div class="subject-header" data-subject="etw1001">
-            <h2>Business Law</h2>
-            <div class="meta">ETW1001 &middot; 5 Questions</div>
-        </div>
-        <div class="qa-list" data-subject="etw1001">
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">1</div>
-                    <div class="qa-text">What are the three essential elements required for a valid contract? Briefly explain each.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>1. Agreement (Offer and Acceptance):</strong><br>
-                        One party must make a clear offer, and the other must accept it unequivocally. The acceptance must mirror the offer ("mirror image rule"). Any variation constitutes a counter-offer, not acceptance. Communication of acceptance is generally required, though silence can constitute acceptance in certain ongoing business relationships.<br><br>
-                        <strong>2. Consideration:</strong><br>
-                        Each party must give something of legal value — money, goods, services, a promise, or forbearance. Consideration must be sufficient (has some value) but need not be adequate (fair market value). Past consideration is not valid. The doctrine of promissory estoppel can enforce promises without consideration in some cases.<br><br>
-                        <strong>3. Intention to Create Legal Relations:</strong><br>
-                        The parties must intend their agreement to be legally binding. In commercial contexts, this is presumed. In social or domestic agreements (e.g., between family members), it is presumed absent unless proven otherwise. Courts examine the language, context, and circumstances to determine intent.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">2</div>
-                    <div class="qa-text">Explain the difference between express terms and implied terms in a contract, giving one example of each.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Express Terms:</strong> Stated explicitly by the parties, either orally or in writing. They are the negotiated, agreed-upon provisions of the contract.<br><br>
-                        <strong>Example:</strong> A software licence agreement states: "The licence fee is $10,000 per year, payable annually in advance. Support is included for business hours only (9am–5pm AEST)." These are express terms — clearly written and agreed.<br><br>
-                        <strong>Implied Terms:</strong> Not explicitly stated but read into the contract by law, custom, or the courts. They fill gaps to make the contract workable or fair.<br><br>
-                        <strong>Example:</strong> When you buy a refrigerator from a retailer, the Australian Consumer Law implies a term that the goods are of "acceptable quality" — fit for purpose, free from defects, safe, and durable. Even if the contract says nothing about quality, this term is implied by statute and cannot be excluded in consumer contracts.<br><br>
-                        <strong>Sources of implied terms:</strong><br>
-                        • <strong>Statute:</strong> Australian Consumer Law, Fair Work Act<br>
-                        • <strong>Common law:</strong> Terms implied by courts (e.g., duty of care in employment)<br>
-                        • <strong>Custom/trade usage:</strong> Standard practices in a particular industry
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">3</div>
-                    <div class="qa-text">What is negligence? Outline the four elements a plaintiff must prove to succeed in a negligence claim.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Negligence:</strong> A tort (civil wrong) where a person breaches their duty of care, causing foreseeable harm to another. It is the most common basis for personal injury and property damage claims.<br><br>
-                        <strong>Four Elements (Donoghue v Stevenson [1932]):</strong><br><br>
-                        1. <strong>Duty of Care:</strong> The defendant owed the plaintiff a legal duty to take reasonable care. Established by the "neighbour principle" — you must take reasonable care to avoid acts or omissions reasonably foreseeable as likely to injure your neighbour (anyone closely and directly affected).<br><br>
-                        2. <strong>Breach of Duty:</strong> The defendant failed to meet the standard of care expected. The standard is that of a "reasonable person" in the defendant's position. Courts consider the likelihood of harm, severity of potential harm, cost of precautions, and social utility of the defendant's activity.<br><br>
-                        3. <strong>Causation:</strong> The breach caused the plaintiff's loss. Two tests:<br>
-                        • <strong>Factual causation ("but for"):</strong> But for the defendant's breach, would the harm have occurred?<br>
-                        • <strong>Legal causation (remoteness):</strong> Was the harm a reasonably foreseeable consequence of the breach?<br><br>
-                        4. <strong>Damage:</strong> The plaintiff suffered actual loss — physical injury, property damage, psychiatric harm, or pure economic loss (in limited circumstances). Nominal damages are not available in negligence; without loss, there is no claim.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">4</div>
-                    <div class="qa-text">Describe the Australian Consumer Law (ACL) guarantee that goods must be of "acceptable quality" and explain when a consumer can seek a remedy.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Acceptable Quality (ACL s 54):</strong> Goods sold to consumers in trade or commerce must be of acceptable quality. This is a statutory guarantee that cannot be excluded. "Acceptable quality" means the goods are:<br><br>
-                        • <strong>Fit for all purposes disclosed or implicit</strong> (e.g., a toaster must toast bread)<br>
-                        • <strong>Safe, durable, and free from defects</strong> (minor defects may be acceptable at low price points)<br>
-                        • <strong>Acceptable in appearance and finish</strong><br>
-                        • <strong>Reasonably priced in relation to their condition</strong> (a $2,000 phone should last longer than a $200 phone)<br><br>
-                        Quality is assessed objectively — what a reasonable consumer, fully acquainted with the state and condition of the goods, would regard as acceptable.<br><br>
-                        <strong>Remedies:</strong><br><br>
-                        If goods fail to meet the guarantee, the consumer has rights against the <strong>supplier</strong> (and sometimes the manufacturer):<br><br>
-                        • <strong>Minor failure:</strong> The supplier can choose to repair, replace, or refund.<br>
-                        • <strong>Major failure:</strong> The consumer chooses the remedy — repair, replacement, or refund. A major failure occurs if the goods would not have been acquired had the consumer known of the problem, or if they are substantially unfit for purpose and cannot be remedied within a reasonable time.<br><br>
-                        <strong>Example:</strong> A $1,500 laptop fails after 3 months due to a motherboard defect. This is a major failure. The consumer can demand a full refund or replacement, regardless of the retailer's "no returns" policy.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">5</div>
-                    <div class="qa-text">Distinguish between a company and a sole trader as business structures, noting one advantage and one disadvantage of each.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Sole Trader:</strong> An individual operating a business in their own name. No separate legal entity — the business and the person are one.<br><br>
-                        <strong>Advantage:</strong> <strong>Simplicity and control.</strong> No registration fees, no complex reporting, minimal compliance. The owner makes all decisions and keeps all profits.<br><br>
-                        <strong>Disadvantage:</strong> <strong>Unlimited liability.</strong> The owner's personal assets (house, car, savings) are at risk if the business incurs debts or is sued. Bankruptcy of the business means personal bankruptcy.<br><br>
-                        <strong>Company (Pty Ltd):</strong> A separate legal entity registered under the Corporations Act 2001. It exists independently of its owners (shareholders).<br><br>
-                        <strong>Advantage:</strong> <strong>Limited liability.</strong> Shareholders' liability is generally limited to the amount unpaid on their shares. Personal assets are protected from business debts (unless personal guarantees are given).<br><br>
-                        <strong>Disadvantage:</strong> <strong>Complexity and cost.</strong> Registration with ASIC, annual review fees, audited financial statements (for large companies), director duties under the Corporations Act, and more onerous tax compliance. Losses cannot be offset against the owner's other personal income.<br><br>
-                        <strong>When to choose:</strong> Sole trader for low-risk, small-scale operations. Company for businesses with significant assets, employees, contractual risk, or growth ambitions requiring external investment.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MGW1010 -->
-        <div class="subject-header" data-subject="mgw1010">
-            <h2>Management</h2>
-            <div class="meta">MGW1010 &middot; 5 Questions</div>
-        </div>
-        <div class="qa-list" data-subject="mgw1010">
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">1</div>
-                    <div class="qa-text">Describe Fayol's five functions of management and explain how they remain relevant in modern organisations.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Henri Fayol (1841–1925)</strong> proposed five universal functions of management that still form the backbone of management theory:<br><br>
-                        1. <strong>Planning:</strong> Defining goals, establishing strategies, and developing plans to coordinate activities. Modern relevance: Strategic planning, OKRs (Objectives and Key Results), agile sprint planning, scenario analysis.<br><br>
-                        2. <strong>Organising:</strong> Arranging work, allocating resources, and assigning tasks. Modern relevance: Organisational design (flat vs hierarchical), remote team structures, cross-functional project teams, resource allocation software.<br><br>
-                        3. <strong>Commanding (Directing):</strong> Leading, motivating, and communicating with staff. Modern relevance: Transformational leadership, emotional intelligence, coaching cultures, transparent communication via Slack/Teams.<br><br>
-                        4. <strong>Coordinating:</strong> Harmonising activities across departments. Modern relevance: ERP systems, project management tools (Asana, Monday.com), matrix management structures, regular cross-functional stand-ups.<br><br>
-                        5. <strong>Controlling:</strong> Monitoring performance, comparing against standards, and taking corrective action. Modern relevance: KPI dashboards, balanced scorecards, real-time analytics, continuous feedback loops (not just annual reviews).<br><br>
-                        <strong>Why they remain relevant:</strong> Despite changes in technology and work patterns (remote work, AI, gig economy), the fundamental activities of setting direction, organising resources, leading people, aligning efforts, and monitoring results are timeless. Modern tools enhance execution but don't replace the functions.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">2</div>
-                    <div class="qa-text">Compare and contrast Maslow's hierarchy of needs with Herzberg's two-factor theory as motivation frameworks.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Maslow's Hierarchy of Needs (1943):</strong><br>
-                        A content theory proposing five levels of human needs, arranged hierarchically. Lower needs must be satisfied before higher needs motivate behaviour:<br>
-                        1. Physiological (food, shelter)<br>
-                        2. Safety (security, stability)<br>
-                        3. Social/Belonging (friendship, love)<br>
-                        4. Esteem (recognition, achievement)<br>
-                        5. Self-actualisation (fulfilling potential)<br><br>
-                        <strong>Herzberg's Two-Factor Theory (1959):</strong><br>
-                        Distinguishes between <strong>hygiene factors</strong> (prevent dissatisfaction) and <strong>motivators</strong> (create satisfaction):<br><br>
-                        <strong>Hygiene factors:</strong> Salary, working conditions, company policy, supervision, job security. Their absence causes dissatisfaction; their presence merely prevents it. They do not motivate.<br><br>
-                        <strong>Motivators:</strong> Achievement, recognition, meaningful work, responsibility, advancement, growth. These create positive satisfaction and drive high performance.<br><br>
-                        <strong>Key Contrasts:</strong><br>
-                        • Maslow is general (all human needs); Herzberg is workplace-specific.<br>
-                        • Maslow suggests one level must be met before the next; Herzberg says hygiene and motivators operate independently.<br>
-                        • Maslow implies money (physiological) is a basic motivator; Herzberg classifies salary as a hygiene factor (not a true motivator).<br><br>
-                        <strong>Practical implication:</strong> Managers must ensure hygiene factors are adequate (fair pay, safe conditions) and then focus on motivators (challenging work, autonomy, recognition) to drive engagement.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">3</div>
-                    <div class="qa-text">What is organisational culture? Describe two ways a strong culture can benefit a company and one potential risk.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Organisational Culture:</strong> The shared values, beliefs, assumptions, norms, and practices that shape how members of an organisation think, feel, and behave. It is "the way we do things around here." Edgar Schein described three levels: artefacts (visible behaviours), espoused values (stated norms), and basic underlying assumptions (unconscious beliefs).<br><br>
-                        <strong>Two Benefits of Strong Culture:</strong><br><br>
-                        1. <strong>Alignment and reduced coordination costs:</strong> When employees share values and norms, less formal control is needed. Decisions are made consistently without micromanagement. Example: At Netflix, the culture of "freedom and responsibility" means employees are trusted to make big decisions without layers of approval.<br><br>
-                        2. <strong>Employee engagement and retention:</strong> A positive, distinctive culture attracts talent and fosters loyalty. Employees who identify with organisational values are more motivated and less likely to leave. Example: Patagonia's environmental mission attracts employees passionate about sustainability, reducing turnover.<br><br>
-                        <strong>One Risk:</strong><br><br>
-                        <strong>Resistance to change and groupthink:</strong> A very strong culture can become rigid. "This is how we've always done it" blocks innovation and adaptation. Enron had an aggressive, results-at-all-costs culture that enabled fraud. Strong cultures can also marginalise diverse perspectives, reducing creativity and problem-solving capacity.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">4</div>
-                    <div class="qa-text">Explain the difference between centralised and decentralised organisational structures, giving one advantage of each.</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Centralised Structure:</strong> Decision-making authority is concentrated at the top of the organisation (senior management / head office). Lower levels implement decisions but have limited autonomy.<br><br>
-                        <strong>Advantage:</strong> <strong>Consistency and control.</strong> Senior leaders ensure all divisions follow the same strategy, standards, and brand identity. Policies are uniform. Useful in crises or highly regulated industries where compliance is critical. Example: Military organisations and banks use centralisation for operational discipline and risk management.<br><br>
-                        <strong>Decentralised Structure:</strong> Decision-making authority is distributed to middle and lower-level managers, often close to the customer or operation. Divisions or regions operate with significant autonomy.<br><br>
-                        <strong>Advantage:</strong> <strong>Responsiveness and empowerment.</strong> Local managers can adapt quickly to market conditions, customer needs, and competitive threats without waiting for head office approval. Employees feel empowered, which can boost motivation and innovation. Example: Starbucks gives store managers discretion over local marketing, community engagement, and staffing to suit neighbourhood preferences.<br><br>
-                        <strong>Modern trend:</strong> Many organisations adopt a hybrid approach — strategic decisions are centralised, while operational decisions are decentralised. This balances control with agility.
-                    </div>
-                </div>
-            </div>
-            <div class="qa-card">
-                <div class="qa-question" onclick="this.parentElement.classList.toggle('open')">
-                    <div class="qa-num">5</div>
-                    <div class="qa-text">What is the difference between leadership and management? Can a person be an effective leader without being a good manager, and vice versa?</div>
-                    <i class="fas fa-chevron-down qa-toggle"></i>
-                </div>
-                <div class="qa-answer">
-                    <div class="answer-inner">
-                        <strong>Management:</strong> About <strong>coping with complexity</strong> — planning, budgeting, organising, staffing, controlling, and problem-solving. Managers bring order and predictability. They ask: "Are we doing things right?"<br><br>
-                        <strong>Leadership:</strong> About <strong>coping with change</strong> — setting direction, aligning people, motivating, and inspiring. Leaders create vision and movement. They ask: "Are we doing the right things?"<br><br>
-                        <strong>Key distinction (Kotter):</strong><br>
-                        • Management produces <strong>degree of predictability and order</strong><br>
-                        • Leadership produces <strong>movement and useful change</strong><br><br>
-                        <strong>Can you be one without the other?</strong><br><br>
-                        <strong>Yes — effective leader, poor manager:</strong><br>
-                        A charismatic founder with a brilliant vision may lack operational discipline. They inspire teams and attract investors but struggle with budgets, deadlines, and process. The company may grow chaotically or burn cash. Example: Some early-stage tech founders excel at product vision but need COOs to handle execution.<br><br>
-                        <strong>Yes — good manager, poor leader:</strong><br>
-                        A highly efficient operations manager may keep processes running smoothly but fail to inspire teams, adapt to market shifts, or articulate a compelling vision. Morale may stagnate; innovation suffers. The team performs adequately but doesn't excel or grow.<br><br>
-                        <strong>Ideal:</strong> The most effective executives combine both — they manage resources efficiently AND lead people toward a meaningful future. Organisations need both capabilities, whether in one person or a complementary leadership team.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+<div class="hero">
+<div class="hero-label">Practice Collection</div>
+<h1>Subject <em>Assignments</em></h1>
+<p>Realistic university-level questions with full worked solutions. Covers calculations, graphs, essays, and case studies.</p>
+<div class="hero-divider"></div>
 </div>
 
+<div class="toc">
+  <h3>Jump to Subject</h3>
+  <a href="#acw1120">ACW1120 — Financial Accounting 1</a>
+  <a href="#bfw1001">BFW1001 — Business Foundations</a>
+  <a href="#btw1042">BTW1042 — Business Law</a>
+  <a href="#ecm1953">ECM1953 — Economics</a>
+  <a href="#etw1001">ETW1001 — Business Statistics</a>
+  <a href="#mgw1010">MGW1010 — Management</a>
+  <a href="#acw2220">ACW2220 — Management Accounting</a>
+  <a href="#etc2440">ETC2440 — Business Analytics</a>
+</div>
+
+<div class="content-wrap">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ACW1120 — Financial Accounting 1 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="acw1120">
+<div class="unit-header" style="--c:var(--accent-tan);--c-dim:rgba(191,155,122,0.10);--c-weak:rgba(191,155,122,0.22)">
+<div class="unit-icon">📊</div>
+<div>
+<div class="unit-title">ACW1120 — Financial Accounting 1</div>
+<div class="unit-code">Assignment 1 | Recording, Adjustments & Financial Statements</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 1 — Double Entry & Trial Balance (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+<span class="assignment-tag theory">Theory</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">The following transactions occurred during March 2026 for Hui Traders:</div>
+<div class="question-sub">
+<ol>
+<li>1 Mar: Started business with $50,000 cash</li>
+<li>3 Mar: Purchased inventory on credit from Supplier A for $8,500</li>
+<li>5 Mar: Sold goods for cash $4,200 (cost $2,800)</li>
+<li>7 Mar: Purchased equipment for $12,000 cash</li>
+<li>10 Mar: Sold goods on credit to Customer B for $6,000 (cost $4,000)</li>
+<li>12 Mar: Paid rent $1,500 cash</li>
+<li>15 Mar: Received $3,000 from Customer B</li>
+<li>18 Mar: Paid Supplier A $5,000</li>
+<li>20 Mar: Owner withdrew $2,000 cash for personal use</li>
+</ol>
+<strong>Required:</strong>
+<ol type="a">
+<li>Prepare the ledger accounts (T-accounts) for Cash, Inventory, Equipment, Accounts Receivable, Accounts Payable, Capital, Drawings, Sales, Purchases, Cost of Sales, and Rent Expense.</li>
+<li>Extract a trial balance at 31 March 2026.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Ledger Accounts (T-Accounts):</strong></p>
+
+<p><strong>Cash Account</strong></p>
+<table class="table-data">
+<tr><th>Date</th><th>Details</th><th>$</th><th>Date</th><th>Details</th><th>$</th></tr>
+<tr><td>1 Mar</td><td>Capital</td><td>50,000</td><td>7 Mar</td><td>Equipment</td><td>12,000</td></tr>
+<tr><td>5 Mar</td><td>Sales</td><td>4,200</td><td>12 Mar</td><td>Rent</td><td>1,500</td></tr>
+<tr><td>15 Mar</td><td>Accounts Receivable</td><td>3,000</td><td>18 Mar</td><td>Accounts Payable</td><td>5,000</td></tr>
+<tr><td></td><td></td><td></td><td>20 Mar</td><td>Drawings</td><td>2,000</td></tr>
+<tr><td></td><td></td><td></td><td>31 Mar</td><td>Balance c/d</td><td>36,700</td></tr>
+<tr><td></td><td></td><td><strong>57,200</strong></td><td></td><td></td><td><strong>57,200</strong></td></tr>
+</table>
+
+<p><strong>Inventory Account</strong></p>
+<table class="table-data">
+<tr><th>Date</th><th>Details</th><th>$</th><th>Date</th><th>Details</th><th>$</th></tr>
+<tr><td>3 Mar</td><td>Accounts Payable</td><td>8,500</td><td>5 Mar</td><td>Cost of Sales</td><td>2,800</td></tr>
+<tr><td></td><td></td><td></td><td>10 Mar</td><td>Cost of Sales</td><td>4,000</td></tr>
+<tr><td></td><td></td><td></td><td>31 Mar</td><td>Balance c/d</td><td>1,700</td></tr>
+<tr><td></td><td></td><td><strong>8,500</strong></td><td></td><td></td><td><strong>8,500</strong></td></tr>
+</table>
+
+<p><strong>Equipment Account</strong></p>
+<table class="table-data">
+<tr><th>Date</th><th>Details</th><th>$</th><th>Date</th><th>Details</th><th>$</th></tr>
+<tr><td>7 Mar</td><td>Cash</td><td>12,000</td><td>31 Mar</td><td>Balance c/d</td><td>12,000</td></tr>
+<tr><td></td><td></td><td><strong>12,000</strong></td><td></td><td></td><td><strong>12,000</strong></td></tr>
+</table>
+
+<p><strong>Accounts Receivable (Customer B)</strong></p>
+<table class="table-data">
+<tr><th>Date</th><th>Details</th><th>$</th><th>Date</th><th>Details</th><th>$</th></tr>
+<tr><td>10 Mar</td><td>Sales</td><td>6,000</td><td>15 Mar</td><td>Cash</td><td>3,000</td></tr>
+<tr><td></td><td></td><td></td><td>31 Mar</td><td>Balance c/d</td><td>3,000</td></tr>
+<tr><td></td><td></td><td><strong>6,000</strong></td><td></td><td></td><td><strong>6,000</strong></td></tr>
+</table>
+
+<p><strong>Accounts Payable (Supplier A)</strong></p>
+<table class="table-data">
+<tr><th>Date</th><th>Details</th><th>$</th><th>Date</th><th>Details</th><th>$</th></tr>
+<tr><td>18 Mar</td><td>Cash</td><td>5,000</td><td>3 Mar</td><td>Inventory</td><td>8,500</td></tr>
+<tr><td>31 Mar</td><td>Balance c/d</td><td>3,500</td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td><strong>8,500</strong></td><td></td><td></td><td><strong>8,500</strong></td></tr>
+</table>
+
+<p><strong>Capital Account</strong></p>
+<table class="table-data">
+<tr><th>Date</th><th>Details</th><th>$</th><th>Date</th><th>Details</th><th>$</th></tr>
+<tr><td>31 Mar</td><td>Balance c/d</td><td>50,000</td><td>1 Mar</td><td>Cash</td><td>50,000</td></tr>
+<tr><td></td><td></td><td><strong>50,000</strong></td><td></td><td></td><td><strong>50,000</strong></td></tr>
+</table>
+
+<p><strong>Drawings Account</strong></p>
+<table class="table-data">
+<tr><th>Date</th><th>Details</th><th>$</th><th>Date</th><th>Details</th><th>$</th></tr>
+<tr><td>20 Mar</td><td>Cash</td><td>2,000</td><td>31 Mar</td><td>Balance c/d</td><td>2,000</td></tr>
+<tr><td></td><td></td><td><strong>2,000</strong></td><td></td><td></td><td><strong>2,000</strong></td></tr>
+</table>
+
+<p><strong>Sales Account</strong></p>
+<table class="table-data">
+<tr><th>Date</th><th>Details</th><th>$</th><th>Date</th><th>Details</th><th>$</th></tr>
+<tr><td>31 Mar</td><td>Balance c/d</td><td>10,200</td><td>5 Mar</td><td>Cash</td><td>4,200</td></tr>
+<tr><td></td><td></td><td></td><td>10 Mar</td><td>Accounts Receivable</td><td>6,000</td></tr>
+<tr><td></td><td></td><td><strong>10,200</strong></td><td></td><td></td><td><strong>10,200</strong></td></tr>
+</table>
+
+<p><strong>Cost of Sales Account</strong></p>
+<table class="table-data">
+<tr><th>Date</th><th>Details</th><th>$</th><th>Date</th><th>Details</th><th>$</th></tr>
+<tr><td>5 Mar</td><td>Inventory</td><td>2,800</td><td>31 Mar</td><td>Balance c/d</td><td>6,800</td></tr>
+<tr><td>10 Mar</td><td>Inventory</td><td>4,000</td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td><strong>6,800</strong></td><td></td><td></td><td><strong>6,800</strong></td></tr>
+</table>
+
+<p><strong>Rent Expense Account</strong></p>
+<table class="table-data">
+<tr><th>Date</th><th>Details</th><th>$</th><th>Date</th><th>Details</th><th>$</th></tr>
+<tr><td>12 Mar</td><td>Cash</td><td>1,500</td><td>31 Mar</td><td>Balance c/d</td><td>1,500</td></tr>
+<tr><td></td><td></td><td><strong>1,500</strong></td><td></td><td></td><td><strong>1,500</strong></td></tr>
+</table>
+
+<p><strong>(b) Trial Balance at 31 March 2026</strong></p>
+<table class="table-data">
+<tr><th>Account</th><th>Debit ($)</th><th>Credit ($)</th></tr>
+<tr><td>Cash</td><td>36,700</td><td></td></tr>
+<tr><td>Inventory</td><td>1,700</td><td></td></tr>
+<tr><td>Equipment</td><td>12,000</td><td></td></tr>
+<tr><td>Accounts Receivable</td><td>3,000</td><td></td></tr>
+<tr><td>Accounts Payable</td><td></td><td>3,500</td></tr>
+<tr><td>Capital</td><td></td><td>50,000</td></tr>
+<tr><td>Drawings</td><td>2,000</td><td></td></tr>
+<tr><td>Sales</td><td></td><td>10,200</td></tr>
+<tr><td>Cost of Sales</td><td>6,800</td><td></td></tr>
+<tr><td>Rent Expense</td><td>1,500</td><td></td></tr>
+<tr><td><strong>Total</strong></td><td><strong>63,700</strong></td><td><strong>63,700</strong></td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 2 — Year-End Adjustments (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">At 31 December 2026, the following additional information is available for Hui Traders:</div>
+<div class="question-sub">
+<ol>
+<li>Wages owing at year-end: $3,200</li>
+<li>Insurance paid in advance: $1,800 (covers 3 months into next year)</li>
+<li>Depreciation on equipment: 20% per annum on cost</li>
+<li>Bad debts to be written off: $800</li>
+<li>Allowance for doubtful debts: 5% of remaining receivables</li>
+</ol>
+<strong>Required:</strong> Prepare the year-end adjusting journal entries.
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>Adjusting Journal Entries at 31 December 2026:</strong></p>
+
+<ol>
+<li><strong>Accrued Wages:</strong><br>
+Dr Wages Expense $3,200<br>
+Cr Wages Payable $3,200<br>
+<em>(To record wages incurred but not yet paid)</em></li>
+
+<li><strong>Prepaid Insurance:</strong><br>
+Dr Prepaid Insurance $1,800<br>
+Cr Insurance Expense $1,800<br>
+<em>(To record insurance paid in advance)</em></li>
+
+<li><strong>Depreciation on Equipment:</strong><br>
+Dr Depreciation Expense $2,400<br>
+Cr Accumulated Depreciation — Equipment $2,400<br>
+<em>($12,000 × 20% = $2,400)</em></li>
+
+<li><strong>Bad Debts Written Off:</strong><br>
+Dr Bad Debts Expense $800<br>
+Cr Accounts Receivable $800<br>
+<em>(To write off specific uncollectible debt)</em></li>
+
+<li><strong>Allowance for Doubtful Debts:</strong><br>
+Remaining receivables = $3,000 − $800 = $2,200<br>
+Required allowance = $2,200 × 5% = $110<br>
+Assuming no existing allowance:<br>
+Dr Bad Debts Expense $110<br>
+Cr Allowance for Doubtful Debts $110</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 3 — Financial Statements (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">Using the trial balance from Question 1 and adjustments from Question 2, prepare:</div>
+<div class="question-sub">
+<ol type="a">
+<li>Income Statement for the year ended 31 December 2026</li>
+<li>Statement of Financial Position at 31 December 2026</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Income Statement for the year ended 31 December 2026</strong></p>
+<table class="table-data">
+<tr><td>Sales</td><td></td><td>$10,200</td></tr>
+<tr><td>Less: Cost of Sales</td><td></td><td>(6,800)</td></tr>
+<tr><td><strong>Gross Profit</strong></td><td></td><td><strong>3,400</strong></td></tr>
+<tr><td>Less: Operating Expenses</td><td></td><td></td></tr>
+<tr><td>&nbsp;&nbsp;Rent Expense</td><td>1,500</td><td></td></tr>
+<tr><td>&nbsp;&nbsp;Wages Expense</td><td>3,200</td><td></td></tr>
+<tr><td>&nbsp;&nbsp;Depreciation Expense</td><td>2,400</td><td></td></tr>
+<tr><td>&nbsp;&nbsp;Bad Debts Expense ($800 + $110)</td><td>910</td><td></td></tr>
+<tr><td>&nbsp;&nbsp;Total Operating Expenses</td><td></td><td>(8,010)</td></tr>
+<tr><td><strong>Net Loss</strong></td><td></td><td><strong>(4,610)</strong></td></tr>
+</table>
+
+<p><strong>(b) Statement of Financial Position at 31 December 2026</strong></p>
+<table class="table-data">
+<tr><th>ASSETS</th><th>$</th><th>$</th></tr>
+<tr><td><strong>Non-Current Assets</strong></td><td></td><td></td></tr>
+<tr><td>Equipment at cost</td><td>12,000</td><td></td></tr>
+<tr><td>Less: Accumulated Depreciation</td><td>(2,400)</td><td>9,600</td></tr>
+<tr><td><strong>Current Assets</strong></td><td></td><td></td></tr>
+<tr><td>Inventory</td><td>1,700</td><td></td></tr>
+<tr><td>Accounts Receivable</td><td>2,200</td><td></td></tr>
+<tr><td>Less: Allowance for Doubtful Debts</td><td>(110)</td><td>2,090</td></tr>
+<tr><td>Prepaid Insurance</td><td>1,800</td><td></td></tr>
+<tr><td>Cash</td><td>36,700</td><td>42,290</td></tr>
+<tr><td><strong>Total Assets</strong></td><td></td><td><strong>51,890</strong></td></tr>
+<tr><th>EQUITY AND LIABILITIES</th><th></th><th></th></tr>
+<tr><td><strong>Equity</strong></td><td></td><td></td></tr>
+<tr><td>Capital</td><td>50,000</td><td></td></tr>
+<tr><td>Less: Net Loss</td><td>(4,610)</td><td></td></tr>
+<tr><td>Less: Drawings</td><td>(2,000)</td><td>43,390</td></tr>
+<tr><td><strong>Current Liabilities</strong></td><td></td><td></td></tr>
+<tr><td>Accounts Payable</td><td>3,500</td><td></td></tr>
+<tr><td>Wages Payable</td><td>3,200</td><td>8,500</td></tr>
+<tr><td><strong>Total Equity and Liabilities</strong></td><td></td><td><strong>51,890</strong></td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 4 — Bank Reconciliation (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">The cash book of Hui Traders shows a debit balance of $4,520 on 31 December 2026. The bank statement shows an overdraft of $3,880. The following discrepancies were noted:</div>
+<div class="question-sub">
+<ol>
+<li>Bank charges of $120 not yet recorded in the cash book</li>
+<li>A standing order for electricity of $450 not yet recorded</li>
+<li>Cheques totaling $2,100 issued to suppliers but not yet presented</li>
+<li>A deposit of $1,500 made on 31 December not yet credited by the bank</li>
+<li>A customer's cheque for $800 was dishonoured (recorded in cash book but not yet reversed)</li>
+</ol>
+<strong>Required:</strong> Prepare the updated cash book and a bank reconciliation statement.
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>Updated Cash Book (Bank Column)</strong></p>
+<table class="table-data">
+<tr><th>Details</th><th>$</th><th>Details</th><th>$</th></tr>
+<tr><td>Balance b/d</td><td>4,520</td><td>Bank charges</td><td>120</td></tr>
+<tr><td></td><td></td><td>Standing order</td><td>450</td></tr>
+<tr><td></td><td></td><td>Dishonoured cheque</td><td>800</td></tr>
+<tr><td></td><td></td><td>Balance c/d</td><td>3,150</td></tr>
+<tr><td></td><td><strong>4,520</strong></td><td></td><td><strong>4,520</strong></td></tr>
+</table>
+
+<p><strong>Bank Reconciliation Statement at 31 December 2026</strong></p>
+<table class="table-data">
+<tr><td>Balance as per bank statement (overdraft)</td><td></td><td>(3,880)</td></tr>
+<tr><td>Add: Uncredited deposit</td><td></td><td>1,500</td></tr>
+<tr><td></td><td></td><td>(2,380)</td></tr>
+<tr><td>Less: Unpresented cheques</td><td></td><td>(2,100)</td></tr>
+<tr><td>Balance as per updated cash book (debit)</td><td></td><td><strong>(4,480)</strong></td></tr>
+</table>
+
+<p><em>Note: There is a discrepancy of $330 ($4,480 − $4,150) which indicates an error requiring further investigation. In exam conditions, students should note this and suggest checking for transposition errors or unrecorded items.</em></p>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- BFW1001 — Business Foundations -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="bfw1001">
+<div class="unit-header" style="--c:var(--accent-olive);--c-dim:rgba(85,89,52,0.12);--c-weak:rgba(85,89,52,0.25)">
+<div class="unit-icon">🏢</div>
+<div>
+<div class="unit-title">BFW1001 — Business Foundations</div>
+<div class="unit-code">Assignment 2 | Business Environment & Planning</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 1 — SWOT Analysis (Theory + Case)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+<span class="assignment-tag calc">Case Study</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">Read the following case study about "GreenLeaf Organics," a small organic grocery store in Melbourne:</div>
+<div class="question-sub">
+<p>GreenLeaf Organics was founded in 2020 by siblings Maya and Raj Patel. They source organic produce directly from local Victorian farms. Their store has built a loyal customer base of health-conscious consumers. Revenue has grown 15% annually. However, they face increasing competition from large supermarket chains (Coles, Woolworths) that now offer organic lines at lower prices. Their single location limits market reach. Consumer trends show growing demand for online grocery delivery and plant-based products.</p>
+<strong>Required:</strong>
+<ol type="a">
+<li>Conduct a SWOT analysis for GreenLeaf Organics. Identify at least two factors for each category.</li>
+<li>Based on your SWOT, recommend one strategic action the business should take, justifying your choice.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) SWOT Analysis for GreenLeaf Organics</strong></p>
+
+<p><strong>Strengths (Internal, Positive):</strong></p>
+<ul>
+<li><strong>Direct farm relationships:</strong> Sourcing directly from local Victorian farms ensures fresh produce, supports local agriculture, and may provide cost advantages by eliminating intermediaries.</li>
+<li><strong>Loyal customer base:</strong> A dedicated following of health-conscious consumers provides stable revenue and word-of-mouth marketing. This brand loyalty acts as a buffer against price competition.</li>
+<li><strong>Strong growth trajectory:</strong> 15% annual revenue growth demonstrates product-market fit and effective operations.</li>
+</ul>
+
+<p><strong>Weaknesses (Internal, Negative):</strong></p>
+<ul>
+<li><strong>Single location:</strong> Limited to one physical store, restricting market reach and creating geographic vulnerability. All revenue depends on foot traffic in one area.</li>
+<li><strong>Limited economies of scale:</strong> As a small independent store, GreenLeaf cannot match the purchasing power or marketing budgets of large chains.</li>
+<li><strong>Potentially limited online presence:</strong> The case mentions consumer trends toward online delivery, suggesting GreenLeaf may be behind in digital transformation.</li>
+</ul>
+
+<p><strong>Opportunities (External, Positive):</strong></p>
+<ul>
+<li><strong>Growing demand for plant-based products:</strong> Consumer trends favoring plant-based diets present an opportunity to expand product lines and attract new customer segments.</li>
+<li><strong>Online grocery delivery trend:</strong> Developing an e-commerce platform with delivery service could significantly expand market reach beyond the physical store's catchment area.</li>
+<li><strong>Partnership potential:</strong> Collaborating with meal-kit services or corporate wellness programs could create new revenue streams.</li>
+</ul>
+
+<p><strong>Threats (External, Negative):</strong></p>
+<ul>
+<li><strong>Competition from supermarket chains:</strong> Coles and Woolworths offering organic lines at lower prices due to economies of scale threatens GreenLeaf's price-sensitive customers.</li>
+<li><strong>Economic downturn:</strong> Organic products are often perceived as premium; during economic hardship, consumers may trade down to conventional products.</li>
+<li><strong>Supply chain disruptions:</strong> Reliance on local farms could be vulnerable to climate events (drought, bushfires) affecting Victorian agriculture.</li>
+</ul>
+
+<p><strong>(b) Strategic Recommendation</strong></p>
+<p><strong>Recommended Action:</strong> Develop an e-commerce platform with local delivery service and subscription boxes.</p>
+<p><strong>Justification:</strong></p>
+<ol>
+<li><strong>Addresses the weakness of single location</strong> by expanding market reach across Melbourne without the capital expense of new stores.</li>
+<li><strong>Capitalizes on the opportunity</strong> of growing online grocery demand, meeting customers where their preferences are shifting.</li>
+<li><strong>Differentiates from supermarket chains</strong> by offering personalized service, curated organic boxes, and farm-to-table storytelling that large chains cannot replicate.</li>
+<li><strong>Leverages existing strength</strong> of direct farm relationships as a unique selling proposition in marketing.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 2 — Break-Even Analysis (Calculation + Graph)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+<span class="assignment-tag graph">Graph</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">GreenLeaf Organics sells organic juice bottles at $8 each. Variable cost per bottle is $4.50. Monthly fixed costs (rent, salaries, utilities) are $7,000.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Calculate the contribution margin per unit and contribution margin ratio.</li>
+<li>Calculate the break-even point in units and in dollars.</li>
+<li>If the owner targets a monthly profit of $5,000, how many bottles must be sold?</li>
+<li>Calculate the margin of safety if actual monthly sales are 3,000 bottles.</li>
+<li>Sketch a break-even chart showing: fixed cost line, total cost line, total revenue line, and label the break-even point.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Contribution Margin</strong></p>
+<div class="formula-inline">
+Contribution per unit = Selling Price − Variable Cost = $8.00 − $4.50 = <strong>$3.50</strong><br>
+CM Ratio = $3.50 / $8.00 = <strong>43.75%</strong>
+</div>
+
+<p><strong>(b) Break-Even Point</strong></p>
+<div class="formula-inline">
+BEP (units) = Fixed Costs / Contribution per unit = $7,000 / $3.50 = <strong>2,000 bottles</strong><br>
+BEP ($) = Fixed Costs / CM Ratio = $7,000 / 0.4375 = <strong>$16,000</strong><br>
+Or: 2,000 bottles × $8 = $16,000 ✓
+</div>
+
+<p><strong>(c) Target Profit Sales</strong></p>
+<div class="formula-inline">
+Required sales (units) = (Fixed Costs + Target Profit) / Contribution per unit<br>
+= ($7,000 + $5,000) / $3.50 = $12,000 / $3.50 = <strong>3,429 bottles</strong> (rounded up)
+</div>
+
+<p><strong>(d) Margin of Safety</strong></p>
+<div class="formula-inline">
+Margin of Safety (units) = Actual Sales − BEP Sales = 3,000 − 2,000 = <strong>1,000 bottles</strong><br>
+Margin of Safety (%) = (1,000 / 3,000) × 100% = <strong>33.33%</strong>
+</div>
+
+<p><strong>(e) Break-Even Chart Description</strong></p>
+<p>A properly drawn break-even chart would show:</p>
+<ul>
+<li><strong>Horizontal axis (x-axis):</strong> Units sold (0 to 4,000 bottles)</li>
+<li><strong>Vertical axis (y-axis):</strong> Dollars ($0 to $35,000)</li>
+<li><strong>Fixed Cost line:</strong> Horizontal line at $7,000 (constant regardless of output)</li>
+<li><strong>Total Cost line:</strong> Starts at $7,000 on y-axis, slopes upward with gradient = $4.50 per unit</li>
+<li><strong>Total Revenue line:</strong> Starts at origin (0,0), slopes upward with gradient = $8 per unit</li>
+<li><strong>Break-even point:</strong> Intersection of Total Revenue and Total Cost at 2,000 units, $16,000</li>
+<li><strong>Loss area:</strong> Between 0 and 2,000 units (TR below TC)</li>
+<li><strong>Profit area:</strong> Above 2,000 units (TR above TC)</li>
+</ul>
+<p>At 3,000 units, the vertical gap between TR and TC represents the profit of $3,500 (1,000 units × $3.50 contribution).</p>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 3 — SMART Objectives & PESTEL (Theory)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">GreenLeaf Organics wants to expand into online sales within 12 months.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Formulate a SMART objective for this expansion plan.</li>
+<li>Using the PESTEL framework, identify and explain two external factors that could affect this online expansion.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) SMART Objective</strong></p>
+<div class="formula-inline">
+"Launch an e-commerce website by 30 June 2027, achieving 500 online orders per month with an average order value of $45, generating $22,500 monthly online revenue by December 2027."
+</div>
+<p><strong>SMART breakdown:</strong></p>
+<ul>
+<li><strong>Specific:</strong> Launch e-commerce website with defined order targets</li>
+<li><strong>Measurable:</strong> 500 orders/month, $45 AOV, $22,500 revenue</li>
+<li><strong>Achievable:</strong> Based on existing customer base and market research</li>
+<li><strong>Relevant:</strong> Aligns with consumer trends toward online grocery</li>
+<li><strong>Time-bound:</strong> Website by June 2027, revenue target by December 2027</li>
+</ul>
+
+<p><strong>(b) PESTEL Analysis for Online Expansion</strong></p>
+
+<p><strong>Technological Factor:</strong></p>
+<p>The reliability of digital infrastructure and payment systems is critical. Australia has high internet penetration (91%), but rural areas may have slower speeds affecting delivery route optimization. The business must invest in secure e-commerce platforms, mobile-responsive design, and integration with payment gateways (Afterpay, PayPal). Cybersecurity risks also increase with online operations.</p>
+
+<p><strong>Legal Factor:</strong></p>
+<p>Australian Consumer Law (ACL) requirements for online sales include mandatory refund policies, accurate product descriptions, and privacy protections under the Privacy Act 1988. The business must comply with the Australian Competition and Consumer Commission (ACCC) guidelines on online advertising and ensure GST is correctly applied. Food safety regulations for delivery and labeling requirements for organic certification must also be maintained.</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- BTW1042 — Business Law -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="btw1042">
+<div class="unit-header" style="--c:var(--accent-rust);--c-dim:rgba(140,91,62,0.1);--c-weak:rgba(140,91,62,0.25)">
+<div class="unit-icon">⚖️</div>
+<div>
+<div class="unit-title">BTW1042 — Business Law</div>
+<div class="unit-code">Assignment 3 | Contract, Tort & Consumer Law</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 1 — Contract Formation (Theory + Case Analysis)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+<span class="assignment-tag calc">Case Study</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">Scenario: Sarah, a café owner, sees an advertisement in a trade magazine: "Commercial espresso machine — $4,500. First come, first served. Contact EspressoCo at sales@espressoco.com.au." Sarah immediately emails EspressoCo stating: "I accept your offer. Please deliver the machine to my café at 123 High Street by Friday." EspressoCo replies: "Thank you for your interest. The machine has already been sold to another buyer."</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Was the advertisement an offer or an invitation to treat? Explain with reference to legal principles and a relevant case.</li>
+<li>Did a valid contract exist between Sarah and EspressoCo? Discuss all elements of contract formation.</li>
+<li>Assuming a contract was formed, what remedies would be available to Sarah?</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Advertisement: Offer or Invitation to Treat?</strong></p>
+<p>The advertisement was most likely an <strong>invitation to treat</strong>, not an offer. In contract law, advertisements are generally treated as invitations to treat because they lack the certainty and intention to be bound required for an offer. The phrase "first come, first served" suggests the seller retains discretion about whom to sell to.</p>
+
+<p><strong>Key case:</strong> <em>Pharmaceutical Society of Great Britain v Boots Cash Chemists (Southern) Ltd [1953]</em> — The court held that goods displayed on shelves with price tags were invitations to treat, not offers. The customer's act of taking goods to the counter was the offer, which the cashier could accept or reject.</p>
+
+<p>Similarly, in <em>Partridge v Crittenden [1968]</em>, an advertisement for wild birds was held to be an invitation to treat because the seller could not have unlimited stock to satisfy all potential acceptances. Applying this principle, EspressoCo's advertisement invited offers from potential buyers.</p>
+
+<p><strong>(b) Valid Contract Formation</strong></p>
+<p>For a valid contract, five elements must be present:</p>
+<ol>
+<li><strong>Offer:</strong> Sarah's email may be construed as an offer to buy, but since the advertisement was an invitation to treat, no offer existed from EspressoCo. Sarah's email was actually the offer.</li>
+<li><strong>Acceptance:</strong> EspressoCo did not accept Sarah's offer; instead they rejected it. Under the mailbox rule (<em>Adams v Lindsell [1818]</em>), acceptance is effective upon posting, but rejection is only effective when received.</li>
+<li><strong>Consideration:</strong> $4,500 from Sarah in exchange for the machine from EspressoCo. Consideration was present but no agreement was reached.</li>
+<li><strong>Intention to Create Legal Relations:</strong> Presumed in commercial transactions (<em>Edwards v Skyways Ltd [1964]</em>).</li>
+<li><strong>Capacity:</strong> Both parties are business entities with legal capacity.</li>
+</ol>
+<p><strong>Conclusion:</strong> No valid contract was formed because EspressoCo never accepted Sarah's offer.</p>
+
+<p><strong>(c) Remedies (if contract existed)</strong></p>
+<p>Had a contract been formed, Sarah could seek:</p>
+<ul>
+<li><strong>Damages:</strong> The primary remedy for breach of contract. Sarah could claim the difference between the contract price ($4,500) and the cost of obtaining a substitute machine (expectation interest), or reimbursement of any reliance expenses.</li>
+<li><strong>Specific Performance:</strong> Unlikely for a standard commercial good since damages would be adequate. Specific performance is typically reserved for unique items like land (<em>Co-operative Insurance Society Ltd v Argyll Stores Ltd [1998]</em>).</li>
+<li><strong>Injunction:</strong> Not applicable in this scenario.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 2 — Negligence (Theory + Case Application)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">Scenario: David visits a supermarket. A refrigerator unit is leaking water onto the floor. David slips, falls, and breaks his wrist. The supermarket had received a complaint about the leak 30 minutes earlier but had not yet placed warning signs or cleaned the floor.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Explain the three elements required to establish a claim in negligence.</li>
+<li>Apply each element to David's situation.</li>
+<li>Discuss any defences the supermarket might raise and whether they would succeed.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Three Elements of Negligence</strong></p>
+<ol>
+<li><strong>Duty of Care:</strong> The defendant must owe the plaintiff a duty to take reasonable care to avoid foreseeable harm. Established by the neighbour principle in <em>Donoghue v Stevenson [1932]</em>: "You must take reasonable care to avoid acts or omissions which you can reasonably foresee would be likely to injure your neighbour."</li>
+<li><strong>Breach of Duty:</strong> The defendant's conduct must fall below the standard of care expected of a reasonable person in the circumstances. The standard is objective — what would a reasonable person have done? (<em>Paris v Stepney Borough Council [1951]</em>).</li>
+<li><strong>Causation and Damage:</strong> The breach must cause the plaintiff's loss. This requires:
+<ul>
+<li><strong>Factual causation:</strong> "But for" the breach, would the harm have occurred? (<em>Barnett v Chelsea and Kensington Hospital [1969]</em>)</li>
+<li><strong>Legal causation (remoteness):</strong> The harm must not be too remote. The Wagon Mound test applies (<em>Overseas Tankship v Morts Dock [1961]</em>): was the type of damage foreseeable?</li>
+</ul></li>
+</ol>
+
+<p><strong>(b) Application to David's Case</strong></p>
+<ol>
+<li><strong>Duty of Care:</strong> The supermarket owes a duty to its customers to maintain safe premises. This is well-established under occupiers' liability and the general duty of care in negligence. Customers are a foreseeable class of persons, and slipping on wet floors is a foreseeable type of harm.</li>
+<li><strong>Breach of Duty:</strong> The supermarket breached this duty. A reasonable supermarket would:
+<ul>
+<li>Immediately place warning signs upon receiving a complaint about a leak</li>
+<li>Clean or cordon off the affected area</li>
+<li>Repair the refrigerator or redirect foot traffic</li>
+</ul>
+<p>The supermarket knew of the hazard for 30 minutes and took no action. This falls below the standard of care expected. <em>Australian Safeway Stores v Zaluzna [1987]</em> confirmed that businesses must take reasonable steps to ensure customer safety.</p></li>
+<li><strong>Causation and Damage:</strong>
+<ul>
+<li><strong>Factual causation:</strong> But for the water on the floor, David would not have slipped. The breach directly caused the injury.</li>
+<li><strong>Remoteness:</strong> A broken wrist from slipping on a wet floor is a foreseeable type of injury. Not too remote.</li>
+</ul></li>
+</ol>
+<p><strong>Conclusion:</strong> David has a strong claim in negligence against the supermarket.</p>
+
+<p><strong>(c) Defences</strong></p>
+<p>The supermarket might raise:</p>
+<ul>
+<li><strong>Contributory Negligence:</strong> Argue David was not watching where he was walking. Under the <em>Wrongs Act 1958</em> (Vic), if David contributed to his own injury, damages may be reduced. However, water on a supermarket floor is not easily visible, and David had no warning. This defence would likely fail or result in minimal reduction.</li>
+<li><strong>Volenti Non Fit Injuria:</strong> Claim David voluntarily assumed the risk. This requires proof David knew of the specific risk and voluntarily accepted it. David was unaware of the leak, so this defence would fail.</li>
+<li><strong>Obvious Risk:</strong> Under s. 13 of the <em>Australian Consumer Law and Fair Trading Act 2012</em> (Vic), a defendant is not liable for obvious risks. However, a leaking refrigerator is not an obvious risk to a customer who has not been warned.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 3 — Australian Consumer Law (Theory)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">James purchases a $2,500 laptop from an electronics retailer. Within two weeks, the battery fails to hold charge, the keyboard becomes unresponsive, and the laptop overheats during normal use. James returns to the retailer who tells him: "Sorry, we don't offer refunds. You'll have to contact the manufacturer."</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Identify which consumer guarantees under the Australian Consumer Law (ACL) have been breached.</li>
+<li>What remedies is James entitled to under the ACL?</li>
+<li>Is the retailer's statement that James must contact the manufacturer legally correct? Explain.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Breached Consumer Guarantees (ACL, Schedule 2, Competition and Consumer Act 2010)</strong></p>
+<ol>
+<li><strong>Guarantee as to Acceptable Quality (s 54):</strong> Goods must be fit for purpose, free from defects, safe, and durable. A laptop that overheats and has keyboard failure within two weeks is not of acceptable quality.</li>
+<li><strong>Guarantee as to Fitness for Purpose (s 55):</strong> If a consumer makes known the purpose for which goods are required, they must be reasonably fit for that purpose. A laptop must be fit for general computing purposes.</li>
+<li><strong>Guarantee Relating to Supply by Description (s 56):</strong> Goods must match any description provided. If advertised as a functional laptop, it must perform as such.</li>
+<li><strong>Guarantee as to Repairs and Spare Parts (s 58):</strong> The manufacturer must ensure facilities for repair and spare parts are available for a reasonable period.</li>
+</ol>
+
+<p><strong>(b) Remedies Available to James</strong></p>
+<p>Under s 259 of the ACL, James has the following remedies against the <strong>supplier</strong> (the retailer):</p>
+<ul>
+<li><strong>Minor failure:</strong> The retailer may choose to repair, replace, or refund.</li>
+<li><strong>Major failure:</strong> James can choose to:
+<ul>
+<li>Reject the goods and obtain a full refund or replacement, OR</li>
+<li>Keep the goods and recover compensation for the reduction in value</li>
+</ul></li>
+</ul>
+<p>A major failure exists if a reasonable consumer would not have acquired the goods had they known about the failure (s 260). Multiple defects in a new $2,500 laptop within two weeks constitutes a major failure.</p>
+<p>James is entitled to a full refund or replacement at his choice. He may also claim consequential losses (e.g., lost work, data recovery costs) under s 259(4).</p>
+
+<p><strong>(c) Retailer's Statement</strong></p>
+<p>The retailer's statement is <strong>incorrect and unlawful</strong> under the ACL. Key points:</p>
+<ul>
+<li>Under s 259, remedies for breach of consumer guarantees are against the <strong>supplier</strong> (the retailer), not the manufacturer. James purchased from the retailer, making the retailer directly liable.</li>
+<li>While the manufacturer also has obligations under s 271, James can choose to pursue either the retailer or the manufacturer.</li>
+<li>The retailer's statement "we don't offer refunds" is a false or misleading representation about consumer rights, which breaches s 29(1)(m) of the ACL.</li>
+<li>Under s 18, this conduct may also constitute misleading or deceptive conduct.</li>
+<li>The ACCC can impose penalties for misleading consumers about their statutory rights, and the retailer cannot contract out of consumer guarantees (s 64).</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ECM1953 — Economics -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="ecm1953">
+<div class="unit-header" style="--c:var(--accent-cream);--c-dim:rgba(242,230,216,0.08);--c-weak:rgba(242,230,216,0.18)">
+<div class="unit-icon">📉</div>
+<div>
+<div class="unit-title">ECM1953 — Economics</div>
+<div class="unit-code">Assignment 4 | Micro & Macroeconomics</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 1 — Demand, Supply & Equilibrium (Calculation + Graph)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+<span class="assignment-tag graph">Graph</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">The market for organic coffee beans in Australia is described by:</div>
+<div class="question-sub">
+<div class="formula-inline">
+Demand: Qd = 200 − 4P<br>
+Supply: Qs = 20 + 2P
+</div>
+<p>Where Q is in thousands of kg per month and P is in dollars per kg.</p>
+<strong>Required:</strong>
+<ol type="a">
+<li>Calculate the equilibrium price and quantity algebraically.</li>
+<li>If the government imposes a price ceiling of $25 per kg, calculate the quantity demanded, quantity supplied, and the resulting shortage or surplus.</li>
+<li>Sketch a demand-supply diagram showing: the demand curve, supply curve, equilibrium point, price ceiling, and the shortage/surplus area. Label all intercepts.</li>
+<li>Calculate the price elasticity of demand at the equilibrium point and interpret your result.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Equilibrium Price and Quantity</strong></p>
+<p>At equilibrium, Qd = Qs:</p>
+<div class="formula-inline">
+200 − 4P = 20 + 2P<br>
+180 = 6P<br>
+P* = <strong>$30 per kg</strong><br>
+Q* = 200 − 4(30) = 200 − 120 = <strong>80 thousand kg</strong><br>
+Check: Qs = 20 + 2(30) = 80 ✓
+</div>
+
+<p><strong>(b) Price Ceiling at P = $25</strong></p>
+<div class="formula-inline">
+Qd = 200 − 4(25) = 200 − 100 = <strong>100 thousand kg</strong><br>
+Qs = 20 + 2(25) = 20 + 50 = <strong>70 thousand kg</strong><br>
+Shortage = Qd − Qs = 100 − 70 = <strong>30 thousand kg</strong>
+</div>
+<p>Since $25 is below the equilibrium price of $30, the price ceiling is <strong>binding</strong> and creates a shortage of 30,000 kg per month.</p>
+
+<p><strong>(c) Demand-Supply Diagram Description</strong></p>
+<p>A properly drawn diagram would show:</p>
+<ul>
+<li><strong>Vertical axis (P):</strong> $0 to $60</li>
+<li><strong>Horizontal axis (Q):</strong> 0 to 200 thousand kg</li>
+<li><strong>Demand curve:</strong> Downward sloping from (0, 50) to (200, 0). Intercepts: P-intercept = 50, Q-intercept = 200</li>
+<li><strong>Supply curve:</strong> Upward sloping from (0, −10) starting effectively at Q=20 when P=0. Passes through (80, 30)</li>
+<li><strong>Equilibrium (E):</strong> Labelled at (80, 30)</li>
+<li><strong>Price ceiling line:</strong> Horizontal dashed line at P = $25</li>
+<li><strong>Shortage:</strong> Horizontal distance between Qd (100) and Qs (70) at P = $25, shaded and labelled as "Shortage = 30,000 kg"</li>
+</ul>
+
+<p><strong>(d) Price Elasticity of Demand at Equilibrium</strong></p>
+<div class="formula-inline">
+PED = (dQd/dP) × (P/Q)<br>
+dQd/dP = −4 (coefficient of P in demand equation)<br>
+PED = (−4) × (30/80) = −4 × 0.375 = <strong>−1.5</strong><br>
+|PED| = <strong>1.5</strong>
+</div>
+<p><strong>Interpretation:</strong> Demand is <strong>elastic</strong> (|PED| > 1). A 1% increase in price leads to a 1.5% decrease in quantity demanded. This means total revenue would decrease if price increases (since the percentage drop in quantity demanded exceeds the percentage price rise). The coffee market is responsive to price changes, possibly due to availability of substitutes (regular coffee, tea).</p>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 2 — Price Elasticity & Total Revenue (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">A concert venue sells tickets at $80 each and sells 5,000 tickets per show. Market research suggests that if the price is increased to $90, ticket sales will fall to 4,200.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Calculate the price elasticity of demand using the midpoint (arc elasticity) formula.</li>
+<li>Calculate total revenue at both prices and explain the relationship between elasticity and total revenue.</li>
+<li>Should the venue increase the ticket price to maximize revenue? Justify your answer.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Arc Elasticity of Demand</strong></p>
+<div class="formula-inline">
+Arc PED = [(Q₂ − Q₁) / ((Q₁ + Q₂)/2)] / [(P₂ − P₁) / ((P₁ + P₂)/2)]<br><br>
+% change in Q = (4,200 − 5,000) / ((5,000 + 4,200)/2) = (−800) / 4,600 = <strong>−0.1739 or −17.39%</strong><br>
+% change in P = (90 − 80) / ((80 + 90)/2) = 10 / 85 = <strong>0.1176 or 11.76%</strong><br><br>
+Arc PED = −0.1739 / 0.1176 = <strong>−1.48</strong><br>
+|PED| = <strong>1.48</strong>
+</div>
+
+<p><strong>(b) Total Revenue and Elasticity Relationship</strong></p>
+<div class="formula-inline">
+TR at $80 = $80 × 5,000 = <strong>$400,000</strong><br>
+TR at $90 = $90 × 4,200 = <strong>$378,000</strong>
+</div>
+<p>Since demand is <strong>elastic</strong> (|PED| > 1), the percentage decrease in quantity demanded (−17.39%) is greater than the percentage increase in price (+11.76%). Therefore, total revenue <strong>decreases</strong> when price increases. This confirms the elasticity-revenue relationship: when demand is elastic, price and total revenue move in opposite directions.</p>
+
+<p><strong>(c) Pricing Recommendation</strong></p>
+<p>The venue should <strong>NOT</strong> increase the ticket price to $90 because:</p>
+<ul>
+<li>Total revenue would decrease from $400,000 to $378,000 (a loss of $22,000 per show)</li>
+<li>The elastic demand indicates consumers are price-sensitive, likely due to substitute entertainment options</li>
+<li>To maximize revenue, the venue should consider <strong>lowering</strong> the price, as this would increase total revenue when demand is elastic</li>
+<li>However, profit maximization also depends on costs. If marginal cost is low, lowering price could increase both revenue and profit</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 3 — Macroeconomics & Fiscal Policy (Theory)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">Australia's unemployment rate has risen to 6.2% and GDP growth has slowed to 1.5% annually. Inflation remains low at 1.8%, below the RBA's target band of 2–3%.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Identify the phase of the business cycle Australia is likely experiencing. Explain two characteristics of this phase.</li>
+<li>Explain how expansionary fiscal policy could be used to address this situation. Include specific policy tools.</li>
+<li>Discuss one potential limitation of expansionary fiscal policy in this context.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Business Cycle Phase</strong></p>
+<p>Australia is likely in the <strong>recession</strong> or <strong>trough</strong> phase of the business cycle, or at least experiencing a significant slowdown.</p>
+<p><strong>Characteristics:</strong></p>
+<ol>
+<li><strong>Rising unemployment:</strong> At 6.2%, unemployment is above Australia's natural rate (typically 4–5%). During slowdowns, firms reduce production and lay off workers as aggregate demand falls.</li>
+<li><strong>Low inflation:</strong> At 1.8%, inflation is below the RBA target band. Weak demand means firms cannot raise prices, and there is spare capacity in the economy (negative output gap).</li>
+</ol>
+
+<p><strong>(b) Expansionary Fiscal Policy</strong></p>
+<p>Expansionary fiscal policy involves the government increasing aggregate demand through:</p>
+<ol>
+<li><strong>Increased government spending (G):</strong>
+<ul>
+<li>Infrastructure projects (roads, railways, renewable energy)</li>
+<li>Increased funding for healthcare and education</li>
+<li>Direct cash transfers to households (stimulus payments)</li>
+</ul>
+<p>This directly increases aggregate demand (AD = C + I + G + X − M), creating jobs through the multiplier effect.</p></li>
+<li><strong>Tax cuts:</strong>
+<ul>
+<li>Reducing personal income tax increases disposable income, boosting consumption (C)</li>
+<li>Reducing corporate tax encourages business investment (I)</li>
+<li>Targeted tax credits for low-income households have higher marginal propensity to consume</li>
+</ul></li>
+</ol>
+<p>The multiplier effect means the initial increase in spending generates further rounds of income and consumption. For example, if the government spends $10 billion on infrastructure and the marginal propensity to consume is 0.8, the total increase in GDP = $10 billion × (1/0.2) = $50 billion.</p>
+
+<p><strong>(c) Limitation of Expansionary Fiscal Policy</strong></p>
+<p><strong>Crowding out:</strong> If the government borrows heavily to fund expansionary policy, it may increase interest rates (due to higher demand for loanable funds), which reduces private investment. The extent of crowding out depends on:</p>
+<ul>
+<li>The state of the economy — in a recession with spare capacity, crowding out is minimal</li>
+<li>How the spending is financed — borrowing crowds out more than money creation</li>
+<li>Investor confidence — if business confidence is low, private investment may not respond much to interest rate changes anyway</li>
+</ul>
+<p>Another limitation is <strong>time lags</strong> — recognition lag (identifying the problem), implementation lag (passing legislation), and impact lag (policy taking effect). By the time fiscal policy works, the economy may have already recovered.</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ETW1001 — Business Statistics -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="etw1001">
+<div class="unit-header" style="--c:var(--accent-tan);--c-dim:rgba(191,155,122,0.1);--c-weak:rgba(191,155,122,0.22)">
+<div class="unit-icon">📈</div>
+<div>
+<div class="unit-title">ETW1001 — Business Statistics</div>
+<div class="unit-code">Assignment 5 | Descriptive Stats, Probability & Inference</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 1 — Descriptive Statistics (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">The following data represents the monthly sales (in $ thousands) for 12 retail stores:</div>
+<div class="question-sub">
+<div class="formula-inline">
+45, 52, 38, 61, 55, 48, 72, 44, 58, 50, 66, 53
+</div>
+<strong>Required:</strong>
+<ol type="a">
+<li>Calculate the mean, median, and mode.</li>
+<li>Calculate the range, variance, and standard deviation.</li>
+<li>Calculate the coefficient of variation and interpret it.</li>
+<li>Identify any outliers using the IQR method.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Mean, Median, Mode</strong></p>
+<div class="formula-inline">
+Mean = (45 + 52 + 38 + 61 + 55 + 48 + 72 + 44 + 58 + 50 + 66 + 53) / 12<br>
+Mean = 642 / 12 = <strong>$53.5 thousand</strong><br><br>
+Ordered data: 38, 44, 45, 48, 50, 52, 53, 55, 58, 61, 66, 72<br>
+Median = average of 6th and 7th values = (52 + 53) / 2 = <strong>$52.5 thousand</strong><br><br>
+Mode = <strong>None</strong> (all values are unique)
+</div>
+
+<p><strong>(b) Range, Variance, Standard Deviation</strong></p>
+<div class="formula-inline">
+Range = Maximum − Minimum = 72 − 38 = <strong>34</strong><br><br>
+Variance (sample):<br>
+Sum of squared deviations = (45−53.5)² + (52−53.5)² + ... + (53−53.5)²<br>
+= 72.25 + 2.25 + 240.25 + 56.25 + 2.25 + 30.25 + 342.25 + 90.25 + 20.25 + 12.25 + 156.25 + 0.25<br>
+= 1,025<br>
+s² = 1,025 / (12 − 1) = 1,025 / 11 = <strong>93.18</strong><br><br>
+Standard Deviation: s = √93.18 = <strong>$9.65 thousand</strong>
+</div>
+
+<p><strong>(c) Coefficient of Variation</strong></p>
+<div class="formula-inline">
+CV = (s / x̄) × 100% = (9.65 / 53.5) × 100% = <strong>18.04%</strong>
+</div>
+<p><strong>Interpretation:</strong> The standard deviation is 18.04% of the mean, indicating moderate relative variability in monthly sales across stores. This suggests some stores significantly outperform others.</p>
+
+<p><strong>(d) Outliers using IQR Method</strong></p>
+<div class="formula-inline">
+Q1 (25th percentile) = median of lower half = (45 + 48) / 2 = <strong>46.5</strong><br>
+Q3 (75th percentile) = median of upper half = (58 + 61) / 2 = <strong>59.5</strong><br>
+IQR = Q3 − Q1 = 59.5 − 46.5 = <strong>13</strong><br><br>
+Lower fence = Q1 − 1.5(IQR) = 46.5 − 19.5 = <strong>27</strong><br>
+Upper fence = Q3 + 1.5(IQR) = 59.5 + 19.5 = <strong>79</strong>
+</div>
+<p>All data values (38 to 72) fall between 27 and 79. <strong>No outliers</strong> are present in this dataset.</p>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 2 — Probability Distributions (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">A call centre receives an average of 4 customer complaints per hour.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>What is the probability of receiving exactly 2 complaints in a given hour? (Use Poisson distribution)</li>
+<li>What is the probability of receiving at least 1 complaint in a given hour?</li>
+<li>If the call centre operates 8 hours per day, what is the expected number of complaints per day?</li>
+<li>Assume the number of complaints per hour is normally distributed with μ = 4 and σ = 2. What is the probability of receiving more than 6 complaints in an hour?</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) P(X = 2) using Poisson</strong></p>
+<div class="formula-inline">
+P(X = k) = (e^(−λ) × λ^k) / k!<br>
+λ = 4, k = 2<br>
+P(X = 2) = (e^(−4) × 4²) / 2! = (0.0183 × 16) / 2 = <strong>0.1464 or 14.64%</strong>
+</div>
+
+<p><strong>(b) P(X ≥ 1)</strong></p>
+<div class="formula-inline">
+P(X ≥ 1) = 1 − P(X = 0)<br>
+P(X = 0) = e^(−4) = 0.0183<br>
+P(X ≥ 1) = 1 − 0.0183 = <strong>0.9817 or 98.17%</strong>
+</div>
+
+<p><strong>(c) Expected Complaints per Day</strong></p>
+<div class="formula-inline">
+Expected daily complaints = λ × hours = 4 × 8 = <strong>32 complaints</strong>
+</div>
+
+<p><strong>(d) Normal Distribution P(X > 6)</strong></p>
+<div class="formula-inline">
+Z = (X − μ) / σ = (6 − 4) / 2 = <strong>1.0</strong><br>
+P(Z > 1.0) = 1 − P(Z < 1.0) = 1 − 0.8413 = <strong>0.1587 or 15.87%</strong>
+</div>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 3 — Confidence Interval & Hypothesis Testing (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">A random sample of 36 students yields a mean exam score of 72 with a standard deviation of 12.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Construct a 95% confidence interval for the population mean exam score.</li>
+<li>Test the hypothesis that the population mean is greater than 70 at α = 0.05. State the null and alternative hypotheses, calculate the test statistic, determine the critical value, and state your conclusion.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) 95% Confidence Interval</strong></p>
+<div class="formula-inline">
+x̄ = 72, s = 12, n = 36<br>
+Standard error = s / √n = 12 / 6 = <strong>2</strong><br>
+For 95% CI with df = 35, t₀.₀₂₅,₃₅ ≈ 2.030<br>
+CI = 72 ± (2.030 × 2) = 72 ± 4.06<br>
+<strong>95% CI = (67.94, 76.06)</strong>
+</div>
+<p>We are 95% confident that the true population mean exam score lies between 67.94 and 76.06.</p>
+
+<p><strong>(b) Hypothesis Test</strong></p>
+<div class="formula-inline">
+Step 1: Hypotheses<br>
+H₀: μ = 70<br>
+H₁: μ > 70 (one-tailed, right)<br><br>
+Step 2: Significance level: α = 0.05<br><br>
+Step 3: Test statistic<br>
+t = (x̄ − μ₀) / (s/√n) = (72 − 70) / 2 = <strong>1.0</strong><br><br>
+Step 4: Critical value<br>
+t₀.₀₅,₃₅ = <strong>1.690</strong> (one-tailed)<br><br>
+Step 5: Decision<br>
+Since t = 1.0 < 1.690, we <strong>fail to reject H₀</strong><br><br>
+Step 6: Conclusion
+</div>
+<p>At the 5% significance level, there is <strong>insufficient evidence</strong> to conclude that the population mean exam score is greater than 70. The observed sample mean of 72 is not statistically significantly higher than 70 given the sample variability.</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- MGW1010 — Management -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="mgw1010">
+<div class="unit-header" style="--c:var(--accent-olive);--c-dim:rgba(85,89,52,0.12);--c-weak:rgba(85,89,52,0.25)">
+<div class="unit-icon">👔</div>
+<div>
+<div class="unit-title">MGW1010 — Management</div>
+<div class="unit-code">Assignment 6 | Planning, Leading & Organizing</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 1 — Motivation Theory Application (Theory + Case)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+<span class="assignment-tag calc">Case Study</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">Case Study: TechFlow Solutions is a software development company experiencing high employee turnover. Exit interviews reveal that employees feel their work is not recognized, career progression is unclear, and their salaries are below market rate. However, employees report that they enjoy the challenging projects and the collaborative team environment.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Apply Herzberg's Two-Factor Theory to explain the situation at TechFlow Solutions. Identify which factors are causing dissatisfaction and which are providing satisfaction.</li>
+<li>Using Vroom's Expectancy Theory, explain why employees might be choosing to leave despite enjoying the work itself.</li>
+<li>Recommend three specific actions TechFlow management should take, drawing on the motivation theories discussed.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Herzberg's Two-Factor Theory Application</strong></p>
+
+<p><strong>Hygiene Factors (causing dissatisfaction when absent/inadequate):</strong></p>
+<ul>
+<li><strong>Salary below market rate:</strong> This is a hygiene factor. Inadequate pay creates dissatisfaction but paying market rate only prevents dissatisfaction — it does not create motivation.</li>
+<li><strong>Lack of recognition:</strong> While recognition can be a motivator, the absence of any acknowledgment creates dissatisfaction with company policy/supervision.</li>
+<li><strong>Unclear career progression:</strong> This relates to company policy and administration. Employees feel the organization does not provide structure for advancement.</li>
+</ul>
+
+<p><strong>Motivators (creating satisfaction and motivation):</strong></p>
+<ul>
+<li><strong>Challenging projects:</strong> The work itself is a strong motivator. Employees find the tasks interesting and engaging.</li>
+<li><strong>Collaborative team environment:</strong> This relates to interpersonal relationships and a sense of achievement through teamwork.</li>
+</ul>
+
+<p><strong>Conclusion:</strong> TechFlow has strong motivators (good work, good teams) but poor hygiene factors (pay, recognition, progression). Herzberg would argue that fixing hygiene factors will reduce dissatisfaction but won't create motivation — that comes from the motivators already present.</p>
+
+<p><strong>(b) Vroom's Expectancy Theory Application</strong></p>
+<p>Vroom's theory states: <strong>Motivation = Expectancy × Instrumentality × Valence</strong></p>
+
+<p>Employees at TechFlow may have:</p>
+<ul>
+<li><strong>High Expectancy:</strong> They believe they can perform well (they enjoy challenging projects and work collaboratively).</li>
+<li><strong>Low Instrumentality:</strong> They do not believe that good performance will lead to desired outcomes. If career progression is unclear and recognition is absent, employees perceive no link between effort and reward.</li>
+<li><strong>High Valence:</strong> They value promotions, higher pay, and recognition — but these rewards are not forthcoming.</li>
+</ul>
+
+<p>Since Instrumentality is low (possibly near zero), overall motivation is low despite high ability and valued rewards. Employees rationally conclude that their effort will not be rewarded, so they leave for organizations where the performance-reward link is clearer.</p>
+
+<p><strong>(c) Recommendations</strong></p>
+<ol>
+<li><strong>Implement a structured career development program:</strong> Create clear pathways from junior to senior roles with defined competencies and timelines. This addresses the hygiene factor of company policy while increasing instrumentality — employees can see that effort leads to advancement.</li>
+<li><strong>Introduce a recognition and reward system:</strong> Monthly "spotlight" awards, peer recognition platforms, and bonuses tied to project milestones. This addresses the hygiene factor of supervision/recognition and increases the valence of staying.</li>
+<li><strong>Conduct a salary benchmarking review and adjust compensation:</strong> Bring salaries to market rate. This removes a significant source of dissatisfaction (hygiene factor) and signals that the organization values its employees, increasing organizational commitment.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 2 — Leadership Styles (Theory)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">A hospital emergency department is facing a crisis: a major traffic accident has resulted in 15 casualties arriving simultaneously. The department is understaffed, equipment is limited, and decisions about patient prioritization must be made immediately.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Identify the most appropriate leadership style for this situation using the situational/contingency approach. Justify your choice.</li>
+<li>Compare this to the leadership style that would be appropriate for a research and development team designing a new product over a 12-month period. Explain why different situations require different styles.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Appropriate Leadership Style: Autocratic/Directive</strong></p>
+
+<p>In the emergency department crisis, an <strong>autocratic (directive) leadership style</strong> is most appropriate. This is justified by:</p>
+
+<ul>
+<li><strong>Fiedler's Contingency Model:</strong> The situation is high-stress, time-pressured, and the task is highly structured (triage protocols exist). Fiedler would suggest task-oriented leadership is most effective when the situation is either very favorable or very unfavorable. A mass casualty incident is an extremely unfavorable situation requiring directive control.</li>
+<li><strong>Hersey-Blanchard Situational Theory:</strong> Staff may be anxious and operating outside their normal capacity (low readiness). A telling/directing style (high task, low relationship) is appropriate when followers are unable and unwilling or insecure.</li>
+<li><strong>Path-Goal Theory (House):</strong> In crises, the path to the goal is unclear and obstacles are extreme. A directive style clarifies expectations, establishes priorities, and removes ambiguity — exactly what stressed staff need.</li>
+</ul>
+
+<p>The leader must make rapid triage decisions, assign roles clearly, and maintain calm authority. Democratic consultation would waste precious time and increase confusion.</p>
+
+<p><strong>(b) R&D Team: Transformational/Democratic Style</strong></p>
+
+<p>For an R&D team over 12 months, a <strong>transformational or democratic (participative) style</strong> is more appropriate:</p>
+
+<ul>
+<li><strong>Transformational leadership:</strong> Inspires creativity, encourages innovation, and empowers team members to experiment. This aligns with the need for breakthrough thinking in product design.</li>
+<li><strong>Democratic style:</strong> Team members are likely highly skilled experts (high readiness per Hersey-Blanchard). Participative decision-making leverages their expertise and increases buy-in.</li>
+<li><strong>Path-Goal:</strong> A supportive or participative style works when tasks are complex, non-routine, and followers are competent. The leader's role is to remove obstacles and provide resources, not to dictate solutions.</li>
+</ul>
+
+<p><strong>Why Different Situations Require Different Styles:</strong></p>
+<p>Contingency theory demonstrates that no single leadership style is universally effective. The emergency department requires speed, clarity, and control — conditions where autocratic leadership excels. The R&D team requires creativity, expertise integration, and intrinsic motivation — conditions where participative/transformational leadership excels. Effective leaders diagnose the situation (follower readiness, task structure, time pressure, stakes) and adapt their style accordingly.</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ACW2220 — Management Accounting -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="acw2220">
+<div class="unit-header" style="--c:var(--accent-cream);--c-dim:rgba(242,230,216,0.08);--c-weak:rgba(242,230,216,0.18)">
+<div class="unit-icon">📈</div>
+<div>
+<div class="unit-title">ACW2220 — Management Accounting</div>
+<div class="unit-code">Assignment 7 | Partnership, Company & Ratio Analysis</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 1 — Partnership Appropriation (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">A and B are in partnership sharing profits 3:2. Their partnership agreement provides for:</div>
+<div class="question-sub">
+<ul>
+<li>Interest on capital: 8% per annum</li>
+<li>Interest on drawings: 10% per annum</li>
+<li>Partner salary: B receives $12,000 per annum</li>
+</ul>
+<p>Balances at 1 January 2026:</p>
+<ul>
+<li>A's capital: $80,000; B's capital: $50,000</li>
+<li>A's current account (credit): $5,000; B's current account (credit): $3,000</li>
+</ul>
+<p>During the year ended 31 December 2026:</p>
+<ul>
+<li>Net profit: $95,000</li>
+<li>Drawings: A $25,000; B $20,000</li>
+</ul>
+<strong>Required:</strong>
+<ol type="a">
+<li>Prepare the Profit and Loss Appropriation Account for the year.</li>
+<li>Prepare the partners' current accounts.</li>
+<li>Calculate each partner's total equity at 31 December 2026.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Profit and Loss Appropriation Account</strong></p>
+<table class="table-data">
+<tr><th></th><th>$</th><th></th><th>$</th></tr>
+<tr><td>Net Profit</td><td>95,000</td><td></td><td></td></tr>
+<tr><td>Add: Interest on Drawings</td><td></td><td></td><td></td></tr>
+<tr><td>&nbsp;&nbsp;A ($25,000 × 10%)</td><td>2,500</td><td></td><td></td></tr>
+<tr><td>&nbsp;&nbsp;B ($20,000 × 10%)</td><td>2,000</td><td></td><td></td></tr>
+<tr><td></td><td><strong>99,500</strong></td><td></td><td></td></tr>
+<tr><td>Less: Interest on Capital</td><td></td><td></td><td></td></tr>
+<tr><td>&nbsp;&nbsp;A ($80,000 × 8%)</td><td>6,400</td><td></td><td></td></tr>
+<tr><td>&nbsp;&nbsp;B ($50,000 × 8%)</td><td>4,000</td><td></td><td></td></tr>
+<tr><td>Less: Salary — B</td><td>12,000</td><td></td><td></td></tr>
+<tr><td>Residual Profit</td><td><strong>77,100</strong></td><td></td><td></td></tr>
+<tr><td>Share of Residual Profit:</td><td></td><td></td><td></td></tr>
+<tr><td>&nbsp;&nbsp;A (3/5 × $77,100)</td><td>46,260</td><td></td><td></td></tr>
+<tr><td>&nbsp;&nbsp;B (2/5 × $77,100)</td><td>30,840</td><td></td><td></td></tr>
+</table>
+
+<p><strong>(b) Partners' Current Accounts</strong></p>
+<table class="table-data">
+<tr><th colspan="3">A's Current Account</th></tr>
+<tr><th>Debit ($)</th><th></th><th>Credit ($)</th></tr>
+<tr><td>Drawings</td><td>25,000</td><td>Balance b/d</td><td>5,000</td></tr>
+<tr><td>Interest on drawings</td><td>2,500</td><td>Interest on capital</td><td>6,400</td></tr>
+<tr><td>Balance c/d</td><td>30,160</td><td>Share of profit</td><td>46,260</td></tr>
+<tr><td></td><td><strong>57,660</strong></td><td></td><td><strong>57,660</strong></td></tr>
+</table>
+
+<table class="table-data">
+<tr><th colspan="3">B's Current Account</th></tr>
+<tr><th>Debit ($)</th><th></th><th>Credit ($)</th></tr>
+<tr><td>Drawings</td><td>20,000</td><td>Balance b/d</td><td>3,000</td></tr>
+<tr><td>Interest on drawings</td><td>2,000</td><td>Interest on capital</td><td>4,000</td></tr>
+<tr><td></td><td></td><td>Salary</td><td>12,000</td></tr>
+<tr><td>Balance c/d</td><td>27,840</td><td>Share of profit</td><td>30,840</td></tr>
+<tr><td></td><td><strong>49,840</strong></td><td></td><td><strong>49,840</strong></td></tr>
+</table>
+
+<p><strong>(c) Total Equity at 31 December 2026</strong></p>
+<table class="table-data">
+<tr><th></th><th>A ($)</th><th>B ($)</th></tr>
+<tr><td>Capital Account</td><td>80,000</td><td>50,000</td></tr>
+<tr><td>Current Account</td><td>30,160</td><td>27,840</td></tr>
+<tr><td><strong>Total Equity</strong></td><td><strong>110,160</strong></td><td><strong>77,840</strong></td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 2 — Company Financial Statements & Ratios (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">The following information relates to Apex Ltd for the year ended 30 June 2026:</div>
+<div class="question-sub">
+<table class="table-data">
+<tr><th>Item</th><th>$</th></tr>
+<tr><td>Revenue</td><td>850,000</td></tr>
+<tr><td>Cost of Sales</td><td>510,000</td></tr>
+<tr><td>Operating Expenses</td><td>180,000</td></tr>
+<tr><td>Finance Costs (Debenture Interest)</td><td>15,000</td></tr>
+<tr><td>Tax</td><td>43,500</td></tr>
+<tr><td>Ordinary Dividends Paid</td><td>40,000</td></tr>
+<tr><td>Preference Dividends (8% on $200,000)</td><td>16,000</td></tr>
+<tr><td>Ordinary Shares ($1 each)</td><td>400,000</td></tr>
+<tr><td>8% Preference Shares ($1 each)</td><td>200,000</td></tr>
+<tr><td>Retained Earnings (1 July 2025)</td><td>120,000</td></tr>
+<tr><td>Debentures (10%)</td><td>150,000</td></tr>
+<tr><td>Share Premium</td><td>50,000</td></tr>
+<tr><td>General Reserve</td><td>30,000</td></tr>
+<tr><td>Trade Receivables</td><td>95,000</td></tr>
+<tr><td>Trade Payables</td><td>65,000</td></tr>
+<tr><td>Inventory</td><td>85,000</td></tr>
+<tr><td>Cash</td><td>45,000</td></tr>
+<tr><td>Non-Current Assets (net)</td><td>550,000</td></tr>
+</table>
+<strong>Required:</strong>
+<ol type="a">
+<li>Prepare the Income Statement for the year ended 30 June 2026.</li>
+<li>Prepare the Equity section of the Statement of Financial Position.</li>
+<li>Calculate the following ratios: Gross Profit Margin, Net Profit Margin, ROCE, Current Ratio, Acid Test, Gearing Ratio, Interest Cover, EPS, and Dividend Cover.</li>
+<li>Comment briefly on the company's profitability and liquidity position.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Income Statement</strong></p>
+<table class="table-data">
+<tr><td>Revenue</td><td></td><td>850,000</td></tr>
+<tr><td>Less: Cost of Sales</td><td></td><td>(510,000)</td></tr>
+<tr><td><strong>Gross Profit</strong></td><td></td><td><strong>340,000</strong></td></tr>
+<tr><td>Less: Operating Expenses</td><td></td><td>(180,000)</td></tr>
+<tr><td><strong>Operating Profit</strong></td><td></td><td><strong>160,000</strong></td></tr>
+<tr><td>Less: Finance Costs</td><td></td><td>(15,000)</td></tr>
+<tr><td><strong>Profit Before Tax</strong></td><td></td><td><strong>145,000</strong></td></tr>
+<tr><td>Less: Tax</td><td></td><td>(43,500)</td></tr>
+<tr><td><strong>Profit After Tax</strong></td><td></td><td><strong>101,500</strong></td></tr>
+<tr><td>Less: Transfer to General Reserve</td><td></td><td>(10,000)</td></tr>
+<tr><td>Less: Preference Dividends</td><td></td><td>(16,000)</td></tr>
+<tr><td>Less: Ordinary Dividends</td><td></td><td>(40,000)</td></tr>
+<tr><td><strong>Retained Profit for Year</strong></td><td></td><td><strong>35,500</strong></td></tr>
+</table>
+
+<p><strong>(b) Equity Section</strong></p>
+<table class="table-data">
+<tr><td>Issued Share Capital:</td><td></td><td></td></tr>
+<tr><td>&nbsp;&nbsp;400,000 Ordinary Shares @ $1</td><td>400,000</td><td></td></tr>
+<tr><td>&nbsp;&nbsp;200,000 8% Preference Shares @ $1</td><td>200,000</td><td>600,000</td></tr>
+<tr><td>Share Premium</td><td></td><td>50,000</td></tr>
+<tr><td>General Reserve ($30,000 + $10,000)</td><td></td><td>40,000</td></tr>
+<tr><td>Retained Earnings ($120,000 + $35,500)</td><td></td><td>155,500</td></tr>
+<tr><td><strong>Total Equity</strong></td><td></td><td><strong>845,500</strong></td></tr>
+</table>
+
+<p><strong>(c) Ratio Calculations</strong></p>
+<table class="table-data">
+<tr><th>Ratio</th><th>Formula</th><th>Calculation</th><th>Result</th></tr>
+<tr><td>Gross Profit Margin</td><td>(GP / Revenue) × 100%</td><td>(340,000 / 850,000) × 100%</td><td><strong>40.0%</strong></td></tr>
+<tr><td>Net Profit Margin</td><td>(NPAT / Revenue) × 100%</td><td>(101,500 / 850,000) × 100%</td><td><strong>11.9%</strong></td></tr>
+<tr><td>ROCE</td><td>(Operating Profit / Capital Employed) × 100%</td><td>160,000 / (845,500 + 150,000) × 100%</td><td><strong>16.1%</strong></td></tr>
+<tr><td>Current Ratio</td><td>Current Assets / Current Liabilities</td><td>225,000 / 65,000</td><td><strong>3.46:1</strong></td></tr>
+<tr><td>Acid Test</td><td>(CA − Inventory) / CL</td><td>140,000 / 65,000</td><td><strong>2.15:1</strong></td></tr>
+<tr><td>Gearing Ratio</td><td>(NCL / Capital Employed) × 100%</td><td>(150,000 / 995,500) × 100%</td><td><strong>15.1%</strong></td></tr>
+<tr><td>Interest Cover</td><td>Operating Profit / Finance Costs</td><td>160,000 / 15,000</td><td><strong>10.7 times</strong></td></tr>
+<tr><td>EPS</td><td>Net Profit / Ordinary Shares</td><td>101,500 / 400,000</td><td><strong>$0.254</strong></td></tr>
+<tr><td>Dividend Cover</td><td>Net Profit / Total Dividends</td><td>101,500 / 56,000</td><td><strong>1.81 times</strong></td></tr>
+</table>
+
+<p><strong>(d) Commentary</strong></p>
+<p><strong>Profitability:</strong> Apex Ltd demonstrates strong profitability. The gross profit margin of 40% indicates effective pricing or cost control. The net profit margin of 11.9% is healthy for most industries. ROCE of 16.1% exceeds typical cost of capital, suggesting the company generates value for shareholders. Interest cover of 10.7 times indicates very comfortable debt servicing capacity.</p>
+<p><strong>Liquidity:</strong> The company has excellent short-term liquidity. The current ratio of 3.46:1 far exceeds the benchmark of 2:1, and the acid test of 2.15:1 exceeds the 1:1 benchmark. This suggests the company may be holding excessive working capital that could be more efficiently deployed.</p>
+<p><strong>Gearing:</strong> At 15.1%, gearing is low, indicating conservative financing. While this reduces financial risk, the company might consider leveraging debt to finance growth if investment opportunities exist.</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ETC2440 — Business Analytics & Econometrics -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="unit-section" id="etc2440">
+<div class="unit-header" style="--c:var(--accent-tan);--c-dim:rgba(191,155,122,0.1);--c-weak:rgba(191,155,122,0.22)">
+<div class="unit-icon">🔬</div>
+<div>
+<div class="unit-title">ETC2440 — Business Analytics & Econometrics</div>
+<div class="unit-code">Assignment 8 | Calculus, Matrices & Financial Maths</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 1 — Differentiation & Optimization (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">A firm's total revenue and total cost functions are given by:</div>
+<div class="question-sub">
+<div class="formula-inline">
+TR = 80Q − 2Q²<br>
+TC = 20Q + 100
+</div>
+<p>Where Q is quantity in thousands of units.</p>
+<strong>Required:</strong>
+<ol type="a">
+<li>Find the marginal revenue (MR) and marginal cost (MC) functions.</li>
+<li>Determine the profit-maximizing output level and calculate the maximum profit.</li>
+<li>Verify that the second-order condition for a maximum is satisfied.</li>
+<li>Calculate the price elasticity of demand at the profit-maximizing output (hint: P = AR = TR/Q).</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Marginal Revenue and Marginal Cost</strong></p>
+<div class="formula-inline">
+MR = d(TR)/dQ = d(80Q − 2Q²)/dQ = <strong>80 − 4Q</strong><br><br>
+MC = d(TC)/dQ = d(20Q + 100)/dQ = <strong>20</strong>
+</div>
+
+<p><strong>(b) Profit-Maximizing Output</strong></p>
+<div class="formula-inline">
+Profit (π) = TR − TC = (80Q − 2Q²) − (20Q + 100) = −2Q² + 60Q − 100<br><br>
+First-order condition: dπ/dQ = 0<br>
+dπ/dQ = −4Q + 60 = 0<br>
+4Q = 60<br>
+Q* = <strong>15 thousand units</strong><br><br>
+Maximum Profit = −2(15)² + 60(15) − 100<br>
+= −2(225) + 900 − 100<br>
+= −450 + 900 − 100 = <strong>$350 thousand</strong>
+</div>
+
+<p><strong>(c) Second-Order Condition</strong></p>
+<div class="formula-inline">
+d²π/dQ² = −4<br>
+Since d²π/dQ² = −4 < 0, the second-order condition for a <strong>maximum</strong> is satisfied.
+</div>
+
+<p><strong>(d) Price Elasticity of Demand at Q = 15</strong></p>
+<div class="formula-inline">
+AR = P = TR/Q = (80Q − 2Q²)/Q = 80 − 2Q<br>
+At Q = 15: P = 80 − 2(15) = 80 − 30 = <strong>$50</strong><br><br>
+Demand function: Q = 40 − 0.5P (rearranging P = 80 − 2Q)<br>
+dQ/dP = −0.5<br><br>
+PED = (dQ/dP) × (P/Q) = (−0.5) × (50/15) = −0.5 × 3.333 = <strong>−1.67</strong><br>
+|PED| = <strong>1.67</strong>
+</div>
+<p>Demand is elastic at the profit-maximizing output, which is consistent with profit maximization occurring where MR is positive (MR = 80 − 4(15) = $20 > 0).</p>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 2 — Matrices & Systems of Equations (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">A company produces three products (X, Y, Z) using three raw materials (A, B, C). The units of each material required per unit of product are:</div>
+<div class="question-sub">
+<table class="table-data">
+<tr><th></th><th>Product X</th><th>Product Y</th><th>Product Z</th></tr>
+<tr><td>Material A</td><td>2</td><td>3</td><td>1</td></tr>
+<tr><td>Material B</td><td>1</td><td>2</td><td>3</td></tr>
+<tr><td>Material C</td><td>3</td><td>1</td><td>2</td></tr>
+</table>
+<p>The company has 50 units of A, 40 units of B, and 55 units of C available.</p>
+<strong>Required:</strong>
+<ol type="a">
+<li>Set up the system of equations in matrix form AX = B.</li>
+<li>Find the inverse of the coefficient matrix A.</li>
+<li>Use the inverse matrix to determine how many units of each product can be produced using all available materials.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Matrix Form AX = B</strong></p>
+<div class="formula-inline">
+Let x = units of X, y = units of Y, z = units of Z<br><br>
+2x + 3y + z = 50<br>
+x + 2y + 3z = 40<br>
+3x + y + 2z = 55<br><br>
+A = |2  3  1|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X = |x|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B = |50|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;|1  2  3|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|y|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|40|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;|3  1  2|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|z|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|55|
+</div>
+
+<p><strong>(b) Inverse of Matrix A</strong></p>
+<p>Step 1: Calculate the determinant of A</p>
+<div class="formula-inline">
+det(A) = 2(2×2 − 3×1) − 3(1×2 − 3×3) + 1(1×1 − 2×3)<br>
+= 2(4 − 3) − 3(2 − 9) + 1(1 − 6)<br>
+= 2(1) − 3(−7) + 1(−5)<br>
+= 2 + 21 − 5 = <strong>18</strong>
+</div>
+
+<p>Step 2: Find the matrix of cofactors</p>
+<div class="formula-inline">
+C₁₁ = +(4−3) = 1&nbsp;&nbsp;&nbsp;&nbsp;C₁₂ = −(2−9) = 7&nbsp;&nbsp;&nbsp;&nbsp;C₁₃ = +(1−6) = −5<br>
+C₂₁ = −(6−1) = −5&nbsp;&nbsp;&nbsp;C₂₂ = +(4−3) = 1&nbsp;&nbsp;&nbsp;&nbsp;C₂₃ = −(2−9) = 7<br>
+C₃₁ = +(9−2) = 7&nbsp;&nbsp;&nbsp;&nbsp;C₃₂ = −(6−1) = −5&nbsp;&nbsp;&nbsp;C₃₃ = +(4−3) = 1
+</div>
+
+<p>Step 3: Adjugate (transpose of cofactor matrix) and divide by det</p>
+<div class="formula-inline">
+A⁻¹ = (1/18) × |1  −5   7|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|7   1  −5|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|−5  7   1|
+</div>
+
+<p><strong>(c) Solve for X, Y, Z</strong></p>
+<div class="formula-inline">
+X = A⁻¹B = (1/18) × |1  −5   7| × |50|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|7   1  −5|&nbsp;&nbsp;&nbsp;&nbsp;|40|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|−5  7   1|&nbsp;&nbsp;&nbsp;&nbsp;|55|<br><br>
+x = (1/18)[1(50) + (−5)(40) + 7(55)] = (1/18)[50 − 200 + 385] = 235/18 = <strong>13.06 ≈ 13 units</strong><br><br>
+y = (1/18)[7(50) + 1(40) + (−5)(55)] = (1/18)[350 + 40 − 275] = 115/18 = <strong>6.39 ≈ 6 units</strong><br><br>
+z = (1/18)[(−5)(50) + 7(40) + 1(55)] = (1/18)[−250 + 280 + 55] = 85/18 = <strong>4.72 ≈ 5 units</strong>
+</div>
+<p><em>Note: In practice, the company might produce 13 units of X, 6 units of Y, and 5 units of Z, leaving slight unused material capacity.</em></p>
+</div>
+</div>
+</div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 3 — Financial Mathematics (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">A business is evaluating an investment project with the following cash flows:</div>
+<div class="question-sub">
+<table class="table-data">
+<tr><th>Year</th><th>Cash Flow ($)</th></tr>
+<tr><td>0</td><td>(50,000)</td></tr>
+<tr><td>1</td><td>15,000</td></tr>
+<tr><td>2</td><td>18,000</td></tr>
+<tr><td>3</td><td>20,000</td></tr>
+<tr><td>4</td><td>12,000</td></tr>
+<tr><td>5</td><td>10,000</td></tr>
+</table>
+<p>The required rate of return is 10% per annum.</p>
+<strong>Required:</strong>
+<ol type="a">
+<li>Calculate the Net Present Value (NPV) of the project.</li>
+<li>Calculate the Internal Rate of Return (IRR) approximately (to the nearest whole percent).</li>
+<li>Should the business accept the project? Justify your answer using both NPV and IRR criteria.</li>
+<li>Calculate the present value of a perpetuity that pays $5,000 per year indefinitely, starting in Year 1, at a discount rate of 8%.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Net Present Value at 10%</strong></p>
+<table class="table-data">
+<tr><th>Year</th><th>Cash Flow ($)</th><th>Discount Factor @ 10%</th><th>Present Value ($)</th></tr>
+<tr><td>0</td><td>(50,000)</td><td>1.0000</td><td>(50,000)</td></tr>
+<tr><td>1</td><td>15,000</td><td>0.9091</td><td>13,637</td></tr>
+<tr><td>2</td><td>18,000</td><td>0.8264</td><td>14,875</td></tr>
+<tr><td>3</td><td>20,000</td><td>0.7513</td><td>15,026</td></tr>
+<tr><td>4</td><td>12,000</td><td>0.6830</td><td>8,196</td></tr>
+<tr><td>5</td><td>10,000</td><td>0.6209</td><td>6,209</td></tr>
+<tr><td></td><td></td><td><strong>NPV</strong></td><td><strong>$7,943</strong></td></tr>
+</table>
+
+<p><strong>(b) Approximate IRR</strong></p>
+<p>Try r = 15%:</p>
+<table class="table-data">
+<tr><th>Year</th><th>Cash Flow ($)</th><th>DF @ 15%</th><th>PV ($)</th></tr>
+<tr><td>0</td><td>(50,000)</td><td>1.0000</td><td>(50,000)</td></tr>
+<tr><td>1</td><td>15,000</td><td>0.8696</td><td>13,044</td></tr>
+<tr><td>2</td><td>18,000</td><td>0.7561</td><td>13,610</td></tr>
+<tr><td>3</td><td>20,000</td><td>0.6575</td><td>13,150</td></tr>
+<tr><td>4</td><td>12,000</td><td>0.5718</td><td>6,862</td></tr>
+<tr><td>5</td><td>10,000</td><td>0.4972</td><td>4,972</td></tr>
+<tr><td></td><td></td><td><strong>NPV @ 15%</strong></td><td><strong>$1,638</strong></td></tr>
+</table>
+
+<p>Try r = 18%:</p>
+<div class="formula-inline">
+NPV @ 18% = −50,000 + 15,000/1.18 + 18,000/1.18² + 20,000/1.18³ + 12,000/1.18⁴ + 10,000/1.18⁵<br>
+= −50,000 + 12,712 + 12,924 + 12,170 + 6,194 + 4,371 = <strong>−$1,629</strong>
+</div>
+
+<p>Using linear interpolation:</p>
+<div class="formula-inline">
+IRR ≈ 15% + [1,638 / (1,638 + 1,629)] × (18% − 15%)<br>
+= 15% + (1,638 / 3,267) × 3%<br>
+= 15% + 1.50% = <strong>16.5% ≈ 17%</strong>
+</div>
+
+<p><strong>(c) Investment Decision</strong></p>
+<ul>
+<li><strong>NPV criterion:</strong> NPV = $7,943 > 0. The project creates value. <strong>Accept.</strong></li>
+<li><strong>IRR criterion:</strong> IRR ≈ 17% > required return of 10%. The project earns more than the cost of capital. <strong>Accept.</strong></li>
+</ul>
+<p>Both criteria agree. The project should be accepted. Note that for conventional cash flows (initial outflow followed by inflows), NPV and IRR give consistent decisions.</p>
+
+<p><strong>(d) Perpetuity Present Value</strong></p>
+<div class="formula-inline">
+PV of Perpetuity = PMT / r = $5,000 / 0.08 = <strong>$62,500</strong>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="assignment-sidebar" id="assignmentSidebar"></div>
+
+<button class="back-to-top" id="btt" onclick="window.scrollTo(0,0)">↑</button>
+
 <script>
-    // Subject switching
-    document.querySelectorAll('.subject-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const subject = this.dataset.subject;
+function initBackToTop(){
+  const btt = document.getElementById('btt');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) btt.classList.add('visible');
+    else btt.classList.remove('visible');
+  });
+}
 
-            // Update buttons
-            document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
+function initAssignmentSidebar(){
+  const sidebar = document.getElementById('assignmentSidebar');
+  if(!sidebar) return;
 
-            // Update headers
-            document.querySelectorAll('.subject-header').forEach(h => h.classList.remove('active'));
-            document.querySelector('.subject-header[data-subject="' + subject + '"]').classList.add('active');
+  const cards = document.querySelectorAll('.assignment-card');
+  if(cards.length === 0) return;
 
-            // Update Q&A lists
-            document.querySelectorAll('.qa-list').forEach(l => l.classList.remove('active'));
-            document.querySelector('.qa-list[data-subject="' + subject + '"]').classList.add('active');
+  sidebar.innerHTML = '';
+  cards.forEach((card, index) => {
+    const num = index + 1;
+    const btn = document.createElement('a');
+    btn.className = 'assignment-nav-item';
+    btn.textContent = num;
+    btn.href = '#';
+    btn.onclick = (e) => {
+      e.preventDefault();
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      card.style.boxShadow = '0 0 30px rgba(191,155,122,0.15)';
+      setTimeout(() => { card.style.boxShadow = ''; }, 1200);
+    };
+    sidebar.appendChild(btn);
+  });
 
-            // Close all open cards when switching
-            document.querySelectorAll('.qa-card.open').forEach(c => c.classList.remove('open'));
+  // Highlight active on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const idx = Array.from(cards).indexOf(entry.target);
+        document.querySelectorAll('.assignment-nav-item').forEach((item, i) => {
+          item.classList.toggle('active', i === idx);
         });
+      }
     });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+
+  cards.forEach(card => observer.observe(card));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initBackToTop();
+  initAssignmentSidebar();
+});
 </script>
 </body>
 </html>
