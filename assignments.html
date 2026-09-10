@@ -522,16 +522,31 @@ body::before{
 <div class="hero-divider"></div>
 </div>
 
+<div style="max-width:860px;margin:0 auto;padding:0 24px 20px;margin-left:300px;margin-right:100px;">
+  <label style="color:var(--text-muted);font-size:0.85rem;display:block;margin-bottom:6px;">Filter by Subject</label>
+  <select id="subjectFilter" onchange="filterSubject(this.value)" style="background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border);padding:10px 14px;border-radius:var(--radius-sm);font-size:0.95rem;width:100%;max-width:400px;cursor:pointer;">
+    <option value="all">All Subjects</option>
+    <option value="acw1120">ACW1120 — Financial Accounting 1</option>
+    <option value="bfw1001">BFW1001 — Business Foundations</option>
+    <option value="btw1042">BTW1042 — Business Law</option>
+    <option value="ecm1953">ECM1953 — Economics</option>
+    <option value="etw1001">ETW1001 — Business Statistics</option>
+    <option value="mgw1010">MGW1010 — Management</option>
+    <option value="acw2220">ACW2220 — Management Accounting</option>
+    <option value="etc2440">ETC2440 — Business Analytics</option>
+  </select>
+</div>
+
 <div class="toc">
   <h3>Jump to Subject</h3>
-  <a href="#acw1120">ACW1120 — Financial Accounting 1</a>
-  <a href="#bfw1001">BFW1001 — Business Foundations</a>
-  <a href="#btw1042">BTW1042 — Business Law</a>
-  <a href="#ecm1953">ECM1953 — Economics</a>
-  <a href="#etw1001">ETW1001 — Business Statistics</a>
-  <a href="#mgw1010">MGW1010 — Management</a>
-  <a href="#acw2220">ACW2220 — Management Accounting</a>
-  <a href="#etc2440">ETC2440 — Business Analytics</a>
+  <a href="#acw1120" onclick="filterSubject('acw1120');return false;">ACW1120 — Financial Accounting 1</a>
+  <a href="#bfw1001" onclick="filterSubject('bfw1001');return false;">BFW1001 — Business Foundations</a>
+  <a href="#btw1042" onclick="filterSubject('btw1042');return false;">BTW1042 — Business Law</a>
+  <a href="#ecm1953" onclick="filterSubject('ecm1953');return false;">ECM1953 — Economics</a>
+  <a href="#etw1001" onclick="filterSubject('etw1001');return false;">ETW1001 — Business Statistics</a>
+  <a href="#mgw1010" onclick="filterSubject('mgw1010');return false;">MGW1010 — Management</a>
+  <a href="#acw2220" onclick="filterSubject('acw2220');return false;">ACW2220 — Management Accounting</a>
+  <a href="#etc2440" onclick="filterSubject('etc2440');return false;">ETC2440 — Business Analytics</a>
 </div>
 
 <div class="content-wrap">
@@ -1900,6 +1915,73 @@ Step 6: Conclusion
 </div>
 </div>
 
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 3 — Flexible Budgeting &amp; Variance Analysis (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">Gamma Manufacturing prepared the following static budget for 10,000 units of production:</div>
+<div class="question-sub">
+<table class="table-data">
+<tr><th>Item</th><th>Budgeted Amount</th></tr>
+<tr><td>Direct Materials</td><td>$50,000</td></tr>
+<tr><td>Direct Labour</td><td>$30,000</td></tr>
+<tr><td>Variable Overhead</td><td>$20,000</td></tr>
+<tr><td>Fixed Overhead</td><td>$40,000</td></tr>
+</table>
+<p>Actual production was 12,000 units. Actual costs incurred:</p>
+<table class="table-data">
+<tr><th>Item</th><th>Actual Amount</th></tr>
+<tr><td>Direct Materials</td><td>$58,000</td></tr>
+<tr><td>Direct Labour</td><td>$34,000</td></tr>
+<tr><td>Variable Overhead</td><td>$26,000</td></tr>
+<tr><td>Fixed Overhead</td><td>$42,000</td></tr>
+</table>
+<strong>Required:</strong>
+<ol type="a">
+<li>Prepare a flexible budget for 12,000 units.</li>
+<li>Calculate the flexible budget variance for each cost item.</li>
+<li>Determine whether each variance is favourable or unfavourable and provide a brief explanation.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Flexible Budget for 12,000 Units</strong></p>
+<p>First, calculate variable cost per unit from the static budget:</p>
+<table class="table-data">
+<tr><th>Item</th><th>Per Unit</th><th>Flexible Budget (12,000 units)</th></tr>
+<tr><td>Direct Materials</td><td>$50,000 / 10,000 = $5.00</td><td>$5.00 × 12,000 = $60,000</td></tr>
+<tr><td>Direct Labour</td><td>$30,000 / 10,000 = $3.00</td><td>$3.00 × 12,000 = $36,000</td></tr>
+<tr><td>Variable Overhead</td><td>$20,000 / 10,000 = $2.00</td><td>$2.00 × 12,000 = $24,000</td></tr>
+<tr><td>Fixed Overhead</td><td>Remains constant</td><td>$40,000</td></tr>
+<tr><td><strong>Total</strong></td><td></td><td><strong>$160,000</strong></td></tr>
+</table>
+
+<p><strong>(b) Flexible Budget Variances</strong></p>
+<table class="table-data">
+<tr><th>Item</th><th>Flexible Budget</th><th>Actual</th><th>Variance</th></tr>
+<tr><td>Direct Materials</td><td>$60,000</td><td>$58,000</td><td>$2,000 F</td></tr>
+<tr><td>Direct Labour</td><td>$36,000</td><td>$34,000</td><td>$2,000 F</td></tr>
+<tr><td>Variable Overhead</td><td>$24,000</td><td>$26,000</td><td>$2,000 U</td></tr>
+<tr><td>Fixed Overhead</td><td>$40,000</td><td>$42,000</td><td>$2,000 U</td></tr>
+</table>
+
+<p><strong>(c) Interpretation</strong></p>
+<ul>
+<li><strong>Direct Materials ($2,000 F):</strong> Favourable. Materials were purchased at lower prices or used more efficiently than standard. Possible reasons: bulk purchase discounts, less waste, or substitution of cheaper inputs.</li>
+<li><strong>Direct Labour ($2,000 F):</strong> Favourable. Workers were more efficient than budgeted, possibly due to experience curve effects, better training, or motivation from higher production volumes.</li>
+<li><strong>Variable Overhead ($2,000 U):</strong> Unfavourable. Overhead costs were higher per unit than expected. Could indicate increased utility costs, more machine maintenance due to higher output, or inefficiencies in support activities.</li>
+<li><strong>Fixed Overhead ($2,000 U):</strong> Unfavourable. Fixed costs exceeded the budget, suggesting unexpected expenditures such as equipment repairs, rent increases, or additional supervisory staff hired to manage higher output.</li>
+</ul>
+</div>
+</div>
+</div>
+
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -2137,7 +2219,84 @@ IRR ≈ 15% + [1,638 / (1,638 + 1,629)] × (18% − 15%)<br>
 PV of Perpetuity = PMT / r = $5,000 / 0.08 = <strong>$62,500</strong>
 </div>
 </div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 5 — Multiple Regression Interpretation (Theory &amp; Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+<span class="assignment-tag theory">Theory</span>
 </div>
+</div>
+<div class="question">
+<div class="question-text">A researcher estimates the following multiple regression model to explain house prices (in $000s):</div>
+<div class="question-sub">
+<div class="formula-inline">
+Price = 50 + 120(Size) + 15(Age) − 8(Distance) + ε
+</div>
+<p>Where:</p>
+<ul>
+<li><strong>Size</strong> = floor area in hundreds of square metres</li>
+<li><strong>Age</strong> = age of house in years</li>
+<li><strong>Distance</strong> = distance from CBD in km</li>
+</ul>
+<p>Standard errors are in parentheses: SE(Size) = 20, SE(Age) = 5, SE(Distance) = 3. The sample size is n = 150 and R² = 0.72.</p>
+<strong>Required:</strong>
+<ol type="a">
+<li>Interpret each coefficient in the context of the model.</li>
+<li>Calculate the t-statistic for each coefficient and test whether each is statistically significant at the 5% level (two-tailed). The critical t-value is approximately 1.96.</li>
+<li>Calculate the adjusted R² given that the standard error of regression is 18.5.</li>
+<li>A house has Size = 2.5, Age = 10, and Distance = 5. Predict its price and construct a 95% prediction interval.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Coefficient Interpretation</strong></p>
+<ul>
+<li><strong>Intercept (50):</strong> A house with zero size, zero age, and zero distance from CBD is predicted to cost $50,000. This is largely a mechanical baseline with limited practical meaning.</li>
+<li><strong>Size (120):</strong> Holding age and distance constant, each additional 100 square metres of floor area is associated with a <strong>$120,000 increase</strong> in house price.</li>
+<li><strong>Age (15):</strong> Holding size and distance constant, each additional year of age is associated with a <strong>$15,000 increase</strong> in price. This unexpected positive sign may reflect heritage value or construction quality in older homes.</li>
+<li><strong>Distance (−8):</strong> Holding size and age constant, each additional kilometre from the CBD is associated with a <strong>$8,000 decrease</strong> in price, reflecting the premium for central location.</li>
+</ul>
+
+<p><strong>(b) t-statistics &amp; Significance Tests</strong></p>
+<table class="table-data">
+<tr><th>Variable</th><th>Coefficient</th><th>SE</th><th>t = b/SE</th><th>Significant?</th></tr>
+<tr><td>Size</td><td>120</td><td>20</td><td>6.00</td><td>Yes (|6.00| > 1.96)</td></tr>
+<tr><td>Age</td><td>15</td><td>5</td><td>3.00</td><td>Yes (|3.00| > 1.96)</td></tr>
+<tr><td>Distance</td><td>−8</td><td>3</td><td>−2.67</td><td>Yes (|−2.67| > 1.96)</td></tr>
+</table>
+<p>All three explanatory variables are statistically significant at the 5% level.</p>
+
+<p><strong>(c) Adjusted R²</strong></p>
+<div class="formula-inline">
+Adjusted R² = 1 − [(1 − R²)(n − 1) / (n − k − 1)]<br>
+= 1 − [(1 − 0.72)(149) / (150 − 3 − 1)]<br>
+= 1 − [(0.28 × 149) / 146]<br>
+= 1 − (41.72 / 146)<br>
+= 1 − 0.2858 = <strong>0.714 or 71.4%</strong>
+</div>
+<p>The adjusted R² is very close to R², indicating that the added variables contribute meaningfully to the model.</p>
+
+<p><strong>(d) Prediction &amp; Interval</strong></p>
+<div class="formula-inline">
+Predicted Price = 50 + 120(2.5) + 15(10) − 8(5)<br>
+= 50 + 300 + 150 − 40 = <strong>$460,000</strong>
+</div>
+<p>For a 95% prediction interval (approximate):</p>
+<div class="formula-inline">
+PI = Predicted Value ± t<sub>crit</sub> × SER × √(1 + 1/n)<br>
+= 460 ± 1.96 × 18.5 × √(1 + 1/150)<br>
+= 460 ± 1.96 × 18.5 × 1.003<br>
+= 460 ± 36.4
+</div>
+<p><strong>95% Prediction Interval: $423,600 to $496,400</strong></p>
+</div>
+</div>
+</div>
+
 </div>
 
 </div>
@@ -2157,15 +2316,40 @@ function initBackToTop(){
   });
 }
 
+let currentSubjectFilter = 'all';
+let sidebarObserver = null;
+
+function filterSubject(subjectId){
+  currentSubjectFilter = subjectId;
+  document.getElementById('subjectFilter').value = subjectId;
+
+  const sections = document.querySelectorAll('.unit-section');
+  sections.forEach(sec => {
+    if(subjectId === 'all' || sec.id === subjectId){
+      sec.style.display = '';
+    } else {
+      sec.style.display = 'none';
+    }
+  });
+
+  initAssignmentSidebar();
+
+  if(subjectId !== 'all'){
+    const visibleSection = document.querySelector('.unit-section:not([style*="display: none"])');
+    if(visibleSection) visibleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
 function initAssignmentSidebar(){
   const sidebar = document.getElementById('assignmentSidebar');
   if(!sidebar) return;
 
-  const cards = document.querySelectorAll('.assignment-card');
-  if(cards.length === 0) return;
+  // Only count cards in visible sections
+  const visibleCards = Array.from(document.querySelectorAll('.unit-section:not([style*="display: none"]) .assignment-card'));
+  if(visibleCards.length === 0) return;
 
   sidebar.innerHTML = '';
-  cards.forEach((card, index) => {
+  visibleCards.forEach((card, index) => {
     const num = index + 1;
     const btn = document.createElement('a');
     btn.className = 'assignment-nav-item';
@@ -2180,11 +2364,14 @@ function initAssignmentSidebar(){
     sidebar.appendChild(btn);
   });
 
+  // Disconnect old observer
+  if(sidebarObserver) sidebarObserver.disconnect();
+
   // Highlight active on scroll
-  const observer = new IntersectionObserver((entries) => {
+  sidebarObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
-        const idx = Array.from(cards).indexOf(entry.target);
+        const idx = visibleCards.indexOf(entry.target);
         document.querySelectorAll('.assignment-nav-item').forEach((item, i) => {
           item.classList.toggle('active', i === idx);
         });
@@ -2192,7 +2379,7 @@ function initAssignmentSidebar(){
     });
   }, { rootMargin: '-20% 0px -60% 0px' });
 
-  cards.forEach(card => observer.observe(card));
+  visibleCards.forEach(card => sidebarObserver.observe(card));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
