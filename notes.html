@@ -478,6 +478,30 @@ body::before{
   max-height:none;
   overflow:visible;
   opacity:1;
+  transition:all .35s ease;
+}
+.collapsible-header.open + .collapsible-content,
+.collapsible-content.open{
+  max-height:none;
+  overflow:visible;
+  opacity:1;
+}
+.collapsible-header:not(.open) + .collapsible-content{
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  margin-bottom:0;
+  padding-top:0;
+  padding-bottom:0;
+}
+.collapsible-header .chevron{
+  display:inline-block;
+  transition:transform .3s ease;
+  margin-right:8px;
+  font-size:0.8rem;
+}
+.collapsible-header.open .chevron{
+  transform:rotate(-90deg);
 }
 
 /* ═══ CARDS ═══ */
@@ -1110,6 +1134,122 @@ h4{
 ::-webkit-scrollbar-thumb:hover{background:var(--accent-rust)}
 
 ::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
+
+/* ═══ COPY BUTTON ON FORMULAS ═══ */
+.copy-btn{
+  position:absolute;
+  top:8px;
+  right:8px;
+  padding:4px 10px;
+  font-size:0.68rem;
+  background:var(--bg-elevated);
+  border:1px solid var(--border);
+  border-radius:6px;
+  color:var(--text-muted);
+  cursor:pointer;
+  opacity:0;
+  transition:all .2s ease;
+  font-family:var(--font-sans);
+  font-weight:500;
+}
+.formula:hover .copy-btn,.def:hover .copy-btn,.trap:hover .copy-btn,.tip:hover .copy-btn{opacity:1}
+.copy-btn:hover{background:var(--accent-rust);color:var(--text-primary);border-color:var(--accent-rust)}
+.copy-btn.copied{background:var(--accent-olive);border-color:var(--accent-olive);color:var(--text-primary)}
+
+/* ═══ FOCUS MODE ═══ */
+body.focus-mode .header,
+body.focus-mode .toc,
+body.focus-mode .hero,
+body.focus-mode .search-wrap,
+body.focus-mode .unit-progress,
+body.focus-mode .back-to-top,
+body.focus-mode .navbar{
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .4s ease;
+}
+body.focus-mode .content-wrap{
+  max-width:720px;
+  margin:40px auto;
+  padding:0 24px;
+  transition:all .4s ease;
+}
+body.focus-mode .unit-section{
+  margin-bottom:48px;
+}
+#focusToggle{
+  position:fixed;
+  bottom:28px;
+  right:80px;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  color:var(--text-secondary);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:all .3s ease;
+  z-index:1000;
+  font-size:1rem;
+  backdrop-filter:blur(12px);
+}
+#focusToggle:hover{
+  background:var(--accent-tan);
+  color:var(--bg-primary);
+  border-color:var(--accent-tan);
+}
+
+/* ═══ KEYBOARD HINT ═══ */
+.kbd-hint{
+  position:fixed;
+  bottom:28px;
+  left:28px;
+  padding:8px 14px;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  font-size:0.72rem;
+  color:var(--text-faint);
+  z-index:1000;
+  opacity:0;
+  transition:opacity .3s ease;
+  pointer-events:none;
+  font-family:var(--font-mono);
+}
+.kbd-hint.visible{opacity:1}
+.kbd-hint kbd{
+  background:var(--bg-elevated);
+  padding:2px 6px;
+  border-radius:4px;
+  border:1px solid var(--border);
+  font-size:0.7rem;
+  color:var(--text-muted);
+}
+
+/* ═══ PRINT STYLES ═══ */
+@media print{
+  body::before{display:none}
+  .header,.toc,.search-wrap,.hero-divider,.back-to-top,#focusToggle,.kbd-hint,#readProgress,.unit-progress{display:none!important}
+  .hero{padding:20px 0 10px}
+  .hero h1{font-size:1.8rem}
+  .content-wrap{margin:0 auto!important;max-width:100%!important;padding:0 16px}
+  .unit-section{margin-bottom:40px;page-break-inside:avoid}
+  .unit-header{page-break-inside:avoid;background:transparent;border:1px solid #ddd;padding:16px}
+  .card,.def,.trap,.tip,.formula{page-break-inside:avoid;border-left-width:3px!important}
+  .mcq{page-break-inside:avoid}
+  body{background:#fff;color:#222;font-size:11pt;line-height:1.5}
+  h2,h3,h4{color:#333!important}
+  .unit-title{color:#222!important}
+  .card-title,.def-term{color:#555!important}
+  table{font-size:10pt}
+  th{background:#f5f5f5}
+  a{color:#333;text-decoration:none}
+  .collapsible-content{max-height:none!important;opacity:1!important}
+  .chevron{display:none}
+}
 </style>
 <script>
 
@@ -1121,6 +1261,12 @@ h4{
 </script>
 </head>
 <body>
+<!-- ═══ READING PROGRESS BAR ═══ -->
+<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent-rust),var(--accent-tan));width:0%;z-index:9999;transition:width 0.1s linear;"></div>
+
+<!-- ═══ FOCUS MODE OVERLAY ═══ -->
+<div id="focusModeOverlay" style="display:none;position:fixed;inset:0;background:var(--bg-primary);z-index:9998;"></div>
+
 <header class="header">
 <div style="display:flex;align-items:center;gap:16px">
 <div class="logo">
@@ -1139,7 +1285,6 @@ h4{
                 <a href="study.html"><i class="fas fa-book"></i> Study</a>
                 <a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a>
                 <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
-                <a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a>
             </nav>
             <div class="user-profile">
                 <span style="color: #8C5B3E; font-size: 0.9rem;">Bachelor of Science</span>
@@ -1736,36 +1881,27 @@ h4{
 <li>Bank charges not in cash book: $150</li>
 <li>Standing order not in cash book: $200</li>
 <li>Uncredited deposit: $1,000</li>
-<li>Unpresented cheques: $1,550</li>
+<li>Unpresented cheques: $650</li>
 </ul>
-<p><strong>Updated Cash Book (Debit side):</strong></p>
-<ul>
-<li>Bank charges: $150</li>
-<li>Standing order: $200</li>
-<li>Updated overdraft: $1,800 + $150 + $200 = $2,150</li>
-</ul>
-<p><strong>Bank Reconciliation:</strong></p>
-<ul>
-<li>Balance per bank statement (overdraft): $2,500</li>
-<li>Add: Uncredited deposit: $1,000</li>
-<li>Less: Unpresented cheques: $1,550</li>
-<li>Balance per cash book (overdraft): $2,150 - $1,000 + $1,550 = $2,150? No, let me correct</li>
-</ul>
-<p><strong>Correct reconciliation:</strong></p>
-<ul>
-<li>Balance per bank statement (overdraft): ($2,500)</li>
-<li>Add: Uncredited deposit: $1,000</li>
-<li>Less: Unpresented cheques: ($1,550)</li>
-<li>= Balance per updated cash book (overdraft): ($2,500) + $1,000 - $1,550 = ($2,050)?</li>
-</ul>
-<p>Wait, let me recalculate. Updated cash book overdraft should equal reconciled balance.</p>
-<p>Updated cash book: $1,800 + $150 + $200 = $2,150 overdraft</p>
-<p>Reconciliation: ($2,500) + $1,000 - $1,550 = ($3,050)? That does not match.</p>
-<p>Let me re-examine. If bank statement shows overdraft of $2,500, and we add uncredited deposits and subtract unpresented cheques:</p>
-<p>($2,500) + $1,000 = ($1,500). Then ($1,500) - $1,550 = ($3,050)?</p>
-<p>This suggests an error in the example data. Let me adjust: unpresented cheques = $550 instead.</p>
-<p>($2,500) + $1,000 = ($1,500). ($1,500) - $550 = ($2,050)? Still not matching.</p>
-<p>Correct approach: Start with updated cash book balance and work backwards, or adjust the numbers to reconcile.</p>
+<p><strong>Step 1 — Update the Cash Book:</strong></p>
+<table>
+<tr><th></th><th>$</th><th></th><th>$</th></tr>
+<tr><td>Bank charges</td><td>150</td><td>Balance b/d (overdraft)</td><td>1,800</td></tr>
+<tr><td>Standing order</td><td>200</td><td></td><td></td></tr>
+<tr><td>Balance c/d (overdraft)</td><td>2,150</td><td></td><td></td></tr>
+<tr><td></td><td><strong>2,500</strong></td><td></td><td><strong>1,800</strong></td></tr>
+</table>
+<p><em>Wait — the totals don't balance because we only show the debit side. The correct updated cash book overdraft is:</em></p>
+<p><strong>Updated overdraft = $1,800 + $150 + $200 = $2,150</strong></p>
+
+<p><strong>Step 2 — Bank Reconciliation Statement:</strong></p>
+<table>
+<tr><td>Balance per bank statement (overdraft)</td><td>($2,500)</td></tr>
+<tr><td><em>Add:</em> Uncredited deposit</td><td>$1,000</td></tr>
+<tr><td><em>Less:</em> Unpresented cheques</td><td>($650)</td></tr>
+<tr><td><strong>Balance per updated cash book (overdraft)</strong></td><td><strong>($2,150)</strong> ✓</td></tr>
+</table>
+<p><em>Check: $2,500 − $1,000 + $650 = $2,150. Reconciled!</em></p>
 </div>
 
 <div class="trap"><div class="trap-label">⚠ Exam Tip</div>
@@ -6027,6 +6163,8 @@ h4{
 </div>
 
 <button class="back-to-top" id="btt" onclick="window.scrollTo(0,0)">↑</button>
+<button id="focusToggle" title="Focus mode (F)">🎯</button>
+<div class="kbd-hint" id="kbdHint"><kbd>Ctrl</kbd>+<kbd>K</kbd> search &nbsp; <kbd>/</kbd> search &nbsp; <kbd>Esc</kbd> clear &nbsp; <kbd>F</kbd> focus</div>
 
 <script>
 const NOTES_CONFIG = {
@@ -6588,11 +6726,137 @@ function initBackToTop() {
   });
 }
 
+/* ═══ READING PROGRESS BAR ═══ */
+function initProgressBar() {
+  const bar = document.getElementById('readProgress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+  });
+}
+
+/* ═══ COPY BUTTONS ON FORMULAS / DEFS / TIPS / TRAPS ═══ */
+function initCopyButtons() {
+  document.querySelectorAll('.formula, .def, .trap, .tip').forEach(el => {
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const text = el.innerText.replace(/^Copy\n?/, '').trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+      });
+    });
+    el.style.position = 'relative';
+    el.appendChild(btn);
+  });
+}
+
+/* ═══ FOCUS MODE ═══ */
+let focusMode = false;
+function initFocusMode() {
+  const btn = document.getElementById('focusToggle');
+  const overlay = document.getElementById('focusModeOverlay');
+  btn.addEventListener('click', () => {
+    focusMode = !focusMode;
+    document.body.classList.toggle('focus-mode', focusMode);
+    btn.textContent = focusMode ? '✕' : '🎯';
+    btn.title = focusMode ? 'Exit focus mode (F)' : 'Focus mode (F)';
+  });
+}
+
+/* ═══ KEYBOARD SHORTCUTS ═══ */
+function initKeyboardShortcuts() {
+  const input = document.getElementById('searchInput');
+  const hint = document.getElementById('kbdHint');
+
+  // Show hint briefly on first load
+  setTimeout(() => hint.classList.add('visible'), 800);
+  setTimeout(() => hint.classList.remove('visible'), 6000);
+
+  document.addEventListener('keydown', (e) => {
+    // Ctrl+K or / → focus search
+    if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement !== input)) {
+      e.preventDefault();
+      input.focus();
+      input.select();
+    }
+    // Esc → clear search or blur
+    if (e.key === 'Escape') {
+      if (document.activeElement === input) {
+        input.value = '';
+        input.blur();
+        // Trigger search clear
+        input.dispatchEvent(new Event('input'));
+      }
+      if (focusMode) {
+        document.getElementById('focusToggle').click();
+      }
+    }
+    // F → toggle focus mode
+    if (e.key === 'f' && document.activeElement !== input) {
+      document.getElementById('focusToggle').click();
+    }
+  });
+}
+
+/* ═══ TOC SCROLL SPY ═══ */
+function initTOCSpy() {
+  const sections = document.querySelectorAll('.unit-section');
+  const tocLinks = document.querySelectorAll('.toc a[data-subject]');
+  if (!sections.length || !tocLinks.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        tocLinks.forEach(link => {
+          link.classList.toggle('active', link.dataset.subject === id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+
+  sections.forEach(sec => observer.observe(sec));
+}
+
+/* ═══ COLLAPSIBLE SECTIONS ═══ */
+function initCollapsible() {
+  document.querySelectorAll('.collapsible-header').forEach(h => {
+    h.style.cursor = 'pointer';
+    // Add chevron if not present
+    if (!h.querySelector('.chevron')) {
+      const chevron = document.createElement('span');
+      chevron.className = 'chevron';
+      chevron.textContent = '▾';
+      h.prepend(chevron);
+    }
+    h.addEventListener('click', () => {
+      h.classList.toggle('open');
+      const content = h.nextElementSibling;
+      if (content) content.classList.toggle('open');
+      const chevron = h.querySelector('.chevron');
+      if (chevron) chevron.style.transform = h.classList.contains('open') ? 'rotate(-90deg)' : 'rotate(0deg)';
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderProgress();
   initSubjectBar();
   initSearch();
   initBackToTop();
+  initProgressBar();
+  initCopyButtons();
+  initFocusMode();
+  initKeyboardShortcuts();
+  initTOCSpy();
+  initCollapsible();
 
   Object.keys(NOTES_CONFIG.definitions).forEach(unit => {
     renderFlipCards(unit, NOTES_CONFIG.definitions[unit]);
