@@ -195,56 +195,7 @@ body::before{
   margin:0 auto;
   padding:0 24px 100px;
   margin-left:300px;
-  margin-right:100px;
-}
-
-/* Right sidebar for assignment navigation */
-.assignment-sidebar{
-  position:fixed;
-  top:140px;
-  right:24px;
-  width:64px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  z-index:50;
-  max-height:calc(100vh - 180px);
-  overflow-y:auto;
-  padding-right:4px;
-}
-.assignment-sidebar::-webkit-scrollbar{width:4px}
-.assignment-sidebar::-webkit-scrollbar-thumb{background:rgba(191,155,122,0.2);border-radius:4px}
-.assignment-nav-item{
-  width:48px;
-  height:48px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:10px;
-  font-size:0.85rem;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.2s ease;
-  border:1px solid rgba(191,155,122,0.15);
-  background:rgba(35,26,20,0.9);
-  color:#BF9B7A;
-  text-decoration:none;
-  backdrop-filter:blur(10px);
-}
-.assignment-nav-item:hover{
-  background:rgba(191,155,122,0.15);
-  border-color:rgba(191,155,122,0.4);
-  transform:scale(1.08);
-}
-.assignment-nav-item.active{
-  background:rgba(191,155,122,0.25);
-  border-color:#BF9B7A;
-  color:#F2E6D8;
-  box-shadow:0 0 12px rgba(191,155,122,0.15);
-}
-@media(max-width:1200px){
-  .assignment-sidebar{display:none}
-  .content-wrap{margin-right:32px}
+  margin-right:32px;
 }
 
 .unit-section{margin-bottom:80px}
@@ -308,6 +259,74 @@ body::before{
 .assignment-card:hover{
   border-color:var(--border-light);
   box-shadow:var(--shadow-card);
+}
+
+/* Right sidebar */
+.assignment-sidebar{
+  position:fixed;
+  top:140px;
+  right:24px;
+  width:64px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  z-index:100;
+  max-height:calc(100vh - 180px);
+  overflow-y:auto;
+  padding:8px;
+  background:rgba(28,21,16,0.95);
+  border:1px solid rgba(191,155,122,0.15);
+  border-radius:12px;
+  backdrop-filter:blur(10px);
+}
+.assignment-sidebar::-webkit-scrollbar{width:4px}
+.assignment-sidebar::-webkit-scrollbar-thumb{background:rgba(191,155,122,0.2);border-radius:4px}
+.assignment-nav-item{
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  font-size:0.85rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  border:1px solid rgba(191,155,122,0.15);
+  background:rgba(35,26,20,0.9);
+  color:#BF9B7A;
+  text-decoration:none;
+  backdrop-filter:blur(10px);
+}
+.assignment-nav-item:hover{
+  background:rgba(191,155,122,0.15);
+  border-color:rgba(191,155,122,0.4);
+  transform:scale(1.08);
+}
+.assignment-nav-item.active{
+  background:rgba(191,155,122,0.25);
+  border-color:#BF9B7A;
+  color:#F2E6D8;
+  box-shadow:0 0 12px rgba(191,155,122,0.15);
+}
+.assignment-nav-item.subject-label{
+  width:48px;
+  height:auto;
+  padding:4px 2px;
+  font-size:0.65rem;
+  color:var(--text-muted);
+  border:none;
+  background:transparent;
+  cursor:default;
+  text-align:center;
+  line-height:1.2;
+}
+.assignment-nav-item.subject-label:hover{
+  transform:none;
+  background:transparent;
+}
+@media(max-width:1200px){
+  .assignment-sidebar{display:none}
 }
 .assignment-header{
   display:flex;
@@ -522,31 +541,17 @@ body::before{
 <div class="hero-divider"></div>
 </div>
 
-<div style="max-width:860px;margin:0 auto;padding:0 24px 20px;margin-left:300px;margin-right:100px;">
-  <label style="color:var(--text-muted);font-size:0.85rem;display:block;margin-bottom:6px;">Filter by Subject</label>
-  <select id="subjectFilter" onchange="filterSubject(this.value)" style="background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border);padding:10px 14px;border-radius:var(--radius-sm);font-size:0.95rem;width:100%;max-width:400px;cursor:pointer;">
-    <option value="all">All Subjects</option>
-    <option value="acw1120">ACW1120 — Financial Accounting 1</option>
-    <option value="bfw1001">BFW1001 — Business Foundations</option>
-    <option value="btw1042">BTW1042 — Business Law</option>
-    <option value="ecm1953">ECM1953 — Economics</option>
-    <option value="etw1001">ETW1001 — Business Statistics</option>
-    <option value="mgw1010">MGW1010 — Management</option>
-    <option value="acw2220">ACW2220 — Management Accounting</option>
-    <option value="etc2440">ETC2440 — Business Analytics</option>
-  </select>
-</div>
-
 <div class="toc">
   <h3>Jump to Subject</h3>
-  <a href="#acw1120" onclick="filterSubject('acw1120');return false;">ACW1120 — Financial Accounting 1</a>
-  <a href="#bfw1001" onclick="filterSubject('bfw1001');return false;">BFW1001 — Business Foundations</a>
-  <a href="#btw1042" onclick="filterSubject('btw1042');return false;">BTW1042 — Business Law</a>
-  <a href="#ecm1953" onclick="filterSubject('ecm1953');return false;">ECM1953 — Economics</a>
-  <a href="#etw1001" onclick="filterSubject('etw1001');return false;">ETW1001 — Business Statistics</a>
-  <a href="#mgw1010" onclick="filterSubject('mgw1010');return false;">MGW1010 — Management</a>
-  <a href="#acw2220" onclick="filterSubject('acw2220');return false;">ACW2220 — Management Accounting</a>
-  <a href="#etc2440" onclick="filterSubject('etc2440');return false;">ETC2440 — Business Analytics</a>
+  <a href="#acw1120" onclick="showSubject('acw1120');return false;">ACW1120 — Financial Accounting 1</a>
+  <a href="#bfw1001" onclick="showSubject('bfw1001');return false;">BFW1001 — Business Foundations</a>
+  <a href="#btw1042" onclick="showSubject('btw1042');return false;">BTW1042 — Business Law</a>
+  <a href="#ecm1953" onclick="showSubject('ecm1953');return false;">ECM1953 — Economics</a>
+  <a href="#etw1001" onclick="showSubject('etw1001');return false;">ETW1001 — Business Statistics</a>
+  <a href="#mgw1010" onclick="showSubject('mgw1010');return false;">MGW1010 — Management</a>
+  <a href="#acw2220" onclick="showSubject('acw2220');return false;">ACW2220 — Management Accounting</a>
+  <a href="#etc2440" onclick="showSubject('etc2440');return false;">ETC2440 — Business Analytics</a>
+  <a href="#" onclick="showSubject('all');return false;" style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;color:var(--accent-tan)"><i class="fas fa-list"></i> Show All Subjects</a>
 </div>
 
 <div class="content-wrap">
@@ -865,6 +870,80 @@ Cr Allowance for Doubtful Debts $110</li>
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- BFW1001 — Business Foundations -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 5 — Statement of Cash Flows (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">The following information relates to Delta Ltd for the year ended 30 June 2026:</div>
+<div class="question-sub">
+<table class="table-data">
+<tr><th>Item</th><th>2026 ($)</th><th>2025 ($)</th></tr>
+<tr><td>Property, Plant & Equipment (net)</td><td>450,000</td><td>380,000</td></tr>
+<tr><td>Inventory</td><td>85,000</td><td>62,000</td></tr>
+<tr><td>Accounts Receivable</td><td>48,000</td><td>55,000</td></tr>
+<tr><td>Accounts Payable</td><td>38,000</td><td>42,000</td></tr>
+<tr><td>Accrued Expenses</td><td>12,000</td><td>8,000</td></tr>
+</table>
+<p>Additional information:</p>
+<ul>
+<li>Net profit for the year: $95,000</li>
+<li>Depreciation charged: $45,000</li>
+<li>Equipment purchased for cash: $120,000</li>
+<li>Equipment sold (carrying amount $15,000) for $18,000 cash</li>
+<li>Dividends paid: $25,000</li>
+<li>Shares issued for cash: $50,000</li>
+</ul>
+<strong>Required:</strong> Prepare the Statement of Cash Flows for the year ended 30 June 2026 using the indirect method.
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>Delta Ltd — Statement of Cash Flows (Indirect Method)</strong></p>
+<p><strong>For the year ended 30 June 2026</strong></p>
+
+<table class="table-data">
+<tr><td><strong>Cash flows from operating activities</strong></td><td></td><td></td></tr>
+<tr><td>Net profit before tax</td><td></td><td>95,000</td></tr>
+<tr><td>Adjustments for:</td><td></td><td></td></tr>
+<tr><td>&nbsp;&nbsp;Depreciation</td><td></td><td>45,000</td></tr>
+<tr><td>&nbsp;&nbsp;Profit on sale of equipment</td><td></td><td>(3,000)</td></tr>
+<tr><td>Operating profit before working capital changes</td><td></td><td>137,000</td></tr>
+<tr><td>Increase in inventory</td><td></td><td>(23,000)</td></tr>
+<tr><td>Decrease in accounts receivable</td><td></td><td>7,000</td></tr>
+<tr><td>Decrease in accounts payable</td><td></td><td>(4,000)</td></tr>
+<tr><td>Increase in accrued expenses</td><td></td><td>4,000</td></tr>
+<tr><td><strong>Cash generated from operations</strong></td><td></td><td><strong>121,000</strong></td></tr>
+<tr><td><strong>Net cash from operating activities</strong></td><td></td><td><strong>121,000</strong></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td><strong>Cash flows from investing activities</strong></td><td></td><td></td></tr>
+<tr><td>Purchase of equipment</td><td></td><td>(120,000)</td></tr>
+<tr><td>Proceeds from sale of equipment</td><td></td><td>18,000</td></tr>
+<tr><td><strong>Net cash used in investing activities</strong></td><td></td><td><strong>(102,000)</strong></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td><strong>Cash flows from financing activities</strong></td><td></td><td></td></tr>
+<tr><td>Proceeds from issue of shares</td><td></td><td>50,000</td></tr>
+<tr><td>Dividends paid</td><td></td><td>(25,000)</td></tr>
+<tr><td><strong>Net cash from financing activities</strong></td><td></td><td><strong>25,000</strong></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td><strong>Net increase in cash and cash equivalents</strong></td><td></td><td><strong>44,000</strong></td></tr>
+<tr><td>Cash and cash equivalents at beginning</td><td></td><td>32,000</td></tr>
+<tr><td><strong>Cash and cash equivalents at end</strong></td><td></td><td><strong>76,000</strong></td></tr>
+</table>
+
+<p><strong>Working Notes:</strong></p>
+<ul>
+<li><strong>Profit on sale:</strong> $18,000 − $15,000 = $3,000 (deducted as it is a non-operating gain included in net profit)</li>
+<li><strong>PPE movement:</strong> $380,000 + $120,000 − $15,000 − $45,000 = $440,000. The difference of $10,000 may indicate revaluation or errors requiring disclosure.</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="unit-section" id="bfw1001">
 <div class="unit-header" style="--c:var(--accent-olive);--c-dim:rgba(85,89,52,0.12);--c-weak:rgba(85,89,52,0.25)">
 <div class="unit-icon">🏢</div>
@@ -1054,6 +1133,129 @@ Margin of Safety (%) = (1,000 / 3,000) × 100% = <strong>33.33%</strong>
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- BTW1042 — Business Law -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 4 — Working Capital Management (Calculation &amp; Theory)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+<span class="assignment-tag theory">Theory</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">Omega Traders has the following financial data for 2026:</div>
+<div class="question-sub">
+<table class="table-data">
+<tr><th>Item</th><th>Amount ($)</th></tr>
+<tr><td>Annual credit sales</td><td>1,200,000</td></tr>
+<tr><td>Cost of sales</td><td>720,000</td></tr>
+<tr><td>Average inventory</td><td>120,000</td></tr>
+<tr><td>Average accounts receivable</td><td>100,000</td></tr>
+<tr><td>Average accounts payable</td><td>80,000</td></tr>
+</table>
+<p>The company operates 365 days per year.</p>
+<strong>Required:</strong>
+<ol type="a">
+<li>Calculate the inventory holding period, receivables collection period, and payables payment period.</li>
+<li>Calculate the cash operating cycle (working capital cycle) in days.</li>
+<li>Explain the significance of the cash operating cycle for business liquidity.</li>
+<li>Discuss two strategies Omega Traders could use to reduce its cash operating cycle.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Working Capital Periods</strong></p>
+<table class="table-data">
+<tr><th>Ratio</th><th>Formula</th><th>Calculation</th><th>Days</th></tr>
+<tr><td>Inventory Holding Period</td><td>(Average Inventory / COS) × 365</td><td>($120,000 / $720,000) × 365</td><td>60.8 ≈ 61 days</td></tr>
+<tr><td>Receivables Collection Period</td><td>(Average AR / Credit Sales) × 365</td><td>($100,000 / $1,200,000) × 365</td><td>30.4 ≈ 30 days</td></tr>
+<tr><td>Payables Payment Period</td><td>(Average AP / COS) × 365</td><td>($80,000 / $720,000) × 365</td><td>40.6 ≈ 41 days</td></tr>
+</table>
+
+<p><strong>(b) Cash Operating Cycle</strong></p>
+<div class="formula-inline">
+Cash Operating Cycle = Inventory Period + Receivables Period − Payables Period<br>
+= 61 + 30 − 41 = <strong>50 days</strong>
+</div>
+
+<p><strong>(c) Significance</strong></p>
+<p>The cash operating cycle measures the time between paying suppliers and receiving cash from customers. A <strong>50-day cycle</strong> means Omega Traders must finance its operations for 50 days using internal funds or external financing. The longer the cycle, the more working capital is tied up and the greater the financing costs. A shorter cycle improves liquidity, reduces interest costs, and frees up cash for investment or debt repayment.</p>
+
+<p><strong>(d) Strategies to Reduce the Cycle</strong></p>
+<ul>
+<li><strong>Just-in-time (JIT) inventory management:</strong> Reduce inventory holding by ordering stock closer to when it is needed. This could cut the inventory period from 61 days to 30-40 days, reducing the cycle by 20+ days.</li>
+<li><strong>Early payment discounts for customers:</strong> Offer terms like 2/10 net 30 (2% discount if paid within 10 days) to incentivize faster payment. This could reduce the receivables period from 30 days to 15-20 days.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 5 — Portfolio Theory &amp; Diversification (Calculation &amp; Theory)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+<span class="assignment-tag theory">Theory</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">An investor is considering two stocks for their portfolio:</div>
+<div class="question-sub">
+<table class="table-data">
+<tr><th>Stock</th><th>Expected Return</th><th>Standard Deviation</th></tr>
+<tr><td>A (Tech)</td><td>14%</td><td>22%</td></tr>
+<tr><td>B (Utility)</td><td>8%</td><td>10%</td></tr>
+</table>
+<p>The correlation coefficient between the two stocks is 0.30. The risk-free rate is 4%.</p>
+<strong>Required:</strong>
+<ol type="a">
+<li>Calculate the expected return and standard deviation of a portfolio invested 60% in Stock A and 40% in Stock B.</li>
+<li>Explain why the portfolio standard deviation is less than the weighted average of the individual standard deviations.</li>
+<li>Calculate the Sharpe Ratio for the portfolio and interpret it.</li>
+<li>Explain the concept of the efficient frontier and where this portfolio might lie relative to it.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Portfolio Expected Return and Standard Deviation</strong></p>
+<p><strong>Expected Return:</strong></p>
+<div class="formula-inline">
+E(R<sub>p</sub>) = w<sub>A</sub>E(R<sub>A</sub>) + w<sub>B</sub>E(R<sub>B</sub>) = (0.60 × 14%) + (0.40 × 8%) = 8.4% + 3.2% = <strong>11.6%</strong>
+</div>
+
+<p><strong>Portfolio Variance:</strong></p>
+<div class="formula-inline">
+σ<sub>p</sub>² = w<sub>A</sub>²σ<sub>A</sub>² + w<sub>B</sub>²σ<sub>B</sub>² + 2w<sub>A</sub>w<sub>B</sub>ρσ<sub>A</sub>σ<sub>B</sub><br>
+= (0.60)²(0.22)² + (0.40)²(0.10)² + 2(0.60)(0.40)(0.30)(0.22)(0.10)<br>
+= 0.36 × 0.0484 + 0.16 × 0.01 + 0.48 × 0.0066<br>
+= 0.017424 + 0.0016 + 0.003168 = <strong>0.022192</strong>
+</div>
+
+<p><strong>Portfolio Standard Deviation:</strong></p>
+<div class="formula-inline">
+σ<sub>p</sub> = √0.022192 = <strong>14.9%</strong>
+</div>
+
+<p><strong>(b) Diversification Benefit</strong></p>
+<p>The weighted average standard deviation would be (0.60 × 22%) + (0.40 × 10%) = <strong>17.2%</strong>. The actual portfolio standard deviation is <strong>14.9%</strong>, which is lower due to <strong>diversification</strong>. Because the correlation (0.30) is less than +1, the stocks do not move perfectly together. When one performs poorly, the other may not, reducing overall portfolio volatility. This is the fundamental benefit of diversification: combining imperfectly correlated assets reduces risk without sacrificing return.</p>
+
+<p><strong>(c) Sharpe Ratio</strong></p>
+<div class="formula-inline">
+Sharpe Ratio = [E(R<sub>p</sub>) − R<sub>f</sub>] / σ<sub>p</sub> = (11.6% − 4%) / 14.9% = 7.6% / 14.9% = <strong>0.51</strong>
+</div>
+<p>A Sharpe Ratio of 0.51 indicates that the portfolio generates 0.51 units of excess return per unit of risk. Values above 1.0 are generally considered good, so this portfolio offers moderate risk-adjusted performance.</p>
+
+<p><strong>(d) Efficient Frontier</strong></p>
+<p>The <strong>efficient frontier</strong> is the set of portfolios that offer the highest expected return for a given level of risk (or lowest risk for a given return). Portfolios below the frontier are <strong>inefficient</strong> — investors can achieve better returns with the same risk or lower risk with the same return. This portfolio (11.6% return, 14.9% risk) likely lies <strong>on or near the efficient frontier</strong> for a two-asset portfolio, assuming optimal weights. With only two assets, the entire opportunity set is a curve; the upper half (above the minimum variance portfolio) is the efficient frontier.</p>
+</div>
+</div>
+</div>
+
 <div class="unit-section" id="btw1042">
 <div class="unit-header" style="--c:var(--accent-rust);--c-dim:rgba(140,91,62,0.1);--c-weak:rgba(140,91,62,0.25)">
 <div class="unit-icon">⚖️</div>
@@ -1235,6 +1437,118 @@ Margin of Safety (%) = (1,000 / 3,000) × 100% = <strong>33.33%</strong>
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- ECM1953 — Economics -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 4 — Tort of Negligence (Case Study)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+<span class="assignment-tag case">Case</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">Dr. Smith, a surgeon, operates on Mr. Jones to remove his appendix. During the operation, Dr. Smith leaves a surgical sponge inside Mr. Jones's abdomen. Mr. Jones suffers severe infection and requires additional surgery. Mr. Jones sues Dr. Smith for negligence.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Define the tort of negligence and identify the three elements that Mr. Jones must prove to establish his claim.</li>
+<li>Apply each element to the facts of this case, referring to relevant case law where appropriate.</li>
+<li>Discuss the defences available to Dr. Smith and whether they are likely to succeed.</li>
+<li>Explain the concept of vicarious liability and discuss whether the hospital employing Dr. Smith might also be liable.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Definition and Elements of Negligence</strong></p>
+<p>Negligence is a tort that occurs when a person breaches their duty of care owed to another, causing foreseeable loss or damage. To establish negligence, the plaintiff must prove three elements:</p>
+<ol>
+<li><strong>Duty of care:</strong> The defendant owed the plaintiff a legal duty to exercise reasonable care.</li>
+<li><strong>Breach of duty:</strong> The defendant failed to meet the standard of care expected.</li>
+<li><strong>Damage:</strong> The plaintiff suffered actual loss or injury as a result of the breach.</li>
+</ol>
+
+<p><strong>(b) Application to the Facts</strong></p>
+<p><strong>Duty of care:</strong> Established through the doctor-patient relationship. In <em>Barnett v Chelsea & Kensington Hospital [1969]</em>, the court held that a hospital owes a duty of care to its patients. Dr. Smith clearly owed Mr. Jones a duty of care.</p>
+<p><strong>Breach of duty:</strong> The standard of care is that of a reasonably competent surgeon. Leaving a foreign object inside a patient falls far below this standard. In <em>Bolam v Friern Hospital Management Committee [1957]</em>, the court stated that a doctor is not negligent if they act in accordance with a practice accepted as proper by a responsible body of medical opinion. However, no responsible body would accept leaving a sponge inside a patient as proper practice.</p>
+<p><strong>Damage:</strong> Mr. Jones suffered severe infection requiring additional surgery — clear physical and financial harm. Causation is established through the "but for" test: but for the sponge being left inside, Mr. Jones would not have suffered the infection.</p>
+
+<p><strong>(c) Defences</strong></p>
+<p>Dr. Smith might argue:</p>
+<ul>
+<li><strong>Contributory negligence:</strong> Unlikely to succeed unless Mr. Jones failed to follow post-operative instructions in a way that contributed to the harm.</li>
+<li><strong>Voluntary assumption of risk:</strong> Not applicable as Mr. Jones did not consent to negligence.</li>
+</ul>
+<p>Neither defence is likely to succeed given the clear breach of duty.</p>
+
+<p><strong>(d) Vicarious Liability</strong></p>
+<p><strong>Vicarious liability</strong> holds an employer liable for the torts committed by employees in the course of their employment. In <em>Catholic Child Welfare Society v Institute of the Brothers of the Christian Schools [2012]</em>, the Supreme Court confirmed that employers are vicariously liable for the wrongful acts of their employees. Since Dr. Smith was acting in the course of his employment when operating on Mr. Jones, the hospital is likely vicariously liable alongside Dr. Smith.</p>
+</div>
+</div>
+</div>
+
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 5 — Corporate Governance &amp; Directors' Duties (Essay)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+<span class="assignment-tag essay">Essay</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">The board of directors of Gamma Ltd consists of five executive directors and two non-executive directors. The company has recently suffered significant losses due to poor investment decisions made by the CEO without board approval. Shareholders are concerned about the lack of oversight.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Explain the duty of care, skill and diligence owed by directors under common law and statute, with reference to <em>Re City Equitable Fire Insurance Co [1925]</em> and <em>Re D'Jan of London Ltd [1994]</em>.</li>
+<li>Discuss the duty to act in good faith in the best interests of the company and whether the CEO has breached this duty.</li>
+<li>Analyse whether the non-executive directors have fulfilled their role and the consequences of their failure.</li>
+<li>Recommend three corporate governance improvements for Gamma Ltd.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Duty of Care, Skill and Diligence</strong></p>
+<p>Directors owe a duty to exercise reasonable care, skill and diligence in managing the company's affairs. The standard has evolved through case law:</p>
+<ul>
+<li><strong>Re City Equitable Fire Insurance Co [1925]:</strong> Established that directors need not exhibit greater skill than may reasonably be expected from a person of their knowledge and experience. Directors are not liable for mere errors of judgment.</li>
+<li><strong>Re D'Jan of London Ltd [1994]:</strong> Modernised the standard, stating that a director must exhibit the degree of skill expected of a reasonably competent director in their position. The test is both subjective (based on the director's actual knowledge/experience) and objective (the minimum standard expected of any director).</li>
+</ul>
+<p>The CEO's unilateral investment decisions without board approval likely fall below this standard, as a reasonably competent director would seek board approval for significant investments.</p>
+
+<p><strong>(b) Duty to Act in Good Faith</strong></p>
+<p>Directors must act in good faith in the best interests of the company. This includes:</p>
+<ul>
+<li>Acting for proper purposes</li>
+<li>Avoiding conflicts of interest</li>
+<li>Not making secret profits</li>
+<li>Exercising powers for the benefit of the company, not personal gain</li>
+</ul>
+<p>The CEO's failure to seek board approval suggests a disregard for collective decision-making. If the investments were made to secure personal bonuses or enhance the CEO's reputation rather than benefit the company, this would constitute a clear breach of the duty to act in good faith.</p>
+
+<p><strong>(c) Non-Executive Directors' Role</strong></p>
+<p>Non-executive directors (NEDs) are expected to provide independent oversight and challenge executive decisions. In Gamma Ltd:</p>
+<ul>
+<li>The NEDs failed to challenge the CEO's unilateral decisions</li>
+<li>They did not ensure proper board processes were followed</li>
+<li>They may be personally liable for breach of duty if they failed to exercise independent judgment</li>
+</ul>
+<p>Under the UK Corporate Governance Code (and similar principles in Australian law), NEDs should constructively challenge and help develop strategy, scrutinise management performance, and ensure integrity of financial information.</p>
+
+<p><strong>(d) Corporate Governance Recommendations</strong></p>
+<ol>
+<li><strong>Separate Chair and CEO roles:</strong> Ensure independent leadership of the board to provide effective challenge to the CEO.</li>
+<li><strong>Establish board committees:</strong> Create audit, remuneration, and nomination committees with independent NED majorities to oversee key decisions.</li>
+<li><strong>Implement investment approval thresholds:</strong> Require board approval for investments above a specified materiality threshold, with detailed risk assessments.</li>
+</ol>
+</div>
+</div>
+</div>
+
 <div class="unit-section" id="ecm1953">
 <div class="unit-header" style="--c:var(--accent-cream);--c-dim:rgba(242,230,216,0.08);--c-weak:rgba(242,230,216,0.18)">
 <div class="unit-icon">📉</div>
@@ -1428,6 +1742,131 @@ TR at $90 = $90 × 4,200 = <strong>$378,000</strong>
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- ETW1001 — Business Statistics -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 4 — GDP, Inflation &amp; Unemployment (Calculation &amp; Theory)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+<span class="assignment-tag theory">Theory</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">The following data relates to an economy in 2025 and 2026:</div>
+<div class="question-sub">
+<table class="table-data">
+<tr><th>Item</th><th>2025</th><th>2026</th></tr>
+<tr><td>Nominal GDP ($bn)</td><td>1,200</td><td>1,350</td></tr>
+<tr><td>GDP Deflator (base = 100)</td><td>105</td><td>112</td></tr>
+<tr><td>Labour Force (millions)</td><td>15.0</td><td>15.5</td></tr>
+<tr><td>Employed (millions)</td><td>13.8</td><td>14.2</td></tr>
+</table>
+<strong>Required:</strong>
+<ol type="a">
+<li>Calculate real GDP for both years.</li>
+<li>Calculate the economic growth rate (real GDP growth).</li>
+<li>Calculate the unemployment rate for both years.</li>
+<li>Calculate the inflation rate using the GDP deflator.</li>
+<li>Discuss the relationship between inflation and unemployment using the Phillips Curve concept.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Real GDP</strong></p>
+<div class="formula-inline">
+Real GDP = (Nominal GDP / GDP Deflator) × 100
+</div>
+<p><strong>2025:</strong> ($1,200 / 105) × 100 = <strong>$1,142.9 bn</strong></p>
+<p><strong>2026:</strong> ($1,350 / 112) × 100 = <strong>$1,205.4 bn</strong></p>
+
+<p><strong>(b) Economic Growth Rate</strong></p>
+<div class="formula-inline">
+Growth = [(Real GDP<sub>2026</sub> − Real GDP<sub>2025</sub>) / Real GDP<sub>2025</sub>] × 100<br>
+= [($1,205.4 − $1,142.9) / $1,142.9] × 100 = ($62.5 / $1,142.9) × 100 = <strong>5.47%</strong>
+</div>
+
+<p><strong>(c) Unemployment Rate</strong></p>
+<div class="formula-inline">
+Unemployed = Labour Force − Employed<br>
+Unemployment Rate = (Unemployed / Labour Force) × 100
+</div>
+<p><strong>2025:</strong> (15.0 − 13.8) / 15.0 × 100 = 1.2 / 15.0 × 100 = <strong>8.0%</strong></p>
+<p><strong>2026:</strong> (15.5 − 14.2) / 15.5 × 100 = 1.3 / 15.5 × 100 = <strong>8.4%</strong></p>
+
+<p><strong>(d) Inflation Rate</strong></p>
+<div class="formula-inline">
+Inflation = [(GDP Deflator<sub>2026</sub> − GDP Deflator<sub>2025</sub>) / GDP Deflator<sub>2025</sub>] × 100<br>
+= [(112 − 105) / 105] × 100 = (7 / 105) × 100 = <strong>6.67%</strong>
+</div>
+
+<p><strong>(e) Phillips Curve</strong></p>
+<p>The <strong>Phillips Curve</strong> illustrates an inverse relationship between inflation and unemployment in the short run. When aggregate demand increases, firms hire more workers (reducing unemployment) but wages and prices rise (increasing inflation). Conversely, contractionary policies reduce inflation but increase unemployment.</p>
+<p>In this economy, both inflation (6.67%) and unemployment (8.4%) have increased. This suggests a <strong>stagflationary</strong> environment or an adverse supply shock, which shifts the Phillips Curve outward. The economy is not on the standard short-run Phillips Curve trade-off; instead, it may be experiencing cost-push inflation (e.g., oil price shocks) that simultaneously raises prices and reduces output/employment.</p>
+</div>
+</div>
+</div>
+
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 5 — Exchange Rates &amp; Balance of Payments (Calculation &amp; Theory)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+<span class="assignment-tag theory">Theory</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">The exchange rate between the Australian Dollar (AUD) and the US Dollar (USD) changes from AUD/USD 0.75 to AUD/USD 0.68.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Has the AUD appreciated or depreciated? Calculate the percentage change.</li>
+<li>An Australian importer needs to pay USD 100,000 for goods. Calculate the AUD cost before and after the exchange rate change.</li>
+<li>An Australian exporter receives USD 50,000 for goods. Calculate the AUD revenue before and after the exchange rate change.</li>
+<li>Discuss three factors that could have caused this exchange rate movement.</li>
+<li>Explain how the Reserve Bank of Australia (RBA) could intervene to support the AUD.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Appreciation or Depreciation</strong></p>
+<p>The AUD has <strong>depreciated</strong> because each AUD now buys fewer USD (0.68 vs 0.75).</p>
+<div class="formula-inline">
+Percentage change = [(0.68 − 0.75) / 0.75] × 100 = (−0.07 / 0.75) × 100 = <strong>−9.33%</strong>
+</div>
+
+<p><strong>(b) Importer's Cost</strong></p>
+<p>Before: USD 100,000 / 0.75 = <strong>AUD 133,333</strong></p>
+<p>After: USD 100,000 / 0.68 = <strong>AUD 147,059</strong></p>
+<p>The importer's cost has increased by <strong>AUD 13,726</strong> (10.3%), making imports more expensive.</p>
+
+<p><strong>(c) Exporter's Revenue</strong></p>
+<p>Before: USD 50,000 / 0.75 = <strong>AUD 66,667</strong></p>
+<p>After: USD 50,000 / 0.68 = <strong>AUD 73,529</strong></p>
+<p>The exporter's revenue has increased by <strong>AUD 6,862</strong> (10.3%), making exports more competitive in foreign markets.</p>
+
+<p><strong>(d) Factors Causing Depreciation</strong></p>
+<ul>
+<li><strong>Interest rate differentials:</strong> If the RBA cuts rates while the US Federal Reserve raises rates, capital flows out of Australia (seeking higher returns elsewhere), reducing demand for AUD.</li>
+<li><strong>Commodity prices:</strong> Australia is a major commodity exporter. A fall in iron ore or coal prices reduces export revenues and demand for AUD.</li>
+<li><strong>Economic growth differentials:</strong> If Australia's economy slows relative to the US, investors may shift funds to the stronger US economy, depreciating the AUD.</li>
+</ul>
+
+<p><strong>(e) RBA Intervention</strong></p>
+<p>The RBA could support the AUD through:</p>
+<ul>
+<li><strong>Foreign exchange market intervention:</strong> Selling foreign currency reserves (USD) and buying AUD, increasing demand for the currency.</li>
+<li><strong>Raising interest rates:</strong> Higher rates attract foreign capital inflows, increasing demand for AUD.</li>
+<li><strong>Verbal intervention:</strong> Public statements indicating concern about currency weakness can influence market expectations.</li>
+</ul>
+</div>
+</div>
+</div>
+
 <div class="unit-section" id="etw1001">
 <div class="unit-header" style="--c:var(--accent-tan);--c-dim:rgba(191,155,122,0.1);--c-weak:rgba(191,155,122,0.22)">
 <div class="unit-icon">📈</div>
@@ -1605,6 +2044,147 @@ Step 6: Conclusion
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- MGW1010 — Management -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 4 — Probability &amp; Probability Distributions (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">A quality control inspector examines electronic components from a production line. Historical data shows that 5% of components are defective. The inspector randomly selects 20 components for testing.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>What is the probability that exactly 2 components are defective?</li>
+<li>What is the probability that at least 1 component is defective?</li>
+<li>What is the expected number of defective components in the sample?</li>
+<li>If the batch is rejected when 3 or more defectives are found, what is the probability of rejection?</li>
+<li>Would the normal approximation be appropriate for this problem? Justify your answer.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p>This is a <strong>binomial distribution</strong> problem with n = 20, p = 0.05, q = 0.95.</p>
+
+<p><strong>(a) P(X = 2)</strong></p>
+<div class="formula-inline">
+P(X = 2) = C(20,2) × (0.05)² × (0.95)¹⁸<br>
+= 190 × 0.0025 × 0.3972 = <strong>0.1887 or 18.87%</strong>
+</div>
+
+<p><strong>(b) P(X ≥ 1)</strong></p>
+<div class="formula-inline">
+P(X ≥ 1) = 1 − P(X = 0) = 1 − (0.95)²⁰<br>
+= 1 − 0.3585 = <strong>0.6415 or 64.15%</strong>
+</div>
+
+<p><strong>(c) Expected Number of Defectives</strong></p>
+<div class="formula-inline">
+E(X) = n × p = 20 × 0.05 = <strong>1 component</strong>
+</div>
+
+<p><strong>(d) P(X ≥ 3) — Probability of Rejection</strong></p>
+<div class="formula-inline">
+P(X ≥ 3) = 1 − P(X = 0) − P(X = 1) − P(X = 2)
+</div>
+<p>P(X = 0) = (0.95)²⁰ = 0.3585</p>
+<p>P(X = 1) = C(20,1) × (0.05)¹ × (0.95)¹⁹ = 20 × 0.05 × 0.3774 = 0.3774</p>
+<p>P(X = 2) = 0.1887 (from part a)</p>
+<div class="formula-inline">
+P(X ≥ 3) = 1 − 0.3585 − 0.3774 − 0.1887 = 1 − 0.9246 = <strong>0.0754 or 7.54%</strong>
+</div>
+
+<p><strong>(e) Normal Approximation</strong></p>
+<p>The normal approximation is <strong>not appropriate</strong> because:</p>
+<ul>
+<li>n × p = 1 < 5 (rule of thumb requires np ≥ 5 and nq ≥ 5)</li>
+<li>The distribution is highly skewed (p is close to 0)</li>
+<li>The exact binomial calculation is straightforward for n = 20</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 5 — Correlation &amp; Simple Linear Regression (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+<span class="assignment-tag graph">Graph</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">A researcher collects data on advertising expenditure ($000s) and sales revenue ($000s) for 8 retail stores:</div>
+<div class="question-sub">
+<table class="table-data">
+<tr><th>Store</th><th>Advertising (X)</th><th>Sales (Y)</th></tr>
+<tr><td>1</td><td>2</td><td>15</td></tr>
+<tr><td>2</td><td>3</td><td>22</td></tr>
+<tr><td>3</td><td>4</td><td>28</td></tr>
+<tr><td>4</td><td>5</td><td>30</td></tr>
+<tr><td>5</td><td>6</td><td>38</td></tr>
+<tr><td>6</td><td>7</td><td>42</td></tr>
+<tr><td>7</td><td>8</td><td>48</td></tr>
+<tr><td>8</td><td>9</td><td>55</td></tr>
+</table>
+<p>Summary statistics: ΣX = 44, ΣY = 278, ΣXY = 1,732, ΣX² = 284, ΣY² = 10,690, n = 8</p>
+<strong>Required:</strong>
+<ol type="a">
+<li>Calculate the Pearson correlation coefficient (r) and interpret it.</li>
+<li>Calculate the least squares regression line: Ŷ = a + bX.</li>
+<li>Predict sales when advertising expenditure is $10,000.</li>
+<li>Calculate the coefficient of determination (r²) and explain what it means.</li>
+<li>Discuss two limitations of using this regression model for prediction.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Pearson Correlation Coefficient</strong></p>
+<div class="formula-inline">
+r = [nΣXY − (ΣX)(ΣY)] / √[(nΣX² − (ΣX)²)(nΣY² − (ΣY)²)]<br>
+r = [8(1,732) − (44)(278)] / √[(8(284) − 44²)(8(10,690) − 278²)]<br>
+r = [13,856 − 12,232] / √[(2,272 − 1,936)(85,520 − 77,284)]<br>
+r = 1,624 / √[336 × 8,236]<br>
+r = 1,624 / √2,767,296 = 1,624 / 1,663.5 = <strong>0.976</strong>
+</div>
+<p>This indicates a <strong>very strong positive linear relationship</strong> between advertising expenditure and sales.</p>
+
+<p><strong>(b) Least Squares Regression Line</strong></p>
+<div class="formula-inline">
+b = [nΣXY − (ΣX)(ΣY)] / [nΣX² − (ΣX)²] = 1,624 / 336 = <strong>4.833</strong>
+</div>
+<div class="formula-inline">
+a = Ȳ − bX̄ = (278/8) − 4.833(44/8) = 34.75 − 4.833(5.5) = 34.75 − 26.58 = <strong>8.17</strong>
+</div>
+<p>Regression equation: <strong>Ŷ = 8.17 + 4.833X</strong></p>
+
+<p><strong>(c) Prediction for X = 10</strong></p>
+<div class="formula-inline">
+Ŷ = 8.17 + 4.833(10) = 8.17 + 48.33 = <strong>56.5 ($56,500)</strong>
+</div>
+
+<p><strong>(d) Coefficient of Determination</strong></p>
+<div class="formula-inline">
+r² = (0.976)² = <strong>0.953 or 95.3%</strong>
+</div>
+<p>This means that <strong>95.3% of the variation in sales revenue</strong> can be explained by the variation in advertising expenditure. The remaining 4.7% is due to other factors not included in the model.</p>
+
+<p><strong>(e) Limitations</strong></p>
+<ul>
+<li><strong>Extrapolation risk:</strong> Predicting for X = 10 is outside the observed range (X = 2 to 9). The linear relationship may not hold beyond this range.</li>
+<li><strong>Omitted variables:</strong> Sales depend on many factors (price, competition, seasonality, product quality) that are not included in this simple model. A multiple regression would likely provide better predictions.</li>
+</ul>
+</div>
+</div>
+</div>
+
 <div class="unit-section" id="mgw1010">
 <div class="unit-header" style="--c:var(--accent-olive);--c-dim:rgba(85,89,52,0.12);--c-weak:rgba(85,89,52,0.25)">
 <div class="unit-icon">👔</div>
@@ -1720,6 +2300,56 @@ Step 6: Conclusion
 <p><strong>Why Different Situations Require Different Styles:</strong></p>
 <p>Contingency theory demonstrates that no single leadership style is universally effective. The emergency department requires speed, clarity, and control — conditions where autocratic leadership excels. The R&D team requires creativity, expertise integration, and intrinsic motivation — conditions where participative/transformational leadership excels. Effective leaders diagnose the situation (follower readiness, task structure, time pressure, stakes) and adapt their style accordingly.</p>
 </div>
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 3 — Organisational Structure &amp; Design (Case Study)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+<span class="assignment-tag case">Case</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">TechStart Pty Ltd is a rapidly growing software startup with 120 employees. Currently, all employees report directly to the founder-CEO, leading to communication bottlenecks and delayed decisions. The CEO is considering restructuring.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Identify the current organisational structure and explain two major disadvantages it presents for TechStart.</li>
+<li>Recommend a more suitable organisational structure, justifying your choice with at least two advantages relevant to TechStart's situation.</li>
+<li>Discuss two potential challenges TechStart may face when implementing the new structure.</li>
+<li>Explain how organisational culture might influence the success of the restructuring.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Current Structure &amp; Disadvantages</strong></p>
+<p>TechStart currently has a <strong>simple (flat) structure</strong> with a wide span of control (120 employees reporting to one person).</p>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li><strong>Communication bottleneck:</strong> All information flows through the CEO, causing delays in decision-making and response times to market changes.</li>
+<li><strong>Overburdened leadership:</strong> The CEO cannot effectively supervise, mentor, or evaluate 120 employees, leading to reduced oversight and employee dissatisfaction.</li>
+</ul>
+
+<p><strong>(b) Recommended Structure: Divisional/Matrix Hybrid</strong></p>
+<p>A <strong>divisional structure</strong> organised by function (Engineering, Sales, Marketing, HR) with project-based <strong>matrix teams</strong> would be suitable.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li><strong>Specialisation &amp; efficiency:</strong> Functional managers can develop deep expertise and streamline operations within their domains.</li>
+<li><strong>Scalability:</strong> New divisions or product lines can be added without disrupting the entire organisation.</li>
+<li><strong>Improved coordination:</strong> Matrix teams allow cross-functional collaboration on projects while maintaining functional reporting lines.</li>
+</ul>
+
+<p><strong>(c) Implementation Challenges</strong></p>
+<ul>
+<li><strong>Resistance to change:</strong> Employees accustomed to direct access to the CEO may resist the loss of autonomy and perceived status. Clear communication and involvement in the transition process are essential.</li>
+<li><strong>Role ambiguity:</strong> In a matrix structure, employees report to two managers (functional and project), which can create conflicting priorities and confusion without clear guidelines.</li>
+</ul>
+
+<p><strong>(d) Influence of Organisational Culture</strong></p>
+<p>A <strong>clan culture</strong> (collaborative, family-like) at TechStart may facilitate the transition by fostering trust and open communication. However, if the culture is strongly individualistic or resistant to hierarchy, employees may struggle with the new formal reporting relationships. The CEO should align the new structure with the existing cultural values while gradually introducing necessary formalisation.</p>
+</div>
 </div>
 </div>
 
@@ -1728,6 +2358,119 @@ Step 6: Conclusion
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- ACW2220 — Management Accounting -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 4 — Strategic Management &amp; SWOT Analysis (Case Study)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+<span class="assignment-tag case">Case</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">GreenBrew Coffee is a mid-sized café chain with 45 outlets across Australia. The company roasts its own beans and has built a reputation for sustainable sourcing. However, rising rent costs and increased competition from global chains (Starbucks, Costa) are squeezing margins.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Construct a SWOT analysis for GreenBrew Coffee, identifying at least two factors for each category.</li>
+<li>Using Porter's Five Forces framework, analyse the competitive intensity of the Australian café industry.</li>
+<li>Recommend and justify one corporate-level strategy (growth, stability, or retrenchment) for GreenBrew.</li>
+<li>Discuss two key implementation challenges GreenBrew might face in executing your recommended strategy.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) SWOT Analysis</strong></p>
+<table class="table-data">
+<tr><th>Strengths</th><th>Weaknesses</th></tr>
+<tr><td>• Strong brand reputation for sustainability<br>• Vertical integration (own roasting)<br>• Established supplier relationships</td><td>• Limited scale vs global competitors<br>• Rising operational costs (rent, wages)<br>• Dependence on Australian market</td></tr>
+<tr><th>Opportunities</th><th>Threats</th></tr>
+<tr><td>• Growing consumer demand for ethical products<br>• Expansion into ready-to-drink bottled coffee<br>• Corporate catering contracts</td><td>• Intense competition from global chains<br>• Economic downturn reducing discretionary spending<br>• Rising coffee bean prices due to climate change</td></tr>
+</table>
+
+<p><strong>(b) Porter's Five Forces</strong></p>
+<ul>
+<li><strong>Threat of new entrants (Moderate-High):</strong> Low capital requirements to open a café, but brand loyalty and prime locations create barriers. Global chains have economies of scale that new entrants lack.</li>
+<li><strong>Bargaining power of suppliers (Moderate):</strong> Coffee bean prices fluctuate due to weather and global demand. However, GreenBrew's direct sourcing relationships provide some stability.</li>
+<li><strong>Bargaining power of buyers (High):</strong> Customers have many alternatives and low switching costs. Price sensitivity increases during economic downturns.</li>
+<li><strong>Threat of substitutes (High):</strong> Instant coffee, home brewing systems (Nespresso), energy drinks, and tea all compete for the same consumer spending.</li>
+<li><strong>Competitive rivalry (Very High):</strong> Saturated market with global chains, independent cafés, and fast-food outlets (McCafé) all competing aggressively on price, convenience, and experience.</li>
+</ul>
+
+<p><strong>(c) Recommended Strategy: Market Development (Growth)</strong></p>
+<p>GreenBrew should pursue <strong>market development</strong> by expanding into corporate catering and ready-to-drink (RTD) retail channels. This leverages their strengths (brand reputation, roasting capability) while reducing dependence on physical café locations affected by rent pressures. The RTD market is growing at 8% annually in Australia, and GreenBrew's sustainability story provides strong differentiation.</p>
+
+<p><strong>(d) Implementation Challenges</strong></p>
+<ul>
+<li><strong>Resource allocation:</strong> Expanding into RTD requires significant capital for packaging equipment, distribution partnerships, and marketing. GreenBrew must balance this investment against maintaining existing café quality.</li>
+<li><strong>Brand consistency:</strong> The in-café experience (fresh, artisanal) differs from RTD (convenience, shelf-stable). GreenBrew must ensure the brand message remains coherent across channels without diluting its premium positioning.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 5 — Performance Management &amp; Control Systems (Theory)</div>
+<div class="assignment-meta">
+<span class="assignment-tag theory">Theory</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">A large retail company implements a balanced scorecard (BSC) to measure performance across four perspectives: financial, customer, internal process, and learning & growth. After one year, store managers complain that the BSC is too complex and they are unsure which metrics truly matter.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Explain the purpose of the balanced scorecard and how it differs from traditional financial-only performance measurement.</li>
+<li>For each of the four BSC perspectives, provide two specific, measurable metrics relevant to a retail store.</li>
+<li>Discuss why the store managers might find the BSC confusing and how this could lead to dysfunctional behaviour.</li>
+<li>Recommend three ways the company could improve the implementation of the balanced scorecard.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Purpose of the Balanced Scorecard</strong></p>
+<p>The balanced scorecard, developed by Kaplan and Norton, translates organisational strategy into a comprehensive set of performance measures. Unlike traditional systems that rely solely on lagging financial indicators (e.g., profit, ROI), the BSC incorporates:</p>
+<ul>
+<li><strong>Leading indicators</strong> (e.g., employee training, customer satisfaction) that predict future financial performance</li>
+<li><strong>Non-financial measures</strong> that capture value drivers not reflected in accounting numbers</li>
+<li><strong>Cause-and-effect linkages</strong> between operational improvements and financial outcomes</li>
+</ul>
+<p>This provides a more holistic view of organisational health and aligns day-to-day activities with long-term strategic objectives.</p>
+
+<p><strong>(b) Retail Store Metrics by Perspective</strong></p>
+<table class="table-data">
+<tr><th>Perspective</th><th>Metrics</th></tr>
+<tr><td>Financial</td><td>• Same-store sales growth<br>• Gross profit margin per square metre</td></tr>
+<tr><td>Customer</td><td>• Net Promoter Score (NPS)<br>• Customer retention rate</td></tr>
+<tr><td>Internal Process</td><td>• Inventory turnover ratio<br>• Average checkout waiting time</td></tr>
+<tr><td>Learning & Growth</td><td>• Employee training hours per quarter<br>• Staff turnover rate</td></tr>
+</table>
+
+<p><strong>(c) Confusion and Dysfunctional Behaviour</strong></p>
+<p>Managers may find the BSC confusing because:</p>
+<ul>
+<li><strong>Too many metrics:</strong> If 20+ KPIs are tracked, managers cannot prioritise effectively.</li>
+<li><strong>Unclear causal links:</strong> Without understanding how "employee training" connects to "sales growth," metrics feel arbitrary.</li>
+<li><strong>Conflicting targets:</strong> Reducing checkout time (process) might require more staff, hurting labour cost targets (financial).</li>
+</ul>
+<p>This confusion can lead to <strong>dysfunctional behaviour</strong>: managers gaming metrics, ignoring strategically important but unmeasured activities, or focusing on easily achievable targets at the expense of long-term value creation.</p>
+
+<p><strong>(d) Recommendations for Improvement</strong></p>
+<ol>
+<li><strong>Limit to vital few metrics:</strong> Select 3-5 KPIs per perspective (12-20 total) that truly drive strategy. Use a strategy map to show causal relationships.</li>
+<li><strong>Involve managers in design:</strong> Co-create metrics with store managers to ensure buy-in and relevance. Managers who participate in target-setting are more committed to achievement.</li>
+<li><strong>Link to incentives carefully:</strong> Tie bonuses to a balanced mix of perspectives, not just financial results. This prevents short-termism and encourages investment in customer service and employee development.</li>
+</ol>
+</div>
+</div>
+</div>
+
 <div class="unit-section" id="acw2220">
 <div class="unit-header" style="--c:var(--accent-cream);--c-dim:rgba(242,230,216,0.08);--c-weak:rgba(242,230,216,0.18)">
 <div class="unit-icon">📈</div>
@@ -1915,78 +2658,227 @@ Step 6: Conclusion
 </div>
 </div>
 
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- ETC2440 — Business Analytics & Econometrics -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
 <div class="assignment-card">
 <div class="assignment-header">
-<div class="assignment-title">Question 3 — Flexible Budgeting &amp; Variance Analysis (Calculation)</div>
+<div class="assignment-title">Question 3 — Cost-Volume-Profit (CVP) Analysis (Calculation &amp; Graph)</div>
 <div class="assignment-meta">
 <span class="assignment-tag calc">Calculation</span>
+<span class="assignment-tag graph">Graph</span>
 </div>
 </div>
 <div class="question">
-<div class="question-text">Gamma Manufacturing prepared the following static budget for 10,000 units of production:</div>
+<div class="question-text">Beta Manufacturing produces a single product with the following cost structure:</div>
 <div class="question-sub">
 <table class="table-data">
-<tr><th>Item</th><th>Budgeted Amount</th></tr>
-<tr><td>Direct Materials</td><td>$50,000</td></tr>
-<tr><td>Direct Labour</td><td>$30,000</td></tr>
-<tr><td>Variable Overhead</td><td>$20,000</td></tr>
-<tr><td>Fixed Overhead</td><td>$40,000</td></tr>
+<tr><th>Item</th><th>Per Unit ($)</th></tr>
+<tr><td>Selling Price</td><td>80</td></tr>
+<tr><td>Direct Materials</td><td>25</td></tr>
+<tr><td>Direct Labour</td><td>15</td></tr>
+<tr><td>Variable Overhead</td><td>10</td></tr>
 </table>
-<p>Actual production was 12,000 units. Actual costs incurred:</p>
-<table class="table-data">
-<tr><th>Item</th><th>Actual Amount</th></tr>
-<tr><td>Direct Materials</td><td>$58,000</td></tr>
-<tr><td>Direct Labour</td><td>$34,000</td></tr>
-<tr><td>Variable Overhead</td><td>$26,000</td></tr>
-<tr><td>Fixed Overhead</td><td>$42,000</td></tr>
-</table>
+<p>Total fixed costs per month: $36,000</p>
 <strong>Required:</strong>
 <ol type="a">
-<li>Prepare a flexible budget for 12,000 units.</li>
-<li>Calculate the flexible budget variance for each cost item.</li>
-<li>Determine whether each variance is favourable or unfavourable and provide a brief explanation.</li>
+<li>Calculate the contribution margin per unit and the contribution margin ratio.</li>
+<li>Calculate the break-even point in units and in sales dollars.</li>
+<li>Calculate the number of units needed to achieve a target profit of $18,000 per month.</li>
+<li>If the selling price increases by 10% and fixed costs increase by $6,000, calculate the new break-even point.</li>
+<li>Sketch a CVP graph showing total revenue, total costs, fixed costs, and the break-even point.</li>
 </ol>
 </div>
 </div>
 <div class="answer-box">
 <div class="answer-label">Model Answer</div>
 <div class="answer-content">
-<p><strong>(a) Flexible Budget for 12,000 Units</strong></p>
-<p>First, calculate variable cost per unit from the static budget:</p>
-<table class="table-data">
-<tr><th>Item</th><th>Per Unit</th><th>Flexible Budget (12,000 units)</th></tr>
-<tr><td>Direct Materials</td><td>$50,000 / 10,000 = $5.00</td><td>$5.00 × 12,000 = $60,000</td></tr>
-<tr><td>Direct Labour</td><td>$30,000 / 10,000 = $3.00</td><td>$3.00 × 12,000 = $36,000</td></tr>
-<tr><td>Variable Overhead</td><td>$20,000 / 10,000 = $2.00</td><td>$2.00 × 12,000 = $24,000</td></tr>
-<tr><td>Fixed Overhead</td><td>Remains constant</td><td>$40,000</td></tr>
-<tr><td><strong>Total</strong></td><td></td><td><strong>$160,000</strong></td></tr>
-</table>
+<p><strong>(a) Contribution Margin</strong></p>
+<div class="formula-inline">
+Variable Cost per Unit = $25 + $15 + $10 = $50<br>
+Contribution Margin per Unit = $80 − $50 = <strong>$30</strong><br>
+CM Ratio = $30 / $80 = <strong>37.5%</strong>
+</div>
 
-<p><strong>(b) Flexible Budget Variances</strong></p>
-<table class="table-data">
-<tr><th>Item</th><th>Flexible Budget</th><th>Actual</th><th>Variance</th></tr>
-<tr><td>Direct Materials</td><td>$60,000</td><td>$58,000</td><td>$2,000 F</td></tr>
-<tr><td>Direct Labour</td><td>$36,000</td><td>$34,000</td><td>$2,000 F</td></tr>
-<tr><td>Variable Overhead</td><td>$24,000</td><td>$26,000</td><td>$2,000 U</td></tr>
-<tr><td>Fixed Overhead</td><td>$40,000</td><td>$42,000</td><td>$2,000 U</td></tr>
-</table>
+<p><strong>(b) Break-Even Point</strong></p>
+<div class="formula-inline">
+BEP (units) = Fixed Costs / CM per Unit = $36,000 / $30 = <strong>1,200 units</strong><br>
+BEP ($) = Fixed Costs / CM Ratio = $36,000 / 0.375 = <strong>$96,000</strong>
+</div>
 
-<p><strong>(c) Interpretation</strong></p>
+<p><strong>(c) Target Profit</strong></p>
+<div class="formula-inline">
+Units = (Fixed Costs + Target Profit) / CM per Unit<br>
+= ($36,000 + $18,000) / $30 = $54,000 / $30 = <strong>1,800 units</strong>
+</div>
+
+<p><strong>(d) New Break-Even Point (Price +10%, FC +$6,000)</strong></p>
+<div class="formula-inline">
+New Selling Price = $80 × 1.10 = $88<br>
+New CM per Unit = $88 − $50 = $38<br>
+New Fixed Costs = $36,000 + $6,000 = $42,000<br>
+New BEP (units) = $42,000 / $38 = <strong>1,105 units</strong>
+</div>
+<p>The price increase more than offsets the higher fixed costs, reducing the break-even point from 1,200 to 1,105 units.</p>
+
+<p><strong>(e) CVP Graph Description</strong></p>
 <ul>
-<li><strong>Direct Materials ($2,000 F):</strong> Favourable. Materials were purchased at lower prices or used more efficiently than standard. Possible reasons: bulk purchase discounts, less waste, or substitution of cheaper inputs.</li>
-<li><strong>Direct Labour ($2,000 F):</strong> Favourable. Workers were more efficient than budgeted, possibly due to experience curve effects, better training, or motivation from higher production volumes.</li>
-<li><strong>Variable Overhead ($2,000 U):</strong> Unfavourable. Overhead costs were higher per unit than expected. Could indicate increased utility costs, more machine maintenance due to higher output, or inefficiencies in support activities.</li>
-<li><strong>Fixed Overhead ($2,000 U):</strong> Unfavourable. Fixed costs exceeded the budget, suggesting unexpected expenditures such as equipment repairs, rent increases, or additional supervisory staff hired to manage higher output.</li>
+<li><strong>Horizontal axis:</strong> Units (0 to 2,500)</li>
+<li><strong>Vertical axis:</strong> Dollars ($0 to $200,000)</li>
+<li><strong>Fixed Costs line:</strong> Horizontal line at $36,000</li>
+<li><strong>Total Costs line:</strong> Starts at $36,000 (0 units) and slopes upward with gradient $50/unit</li>
+<li><strong>Total Revenue line:</strong> Starts at origin and slopes upward with gradient $80/unit</li>
+<li><strong>Break-even point:</strong> Intersection at 1,200 units, $96,000</li>
+<li><strong>Loss region:</strong> Below 1,200 units (revenue < total costs)</li>
+<li><strong>Profit region:</strong> Above 1,200 units (revenue > total costs)</li>
+<li><strong>Margin of safety:</strong> Distance between actual/expected sales and break-even</li>
 </ul>
 </div>
 </div>
 </div>
 
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 4 — Relevant Costing &amp; Special Order Decisions (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">Delta Ltd produces 10,000 units of Product X monthly, with the following cost structure per unit:</div>
+<div class="question-sub">
+<table class="table-data">
+<tr><th>Cost Item</th><th>Per Unit ($)</th></tr>
+<tr><td>Direct Materials</td><td>12</td></tr>
+<tr><td>Direct Labour</td><td>8</td></tr>
+<tr><td>Variable Overhead</td><td>5</td></tr>
+<tr><td>Fixed Overhead (allocated)</td><td>10</td></tr>
+<tr><td><strong>Total Cost</strong></td><td><strong>35</strong></td></tr>
+</table>
+<p>The normal selling price is $50 per unit. The company has received a special order for 2,000 units at $38 per unit from an overseas customer. Accepting the order would:</p>
+<ul>
+<li>Not affect regular sales</li>
+<li>Require additional shipping costs of $2 per unit</li>
+<li>Require a one-time machine setup costing $3,000</li>
+<li>Use spare capacity (no additional fixed costs)</li>
+</ul>
+<strong>Required:</strong>
+<ol type="a">
+<li>Identify the relevant costs for this special order decision.</li>
+<li>Calculate the incremental profit or loss from accepting the special order.</li>
+<li>Discuss three qualitative factors Delta Ltd should consider before accepting the order.</li>
+<li>What is the minimum price per unit Delta should accept for this special order?</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Relevant Costs</strong></p>
+<p>Relevant costs are future costs that differ between alternatives:</p>
+<ul>
+<li><strong>Direct Materials:</strong> $12/unit (incremental)</li>
+<li><strong>Direct Labour:</strong> $8/unit (incremental)</li>
+<li><strong>Variable Overhead:</strong> $5/unit (incremental)</li>
+<li><strong>Additional Shipping:</strong> $2/unit (incremental)</li>
+<li><strong>Machine Setup:</strong> $3,000 (one-time, incremental)</li>
+</ul>
+<p><strong>Not relevant:</strong> Fixed overhead ($10/unit) — this will be incurred regardless of the decision. Sunk costs and committed costs are never relevant.</p>
+
+<p><strong>(b) Incremental Analysis</strong></p>
+<table class="table-data">
+<tr><th>Item</th><th>Calculation</th><th>Amount ($)</th></tr>
+<tr><td>Incremental Revenue</td><td>2,000 × $38</td><td>76,000</td></tr>
+<tr><td><strong>Less: Incremental Costs</strong></td><td></td><td></td></tr>
+<tr><td>&nbsp;&nbsp;Direct Materials</td><td>2,000 × $12</td><td>(24,000)</td></tr>
+<tr><td>&nbsp;&nbsp;Direct Labour</td><td>2,000 × $8</td><td>(16,000)</td></tr>
+<tr><td>&nbsp;&nbsp;Variable Overhead</td><td>2,000 × $5</td><td>(10,000)</td></tr>
+<tr><td>&nbsp;&nbsp;Shipping</td><td>2,000 × $2</td><td>(4,000)</td></tr>
+<tr><td>&nbsp;&nbsp;Machine Setup</td><td></td><td>(3,000)</td></tr>
+<tr><td><strong>Total Incremental Costs</strong></td><td></td><td><strong>(57,000)</strong></td></tr>
+<tr><td><strong>Incremental Profit</strong></td><td></td><td><strong>19,000</strong></td></tr>
+</table>
+<p><strong>Decision:</strong> Accept the order — it increases profit by $19,000.</p>
+
+<p><strong>(c) Qualitative Factors</strong></p>
+<ul>
+<li><strong>Price discrimination risk:</strong> If regular customers discover the lower price, they may demand similar terms, eroding margins on existing sales.</li>
+<li><strong>Capacity constraints:</strong> Although spare capacity exists now, accepting the order may limit flexibility to respond to higher-margin opportunities.</li>
+<li><strong>Customer relationship:</strong> The overseas customer may become a long-term partner or may resell in Delta's home market, creating competition.</li>
+</ul>
+
+<p><strong>(d) Minimum Price</strong></p>
+<div class="formula-inline">
+Minimum Price = Total Relevant Costs / Units = $57,000 / 2,000 = <strong>$28.50 per unit</strong>
+</div>
+<p>At $28.50, Delta would break even on the order. Any price above this generates incremental profit. The quoted price of $38 provides a comfortable margin above this floor.</p>
+</div>
+</div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- ETC2440 — Business Analytics & Econometrics -->
-<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 5 — Transfer Pricing (Theory &amp; Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+<span class="assignment-tag theory">Theory</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">Zeta Group has two divisions: Division A (manufacturing) and Division B (retail). Division A produces a component at a variable cost of $40 per unit and has excess capacity. The market price for the component is $65 per unit. Division B currently purchases the component from an external supplier at $60 per unit. Division A proposes a transfer price of $58 per unit.</div>
+<div class="question-sub">
+<strong>Required:</strong>
+<ol type="a">
+<li>Calculate the contribution margin for Division A if it sells externally at $65 and if it transfers to Division B at $58.</li>
+<li>Calculate the cost savings for Division B if it purchases internally at $58 instead of externally at $60.</li>
+<li>Calculate the total benefit to Zeta Group from internal transfer and recommend an appropriate transfer price range.</li>
+<li>Discuss two behavioural issues that might arise from the proposed transfer price of $58.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Division A Contribution Margin</strong></p>
+<table class="table-data">
+<tr><th>Scenario</th><th>Selling Price</th><th>Variable Cost</th><th>CM per Unit</th></tr>
+<tr><td>Sell externally</td><td>$65</td><td>$40</td><td>$25</td></tr>
+<tr><td>Transfer to Division B</td><td>$58</td><td>$40</td><td>$18</td></tr>
+</table>
+<p>Division A's manager may resist the internal transfer because it reduces CM from $25 to $18 per unit.</p>
+
+<p><strong>(b) Division B Cost Savings</strong></p>
+<div class="formula-inline">
+Saving per unit = External Price − Transfer Price = $60 − $58 = <strong>$2 per unit</strong>
+</div>
+<p>Division B benefits from lower input costs, improving its reported profit.</p>
+
+<p><strong>(c) Total Benefit to Zeta Group &amp; Transfer Price Range</strong></p>
+<div class="formula-inline">
+Total benefit per unit = External purchase cost − Internal variable cost = $60 − $40 = <strong>$20 per unit</strong>
+</div>
+<p>This represents the group's cost saving from avoiding external purchase.</p>
+<p><strong>Recommended transfer price range:</strong></p>
+<ul>
+<li><strong>Minimum (Division A's perspective):</strong> $40 (variable cost) — Division A won't accept less as it would make a loss</li>
+<li><strong>Maximum (Division B's perspective):</strong> $60 (external price) — Division B won't pay more than it currently pays externally</li>
+</ul>
+<p>Any price between <strong>$40 and $60</strong> benefits the group. The proposed $58 splits the $20 benefit: $18 to Division A and $2 to Division B. A fairer split might be $50, giving each division $10 of the benefit.</p>
+
+<p><strong>(d) Behavioural Issues</strong></p>
+<ul>
+<li><strong>Goal incongruence:</strong> Division A's manager may prioritise external sales ($65) over internal transfers ($58), even though the group benefits more from internal transfer when excess capacity exists. This suboptimises group profit.</li>
+<li><strong>Performance measurement distortion:</strong> If Division A is evaluated on profit margin, the transfer price reduces its reported performance. The manager may lobby for a higher price or refuse the transfer, damaging inter-divisional relationships.</li>
+</ul>
+</div>
+</div>
+</div>
+
 <div class="unit-section" id="etc2440">
 <div class="unit-header" style="--c:var(--accent-tan);--c-dim:rgba(191,155,122,0.1);--c-weak:rgba(191,155,122,0.22)">
 <div class="unit-icon">🔬</div>
@@ -2219,34 +3111,41 @@ IRR ≈ 15% + [1,638 / (1,638 + 1,629)] × (18% − 15%)<br>
 PV of Perpetuity = PMT / r = $5,000 / 0.08 = <strong>$62,500</strong>
 </div>
 </div>
+</div>
+</div>
+
+</div>
+
+</div>
+
 
 <div class="assignment-card">
 <div class="assignment-header">
-<div class="assignment-title">Question 5 — Multiple Regression Interpretation (Theory &amp; Calculation)</div>
+<div class="assignment-title">Question 5 — Logistic Regression &amp; Classification (Calculation &amp; Theory)</div>
 <div class="assignment-meta">
 <span class="assignment-tag calc">Calculation</span>
 <span class="assignment-tag theory">Theory</span>
 </div>
 </div>
 <div class="question">
-<div class="question-text">A researcher estimates the following multiple regression model to explain house prices (in $000s):</div>
+<div class="question-text">A bank uses a logistic regression model to predict whether a loan applicant will default (Y = 1) or not (Y = 0). The estimated model is:</div>
 <div class="question-sub">
 <div class="formula-inline">
-Price = 50 + 120(Size) + 15(Age) − 8(Distance) + ε
+logit(P) = ln(P / (1−P)) = −2.5 + 0.8(Income) + 1.2(Debt_Ratio) − 0.5(Credit_Score)
 </div>
 <p>Where:</p>
 <ul>
-<li><strong>Size</strong> = floor area in hundreds of square metres</li>
-<li><strong>Age</strong> = age of house in years</li>
-<li><strong>Distance</strong> = distance from CBD in km</li>
+<li><strong>Income</strong> = annual income in $10,000s</li>
+<li><strong>Debt_Ratio</strong> = debt-to-income ratio (0 to 1)</li>
+<li><strong>Credit_Score</strong> = credit score (300 to 850, scaled to 0-1)</li>
 </ul>
-<p>Standard errors are in parentheses: SE(Size) = 20, SE(Age) = 5, SE(Distance) = 3. The sample size is n = 150 and R² = 0.72.</p>
 <strong>Required:</strong>
 <ol type="a">
-<li>Interpret each coefficient in the context of the model.</li>
-<li>Calculate the t-statistic for each coefficient and test whether each is statistically significant at the 5% level (two-tailed). The critical t-value is approximately 1.96.</li>
-<li>Calculate the adjusted R² given that the standard error of regression is 18.5.</li>
-<li>A house has Size = 2.5, Age = 10, and Distance = 5. Predict its price and construct a 95% prediction interval.</li>
+<li>Interpret each coefficient in the model.</li>
+<li>For an applicant with Income = 5 ($50,000), Debt_Ratio = 0.4, and Credit_Score = 0.7, calculate the probability of default.</li>
+<li>If the bank's cutoff for rejecting a loan is P(default) > 0.30, should this applicant be approved?</li>
+<li>Explain the difference between logistic regression and linear regression for binary outcomes.</li>
+<li>Discuss two limitations of using logistic regression for credit scoring.</li>
 </ol>
 </div>
 </div>
@@ -2255,52 +3154,121 @@ Price = 50 + 120(Size) + 15(Age) − 8(Distance) + ε
 <div class="answer-content">
 <p><strong>(a) Coefficient Interpretation</strong></p>
 <ul>
-<li><strong>Intercept (50):</strong> A house with zero size, zero age, and zero distance from CBD is predicted to cost $50,000. This is largely a mechanical baseline with limited practical meaning.</li>
-<li><strong>Size (120):</strong> Holding age and distance constant, each additional 100 square metres of floor area is associated with a <strong>$120,000 increase</strong> in house price.</li>
-<li><strong>Age (15):</strong> Holding size and distance constant, each additional year of age is associated with a <strong>$15,000 increase</strong> in price. This unexpected positive sign may reflect heritage value or construction quality in older homes.</li>
-<li><strong>Distance (−8):</strong> Holding size and age constant, each additional kilometre from the CBD is associated with a <strong>$8,000 decrease</strong> in price, reflecting the premium for central location.</li>
+<li><strong>Intercept (−2.5):</strong> The baseline log-odds of default when all predictors are zero.</li>
+<li><strong>Income (0.8):</strong> For each $10,000 increase in income, the log-odds of default increase by 0.8. This counterintuitive positive sign may indicate that higher-income applicants seek larger loans with higher absolute risk.</li>
+<li><strong>Debt_Ratio (1.2):</strong> For each 1-unit increase in debt ratio, the log-odds of default increase by 1.2. Higher debt burden strongly increases default risk.</li>
+<li><strong>Credit_Score (−0.5):</strong> For each 1-unit increase in credit score, the log-odds of default decrease by 0.5. Better credit history reduces default risk.</li>
 </ul>
 
-<p><strong>(b) t-statistics &amp; Significance Tests</strong></p>
+<p><strong>(b) Probability of Default</strong></p>
+<div class="formula-inline">
+logit(P) = −2.5 + 0.8(5) + 1.2(0.4) − 0.5(0.7)<br>
+= −2.5 + 4.0 + 0.48 − 0.35 = <strong>1.63</strong>
+</div>
+<div class="formula-inline">
+P = e<sup>1.63</sup> / (1 + e<sup>1.63</sup>) = 5.103 / 6.103 = <strong>0.836 or 83.6%</strong>
+</div>
+
+<p><strong>(c) Loan Decision</strong></p>
+<p>Since P(default) = 83.6% > 30% cutoff, the applicant should be <strong>rejected</strong>. The high debt ratio (0.4) and relatively low credit score contribute to this elevated risk despite moderate income.</p>
+
+<p><strong>(d) Logistic vs Linear Regression</strong></p>
 <table class="table-data">
-<tr><th>Variable</th><th>Coefficient</th><th>SE</th><th>t = b/SE</th><th>Significant?</th></tr>
-<tr><td>Size</td><td>120</td><td>20</td><td>6.00</td><td>Yes (|6.00| > 1.96)</td></tr>
-<tr><td>Age</td><td>15</td><td>5</td><td>3.00</td><td>Yes (|3.00| > 1.96)</td></tr>
-<tr><td>Distance</td><td>−8</td><td>3</td><td>−2.67</td><td>Yes (|−2.67| > 1.96)</td></tr>
+<tr><th>Feature</th><th>Linear Regression</th><th>Logistic Regression</th></tr>
+<tr><td>Dependent Variable</td><td>Continuous (any real number)</td><td>Binary (0 or 1)</td></tr>
+<tr><td>Predicted Output</td><td>Unbounded (−∞ to +∞)</td><td>Bounded (0 to 1)</td></tr>
+<tr><td>Error Distribution</td><td>Normally distributed errors</td><td>Binomial distribution</td></tr>
+<tr><td>Relationship</td><td>Linear</td><td>S-shaped (logistic curve)</td></tr>
+<tr><td>Interpretation</td><td>Change in Y per unit X</td><td>Change in log-odds per unit X</td></tr>
 </table>
-<p>All three explanatory variables are statistically significant at the 5% level.</p>
+<p>Linear regression is inappropriate for binary outcomes because it can predict values outside [0,1] and violates assumptions of normality and homoscedasticity.</p>
 
-<p><strong>(c) Adjusted R²</strong></p>
+<p><strong>(e) Limitations</strong></p>
+<ul>
+<li><strong>Linearity in log-odds assumption:</strong> Logistic regression assumes a linear relationship between predictors and the log-odds of the outcome. If the true relationship is non-linear (e.g., U-shaped), the model will produce biased predictions.</li>
+<li><strong>Missing interaction effects:</strong> The model does not capture interactions between variables (e.g., high income might mitigate the effect of high debt ratio). Without interaction terms, the model may misclassify applicants with unusual combinations of characteristics.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="assignment-card">
+<div class="assignment-header">
+<div class="assignment-title">Question 4 — Time Series Analysis &amp; Forecasting (Calculation)</div>
+<div class="assignment-meta">
+<span class="assignment-tag calc">Calculation</span>
+</div>
+</div>
+<div class="question">
+<div class="question-text">The quarterly sales (in $000s) for a retail company over three years are:</div>
+<div class="question-sub">
+<table class="table-data">
+<tr><th>Year</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th></tr>
+<tr><td>2024</td><td>120</td><td>150</td><td>180</td><td>210</td></tr>
+<tr><td>2025</td><td>135</td><td>165</td><td>195</td><td>225</td></tr>
+<tr><td>2026</td><td>150</td><td>180</td><td>210</td><td>240</td></tr>
+</table>
+<strong>Required:</strong>
+<ol type="a">
+<li>Calculate the centred four-quarter moving average for 2025 Q2 and 2025 Q3.</li>
+<li>Calculate the seasonal indices for each quarter using the multiplicative model.</li>
+<li>Deseasonalise the sales for 2026 Q1.</li>
+<li>Forecast sales for 2027 Q1 assuming a linear trend and using the seasonal index.</li>
+</ol>
+</div>
+</div>
+<div class="answer-box">
+<div class="answer-label">Model Answer</div>
+<div class="answer-content">
+<p><strong>(a) Centred Moving Averages</strong></p>
+<p><strong>2025 Q2:</strong></p>
 <div class="formula-inline">
-Adjusted R² = 1 − [(1 − R²)(n − 1) / (n − k − 1)]<br>
-= 1 − [(1 − 0.72)(149) / (150 − 3 − 1)]<br>
-= 1 − [(0.28 × 149) / 146]<br>
-= 1 − (41.72 / 146)<br>
-= 1 − 0.2858 = <strong>0.714 or 71.4%</strong>
+4-quarter total = Q1+Q2+Q3+Q4 (2025) + Q1 (2026) = 135+165+195+225+150 = 870<br>
+2-quarter centred total = 870 + (Q4 2024 + Q1 2025 + Q2 2025 + Q3 2025) = 870 + (210+135+165+195) = 870 + 705 = 1,575<br>
+Centred MA = 1,575 / 8 = <strong>196.875</strong>
 </div>
-<p>The adjusted R² is very close to R², indicating that the added variables contribute meaningfully to the model.</p>
+<p><em>Note: Alternative simpler approach — average of Q4 2024 to Q3 2025 = (210+135+165+195)/4 = 176.25, and Q1 2025 to Q4 2025 = (135+165+195+225)/4 = 180. Average of these two = (176.25+180)/2 = <strong>178.125</strong></em></p>
 
-<p><strong>(d) Prediction &amp; Interval</strong></p>
+<p><strong>2025 Q3:</strong></p>
 <div class="formula-inline">
-Predicted Price = 50 + 120(2.5) + 15(10) − 8(5)<br>
-= 50 + 300 + 150 − 40 = <strong>$460,000</strong>
+(Q2 2025 + Q3 2025 + Q4 2025 + Q1 2026)/4 = (165+195+225+150)/4 = 183.75<br>
+(Q3 2025 + Q4 2025 + Q1 2026 + Q2 2026)/4 = (195+225+150+180)/4 = 187.50<br>
+Centred MA = (183.75 + 187.50)/2 = <strong>185.625</strong>
 </div>
-<p>For a 95% prediction interval (approximate):</p>
+
+<p><strong>(b) Seasonal Indices (Multiplicative Model)</strong></p>
+<p>First, calculate trend values using linear regression or averages, then find seasonal ratios:</p>
+<table class="table-data">
+<tr><th>Quarter</th><th>Actual</th><th>Trend (approx)</th><th>Ratio (Actual/Trend)</th></tr>
+<tr><td>2024 Q1</td><td>120</td><td>142.5</td><td>0.842</td></tr>
+<tr><td>2024 Q2</td><td>150</td><td>150.0</td><td>1.000</td></tr>
+<tr><td>2024 Q3</td><td>180</td><td>157.5</td><td>1.143</td></tr>
+<tr><td>2024 Q4</td><td>210</td><td>165.0</td><td>1.273</td></tr>
+</table>
+<p>Averaging across years:</p>
+<table class="table-data">
+<tr><th>Quarter</th><th>Seasonal Index</th></tr>
+<tr><td>Q1</td><td><strong>0.85</strong></td></tr>
+<tr><td>Q2</td><td><strong>1.00</strong></td></tr>
+<tr><td>Q3</td><td><strong>1.15</strong></td></tr>
+<tr><td>Q4</td><td><strong>1.30</strong></td></tr>
+</table>
+<p>(Sum = 4.30, normalised to 4.0 if needed)</p>
+
+<p><strong>(c) Deseasonalised Sales for 2026 Q1</strong></p>
 <div class="formula-inline">
-PI = Predicted Value ± t<sub>crit</sub> × SER × √(1 + 1/n)<br>
-= 460 ± 1.96 × 18.5 × √(1 + 1/150)<br>
-= 460 ± 1.96 × 18.5 × 1.003<br>
-= 460 ± 36.4
-</div>
-<p><strong>95% Prediction Interval: $423,600 to $496,400</strong></p>
-</div>
-</div>
+Deseasonalised = Actual / Seasonal Index = 150 / 0.85 = <strong>176.5 ($176,500)</strong>
 </div>
 
+<p><strong>(d) Forecast for 2027 Q1</strong></p>
+<p>Trend increase per quarter ≈ $7.5 (from moving averages)</p>
+<p>Trend value for 2027 Q1 ≈ 240 + (4 × 7.5) = 270 (approximate)</p>
+<div class="formula-inline">
+Forecast = Trend × Seasonal Index = 270 × 0.85 = <strong>229.5 ($229,500)</strong>
 </div>
-
 </div>
-
+</div>
 </div>
 
 <div class="assignment-sidebar" id="assignmentSidebar"></div>
@@ -2308,6 +3276,9 @@ PI = Predicted Value ± t<sub>crit</sub> × SER × √(1 + 1/n)<br>
 <button class="back-to-top" id="btt" onclick="window.scrollTo(0,0)">↑</button>
 
 <script>
+let currentSubject = 'all';
+let sidebarObserver = null;
+
 function initBackToTop(){
   const btt = document.getElementById('btt');
   window.addEventListener('scroll', () => {
@@ -2316,72 +3287,110 @@ function initBackToTop(){
   });
 }
 
-let currentSubjectFilter = 'all';
-let sidebarObserver = null;
-
-function filterSubject(subjectId){
-  currentSubjectFilter = subjectId;
-  document.getElementById('subjectFilter').value = subjectId;
-
+function showSubject(subjectId) {
+  currentSubject = subjectId;
   const sections = document.querySelectorAll('.unit-section');
+
   sections.forEach(sec => {
-    if(subjectId === 'all' || sec.id === subjectId){
+    if (subjectId === 'all' || sec.id === subjectId) {
       sec.style.display = '';
     } else {
       sec.style.display = 'none';
     }
   });
 
+  // Update active state on TOC links
+  document.querySelectorAll('.toc a').forEach(link => {
+    const href = link.getAttribute('href')?.replace('#', '') || '';
+    const isAll = link.textContent.includes('Show All');
+    if ((subjectId === 'all' && isAll) || href === subjectId) {
+      link.style.color = 'var(--accent-cream)';
+      link.style.borderLeftColor = 'var(--accent-tan)';
+    } else {
+      link.style.color = '';
+      link.style.borderLeftColor = '';
+    }
+  });
+
   initAssignmentSidebar();
 
-  if(subjectId !== 'all'){
-    const visibleSection = document.querySelector('.unit-section:not([style*="display: none"])');
-    if(visibleSection) visibleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Scroll to the section
+  if (subjectId !== 'all') {
+    const target = document.getElementById(subjectId);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 
-function initAssignmentSidebar(){
+function initAssignmentSidebar() {
   const sidebar = document.getElementById('assignmentSidebar');
-  if(!sidebar) return;
+  if (!sidebar) return;
 
-  // Only count cards in visible sections
   const visibleCards = Array.from(document.querySelectorAll('.unit-section:not([style*="display: none"]) .assignment-card'));
-
   sidebar.innerHTML = '';
 
-  if(currentSubjectFilter === 'all'){
-    sidebar.innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:0.75rem;padding:8px 4px;">Select a subject to jump between questions 1–5</div>';
-    if(sidebarObserver) sidebarObserver.disconnect();
-    return;
+  if (visibleCards.length === 0) return;
+
+  // If showing all subjects, show subject sections in sidebar
+  if (currentSubject === 'all') {
+    const sections = document.querySelectorAll('.unit-section:not([style*="display: none"])');
+    sections.forEach(sec => {
+      const id = sec.id;
+      const title = sec.querySelector('.unit-title')?.textContent || id;
+      const shortName = title.split(' — ')[0] || id;
+
+      // Subject label
+      const label = document.createElement('div');
+      label.className = 'assignment-nav-item subject-label';
+      label.textContent = shortName;
+      sidebar.appendChild(label);
+
+      // Numbers 1-5 for this subject
+      const cards = sec.querySelectorAll('.assignment-card');
+      cards.forEach((card, idx) => {
+        const num = idx + 1;
+        const btn = document.createElement('a');
+        btn.className = 'assignment-nav-item';
+        btn.textContent = num;
+        btn.href = '#';
+        btn.onclick = (e) => {
+          e.preventDefault();
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          card.style.boxShadow = '0 0 30px rgba(191,155,122,0.15)';
+          setTimeout(() => { card.style.boxShadow = ''; }, 1200);
+        };
+        sidebar.appendChild(btn);
+      });
+    });
+  } else {
+    // Single subject mode: just show 1-5
+    visibleCards.forEach((card, index) => {
+      const num = index + 1;
+      const btn = document.createElement('a');
+      btn.className = 'assignment-nav-item';
+      btn.textContent = num;
+      btn.href = '#';
+      btn.onclick = (e) => {
+        e.preventDefault();
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        card.style.boxShadow = '0 0 30px rgba(191,155,122,0.15)';
+        setTimeout(() => { card.style.boxShadow = ''; }, 1200);
+      };
+      sidebar.appendChild(btn);
+    });
   }
 
-  if(visibleCards.length === 0) return;
-
-  visibleCards.forEach((card, index) => {
-    const num = index + 1;
-    const btn = document.createElement('a');
-    btn.className = 'assignment-nav-item';
-    btn.textContent = num;
-    btn.href = '#';
-    btn.onclick = (e) => {
-      e.preventDefault();
-      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      card.style.boxShadow = '0 0 30px rgba(191,155,122,0.15)';
-      setTimeout(() => { card.style.boxShadow = ''; }, 1200);
-    };
-    sidebar.appendChild(btn);
-  });
-
-  // Disconnect old observer
-  if(sidebarObserver) sidebarObserver.disconnect();
-
   // Highlight active on scroll
+  if (sidebarObserver) sidebarObserver.disconnect();
   sidebarObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if(entry.isIntersecting){
+      if (entry.isIntersecting) {
         const idx = visibleCards.indexOf(entry.target);
         document.querySelectorAll('.assignment-nav-item').forEach((item, i) => {
-          item.classList.toggle('active', i === idx);
+          if (!item.classList.contains('subject-label')) {
+            item.classList.toggle('active', i === idx);
+          }
         });
       }
     });
@@ -2392,7 +3401,7 @@ function initAssignmentSidebar(){
 
 document.addEventListener('DOMContentLoaded', () => {
   initBackToTop();
-  filterSubject('acw1120');
+  showSubject('acw1120');
 });
 </script>
 </body>
