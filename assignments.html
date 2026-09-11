@@ -3619,4 +3619,60 @@ Cost per true high-risk patient reached = $50,000 / 350 = <strong>$143</strong>
 
 </div>
 
-</div></body></html>
+</div>
+
+<script>
+// QNum bar — scroll to question within visible subject
+(function(){
+  const qbar = document.getElementById('qnumBar');
+  if(!qbar) return;
+
+  function getVisibleSection(){
+    const sections = document.querySelectorAll('.unit-section');
+    let best = null, bestScore = -1;
+    const vh = window.innerHeight;
+    sections.forEach(sec => {
+      const r = sec.getBoundingClientRect();
+      const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+      if(visible > bestScore){ bestScore = visible; best = sec; }
+    });
+    return best;
+  }
+
+  qbar.querySelectorAll('a[data-q]').forEach(link => {
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      const qIndex = parseInt(this.getAttribute('data-q'), 10) - 1;
+      const section = getVisibleSection();
+      if(!section) return;
+      const cards = section.querySelectorAll('.assignment-card');
+      if(cards[qIndex]){
+        cards[qIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // highlight active number
+        qbar.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+      }
+    });
+  });
+
+  // Update active number on scroll
+  function updateActiveOnScroll(){
+    const section = getVisibleSection();
+    if(!section) return;
+    const cards = section.querySelectorAll('.assignment-card');
+    let activeQ = 0;
+    cards.forEach((card, i) => {
+      const r = card.getBoundingClientRect();
+      if(r.top <= window.innerHeight * 0.4) activeQ = i;
+    });
+    qbar.querySelectorAll('a').forEach((a, i) => {
+      a.classList.toggle('active', i === activeQ);
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveOnScroll, { passive: true });
+  updateActiveOnScroll();
+})();
+</script>
+
+</body></html>
