@@ -486,6 +486,46 @@ body::before{
 ::-webkit-scrollbar-thumb{background:var(--accent-espresso);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--accent-rust)}
 ::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
+
+/* ── Right-side Question Number Bar ── */
+.qnum-bar{
+  position:fixed;
+  top:50%; right:20px;
+  transform:translateY(-50%);
+  display:flex; flex-direction:column; gap:10px;
+  z-index:100;
+}
+.qnum-bar a{
+  width:38px; height:38px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:10px;
+  font-size:0.85rem; font-weight:700;
+  color:var(--text-muted);
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  text-decoration:none;
+  transition:all .25s ease;
+  cursor:pointer;
+}
+.qnum-bar a:hover{
+  background:var(--bg-hover);
+  border-color:var(--border-light);
+  color:var(--accent-tan);
+  transform:scale(1.1);
+}
+.qnum-bar a.active{
+  background:var(--accent-tan);
+  border-color:var(--accent-tan);
+  color:var(--bg-primary);
+  box-shadow:0 0 12px rgba(191,155,122,0.25);
+}
+@media(max-width:1200px){
+  .qnum-bar{right:12px; gap:8px}
+  .qnum-bar a{width:34px;height:34px;font-size:0.8rem}
+}
+@media(max-width:640px){
+  .qnum-bar{display:none}
+}
 </style>
 </head>
 <body>
@@ -530,6 +570,14 @@ body::before{
   <a href="#acw2220">ACW2220 — Management Accounting</a>
   <a href="#etc2440">ETC2440 — Business Analytics</a>
 </div>
+<div class="qnum-bar" id="qnumBar">
+  <a href="#" data-q="1">1</a>
+  <a href="#" data-q="2">2</a>
+  <a href="#" data-q="3">3</a>
+  <a href="#" data-q="4">4</a>
+  <a href="#" data-q="5">5</a>
+</div>
+
 <div class="content-wrap">
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -1732,6 +1780,66 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackToTop();
   initAssignmentSidebar();
 });
+</script>
+<script>
+(function(){
+  const bar = document.getElementById('qnumBar');
+  if(!bar) return;
+  const links = bar.querySelectorAll('a');
+
+  // Click: scroll to the Nth question of the visible subject
+  links.forEach(link => {
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      const n = parseInt(this.dataset.q);
+      // Find the subject section most visible in viewport
+      const subjects = document.querySelectorAll('.unit-section');
+      let best = null, bestScore = -Infinity;
+      subjects.forEach(sec => {
+        const r = sec.getBoundingClientRect();
+        const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+        if(visible > bestScore){ bestScore = visible; best = sec; }
+      });
+      if(best){
+        const cards = best.querySelectorAll('.assignment-card');
+        if(cards[n-1]){
+          cards[n-1].scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      }
+    });
+  });
+
+  // Scroll spy: highlight the number matching the question in view
+  function updateActive(){
+    const subjects = document.querySelectorAll('.unit-section');
+    let bestSec = null, bestScore = -Infinity;
+    subjects.forEach(sec => {
+      const r = sec.getBoundingClientRect();
+      const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+      if(visible > bestScore){ bestScore = visible; bestSec = sec; }
+    });
+    links.forEach(l => l.classList.remove('active'));
+    if(bestSec){
+      const cards = bestSec.querySelectorAll('.assignment-card');
+      let activeIdx = -1;
+      cards.forEach((card, idx) => {
+        const r = card.getBoundingClientRect();
+        if(r.top >= 0 && r.top < window.innerHeight * 0.5) activeIdx = idx;
+      });
+      if(activeIdx === -1 && cards.length){
+        // Fallback: find closest to top of viewport
+        let minDist = Infinity;
+        cards.forEach((card, idx) => {
+          const d = Math.abs(card.getBoundingClientRect().top);
+          if(d < minDist){ minDist = d; activeIdx = idx; }
+        });
+      }
+      if(activeIdx >= 0 && links[activeIdx]) links[activeIdx].classList.add('active');
+    }
+  }
+  window.addEventListener('scroll', updateActive, {passive:true});
+  updateActive();
+})();
 </script>
 </body>
 </html>
