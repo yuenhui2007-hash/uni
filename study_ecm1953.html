@@ -2,29 +2,190 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ECM1953 Economics - Study Questions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNI — Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; max-width: 900px; margin: 2rem auto; padding: 1rem; line-height: 1.6; color: #222; background: #f6f7f9; }
-h1 { color: #006dae; border-bottom: 3px solid #006dae; padding-bottom: .4rem; }
-h2 { color: #004c8c; margin-top: 2rem; }
-.mcq { background: #fff; border-left: 4px solid #006dae; padding: 1rem 1.2rem; margin: 1rem 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
-.mcq-question { font-weight: 700; margin-bottom: .6rem; }
-.mcq-options { margin: .4rem 0 .8rem 1.2rem; padding: 0; }
-.mcq-options li { margin-bottom: .35rem; }
-.mcq-toggle { display: inline-block; background: #006dae; color: #fff; padding: .35rem .8rem; border-radius: 4px; cursor: pointer; font-size: .9rem; user-select: none; }
-.mcq-toggle:hover { background: #005a9e; }
-.mcq-answer { display: none; margin-top: .6rem; padding: .8rem; background: #eef6fc; border-radius: 4px; }
-.mcq-answer.show { display: block; }
-.card { background: #fff; border-left: 4px solid #8e44ad; padding: 1rem 1.2rem; margin: 1rem 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
-.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; flex-wrap: wrap; gap: .4rem; }
-.card-title { font-weight: 700; color: #333; }
-.card-tag { background: #8e44ad; color: #fff; font-size: .75rem; padding: .2rem .55rem; border-radius: 999px; }
-.def { margin-top: .6rem; }
-.def-term { font-weight: 700; color: #8e44ad; margin-bottom: .2rem; }
-.def-meaning { color: #444; }
+:root{
+  --bg-primary:#15100C;
+  --bg-secondary:#1C1510;
+  --bg-card:#231A14;
+  --bg-hover:#2E221A;
+  --bg-elevated:#3A2C22;
+  --text-primary:#F2E6D8;
+  --text-secondary:#BF9B7A;
+  --text-muted:#8C5B3E;
+  --text-faint:#593E2E;
+  --accent-cream:#F2E6D8;
+  --accent-tan:#BF9B7A;
+  --accent-rust:#8C5B3E;
+  --accent-espresso:#593E2E;
+  --accent-olive:#555934;
+  --border:rgba(191,155,122,0.10);
+  --border-light:rgba(191,155,122,0.18);
+  --font-serif:'Source Serif 4',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --shadow-card:0 4px 24px rgba(0,0,0,0.25);
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-sans);
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font-size:15px;
+  line-height:1.7;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;
+}
+
+/* Header */
+.header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 32px;
+  border-bottom:1px solid var(--border);
+  background:rgba(21,16,12,0.92);
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(20px) saturate(1.2);
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{
+  width:40px;height:40px;background:linear-gradient(135deg,var(--accent-tan),var(--accent-rust));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;box-shadow:0 0 30px rgba(191,155,122,0.08);
+}
+.logo-text h1{font-family:var(--font-serif);font-size:1.3rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em}
+.logo-text h1 em{font-style:italic;color:var(--accent-tan)}
+.logo-text span{font-size:0.75rem;color:var(--text-muted);letter-spacing:0.05em}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{
+  padding:8px 14px;border-radius:var(--radius-sm);text-decoration:none;
+  color:var(--text-muted);font-weight:500;font-size:0.8rem;
+  transition:all .3s ease;border:1px solid transparent;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--accent-tan);background:rgba(191,155,122,0.08);border-color:rgba(191,155,122,0.18)}
+.nav-links a i{margin-right:5px}
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--text-muted);text-decoration:none;font-size:0.85rem;
+  margin-bottom:20px;transition:color .2s;
+}
+.back-link:hover{color:var(--accent-tan)}
+
+/* Content */
+.content-wrap{max-width:860px;margin:0 auto;padding:24px 24px 80px}
+h1{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:8px}
+h2{font-family:var(--font-serif);font-size:1.35rem;color:var(--accent-tan);margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+h1+p{color:var(--text-muted);font-size:0.9rem;margin-bottom:32px}
+
+/* MCQ */
+.mcq{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.mcq:hover{border-color:var(--border-light)}
+.mcq-question{font-family:var(--font-serif);font-weight:600;margin-bottom:14px;color:var(--text-primary);font-size:1rem;letter-spacing:-0.01em;line-height:1.5}
+.mcq-options{list-style:none;margin:0;padding:0}
+.mcq-options li{
+  padding:10px 16px;margin:6px 0;background:var(--bg-secondary);border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .25s ease;border:1px solid transparent;
+  display:flex;align-items:center;gap:12px;font-size:0.86rem;color:var(--text-secondary);font-weight:300;
+}
+.mcq-options li::before{content:'○';color:var(--text-faint);font-size:1.1rem;transition:all .2s ease;flex-shrink:0}
+.mcq-options li:hover{background:rgba(191,155,122,0.06);border-color:var(--border-light)}
+.mcq-options li.selected{background:rgba(191,155,122,0.08);border-color:var(--accent-rust)}
+.mcq-options li.selected::before{content:'●';color:var(--accent-rust)}
+.mcq-options li.correct{background:rgba(85,89,52,0.10);border-color:var(--accent-olive)}
+.mcq-options li.correct::before{content:'✓';color:var(--accent-olive)}
+.mcq-options li.wrong{background:rgba(140,91,62,0.08);border-color:var(--accent-rust)}
+.mcq-options li.wrong::before{content:'✗';color:var(--accent-rust)}
+.mcq-answer{
+  display:none;margin-top:14px;padding:14px;
+  background:rgba(85,89,52,0.06);border-radius:var(--radius-sm);border-left:2px solid var(--accent-olive);
+  font-size:0.85rem;color:var(--text-secondary);line-height:1.6;
+}
+.mcq-answer.show{display:block}
+.mcq-answer strong{color:var(--accent-olive);font-size:0.85rem}
+.mcq-toggle{
+  color:var(--accent-tan);cursor:pointer;font-size:0.85rem;margin-top:12px;
+  display:inline-block;padding:6px 14px;background:var(--bg-hover);border-radius:var(--radius-sm);
+  transition:all .2s ease;font-weight:500;border:1px solid var(--border);
+}
+.mcq-toggle:hover{background:var(--bg-elevated);border-color:var(--border-light)}
+
+/* Card / Subjective */
+.card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.card:hover{border-color:var(--border-light);box-shadow:var(--shadow-card)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.card-title{font-family:var(--font-serif);font-weight:600;color:var(--accent-tan);font-size:1.05rem;letter-spacing:-0.01em;flex:1;min-width:200px}
+.card-tag{font-size:0.68rem;background:var(--bg-elevated);padding:4px 12px;border-radius:999px;color:var(--text-muted);border:1px solid var(--border);font-weight:500;letter-spacing:0.03em;text-transform:uppercase}
+.def{margin-top:12px;padding:14px;background:rgba(85,89,52,0.06);border-left:2px solid var(--accent-olive);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.def-term{font-family:var(--font-serif);font-weight:600;color:var(--accent-olive);font-size:1.1rem;margin-bottom:6px}
+.def-meaning{color:var(--text-secondary);font-weight:300;font-size:0.9rem;line-height:1.6}
+.def-meaning strong{color:var(--accent-tan)}
+
+/* Responsive */
+@media(max-width:640px){
+  .header{padding:12px 16px;flex-wrap:wrap;gap:8px}
+  .nav-links a{padding:6px 10px;font-size:0.75rem}
+  .content-wrap{padding:16px 16px 60px}
+  h1{font-size:1.6rem}
+  .card-header{flex-direction:column;align-items:flex-start}
+}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--accent-espresso);border-radius:3px}
+::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
+
+/* Print */
+@media print{
+  body::before{display:none}
+  .header{display:none!important}
+  .back-link{display:none}
+  body{background:#fff;color:#222;font-size:11pt}
+  .mcq,.card{page-break-inside:avoid;border-left-width:3px!important;background:#f9f9f9}
+  .mcq-answer{display:block!important}
+  .mcq-toggle{display:none}
+}
 </style>
 </head>
 <body>
+
+<header class="header">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">📚</div>
+    <div class="logo-text">
+      <h1>UNI <em>Study</em></h1>
+      <span>Exam Preparation</span>
+    </div>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+    <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+    <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+    <a href="study.html" class="active"><i class="fas fa-book"></i> Study</a>
+    <a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a>
+    <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+  </nav>
+</header>
+
+<div class="content-wrap">
+  <a href="study.html" class="back-link">← Back to Study Hub</a>
 
 <h1>ECM1953 — Economics</h1>
 <p>Monash B2026 Accountancy | Study Questions</p>
@@ -34,70 +195,70 @@ h2 { color: #004c8c; margin-top: 2rem; }
 <div class="mcq">
 <div class="mcq-question">Q1: Which of the following best describes the concept of opportunity cost?</div>
 <ul class="mcq-options"><li>A) The total monetary cost of producing a good</li><li>B) The value of the next best alternative forgone when making a decision</li><li>C) The sunk costs incurred in past production decisions</li><li>D) The difference between total revenue and total cost</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>Opportunity cost is defined as the value of the next best alternative that must be given up when a choice is made. It is a fundamental concept in economics that applies to all decision-making under scarcity.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q2: If the price elasticity of demand for a product is -0.5, which statement is correct?</div>
 <ul class="mcq-options"><li>A) Demand is elastic and a price increase will reduce total revenue</li><li>B) Demand is inelastic and a price increase will increase total revenue</li><li>C) Demand is unit elastic and total revenue remains unchanged</li><li>D) Demand is perfectly inelastic and quantity demanded does not change</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>When |PED| &lt; 1, demand is inelastic. With inelastic demand, the percentage change in quantity demanded is smaller than the percentage change in price, so a price increase raises total revenue.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q3: In a perfectly competitive market, a firm's short-run supply curve is:</div>
 <ul class="mcq-options"><li>A) The portion of its AVC curve above the MC curve</li><li>B) The portion of its MC curve above the minimum AVC</li><li>C) The entire MC curve</li><li>D) The portion of its ATC curve above the MC curve</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>In perfect competition, a firm will produce in the short run only if price covers average variable cost. Therefore, the supply curve is the marginal cost (MC) curve above the minimum point of the average variable cost (AVC) curve.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q4: Which policy combination would be most appropriate to address demand-pull inflation?</div>
 <ul class="mcq-options"><li>A) Expansionary fiscal policy and expansionary monetary policy</li><li>B) Contractionary fiscal policy and contractionary monetary policy</li><li>C) Expansionary fiscal policy and contractionary monetary policy</li><li>D) Contractionary fiscal policy and expansionary monetary policy</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>Demand-pull inflation occurs when aggregate demand exceeds aggregate supply. Contractionary (tight) fiscal policy (reduced government spending or higher taxes) and contractionary monetary policy (higher interest rates or reduced money supply) both reduce aggregate demand.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q5: The Lorenz curve illustrates:</div>
 <ul class="mcq-options"><li>A) The relationship between inflation and unemployment</li><li>B) The distribution of income or wealth within a population</li><li>C) The trade-off between current and future consumption</li><li>D) The production possibilities frontier of an economy</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>The Lorenz curve graphs the cumulative share of income (or wealth) against the cumulative share of the population. Greater curvature away from the line of perfect equality indicates higher inequality.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q6: A monopolist maximises profit by producing at the quantity where:</div>
 <ul class="mcq-options"><li>A) Price equals marginal cost</li><li>B) Marginal revenue equals marginal cost</li><li>C) Average revenue equals average cost</li><li>D) Marginal revenue equals average cost</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>All profit-maximising firms produce where marginal revenue (MR) equals marginal cost (MC). For a monopolist, MR lies below the demand curve because it must lower the price on all units to sell an additional unit.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q7: Which of the following would cause a leftward shift in the aggregate demand curve?</div>
 <ul class="mcq-options"><li>A) An increase in consumer confidence</li><li>B) A decrease in government spending</li><li>C) A depreciation of the domestic currency</li><li>D) A cut in personal income tax rates</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>A decrease in government spending directly reduces one component of aggregate demand (AD = C + I + G + NX), shifting the AD curve to the left. The other options would shift AD to the right.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q8: According to the Phillips curve, in the short run:</div>
 <ul class="mcq-options"><li>A) There is no trade-off between inflation and unemployment</li><li>B) Lower unemployment is associated with lower inflation</li><li>C) Lower unemployment is associated with higher inflation</li><li>D) Inflation and unemployment always move in the same direction</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: C</strong><br>The short-run Phillips curve shows an inverse relationship: as unemployment falls below the natural rate, inflation tends to rise due to increased wage and price pressures. In the long run, the curve is vertical at the natural rate of unemployment.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q9: Which of the following is a characteristic of a public good?</div>
 <ul class="mcq-options"><li>A) Excludability and rivalry in consumption</li><li>B) Non-excludability and non-rivalry in consumption</li><li>C) Excludability but non-rivalry in consumption</li><li>D) Rivalry in consumption but non-excludability</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>Public goods are defined by non-excludability (it is costly or impossible to prevent someone from using the good) and non-rivalry (one person's consumption does not diminish another's). Examples include national defence and street lighting.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q10: When a country has a comparative advantage in producing a good, it means that:</div>
 <ul class="mcq-options"><li>A) It can produce the good using fewer resources than any other country</li><li>B) It has a lower opportunity cost of producing that good relative to other countries</li><li>C) It has an absolute advantage in producing all goods</li><li>D) Its production possibilities frontier lies outside those of other countries</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>Comparative advantage is determined by lower opportunity cost, not absolute resource use. A country should specialise in goods where it has the lowest relative opportunity cost and trade for other goods.</div>
 </div>
 
@@ -128,5 +289,35 @@ h2 { color: #004c8c; margin-top: 2rem; }
 <div class="def"><div class="def-term">Answer</div><div class="def-meaning">Money serves three primary functions:<br><br>1. <strong>Medium of exchange:</strong> Money eliminates the need for barter by acting as an intermediary accepted in transactions. It reduces transaction costs and the problem of double coincidence of wants.<br><br>2. <strong>Unit of account:</strong> Money provides a common measure of value, allowing prices to be quoted and economic value to be compared. It simplifies accounting and economic calculation.<br><br>3. <strong>Store of value:</strong> Money allows purchasing power to be transferred from the present to the future. It retains value over time so people can save and plan.<br><br>Why Bitcoin struggles:<br>• <strong>Medium of exchange:</strong> Limited merchant acceptance, high transaction fees during network congestion, and slow confirmation times make it impractical for everyday purchases compared to fiat currency or credit cards.<br>• <strong>Unit of account:</strong> Extreme price volatility means prices denominated in Bitcoin fluctuate wildly, making it unreliable for long-term contracts or price setting. Most goods are still priced in national currencies.<br>• <strong>Store of value:</strong> While some view Bitcoin as "digital gold," its volatility makes it risky as a store of value. A 20-30% price swing in a week is common, unlike stable fiat currencies which typically fluctuate by small percentages annually.<br><br>These limitations explain why central banks continue to focus on fiat currency and are exploring more stable central bank digital currencies (CBDCs) rather than adopting decentralised cryptocurrencies as primary money.</div></div>
 </div>
 
+</div>
+
+<script>
+/* MCQ interactivity */
+const mcqState = {};
+document.querySelectorAll('.mcq').forEach((el, idx) => {
+  const qid = 'q' + idx;
+  mcqState[qid] = { answered: false };
+  const options = el.querySelectorAll('.mcq-options li');
+  const answerDiv = el.querySelector('.mcq-answer');
+  const correctText = answerDiv ? answerDiv.textContent : '';
+  const correctLetter = correctText.match(/Answer:s*([A-D])/i);
+  const correctIndex = correctLetter ? correctLetter[1].charCodeAt(0) - 65 : -1;
+
+  options.forEach((opt, oi) => {
+    opt.addEventListener('click', () => {
+      if (mcqState[qid].answered) return;
+      mcqState[qid].answered = true;
+      options.forEach(o => o.style.pointerEvents = 'none');
+      opt.classList.add(oi === correctIndex ? 'correct' : 'wrong');
+      if (oi !== correctIndex && correctIndex >= 0) options[correctIndex].classList.add('correct');
+      if (answerDiv) answerDiv.classList.add('show');
+    });
+  });
+
+  // Replace old toggle with nothing (answer shows on click)
+  const toggle = el.querySelector('.mcq-toggle');
+  if (toggle) toggle.style.display = 'none';
+});
+</script>
 </body>
 </html>

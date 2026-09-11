@@ -2,29 +2,190 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ETW1001 Business Statistics - Study Questions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNI — Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; max-width: 900px; margin: 2rem auto; padding: 1rem; line-height: 1.6; color: #222; background: #f6f7f9; }
-h1 { color: #006dae; border-bottom: 3px solid #006dae; padding-bottom: .4rem; }
-h2 { color: #004c8c; margin-top: 2rem; }
-.mcq { background: #fff; border-left: 4px solid #006dae; padding: 1rem 1.2rem; margin: 1rem 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
-.mcq-question { font-weight: 700; margin-bottom: .6rem; }
-.mcq-options { margin: .4rem 0 .8rem 1.2rem; padding: 0; }
-.mcq-options li { margin-bottom: .35rem; }
-.mcq-toggle { display: inline-block; background: #006dae; color: #fff; padding: .35rem .8rem; border-radius: 4px; cursor: pointer; font-size: .9rem; user-select: none; }
-.mcq-toggle:hover { background: #005a9e; }
-.mcq-answer { display: none; margin-top: .6rem; padding: .8rem; background: #eef6fc; border-radius: 4px; }
-.mcq-answer.show { display: block; }
-.card { background: #fff; border-left: 4px solid #8e44ad; padding: 1rem 1.2rem; margin: 1rem 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
-.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; flex-wrap: wrap; gap: .4rem; }
-.card-title { font-weight: 700; color: #333; }
-.card-tag { background: #8e44ad; color: #fff; font-size: .75rem; padding: .2rem .55rem; border-radius: 999px; }
-.def { margin-top: .6rem; }
-.def-term { font-weight: 700; color: #8e44ad; margin-bottom: .2rem; }
-.def-meaning { color: #444; }
+:root{
+  --bg-primary:#15100C;
+  --bg-secondary:#1C1510;
+  --bg-card:#231A14;
+  --bg-hover:#2E221A;
+  --bg-elevated:#3A2C22;
+  --text-primary:#F2E6D8;
+  --text-secondary:#BF9B7A;
+  --text-muted:#8C5B3E;
+  --text-faint:#593E2E;
+  --accent-cream:#F2E6D8;
+  --accent-tan:#BF9B7A;
+  --accent-rust:#8C5B3E;
+  --accent-espresso:#593E2E;
+  --accent-olive:#555934;
+  --border:rgba(191,155,122,0.10);
+  --border-light:rgba(191,155,122,0.18);
+  --font-serif:'Source Serif 4',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --shadow-card:0 4px 24px rgba(0,0,0,0.25);
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-sans);
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font-size:15px;
+  line-height:1.7;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;
+}
+
+/* Header */
+.header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 32px;
+  border-bottom:1px solid var(--border);
+  background:rgba(21,16,12,0.92);
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(20px) saturate(1.2);
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{
+  width:40px;height:40px;background:linear-gradient(135deg,var(--accent-tan),var(--accent-rust));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;box-shadow:0 0 30px rgba(191,155,122,0.08);
+}
+.logo-text h1{font-family:var(--font-serif);font-size:1.3rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em}
+.logo-text h1 em{font-style:italic;color:var(--accent-tan)}
+.logo-text span{font-size:0.75rem;color:var(--text-muted);letter-spacing:0.05em}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{
+  padding:8px 14px;border-radius:var(--radius-sm);text-decoration:none;
+  color:var(--text-muted);font-weight:500;font-size:0.8rem;
+  transition:all .3s ease;border:1px solid transparent;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--accent-tan);background:rgba(191,155,122,0.08);border-color:rgba(191,155,122,0.18)}
+.nav-links a i{margin-right:5px}
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--text-muted);text-decoration:none;font-size:0.85rem;
+  margin-bottom:20px;transition:color .2s;
+}
+.back-link:hover{color:var(--accent-tan)}
+
+/* Content */
+.content-wrap{max-width:860px;margin:0 auto;padding:24px 24px 80px}
+h1{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:8px}
+h2{font-family:var(--font-serif);font-size:1.35rem;color:var(--accent-tan);margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+h1+p{color:var(--text-muted);font-size:0.9rem;margin-bottom:32px}
+
+/* MCQ */
+.mcq{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.mcq:hover{border-color:var(--border-light)}
+.mcq-question{font-family:var(--font-serif);font-weight:600;margin-bottom:14px;color:var(--text-primary);font-size:1rem;letter-spacing:-0.01em;line-height:1.5}
+.mcq-options{list-style:none;margin:0;padding:0}
+.mcq-options li{
+  padding:10px 16px;margin:6px 0;background:var(--bg-secondary);border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .25s ease;border:1px solid transparent;
+  display:flex;align-items:center;gap:12px;font-size:0.86rem;color:var(--text-secondary);font-weight:300;
+}
+.mcq-options li::before{content:'○';color:var(--text-faint);font-size:1.1rem;transition:all .2s ease;flex-shrink:0}
+.mcq-options li:hover{background:rgba(191,155,122,0.06);border-color:var(--border-light)}
+.mcq-options li.selected{background:rgba(191,155,122,0.08);border-color:var(--accent-rust)}
+.mcq-options li.selected::before{content:'●';color:var(--accent-rust)}
+.mcq-options li.correct{background:rgba(85,89,52,0.10);border-color:var(--accent-olive)}
+.mcq-options li.correct::before{content:'✓';color:var(--accent-olive)}
+.mcq-options li.wrong{background:rgba(140,91,62,0.08);border-color:var(--accent-rust)}
+.mcq-options li.wrong::before{content:'✗';color:var(--accent-rust)}
+.mcq-answer{
+  display:none;margin-top:14px;padding:14px;
+  background:rgba(85,89,52,0.06);border-radius:var(--radius-sm);border-left:2px solid var(--accent-olive);
+  font-size:0.85rem;color:var(--text-secondary);line-height:1.6;
+}
+.mcq-answer.show{display:block}
+.mcq-answer strong{color:var(--accent-olive);font-size:0.85rem}
+.mcq-toggle{
+  color:var(--accent-tan);cursor:pointer;font-size:0.85rem;margin-top:12px;
+  display:inline-block;padding:6px 14px;background:var(--bg-hover);border-radius:var(--radius-sm);
+  transition:all .2s ease;font-weight:500;border:1px solid var(--border);
+}
+.mcq-toggle:hover{background:var(--bg-elevated);border-color:var(--border-light)}
+
+/* Card / Subjective */
+.card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.card:hover{border-color:var(--border-light);box-shadow:var(--shadow-card)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.card-title{font-family:var(--font-serif);font-weight:600;color:var(--accent-tan);font-size:1.05rem;letter-spacing:-0.01em;flex:1;min-width:200px}
+.card-tag{font-size:0.68rem;background:var(--bg-elevated);padding:4px 12px;border-radius:999px;color:var(--text-muted);border:1px solid var(--border);font-weight:500;letter-spacing:0.03em;text-transform:uppercase}
+.def{margin-top:12px;padding:14px;background:rgba(85,89,52,0.06);border-left:2px solid var(--accent-olive);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.def-term{font-family:var(--font-serif);font-weight:600;color:var(--accent-olive);font-size:1.1rem;margin-bottom:6px}
+.def-meaning{color:var(--text-secondary);font-weight:300;font-size:0.9rem;line-height:1.6}
+.def-meaning strong{color:var(--accent-tan)}
+
+/* Responsive */
+@media(max-width:640px){
+  .header{padding:12px 16px;flex-wrap:wrap;gap:8px}
+  .nav-links a{padding:6px 10px;font-size:0.75rem}
+  .content-wrap{padding:16px 16px 60px}
+  h1{font-size:1.6rem}
+  .card-header{flex-direction:column;align-items:flex-start}
+}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--accent-espresso);border-radius:3px}
+::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
+
+/* Print */
+@media print{
+  body::before{display:none}
+  .header{display:none!important}
+  .back-link{display:none}
+  body{background:#fff;color:#222;font-size:11pt}
+  .mcq,.card{page-break-inside:avoid;border-left-width:3px!important;background:#f9f9f9}
+  .mcq-answer{display:block!important}
+  .mcq-toggle{display:none}
+}
 </style>
 </head>
 <body>
+
+<header class="header">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">📚</div>
+    <div class="logo-text">
+      <h1>UNI <em>Study</em></h1>
+      <span>Exam Preparation</span>
+    </div>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+    <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+    <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+    <a href="study.html" class="active"><i class="fas fa-book"></i> Study</a>
+    <a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a>
+    <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+  </nav>
+</header>
+
+<div class="content-wrap">
+  <a href="study.html" class="back-link">← Back to Study Hub</a>
 
 <h1>ETW1001 — Business Statistics</h1>
 <p>Monash B2026 Accountancy | Study Questions</p>
@@ -34,70 +195,70 @@ h2 { color: #004c8c; margin-top: 2rem; }
 <div class="mcq">
 <div class="mcq-question">Q1: A survey asks Monash students to rate their satisfaction with campus facilities on a scale of 1 to 5. What is the measurement scale of this variable?</div>
 <ul class="mcq-options"><li>A) Nominal</li><li>B) Ordinal</li><li>C) Interval</li><li>D) Ratio</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>The satisfaction rating is ordinal because the categories have a meaningful order (1 &lt; 2 &lt; 3 &lt; 4 &lt; 5), but the differences between values are not necessarily equal or meaningful. It is not interval because there is no true zero point.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q2: Which measure of central tendency is most appropriate for describing the typical value of a dataset that contains extreme outliers?</div>
 <ul class="mcq-options"><li>A) Mean</li><li>B) Mode</li><li>C) Median</li><li>D) Range</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: C</strong><br>The median is robust to outliers because it depends only on the middle value(s) of the ordered dataset. The mean is strongly influenced by extreme values, while the range is a measure of dispersion, not central tendency.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q3: In a normal distribution, approximately what percentage of observations fall within two standard deviations of the mean?</div>
 <ul class="mcq-options"><li>A) 68%</li><li>B) 75%</li><li>C) 95%</li><li>D) 99.7%</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: C</strong><br>According to the empirical rule (68-95-99.7 rule), approximately 68% of data falls within one standard deviation, 95% within two standard deviations, and 99.7% within three standard deviations of the mean in a normal distribution.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q4: A hypothesis test yields a p-value of 0.03. If the significance level is set at α = 0.05, what is the appropriate conclusion?</div>
 <ul class="mcq-options"><li>A) Fail to reject the null hypothesis</li><li>B) Reject the null hypothesis</li><li>C) Accept the alternative hypothesis with 97% confidence</li><li>D) The test is inconclusive</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>When the p-value (0.03) is less than the significance level (0.05), we reject the null hypothesis. This indicates that the observed data would be unlikely if the null hypothesis were true. We do not "accept" the alternative; we only reject or fail to reject the null.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q5: Which of the following best describes the difference between a population parameter and a sample statistic?</div>
 <ul class="mcq-options"><li>A) A parameter describes a sample; a statistic describes a population</li><li>B) A parameter is a fixed but usually unknown value describing a population; a statistic is a computed value from sample data used to estimate the parameter</li><li>C) A parameter and a statistic are always equal in value</li><li>D) A statistic is always more accurate than a parameter</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>A population parameter (e.g., μ, σ) is a fixed, typically unknown value that describes a characteristic of the entire population. A sample statistic (e.g., x̄, s) is calculated from sample data and used as an estimator of the population parameter. Due to sampling variability, statistics vary from sample to sample.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q6: In simple linear regression, the coefficient of determination (R²) represents:</div>
 <ul class="mcq-options"><li>A) The correlation between the independent and dependent variables</li><li>B) The proportion of variation in the dependent variable explained by the independent variable</li><li>C) The slope of the regression line</li><li>D) The standard error of the estimate</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>R² measures the proportion of the total variation in the dependent variable (Y) that is explained by the linear relationship with the independent variable (X). It ranges from 0 to 1, where 1 indicates a perfect fit. Note that R² is the square of the correlation coefficient r, not the correlation itself.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q7: Which sampling method ensures that every member of the population has an equal and independent chance of being selected?</div>
 <ul class="mcq-options"><li>A) Stratified sampling</li><li>B) Convenience sampling</li><li>C) Simple random sampling</li><li>D) Quota sampling</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: C</strong><br>Simple random sampling (SRS) gives every member of the population an equal probability of selection, and the selection of one member does not affect the probability of selecting another (independence). Stratified sampling requires dividing the population into subgroups first, while convenience and quota sampling are non-probability methods.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q8: A 95% confidence interval for the population mean is calculated as (45, 55). Which interpretation is correct?</div>
 <ul class="mcq-options"><li>A) There is a 95% probability that the population mean lies between 45 and 55</li><li>B) 95% of the sample means fall between 45 and 55</li><li>C) We are 95% confident that the interval (45, 55) contains the true population mean</li><li>D) The sample mean is definitely between 45 and 55</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: C</strong><br>The correct frequentist interpretation is that if we were to take many samples and construct confidence intervals in the same way, approximately 95% of those intervals would contain the true population mean. The population mean is fixed; the interval is random. We do not say there is a 95% probability that μ is in this specific interval.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q9: In a chi-square test of independence, the null hypothesis states that:</div>
 <ul class="mcq-options"><li>A) The two categorical variables are associated</li><li>B) The two categorical variables are independent</li><li>C) The observed frequencies equal the expected frequencies</li><li>D) The population proportions are all equal</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>The null hypothesis in a chi-square test of independence states that the two categorical variables are independent (no association). The alternative hypothesis states that they are dependent (associated). A large chi-square statistic leads to rejection of the null hypothesis.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q10: Which of the following conditions must be satisfied for the sampling distribution of the sample mean to be approximately normal by the Central Limit Theorem?</div>
 <ul class="mcq-options"><li>A) The population must be normally distributed</li><li>B) The sample size must be sufficiently large (typically n ≥ 30)</li><li>C) The population standard deviation must be known</li><li>D) The data must be measured on a ratio scale</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>The Central Limit Theorem states that for a sufficiently large sample size (commonly n ≥ 30 as a rule of thumb), the sampling distribution of the sample mean will be approximately normal regardless of the shape of the population distribution. If the population is already normal, the sampling distribution is normal for any n.</div>
 </div>
 
@@ -128,5 +289,35 @@ h2 { color: #004c8c; margin-top: 2rem; }
 <div class="def"><div class="def-term">Answer</div><div class="def-meaning">Given:<br>• Sample size n = 100<br>• Sample mean x̄ = 1,200 hours<br>• Sample standard deviation s = 100 hours<br>• Confidence level = 99%<br><br>Since n = 100 is large, we can use the z-distribution. For 99% confidence, z₀.₀₀₅ = 2.576.<br><br>Standard error (SE) = s / √n = 100 / √100 = 100 / 10 = 10 hours<br><br>Margin of error (ME) = z × SE = 2.576 × 10 = 25.76 hours<br><br>Confidence interval:<br>Lower bound = 1,200 - 25.76 = 1,174.24 hours<br>Upper bound = 1,200 + 25.76 = 1,225.76 hours<br><br>99% CI ≈ (1,174, 1,226) hours<br><br>Interpretation: We are 99% confident that the true mean lifetime of all light bulbs produced by this factory lies between 1,174 and 1,226 hours. This means that if we were to take many random samples of 100 bulbs and construct confidence intervals in the same manner, approximately 99% of those intervals would contain the true population mean.<br><br>Note: If using the t-distribution with df = 99, t₀.₀₀₅,₉₉ ≈ 2.626, giving a slightly wider interval of (1,174, 1,226) — practically the same due to the large sample size.</div></div>
 </div>
 
+</div>
+
+<script>
+/* MCQ interactivity */
+const mcqState = {};
+document.querySelectorAll('.mcq').forEach((el, idx) => {
+  const qid = 'q' + idx;
+  mcqState[qid] = { answered: false };
+  const options = el.querySelectorAll('.mcq-options li');
+  const answerDiv = el.querySelector('.mcq-answer');
+  const correctText = answerDiv ? answerDiv.textContent : '';
+  const correctLetter = correctText.match(/Answer:s*([A-D])/i);
+  const correctIndex = correctLetter ? correctLetter[1].charCodeAt(0) - 65 : -1;
+
+  options.forEach((opt, oi) => {
+    opt.addEventListener('click', () => {
+      if (mcqState[qid].answered) return;
+      mcqState[qid].answered = true;
+      options.forEach(o => o.style.pointerEvents = 'none');
+      opt.classList.add(oi === correctIndex ? 'correct' : 'wrong');
+      if (oi !== correctIndex && correctIndex >= 0) options[correctIndex].classList.add('correct');
+      if (answerDiv) answerDiv.classList.add('show');
+    });
+  });
+
+  // Replace old toggle with nothing (answer shows on click)
+  const toggle = el.querySelector('.mcq-toggle');
+  if (toggle) toggle.style.display = 'none';
+});
+</script>
 </body>
 </html>

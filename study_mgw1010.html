@@ -2,30 +2,190 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>MGW1010 Study Guide</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNI — Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-body { font-family: Georgia, serif; max-width: 900px; margin: 40px auto; padding: 0 20px; background: #fdfdfd; color: #222; }
-h1, h2 { color: #003366; }
-h2 { border-bottom: 2px solid #003366; padding-bottom: 6px; margin-top: 40px; }
-.mcq { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 18px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-.mcq-question { font-weight: bold; margin-bottom: 10px; }
-.mcq-options { list-style: none; padding-left: 0; margin-bottom: 10px; }
-.mcq-options li { margin-bottom: 6px; padding: 6px 10px; background: #f6f8fa; border-radius: 4px; }
-.mcq-options li:hover { background: #eef2f7; }
-.mcq-toggle { display: inline-block; cursor: pointer; color: #005599; font-weight: bold; padding: 6px 12px; border: 1px solid #005599; border-radius: 5px; font-size: 0.9rem; }
-.mcq-toggle:hover { background: #005599; color: #fff; }
-.mcq-answer { display: none; margin-top: 12px; padding: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; }
-.mcq-answer.show { display: block; }
-.card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 18px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.card-title { font-weight: bold; font-size: 1.05rem; }
-.card-tag { background: #003366; color: #fff; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; }
-.def { margin-top: 10px; }
-.def-term { font-weight: bold; color: #2e7d32; margin-bottom: 6px; }
-.def-meaning { line-height: 1.6; }
+:root{
+  --bg-primary:#15100C;
+  --bg-secondary:#1C1510;
+  --bg-card:#231A14;
+  --bg-hover:#2E221A;
+  --bg-elevated:#3A2C22;
+  --text-primary:#F2E6D8;
+  --text-secondary:#BF9B7A;
+  --text-muted:#8C5B3E;
+  --text-faint:#593E2E;
+  --accent-cream:#F2E6D8;
+  --accent-tan:#BF9B7A;
+  --accent-rust:#8C5B3E;
+  --accent-espresso:#593E2E;
+  --accent-olive:#555934;
+  --border:rgba(191,155,122,0.10);
+  --border-light:rgba(191,155,122,0.18);
+  --font-serif:'Source Serif 4',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --shadow-card:0 4px 24px rgba(0,0,0,0.25);
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-sans);
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font-size:15px;
+  line-height:1.7;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;
+}
+
+/* Header */
+.header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 32px;
+  border-bottom:1px solid var(--border);
+  background:rgba(21,16,12,0.92);
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(20px) saturate(1.2);
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{
+  width:40px;height:40px;background:linear-gradient(135deg,var(--accent-tan),var(--accent-rust));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;box-shadow:0 0 30px rgba(191,155,122,0.08);
+}
+.logo-text h1{font-family:var(--font-serif);font-size:1.3rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em}
+.logo-text h1 em{font-style:italic;color:var(--accent-tan)}
+.logo-text span{font-size:0.75rem;color:var(--text-muted);letter-spacing:0.05em}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{
+  padding:8px 14px;border-radius:var(--radius-sm);text-decoration:none;
+  color:var(--text-muted);font-weight:500;font-size:0.8rem;
+  transition:all .3s ease;border:1px solid transparent;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--accent-tan);background:rgba(191,155,122,0.08);border-color:rgba(191,155,122,0.18)}
+.nav-links a i{margin-right:5px}
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--text-muted);text-decoration:none;font-size:0.85rem;
+  margin-bottom:20px;transition:color .2s;
+}
+.back-link:hover{color:var(--accent-tan)}
+
+/* Content */
+.content-wrap{max-width:860px;margin:0 auto;padding:24px 24px 80px}
+h1{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:8px}
+h2{font-family:var(--font-serif);font-size:1.35rem;color:var(--accent-tan);margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+h1+p{color:var(--text-muted);font-size:0.9rem;margin-bottom:32px}
+
+/* MCQ */
+.mcq{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.mcq:hover{border-color:var(--border-light)}
+.mcq-question{font-family:var(--font-serif);font-weight:600;margin-bottom:14px;color:var(--text-primary);font-size:1rem;letter-spacing:-0.01em;line-height:1.5}
+.mcq-options{list-style:none;margin:0;padding:0}
+.mcq-options li{
+  padding:10px 16px;margin:6px 0;background:var(--bg-secondary);border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .25s ease;border:1px solid transparent;
+  display:flex;align-items:center;gap:12px;font-size:0.86rem;color:var(--text-secondary);font-weight:300;
+}
+.mcq-options li::before{content:'○';color:var(--text-faint);font-size:1.1rem;transition:all .2s ease;flex-shrink:0}
+.mcq-options li:hover{background:rgba(191,155,122,0.06);border-color:var(--border-light)}
+.mcq-options li.selected{background:rgba(191,155,122,0.08);border-color:var(--accent-rust)}
+.mcq-options li.selected::before{content:'●';color:var(--accent-rust)}
+.mcq-options li.correct{background:rgba(85,89,52,0.10);border-color:var(--accent-olive)}
+.mcq-options li.correct::before{content:'✓';color:var(--accent-olive)}
+.mcq-options li.wrong{background:rgba(140,91,62,0.08);border-color:var(--accent-rust)}
+.mcq-options li.wrong::before{content:'✗';color:var(--accent-rust)}
+.mcq-answer{
+  display:none;margin-top:14px;padding:14px;
+  background:rgba(85,89,52,0.06);border-radius:var(--radius-sm);border-left:2px solid var(--accent-olive);
+  font-size:0.85rem;color:var(--text-secondary);line-height:1.6;
+}
+.mcq-answer.show{display:block}
+.mcq-answer strong{color:var(--accent-olive);font-size:0.85rem}
+.mcq-toggle{
+  color:var(--accent-tan);cursor:pointer;font-size:0.85rem;margin-top:12px;
+  display:inline-block;padding:6px 14px;background:var(--bg-hover);border-radius:var(--radius-sm);
+  transition:all .2s ease;font-weight:500;border:1px solid var(--border);
+}
+.mcq-toggle:hover{background:var(--bg-elevated);border-color:var(--border-light)}
+
+/* Card / Subjective */
+.card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.card:hover{border-color:var(--border-light);box-shadow:var(--shadow-card)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.card-title{font-family:var(--font-serif);font-weight:600;color:var(--accent-tan);font-size:1.05rem;letter-spacing:-0.01em;flex:1;min-width:200px}
+.card-tag{font-size:0.68rem;background:var(--bg-elevated);padding:4px 12px;border-radius:999px;color:var(--text-muted);border:1px solid var(--border);font-weight:500;letter-spacing:0.03em;text-transform:uppercase}
+.def{margin-top:12px;padding:14px;background:rgba(85,89,52,0.06);border-left:2px solid var(--accent-olive);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.def-term{font-family:var(--font-serif);font-weight:600;color:var(--accent-olive);font-size:1.1rem;margin-bottom:6px}
+.def-meaning{color:var(--text-secondary);font-weight:300;font-size:0.9rem;line-height:1.6}
+.def-meaning strong{color:var(--accent-tan)}
+
+/* Responsive */
+@media(max-width:640px){
+  .header{padding:12px 16px;flex-wrap:wrap;gap:8px}
+  .nav-links a{padding:6px 10px;font-size:0.75rem}
+  .content-wrap{padding:16px 16px 60px}
+  h1{font-size:1.6rem}
+  .card-header{flex-direction:column;align-items:flex-start}
+}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--accent-espresso);border-radius:3px}
+::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
+
+/* Print */
+@media print{
+  body::before{display:none}
+  .header{display:none!important}
+  .back-link{display:none}
+  body{background:#fff;color:#222;font-size:11pt}
+  .mcq,.card{page-break-inside:avoid;border-left-width:3px!important;background:#f9f9f9}
+  .mcq-answer{display:block!important}
+  .mcq-toggle{display:none}
+}
 </style>
 </head>
 <body>
+
+<header class="header">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">📚</div>
+    <div class="logo-text">
+      <h1>UNI <em>Study</em></h1>
+      <span>Exam Preparation</span>
+    </div>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+    <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+    <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+    <a href="study.html" class="active"><i class="fas fa-book"></i> Study</a>
+    <a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a>
+    <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+  </nav>
+</header>
+
+<div class="content-wrap">
+  <a href="study.html" class="back-link">← Back to Study Hub</a>
 
 <h1>MGW1010 — Introduction to Management</h1>
 <h2>Multiple Choice Questions</h2>
@@ -33,70 +193,70 @@ h2 { border-bottom: 2px solid #003366; padding-bottom: 6px; margin-top: 40px; }
 <div class="mcq">
 <div class="mcq-question">Q1: Which of the following is a primary function of management according to Henri Fayol?</div>
 <ul class="mcq-options"><li>A) Marketing and sales</li><li>B) Planning, organising, leading, and controlling</li><li>C) Research and development</li><li>D) Accounting and auditing</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>Fayol identified five primary functions: planning, organising, commanding, coordinating, and controlling. Modern texts often combine these into planning, organising, leading, and controlling (POLC).</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q2: Under McGregor's Theory X and Theory Y, which statement best describes a Theory X manager's assumption about employees?</div>
 <ul class="mcq-options"><li>A) Employees are self-motivated and seek responsibility</li><li>B) Employees inherently dislike work and must be coerced to perform</li><li>C) Employees are motivated primarily by social needs</li><li>D) Employees seek self-actualisation above all else</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>Theory X assumes that people inherently dislike work, are lazy, and must be controlled, directed, or threatened with punishment to achieve organisational goals.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q3: In Porter's Five Forces model, the threat of new entrants is typically LOW when:</div>
 <ul class="mcq-options"><li>A) Capital requirements are low and switching costs are minimal</li><li>B) Economies of scale are significant and brand loyalty is high</li><li>C) Products are undifferentiated and exit barriers are low</li><li>D) Suppliers are fragmented and buyer concentration is high</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>High economies of scale and strong brand loyalty create barriers to entry, making it difficult for new competitors to enter the market successfully.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q4: Which organisational structure groups employees based on the functions they perform (e.g., marketing, finance, operations)?</div>
 <ul class="mcq-options"><li>A) Divisional structure</li><li>B) Matrix structure</li><li>C) Functional structure</li><li>D) Network structure</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: C</strong><br>A functional structure groups activities and employees by specialised functions such as marketing, finance, operations, and human resources.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q5: Herzberg's Two-Factor Theory distinguishes between motivators and hygiene factors. Which of the following is a HYGIENE factor?</div>
 <ul class="mcq-options"><li>A) Achievement</li><li>B) Recognition</li><li>C) Company policy and administration</li><li>D) The work itself</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: C</strong><br>Hygiene factors (e.g., salary, working conditions, company policy, supervision) prevent dissatisfaction but do not motivate. Motivators include achievement, recognition, and the work itself.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q6: According to the contingency approach to management, the most effective management style depends on:</div>
 <ul class="mcq-options"><li>A) Universal principles that apply to all organisations</li><li>B) The specific situation and context in which management occurs</li><li>C) The size of the organisation alone</li><li>D) The cultural background of the CEO</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>The contingency approach argues there is no single best way to manage; the optimal approach depends on situational factors such as task complexity, technology, and external environment.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q7: In the context of decision-making, what is "bounded rationality"?</div>
 <ul class="mcq-options"><li>A) Managers making perfectly rational decisions with complete information</li><li>B) The idea that managers make decisions within the limits of their cognitive ability and available information</li><li>C) A decision-making process used exclusively in non-profit organisations</li><li>D) The principle that all decisions should be made by consensus</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>Herbert Simon proposed bounded rationality: decision-makers are limited by cognitive constraints, time, and imperfect information, so they "satisfice" rather than optimise.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q8: Which of the following best describes transformational leadership?</div>
 <ul class="mcq-options"><li>A) Leaders who focus on clarifying roles and providing rewards for task completion</li><li>B) Leaders who inspire and motivate followers to achieve extraordinary outcomes and develop their own leadership capacity</li><li>C) Leaders who avoid making decisions and allow group consensus to emerge</li><li>D) Leaders who exercise strict control over employees through rules and procedures</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: B</strong><br>Transformational leaders inspire followers through vision, intellectual stimulation, individualised consideration, and inspirational motivation, fostering higher levels of engagement and performance.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q9: SWOT analysis is used to evaluate which of the following?</div>
 <ul class="mcq-options"><li>A) An organisation's strengths, weaknesses, opportunities, and threats</li><li>B) An organisation's sales, wages, output, and turnover</li><li>C) An organisation's strategic workforce optimisation and training</li><li>D) An organisation's stock, work-in-progress, order backlog, and throughput</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: A</strong><br>SWOT stands for Strengths, Weaknesses, Opportunities, and Threats. It is a strategic planning tool used to assess internal capabilities and external conditions.</div>
 </div>
 
 <div class="mcq">
 <div class="mcq-question">Q10: In Hofstede's cultural dimensions theory, "uncertainty avoidance" refers to:</div>
 <ul class="mcq-options"><li>A) The extent to which members of a society feel uncomfortable with ambiguity and prefer structured situations</li><li>B) The degree to which less powerful members accept unequal power distribution</li><li>C) The preference for individual achievement over group harmony</li><li>D) The emphasis on competition and assertiveness in a society</li></ul>
-<span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+<span class="mcq-toggle">Show Answer</span>
 <div class="mcq-answer"><strong>Answer: A</strong><br>Uncertainty avoidance measures a society's tolerance for ambiguity. High uncertainty avoidance cultures prefer clear rules, formal structures, and standardised procedures.</div>
 </div>
 
@@ -127,5 +287,35 @@ h2 { border-bottom: 2px solid #003366; padding-bottom: 6px; margin-top: 40px; }
 <div class="def"><div class="def-term">Answer</div><div class="def-meaning">Globalisation has compelled Australian managers to adopt more culturally sensitive and adaptive practices. Workforce diversity requires inclusive leadership, cross-cultural communication training, and flexible HR policies. Ethical considerations have intensified due to global supply chains (e.g., labour standards, environmental compliance) and increased scrutiny from stakeholders. Australian organisations must navigate differing legal frameworks, cultural norms, and stakeholder expectations across markets. Managers face challenges such as balancing global integration with local responsiveness, ensuring ethical sourcing, and managing virtual teams across time zones. Successful global managers develop cultural intelligence (CQ), uphold corporate social responsibility (CSR), and implement codes of conduct that transcend national boundaries while respecting local customs.</div></div>
 </div>
 
+</div>
+
+<script>
+/* MCQ interactivity */
+const mcqState = {};
+document.querySelectorAll('.mcq').forEach((el, idx) => {
+  const qid = 'q' + idx;
+  mcqState[qid] = { answered: false };
+  const options = el.querySelectorAll('.mcq-options li');
+  const answerDiv = el.querySelector('.mcq-answer');
+  const correctText = answerDiv ? answerDiv.textContent : '';
+  const correctLetter = correctText.match(/Answer:s*([A-D])/i);
+  const correctIndex = correctLetter ? correctLetter[1].charCodeAt(0) - 65 : -1;
+
+  options.forEach((opt, oi) => {
+    opt.addEventListener('click', () => {
+      if (mcqState[qid].answered) return;
+      mcqState[qid].answered = true;
+      options.forEach(o => o.style.pointerEvents = 'none');
+      opt.classList.add(oi === correctIndex ? 'correct' : 'wrong');
+      if (oi !== correctIndex && correctIndex >= 0) options[correctIndex].classList.add('correct');
+      if (answerDiv) answerDiv.classList.add('show');
+    });
+  });
+
+  // Replace old toggle with nothing (answer shows on click)
+  const toggle = el.querySelector('.mcq-toggle');
+  if (toggle) toggle.style.display = 'none';
+});
+</script>
 </body>
 </html>

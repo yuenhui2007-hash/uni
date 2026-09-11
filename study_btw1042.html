@@ -3,64 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BTW1042 — Business Law Complete Study Guide</title>
+<title>UNI — Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-  :root{--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--accent:#38bdf8;--accent2:#f472b6;--green:#4ade80;--red:#f87171;--border:#334155;--yellow:#fbbf24;--purple:#a78bfa;}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:24px;max-width:1000px;margin:0 auto}
-  h1{margin-bottom:6px;font-size:1.8rem}
-  h2{color:var(--accent);font-size:1.25rem;margin:32px 0 14px;border-bottom:1px solid var(--border);padding-bottom:8px}
-  h3{color:var(--accent2);font-size:1.05rem;margin:24px 0 10px}
-  h4{color:var(--yellow);font-size:.95rem;margin:16px 0 8px}
-  .subtitle{color:var(--muted);font-size:1rem;margin-bottom:24px}
-  .toc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:28px}
-  .toc h3{margin-top:0;color:var(--accent)}
-  .toc ul{list-style:none;padding:0}
-  .toc li{padding:4px 0}
-  .toc a{color:var(--muted);text-decoration:none}
-  .toc a:hover{color:var(--accent)}
-  .mcq{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
-  .mcq-question{font-weight:600;margin-bottom:10px}
-  .mcq-options{list-style:none;padding-left:0;margin-bottom:10px}
-  .mcq-options li{padding:6px 8px;border-radius:6px;margin-bottom:4px;cursor:default}
-  .mcq-options li:hover{background:#334155}
-  .mcq-toggle{display:inline-block;color:var(--accent);cursor:pointer;font-weight:600;user-select:none}
-  .mcq-answer{display:none;margin-top:10px;padding:12px;background:#0b1220;border:1px solid var(--border);border-radius:8px}
-  .mcq-answer.show{display:block}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
-  .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px}
-  .card-title{font-weight:600;font-size:1rem}
-  .card-tag{font-size:.75rem;background:var(--accent2);color:#0f172a;padding:3px 10px;border-radius:999px;font-weight:700}
-  .def{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-  .def-term{font-weight:700;color:var(--green)}
-  .def-meaning{color:var(--muted)}
-  .case-study{background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
-  .case-title{color:var(--yellow);font-weight:700;font-size:1.1rem;margin-bottom:12px}
-  .case-section{margin-bottom:12px}
-  .case-label{color:var(--accent);font-weight:600;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
-  .case-content{color:var(--muted);font-size:.95rem}
-  .essay-box{background:var(--card);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:16px;margin-bottom:16px}
-  .essay-title{font-weight:700;color:var(--accent);margin-bottom:8px}
-  .tip-box{background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:12px;padding:14px;margin-bottom:16px}
-  .tip-title{color:var(--green);font-weight:700;margin-bottom:6px}
-  .warning-box{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:14px;margin-bottom:16px}
-  .warning-title{color:var(--red);font-weight:700;margin-bottom:6px}
-  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.9rem}
-  th{background:#1e293b;color:var(--accent);padding:10px;text-align:left;border-bottom:2px solid var(--border)}
-  td{padding:10px;border-bottom:1px solid var(--border);color:var(--muted)}
-  tr:hover td{background:#1e293b}
-  ul,ol{padding-left:20px;margin:10px 0}
-  li{margin:6px 0}
-  code{background:#0b1220;padding:2px 6px;border-radius:4px;font-size:.9rem;color:var(--accent)}
-  .highlight{background:rgba(251,191,36,.15);padding:2px 6px;border-radius:4px;color:var(--yellow)}
-  .ilac-box{background:var(--card);border:1px solid var(--purple);border-radius:12px;padding:16px;margin-bottom:16px}
-  .ilac-title{color:var(--purple);font-weight:700;margin-bottom:10px;font-size:1.05rem}
-  .checklist{background:var(--card);border-radius:12px;padding:16px}
-  .checklist-item{display:flex;align-items:flex-start;gap:10px;margin:8px 0}
-  .checklist-item input{margin-top:4px}
+:root{
+  --bg-primary:#15100C;
+  --bg-secondary:#1C1510;
+  --bg-card:#231A14;
+  --bg-hover:#2E221A;
+  --bg-elevated:#3A2C22;
+  --text-primary:#F2E6D8;
+  --text-secondary:#BF9B7A;
+  --text-muted:#8C5B3E;
+  --text-faint:#593E2E;
+  --accent-cream:#F2E6D8;
+  --accent-tan:#BF9B7A;
+  --accent-rust:#8C5B3E;
+  --accent-espresso:#593E2E;
+  --accent-olive:#555934;
+  --border:rgba(191,155,122,0.10);
+  --border-light:rgba(191,155,122,0.18);
+  --font-serif:'Source Serif 4',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --shadow-card:0 4px 24px rgba(0,0,0,0.25);
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-sans);
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font-size:15px;
+  line-height:1.7;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;
+}
+
+/* Header */
+.header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 32px;
+  border-bottom:1px solid var(--border);
+  background:rgba(21,16,12,0.92);
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(20px) saturate(1.2);
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{
+  width:40px;height:40px;background:linear-gradient(135deg,var(--accent-tan),var(--accent-rust));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;box-shadow:0 0 30px rgba(191,155,122,0.08);
+}
+.logo-text h1{font-family:var(--font-serif);font-size:1.3rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em}
+.logo-text h1 em{font-style:italic;color:var(--accent-tan)}
+.logo-text span{font-size:0.75rem;color:var(--text-muted);letter-spacing:0.05em}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{
+  padding:8px 14px;border-radius:var(--radius-sm);text-decoration:none;
+  color:var(--text-muted);font-weight:500;font-size:0.8rem;
+  transition:all .3s ease;border:1px solid transparent;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--accent-tan);background:rgba(191,155,122,0.08);border-color:rgba(191,155,122,0.18)}
+.nav-links a i{margin-right:5px}
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--text-muted);text-decoration:none;font-size:0.85rem;
+  margin-bottom:20px;transition:color .2s;
+}
+.back-link:hover{color:var(--accent-tan)}
+
+/* Content */
+.content-wrap{max-width:860px;margin:0 auto;padding:24px 24px 80px}
+h1{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:8px}
+h2{font-family:var(--font-serif);font-size:1.35rem;color:var(--accent-tan);margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+h1+p{color:var(--text-muted);font-size:0.9rem;margin-bottom:32px}
+
+/* MCQ */
+.mcq{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.mcq:hover{border-color:var(--border-light)}
+.mcq-question{font-family:var(--font-serif);font-weight:600;margin-bottom:14px;color:var(--text-primary);font-size:1rem;letter-spacing:-0.01em;line-height:1.5}
+.mcq-options{list-style:none;margin:0;padding:0}
+.mcq-options li{
+  padding:10px 16px;margin:6px 0;background:var(--bg-secondary);border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .25s ease;border:1px solid transparent;
+  display:flex;align-items:center;gap:12px;font-size:0.86rem;color:var(--text-secondary);font-weight:300;
+}
+.mcq-options li::before{content:'○';color:var(--text-faint);font-size:1.1rem;transition:all .2s ease;flex-shrink:0}
+.mcq-options li:hover{background:rgba(191,155,122,0.06);border-color:var(--border-light)}
+.mcq-options li.selected{background:rgba(191,155,122,0.08);border-color:var(--accent-rust)}
+.mcq-options li.selected::before{content:'●';color:var(--accent-rust)}
+.mcq-options li.correct{background:rgba(85,89,52,0.10);border-color:var(--accent-olive)}
+.mcq-options li.correct::before{content:'✓';color:var(--accent-olive)}
+.mcq-options li.wrong{background:rgba(140,91,62,0.08);border-color:var(--accent-rust)}
+.mcq-options li.wrong::before{content:'✗';color:var(--accent-rust)}
+.mcq-answer{
+  display:none;margin-top:14px;padding:14px;
+  background:rgba(85,89,52,0.06);border-radius:var(--radius-sm);border-left:2px solid var(--accent-olive);
+  font-size:0.85rem;color:var(--text-secondary);line-height:1.6;
+}
+.mcq-answer.show{display:block}
+.mcq-answer strong{color:var(--accent-olive);font-size:0.85rem}
+.mcq-toggle{
+  color:var(--accent-tan);cursor:pointer;font-size:0.85rem;margin-top:12px;
+  display:inline-block;padding:6px 14px;background:var(--bg-hover);border-radius:var(--radius-sm);
+  transition:all .2s ease;font-weight:500;border:1px solid var(--border);
+}
+.mcq-toggle:hover{background:var(--bg-elevated);border-color:var(--border-light)}
+
+/* Card / Subjective */
+.card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.card:hover{border-color:var(--border-light);box-shadow:var(--shadow-card)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.card-title{font-family:var(--font-serif);font-weight:600;color:var(--accent-tan);font-size:1.05rem;letter-spacing:-0.01em;flex:1;min-width:200px}
+.card-tag{font-size:0.68rem;background:var(--bg-elevated);padding:4px 12px;border-radius:999px;color:var(--text-muted);border:1px solid var(--border);font-weight:500;letter-spacing:0.03em;text-transform:uppercase}
+.def{margin-top:12px;padding:14px;background:rgba(85,89,52,0.06);border-left:2px solid var(--accent-olive);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.def-term{font-family:var(--font-serif);font-weight:600;color:var(--accent-olive);font-size:1.1rem;margin-bottom:6px}
+.def-meaning{color:var(--text-secondary);font-weight:300;font-size:0.9rem;line-height:1.6}
+.def-meaning strong{color:var(--accent-tan)}
+
+/* Responsive */
+@media(max-width:640px){
+  .header{padding:12px 16px;flex-wrap:wrap;gap:8px}
+  .nav-links a{padding:6px 10px;font-size:0.75rem}
+  .content-wrap{padding:16px 16px 60px}
+  h1{font-size:1.6rem}
+  .card-header{flex-direction:column;align-items:flex-start}
+}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--accent-espresso);border-radius:3px}
+::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
+
+/* Print */
+@media print{
+  body::before{display:none}
+  .header{display:none!important}
+  .back-link{display:none}
+  body{background:#fff;color:#222;font-size:11pt}
+  .mcq,.card{page-break-inside:avoid;border-left-width:3px!important;background:#f9f9f9}
+  .mcq-answer{display:block!important}
+  .mcq-toggle{display:none}
+}
 </style>
 </head>
 <body>
+
+<header class="header">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">📚</div>
+    <div class="logo-text">
+      <h1>UNI <em>Study</em></h1>
+      <span>Exam Preparation</span>
+    </div>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+    <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+    <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+    <a href="study.html" class="active"><i class="fas fa-book"></i> Study</a>
+    <a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a>
+    <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+  </nav>
+</header>
+
+<div class="content-wrap">
+  <a href="study.html" class="back-link">← Back to Study Hub</a>
 
 <h1>BTW1042 — Business Law</h1>
 <div class="subtitle">Monash B2026 Complete Exam Study Guide with Case Studies & Essay Writing</div>
@@ -91,7 +216,7 @@
     <li>C) A written document signed by both parties</li>
     <li>D) Payment of a stamp duty</li>
   </ul>
-  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <span class="mcq-toggle">Show Answer</span>
   <div class="mcq-answer"><strong>Answer: B</strong><br>Essential elements for a valid contract under common law include: (1) offer, (2) acceptance, (3) consideration, (4) intention to create legal relations, (5) certainty, and (6) capacity. Writing is not always required except for specific contracts like land sales under the Statute of Frauds.</div>
 </div>
 
@@ -103,7 +228,7 @@
     <li>C) Refusing to perform a contract due to frustration</li>
     <li>D) Assigning contractual rights to a third party</li>
   </ul>
-  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <span class="mcq-toggle">Show Answer</span>
   <div class="mcq-answer"><strong>Answer: B</strong><br>Promissory estoppel (<em>Waltons Stores v Maher</em>) prevents a promisor from retracting a promise when the promisee has relied on it to their detriment, even without consideration.</div>
 </div>
 
@@ -115,7 +240,7 @@
     <li>C) Unfair</li>
     <li>D) Limited to a fixed term of 12 months</li>
   </ul>
-  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <span class="mcq-toggle">Show Answer</span>
   <div class="mcq-answer"><strong>Answer: C</strong><br>Under ACL s 23, an unfair term in a standard form consumer or small business contract is void. A term is unfair if it causes significant imbalance, is not reasonably necessary to protect legitimate interests, and would cause detriment.</div>
 </div>
 
@@ -127,7 +252,7 @@
     <li>C) Defamation through spoken false statements</li>
     <li>D) Strict liability for defective products regardless of fault</li>
   </ul>
-  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <span class="mcq-toggle">Show Answer</span>
   <div class="mcq-answer"><strong>Answer: B</strong><br>Negligence requires: (1) duty of care, (2) breach, (3) causation (factual + legal), and (4) foreseeable damage. Not an intentional tort.</div>
 </div>
 
@@ -139,7 +264,7 @@
     <li>C) Partnerships must be registered with ASIC to be valid</li>
     <li>D) A partnership is a separate legal entity distinct from its partners</li>
   </ul>
-  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <span class="mcq-toggle">Show Answer</span>
   <div class="mcq-answer"><strong>Answer: B</strong><br>Partners are agents of the partnership (s 6). Partnerships are NOT separate legal entities, partners have unlimited joint and several liability, and registration is not required.</div>
 </div>
 
@@ -151,7 +276,7 @@
     <li>C) The contract becomes void ab initio</li>
     <li>D) Both parties are automatically discharged</li>
   </ul>
-  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <span class="mcq-toggle">Show Answer</span>
   <div class="mcq-answer"><strong>Answer: B</strong><br>A condition is an essential term; breach allows termination (repudiation) + damages. Warranty breach = damages only.</div>
 </div>
 
@@ -163,7 +288,7 @@
     <li>C) s 182</li>
     <li>D) s 588G</li>
   </ul>
-  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <span class="mcq-toggle">Show Answer</span>
   <div class="mcq-answer"><strong>Answer: B</strong><br>s 181 = good faith & proper purpose. s 180 = care & diligence. s 182 = improper use of position. s 588G = insolvent trading.</div>
 </div>
 
@@ -175,7 +300,7 @@
     <li>C) Only a public apology</li>
     <li>D) Automatic termination of the director's appointment</li>
   </ul>
-  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <span class="mcq-toggle">Show Answer</span>
   <div class="mcq-answer"><strong>Answer: B</strong><br>s 18 ACL (civil) remedies: damages, injunctions, rescission, corrective advertising orders. Criminal penalties apply under separate provisions.</div>
 </div>
 
@@ -187,7 +312,7 @@
     <li>C) One party suffers financial difficulty</li>
     <li>D) The contract was entered under duress</li>
   </ul>
-  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <span class="mcq-toggle">Show Answer</span>
   <div class="mcq-answer"><strong>Answer: B</strong><br>Frustration discharges a contract when a supervening event (not caused by either party) makes performance impossible or radically different.</div>
 </div>
 
@@ -199,7 +324,7 @@
     <li>C) Guarantee of fitness for a particular purpose for goods only</li>
     <li>D) Guarantee of clear title</li>
   </ul>
-  <span class="mcq-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</span>
+  <span class="mcq-toggle">Show Answer</span>
   <div class="mcq-answer"><strong>Answer: B</strong><br>s 60 ACL: services rendered with due care and skill. Acceptable quality, clear title = goods guarantees (ss 54, 51).</div>
 </div>
 
@@ -698,5 +823,35 @@
   </ul>
 </div>
 
+</div>
+
+<script>
+/* MCQ interactivity */
+const mcqState = {};
+document.querySelectorAll('.mcq').forEach((el, idx) => {
+  const qid = 'q' + idx;
+  mcqState[qid] = { answered: false };
+  const options = el.querySelectorAll('.mcq-options li');
+  const answerDiv = el.querySelector('.mcq-answer');
+  const correctText = answerDiv ? answerDiv.textContent : '';
+  const correctLetter = correctText.match(/Answer:s*([A-D])/i);
+  const correctIndex = correctLetter ? correctLetter[1].charCodeAt(0) - 65 : -1;
+
+  options.forEach((opt, oi) => {
+    opt.addEventListener('click', () => {
+      if (mcqState[qid].answered) return;
+      mcqState[qid].answered = true;
+      options.forEach(o => o.style.pointerEvents = 'none');
+      opt.classList.add(oi === correctIndex ? 'correct' : 'wrong');
+      if (oi !== correctIndex && correctIndex >= 0) options[correctIndex].classList.add('correct');
+      if (answerDiv) answerDiv.classList.add('show');
+    });
+  });
+
+  // Replace old toggle with nothing (answer shows on click)
+  const toggle = el.querySelector('.mcq-toggle');
+  if (toggle) toggle.style.display = 'none';
+});
+</script>
 </body>
 </html>
