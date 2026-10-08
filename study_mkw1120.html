@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNI — Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --bg-primary:#15100C;
+  --bg-secondary:#1C1510;
+  --bg-card:#231A14;
+  --bg-hover:#2E221A;
+  --bg-elevated:#3A2C22;
+  --text-primary:#F2E6D8;
+  --text-secondary:#BF9B7A;
+  --text-muted:#8C5B3E;
+  --text-faint:#593E2E;
+  --accent-cream:#F2E6D8;
+  --accent-tan:#BF9B7A;
+  --accent-rust:#8C5B3E;
+  --accent-espresso:#593E2E;
+  --accent-olive:#555934;
+  --border:rgba(191,155,122,0.10);
+  --border-light:rgba(191,155,122,0.18);
+  --font-serif:'Source Serif 4',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --shadow-card:0 4px 24px rgba(0,0,0,0.25);
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-sans);
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font-size:15px;
+  line-height:1.7;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;
+}
+
+/* Header */
+.header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 32px;
+  border-bottom:1px solid var(--border);
+  background:rgba(21,16,12,0.92);
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(20px) saturate(1.2);
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{
+  width:40px;height:40px;background:linear-gradient(135deg,var(--accent-tan),var(--accent-rust));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;box-shadow:0 0 30px rgba(191,155,122,0.08);
+}
+.logo-text h1{font-family:var(--font-serif);font-size:1.3rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em}
+.logo-text h1 em{font-style:italic;color:var(--accent-tan)}
+.logo-text span{font-size:0.75rem;color:var(--text-muted);letter-spacing:0.05em}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{
+  padding:8px 14px;border-radius:var(--radius-sm);text-decoration:none;
+  color:var(--text-muted);font-weight:500;font-size:0.8rem;
+  transition:all .3s ease;border:1px solid transparent;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--accent-tan);background:rgba(191,155,122,0.08);border-color:rgba(191,155,122,0.18)}
+.nav-links a i{margin-right:5px}
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--text-muted);text-decoration:none;font-size:0.85rem;
+  margin-bottom:20px;transition:color .2s;
+}
+.back-link:hover{color:var(--accent-tan)}
+
+/* Content */
+.content-wrap{max-width:860px;margin:0 auto;padding:24px 24px 80px}
+h1{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:8px}
+h2{font-family:var(--font-serif);font-size:1.35rem;color:var(--accent-tan);margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+h1+p{color:var(--text-muted);font-size:0.9rem;margin-bottom:32px}
+
+/* MCQ */
+.mcq{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.mcq:hover{border-color:var(--border-light)}
+.mcq-question{font-family:var(--font-serif);font-weight:600;margin-bottom:14px;color:var(--text-primary);font-size:1rem;letter-spacing:-0.01em;line-height:1.5}
+.mcq-options{list-style:none;margin:0;padding:0}
+.mcq-options li{
+  padding:10px 16px;margin:6px 0;background:var(--bg-secondary);border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .25s ease;border:1px solid transparent;
+  display:flex;align-items:center;gap:12px;font-size:0.86rem;color:var(--text-secondary);font-weight:300;
+}
+.mcq-options li::before{content:'○';color:var(--text-faint);font-size:1.1rem;transition:all .2s ease;flex-shrink:0}
+.mcq-options li:hover{background:rgba(191,155,122,0.06);border-color:var(--border-light)}
+.mcq-options li.selected{background:rgba(191,155,122,0.08);border-color:var(--accent-rust)}
+.mcq-options li.selected::before{content:'●';color:var(--accent-rust)}
+.mcq-options li.correct{background:rgba(85,89,52,0.10);border-color:var(--accent-olive)}
+.mcq-options li.correct::before{content:'✓';color:var(--accent-olive)}
+.mcq-options li.wrong{background:rgba(140,91,62,0.08);border-color:var(--accent-rust)}
+.mcq-options li.wrong::before{content:'✗';color:var(--accent-rust)}
+.mcq-answer{
+  display:none;margin-top:14px;padding:14px;
+  background:rgba(85,89,52,0.06);border-radius:var(--radius-sm);border-left:2px solid var(--accent-olive);
+  font-size:0.85rem;color:var(--text-secondary);line-height:1.6;
+}
+.mcq-answer.show{display:block}
+.mcq-answer strong{color:var(--accent-olive);font-size:0.85rem}
+.mcq-toggle{
+  color:var(--accent-tan);cursor:pointer;font-size:0.85rem;margin-top:12px;
+  display:inline-block;padding:6px 14px;background:var(--bg-hover);border-radius:var(--radius-sm);
+  transition:all .2s ease;font-weight:500;border:1px solid var(--border);
+}
+.mcq-toggle:hover{background:var(--bg-elevated);border-color:var(--border-light)}
+
+/* Card / Subjective */
+.card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.card:hover{border-color:var(--border-light);box-shadow:var(--shadow-card)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.card-title{font-family:var(--font-serif);font-weight:600;color:var(--accent-tan);font-size:1.05rem;letter-spacing:-0.01em;flex:1;min-width:200px}
+.card-tag{font-size:0.68rem;background:var(--bg-elevated);padding:4px 12px;border-radius:999px;color:var(--text-muted);border:1px solid var(--border);font-weight:500;letter-spacing:0.03em;text-transform:uppercase}
+.def{margin-top:12px;padding:14px;background:rgba(85,89,52,0.06);border-left:2px solid var(--accent-olive);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.def-term{font-family:var(--font-serif);font-weight:600;color:var(--accent-olive);font-size:1.1rem;margin-bottom:6px}
+.def-meaning{color:var(--text-secondary);font-weight:300;font-size:0.9rem;line-height:1.6}
+.def-meaning strong{color:var(--accent-tan)}
+
+/* Responsive */
+@media(max-width:640px){
+  .header{padding:12px 16px;flex-wrap:wrap;gap:8px}
+  .nav-links a{padding:6px 10px;font-size:0.75rem}
+  .content-wrap{padding:16px 16px 60px}
+  h1{font-size:1.6rem}
+  .card-header{flex-direction:column;align-items:flex-start}
+}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--accent-espresso);border-radius:3px}
+::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
+
+/* Print */
+@media print{
+  body::before{display:none}
+  .header{display:none!important}
+  .back-link{display:none}
+  body{background:#fff;color:#222;font-size:11pt}
+  .mcq,.card{page-break-inside:avoid;border-left-width:3px!important;background:#f9f9f9}
+  .mcq-answer{display:block!important}
+  .mcq-toggle{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">📚</div>
+    <div class="logo-text">
+      <h1>UNI <em>Study</em></h1>
+      <span>Exam Preparation</span>
+    </div>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+    <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+    <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+    <a href="study.html" class="active"><i class="fas fa-book"></i> Study</a>
+    <a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a>
+    <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+  </nav>
+</header>
+
+<div class="content-wrap">
+  <a href="study.html" class="back-link">← Back to Study Hub</a>
+
+<h1>MKW1120 Marketing Fundamentals — Study Guide</h1>
+<p>Introduction to marketing theory, strategic planning, buyer behaviour, the marketing mix, services marketing &amp; socially responsible marketing.</p>
+
+<h2>Multiple Choice Questions</h2>
+
+<div class="mcq">
+<div class="mcq-question">Q1: Which marketing management orientation holds that achieving organisational goals depends on knowing the needs and wants of target markets and delivering the desired satisfactions better than competitors?</div>
+<ul class="mcq-options"><li>A) Production concept</li><li>B) Product concept</li><li>C) Selling concept</li><li>D) Marketing concept</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: D</strong><br>The <strong>marketing concept</strong> focuses on understanding and satisfying customer needs and wants more effectively than competitors. It contrasts with the production concept (efficiency in production), product concept (quality and features), and selling concept (aggressive selling of what the company makes).</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q2: In the STP process, what does the "P" stand for and what does it involve?</div>
+<ul class="mcq-options"><li>A) Pricing — setting the right price for each segment</li><li>B) Product — designing products for specific segments</li><li>C) Positioning — creating a distinct image in consumers' minds relative to competitors</li><li>D) Promotion — communicating with target segments</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br>STP stands for <strong>Segmentation, Targeting, and Positioning</strong>. Positioning involves creating a clear, distinctive, and desirable place for a product in the minds of target consumers relative to competing products. It answers: "How do we want consumers to perceive our brand?"</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q3: Which of the following is NOT one of the four elements of the traditional marketing mix (4 Ps)?</div>
+<ul class="mcq-options"><li>A) Product</li><li>B) Price</li><li>C) People</li><li>D) Promotion</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br>The traditional marketing mix comprises the <strong>4 Ps: Product, Price, Place, and Promotion</strong>. "People" is one of the additional 3 Ps in the extended services marketing mix (7 Ps: Product, Price, Place, Promotion, People, Process, Physical Evidence).</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q4: A company that sells luxury watches uses selective distribution by placing its products only in high-end department stores and authorised boutiques. This is an example of which marketing mix element?</div>
+<ul class="mcq-options"><li>A) Product strategy</li><li>B) Pricing strategy</li><li>C) Place (distribution) strategy</li><li>D) Promotion strategy</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br><strong>Place (distribution) strategy</strong> decisions involve how a company makes products available to consumers. Selective distribution — using only a few intermediaries in a specific geographic area — is a place strategy that helps maintain brand exclusivity and control over the customer experience.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q5: In the consumer buyer decision process, which stage immediately follows "information search"?</div>
+<ul class="mcq-options"><li>A) Need recognition</li><li>B) Evaluation of alternatives</li><li>C) Purchase decision</li><li>D) Post-purchase behaviour</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>The five stages of the consumer buyer decision process are: (1) Need Recognition, (2) Information Search, (3) <strong>Evaluation of Alternatives</strong>, (4) Purchase Decision, and (5) Post-Purchase Behaviour. After searching for information, consumers evaluate different brands or products against their criteria before making a purchase.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q6: Which of the following best describes "psychographic segmentation"?</div>
+<ul class="mcq-options"><li>A) Dividing the market based on age, gender, income, or education</li><li>B) Dividing the market based on lifestyle, personality, values, or interests</li><li>C) Dividing the market based on geographic location such as country or city</li><li>D) Dividing the market based on usage rate or brand loyalty</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br><strong>Psychographic segmentation</strong> divides buyers into segments based on lifestyle, personality traits, values, attitudes, and interests. It goes beyond demographics to understand the "why" behind consumer behaviour. Option A is demographic, C is geographic, and D is behavioural segmentation.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q7: During which stage of the product life cycle would a company typically experience rapid sales growth, increasing profits, and the entry of new competitors?</div>
+<ul class="mcq-options"><li>A) Introduction</li><li>B) Growth</li><li>C) Maturity</li><li>D) Decline</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>The <strong>growth stage</strong> is characterised by rapid market acceptance, sharply rising sales, growing profits, and the entry of competitors attracted by the opportunity. Marketing strategies shift from awareness-building to brand preference and market share expansion. In the introduction stage, sales are low and profits negative; in maturity, growth slows and competition intensifies; in decline, sales and profits fall.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q8: Which pricing strategy involves setting a low initial price to attract a large number of buyers quickly and gain substantial market share?</div>
+<ul class="mcq-options"><li>A) Price skimming</li><li>B) Penetration pricing</li><li>C) Psychological pricing</li><li>D) Value-based pricing</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br><strong>Penetration pricing</strong> sets a low initial price to penetrate the market quickly, attract price-sensitive customers, and build market share. It is often used when there are strong economies of scale or when the market is highly price-sensitive. Price skimming (A) does the opposite — setting a high initial price to maximise profits from early adopters before lowering it.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q9: In services marketing, the characteristic that refers to the fact that services cannot be seen, tasted, felt, heard, or smelled before they are bought is known as:</div>
+<ul class="mcq-options"><li>A) Inseparability</li><li>B) Variability</li><li>C) Intangibility</li><li>D) Perishability</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br><strong>Intangibility</strong> means services cannot be physically possessed or experienced before purchase. This creates challenges for marketers, who must use tangible cues (physical evidence, branding, testimonials) to communicate service quality. Inseparability (A) means services are produced and consumed simultaneously; variability (B) means service quality may vary; perishability (D) means services cannot be stored for later sale.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q10: A coffee chain sources its beans from fair-trade certified farms, uses compostable cups, and donates 1% of profits to reforestation projects. This is best described as:</div>
+<ul class="mcq-options"><li>A) Greenwashing</li><li>B) Social marketing</li><li>C) Societal marketing concept</li><li>D) Cause-related marketing</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br>The <strong>societal marketing concept</strong> holds that a company should make marketing decisions by considering consumers' wants, the company's requirements, consumers' long-run interests, and society's long-run interests. It balances profit, consumer satisfaction, and societal wellbeing. While cause-related marketing (D) involves linking purchases to charitable donations, the broader philosophy of embedding sustainability and social responsibility into core business strategy is the societal marketing concept.</div>
+</div>
+
+<h2>Subjective Questions</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q1: Describe the five core marketing concepts (production, product, selling, marketing, and societal marketing). Discuss how the dominant orientation has evolved over time and why the societal marketing concept is increasingly important in the 21st century.</span><span class="card-tag">Marketing Philosophy / Evolution</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>1. Production Concept:</strong> Consumers will favour products that are widely available and inexpensive. Management focuses on improving production and distribution efficiency. Dominant during the early industrial era when demand exceeded supply.<br><br><strong>2. Product Concept:</strong> Consumers will favour products that offer the most quality, performance, and innovative features. Management focuses on making superior products and improving them over time. Risk: "marketing myopia" — focusing on the product rather than the underlying customer need.<br><br><strong>3. Selling Concept:</strong> Consumers will not buy enough of the firm's products unless it undertakes a large-scale selling and promotion effort. Focuses on creating sales transactions rather than long-term relationships. Common for unsought goods and overcapacity situations.<br><br><strong>4. Marketing Concept:</strong> Achieving organisational goals depends on knowing the needs and wants of target markets and delivering desired satisfactions better than competitors. A customer-centred, "sense-and-respond" philosophy that focuses on building long-term customer relationships.<br><br><strong>5. Societal Marketing Concept:</strong> Questions whether the pure marketing concept overlooks possible conflicts between consumer short-run wants and long-run welfare. Calls for balancing company profits, consumer satisfaction, and public interest.<br><br><strong>Why societal marketing is increasingly important:</strong><br>• <strong>Climate change and resource scarcity</strong> require businesses to consider environmental impact.<br>• <strong>Consumer awareness:</strong> Millennials and Gen Z increasingly prefer brands with authentic social and environmental commitments.<br>• <strong>Regulatory pressure:</strong> Governments worldwide are imposing stricter environmental and social standards.<br>• <strong>Reputation risk:</strong> Social media amplifies corporate misconduct, making socially irresponsible marketing dangerous.<br>• <strong>Long-term viability:</strong> Businesses that deplete natural resources or harm communities undermine their own future markets.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q2: Explain the STP (Segmentation, Targeting, Positioning) process in detail. For each step, describe at least two approaches or strategies, and provide a real-world example of a brand that effectively uses STP.</span><span class="card-tag">STP / Strategic Marketing</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>1. Segmentation:</strong> Dividing a broad consumer or business market into sub-groups of consumers (segments) based on shared characteristics.<br><br><em>Approaches:</em><br>• <strong>Demographic segmentation:</strong> Dividing by age, gender, income, education, occupation, family size. Example: A car company offering different models for young professionals vs. families.<br>• <strong>Psychographic segmentation:</strong> Dividing by lifestyle, personality, values, attitudes. Example: Patagonia targets environmentally conscious outdoor enthusiasts.<br>• <strong>Behavioural segmentation:</strong> Dividing by purchase occasion, benefits sought, usage rate, loyalty status. Example: Airlines segment by frequent flyers vs. occasional leisure travellers.<br><br><strong>2. Targeting:</strong> Evaluating each segment's attractiveness and selecting one or more segments to enter.<br><br><em>Strategies:</em><br>• <strong>Undifferentiated (mass) marketing:</strong> Ignoring segment differences and targeting the whole market with one offer. Example: Basic commodities like salt or sugar.<br>• <strong>Differentiated (segmented) marketing:</strong> Targeting several segments and designing separate offers for each. Example: Marriott operates different hotel brands (Ritz-Carlton, Courtyard, Fairfield) for different segments.<br>• <strong>Concentrated (niche) marketing:</strong> Going after a large share of one or a few smaller segments. Example: Tesla initially targeted affluent early adopters of electric vehicles.<br><br><strong>3. Positioning:</strong> Arranging for a product to occupy a clear, distinctive, and desirable place relative to competing products in the minds of target consumers.<br><br><em>Strategies:</em><br>• <strong>Value positioning:</strong> Positioning on price-performance (e.g., IKEA: "affordable, well-designed furniture").<br>• <strong>Benefit positioning:</strong> Positioning on a specific benefit (e.g., Colgate: "cavity protection").<br>• <strong>Competitor positioning:</strong> Positioning directly against a competitor (e.g., Pepsi vs. Coca-Cola).<br><br><strong>Real-world example — Apple:</strong><br>• <strong>Segmentation:</strong> Apple segments by income (premium), psychographics (creative professionals, tech enthusiasts), and behaviour (early adopters, brand loyalists).<br>• <strong>Targeting:</strong> Apple uses a concentrated/differentiated strategy, targeting premium segments with multiple product lines (iPhone Pro for professionals, iPhone SE for budget-conscious brand lovers).<br>• <strong>Positioning:</strong> Apple positions itself as innovative, premium, user-friendly, and design-focused — "Think Different." This positioning is consistently reinforced through product design, retail experience, advertising, and pricing.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q3: Compare and contrast consumer buyer behaviour and business buyer behaviour. Identify the key factors that influence each, and explain how understanding these differences affects a company's marketing strategy.</span><span class="card-tag">Buyer Behaviour / B2B vs B2C</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Consumer Buyer Behaviour</strong> refers to the buying behaviour of final consumers — individuals and households who buy goods and services for personal consumption.<br><br><strong>Business Buyer Behaviour</strong> refers to the buying behaviour of organisations that buy goods and services for use in the production of other products, for resale, or for day-to-day operations.<br><br><table style="width:100%;border-collapse:collapse;margin:8px 0;font-size:0.9rem"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px 0">Dimension</th><th style="text-align:left;padding:8px 0">Consumer Markets (B2C)</th><th style="text-align:left;padding:8px 0">Business Markets (B2B)</th></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Buyers</strong></td><td style="padding:8px 0">Individuals / households</td><td style="padding:8px 0">Organisations / institutions</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Purchase purpose</strong></td><td style="padding:8px 0">Personal consumption</td><td style="padding:8px 0">Production, resale, or operations</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Decision-making unit</strong></td><td style="padding:8px 0">Individual or family</td><td style="padding:8px 0">Multiple people (buying centre: users, influencers, buyers, deciders, gatekeepers)</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Decision process</strong></td><td style="padding:8px 0">Often simple, emotional, impulsive</td><td style="padding:8px 0">Formal, rational, structured, longer</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Order size</strong></td><td style="padding:8px 0">Small</td><td style="padding:8px 0">Large (often very large)</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Relationship focus</strong></td><td style="padding:8px 0">Transactional</td><td style="padding:8px 0">Long-term relational partnerships</td></tr><tr><td style="padding:8px 0"><strong>Price sensitivity</strong></td><td style="padding:8px 0">Varies widely</td><td style="padding:8px 0">High — often negotiated, competitive tendering</td></tr></table><br><strong>Key Influencing Factors:</strong><br><em>Consumer:</em> Cultural (culture, subculture, social class), Social (reference groups, family, roles), Personal (age, occupation, lifestyle, personality), Psychological (motivation, perception, learning, beliefs).<br><em>Business:</em> Environmental (economic, technological, political, competitive), Organisational (objectives, policies, procedures, structure), Interpersonal (buying centre dynamics), Individual (age, personality, risk tolerance of participants).<br><br><strong>Marketing Strategy Implications:</strong><br>• B2C marketers use mass media, emotional appeals, and brand building. B2B marketers use personal selling, trade shows, detailed technical content, and relationship management.<br>• B2B marketing must address multiple stakeholders in the buying centre with tailored messages.<br>• B2B buyers demand customisation, technical support, and after-sales service; B2C buyers prioritise convenience, brand image, and value for money.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q4: Describe the four stages of the product life cycle (introduction, growth, maturity, decline). For each stage, explain the typical characteristics, marketing objectives, and appropriate marketing strategies across the marketing mix.</span><span class="card-tag">Product Life Cycle / Strategy</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><table style="width:100%;border-collapse:collapse;margin:8px 0;font-size:0.9rem"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px 0">Stage</th><th style="text-align:left;padding:8px 0">Characteristics</th><th style="text-align:left;padding:8px 0">Objectives</th><th style="text-align:left;padding:8px 0">Strategies</th></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Introduction</strong></td><td style="padding:8px 0">Sales low; profits negative; few competitors; high costs (R&amp;D, launch); basic product version</td><td style="padding:8px 0">Create awareness; establish market presence</td><td style="padding:8px 0"><strong>Product:</strong> Basic, limited variants.<br><strong>Price:</strong> Skimming (high) for innovators or penetration (low) for mass adoption.<br><strong>Place:</strong> Selective distribution.<br><strong>Promotion:</strong> Heavy spending on awareness (informative advertising, PR, free trials).</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Growth</strong></td><td style="padding:8px 0">Rapid sales growth; rising profits; competitors enter; product improvements</td><td style="padding:8px 0">Maximise market share; build brand preference</td><td style="padding:8px 0"><strong>Product:</strong> Add features, variants, improve quality.<br><strong>Price:</strong> Maintain or slightly reduce to compete.<br><strong>Place:</strong> Build intensive distribution.<br><strong>Promotion:</strong> Shift from awareness to persuasion; emphasise brand differences.</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Maturity</strong></td><td style="padding:8px 0">Sales peak and stabilise; intense competition; profit margins shrink; market saturation</td><td style="padding:8px 0">Defend market share; maximise profit; extend maturity</td><td style="padding:8px 0"><strong>Product:</strong> Modify product (quality, features, style); differentiate.<br><strong>Price:</strong> Competitive pricing, discounts, loyalty programmes.<br><strong>Place:</strong> Maximum distribution; find new channels.<br><strong>Promotion:</strong> Reminder advertising; emphasise brand loyalty; sales promotions.</td></tr><tr><td style="padding:8px 0"><strong>Decline</strong></td><td style="padding:8px 0">Sales and profits fall; competitors exit; changing tastes or technology</td><td style="padding:8px 0">Reduce expenditure; harvest or divest</td><td style="padding:8px 0"><strong>Product:</strong> Phase out weak items; maintain for loyal niche.<br><strong>Price:</strong> Cut prices to liquidate inventory.<br><strong>Place:</strong> Reduce distribution channels.<br><strong>Promotion:</strong> Minimal spending; targeted to remaining loyal customers.</td></tr></table><br><strong>Strategic Implications:</strong> The PLC helps managers anticipate market changes, allocate resources, and plan product improvements or withdrawals. However, not all products follow a predictable PLC, and the length of each stage varies significantly by industry and product category.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q5: Explain the four unique characteristics of services (intangibility, inseparability, variability, perishability) and discuss how each creates marketing challenges. Propose strategies that service marketers can use to address each challenge.</span><span class="card-tag">Services Marketing / 7 Ps</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>1. Intangibility:</strong> Services cannot be seen, tasted, felt, heard, or smelled before purchase.<br><em>Challenge:</em> Consumers cannot evaluate quality before consumption, increasing perceived risk.<br><em>Strategies:</em> Use tangible cues (physical evidence, uniforms, facilities); strong branding and testimonials; service guarantees; free trials or demonstrations.<br><br><strong>2. Inseparability:</strong> Services are produced and consumed simultaneously; the provider is part of the service.<br><em>Challenge:</em> Quality depends heavily on the service provider's performance at the moment of delivery; customers are present during production.<br><em>Strategies:</em> Train and motivate employees (internal marketing); standardise service processes; use technology to separate production from consumption (self-service kiosks, online banking); manage customer interactions carefully.<br><br><strong>3. Variability (Heterogeneity):</strong> Service quality depends on who provides it, when, where, and how.<br><em>Challenge:</em> Consistency is difficult to achieve; one bad experience can damage reputation.<br><em>Strategies:</em> Implement rigorous training programmes; standardise procedures and checklists; automate where possible; invest in quality control systems; empower employees to resolve issues on the spot.<br><br><strong>4. Perishability:</strong> Services cannot be stored for later sale or use.<br><em>Challenge:</em> Demand fluctuations create capacity management problems — excess capacity is wasted, while insufficient capacity leads to lost sales and customer dissatisfaction.<br><em>Strategies:</em> Use differential pricing (peak vs. off-peak); reservation systems; demand forecasting; part-time staff for peak periods; develop complementary services to smooth demand; encourage off-peak usage through promotions.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q6: A smartphone manufacturer is planning to launch a new flagship model. Discuss how each element of the extended marketing mix (7 Ps) should be strategically managed for this product launch. Include specific examples relevant to the smartphone industry.</span><span class="card-tag">Marketing Mix / 7 Ps</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>1. Product:</strong> The smartphone must offer compelling features (camera quality, battery life, processor speed, design). Include warranties, after-sales support, and regular software updates. Product line decisions: offer multiple storage and colour options. Packaging: premium unboxing experience to reinforce brand positioning.<br><br><strong>2. Price:</strong> Use price skimming for the flagship model ($1,200+) to maximise profits from early adopters and brand enthusiasts. Offer trade-in programmes to reduce effective price. Consider psychological pricing ($999 vs. $1,000). Bundle with accessories or services (cloud storage, extended warranty) to increase perceived value.<br><br><strong>3. Place (Distribution):</strong> Multi-channel approach — flagship retail stores for experience, authorised resellers for reach, and e-commerce for convenience. Use selective distribution to maintain brand control and service quality. Ensure same-day or next-day delivery options. International rollout strategy: prioritise key markets (US, China, EU) before expanding.<br><br><strong>4. Promotion:</strong> Integrated marketing communications — teaser campaigns on social media, keynote launch events (Apple-style), influencer partnerships with tech reviewers, print and digital advertising. Emphasise unique selling propositions (e.g., "best camera in a smartphone"). Public relations: secure favourable reviews from credible tech media.<br><br><strong>5. People:</strong> Train retail staff to provide expert advice and demonstrations. Ensure customer service teams are knowledgeable and empowered to resolve issues. Engineers and designers are part of the brand story — highlight their expertise in marketing content.<br><br><strong>6. Process:</strong> Streamline the purchase process (online configurator, easy trade-in, quick checkout). Post-purchase: seamless activation, data transfer tools, and onboarding tutorials. Service process: efficient repair and replacement procedures with clear timelines.<br><br><strong>7. Physical Evidence:</strong> Premium store design with modern aesthetics; product displays that allow hands-on testing; high-quality packaging materials; sleek website and app design. All tangible elements must communicate the brand's premium positioning.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q7: Define marketing research and explain its role in marketing decision-making. Describe the five steps of the marketing research process, and discuss the difference between primary and secondary data, including the advantages and limitations of each.</span><span class="card-tag">Marketing Research</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Marketing Research</strong> is the systematic design, collection, analysis, and reporting of data relevant to a specific marketing situation facing an organisation. It reduces uncertainty and supports evidence-based decision-making.<br><br><strong>The Five-Step Marketing Research Process:</strong><br><br><strong>1. Defining the Problem and Research Objectives:</strong> The most critical step. Management must distinguish between symptoms and root causes. Objectives should be specific, measurable, and actionable. Example: "Why are sales declining in the 18-25 age segment?" not just "Sales are down."<br><br><strong>2. Developing the Research Plan:</strong> Determine what information is needed, identify data sources, decide on research approaches (observational, survey, experimental), contact methods, sampling plan, and research instruments (questionnaires).<br><br><strong>3. Collecting the Information:</strong> Execute the research plan. This is typically the most expensive and error-prone stage. Data collection must be carefully monitored for quality, response rates, and interviewer bias.<br><br><strong>4. Analysing the Information:</strong> Extract findings from collected data. Use statistical techniques to summarise results, test hypotheses, and identify patterns. Software tools (SPSS, Excel, Tableau) assist in data processing and visualisation.<br><br><strong>5. Presenting the Findings:</strong> Communicate results to management in a clear, actionable format. The report should include conclusions, recommendations, limitations of the study, and implications for marketing strategy.<br><br><strong>Primary vs. Secondary Data:</strong><br><br><table style="width:100%;border-collapse:collapse;margin:8px 0;font-size:0.9rem"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px 0">Dimension</th><th style="text-align:left;padding:8px 0">Primary Data</th><th style="text-align:left;padding:8px 0">Secondary Data</th></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Definition</strong></td><td style="padding:8px 0">Collected fresh for the specific purpose at hand</td><td style="padding:8px 0">Already exists, collected for other purposes</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Sources</strong></td><td style="padding:8px 0">Surveys, interviews, focus groups, observations, experiments</td><td style="padding:8px 0">Government publications, industry reports, academic journals, company records, internet databases</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Advantages</strong></td><td style="padding:8px 0">Relevant, specific, current, proprietary</td><td style="padding:8px 0">Faster, cheaper, readily available, may provide industry-wide context</td></tr><tr><td style="padding:8px 0"><strong>Limitations</strong></td><td style="padding:8px 0">Expensive, time-consuming, requires expertise</td><td style="padding:8px 0">May be outdated, irrelevant, inaccurate, or unavailable for specific needs</td></tr></table></div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q8: Discuss the role of digital and social media marketing in modern marketing strategy. Compare it with traditional marketing channels, and analyse both its advantages and potential ethical concerns or risks.</span><span class="card-tag">Digital Marketing / Ethics</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Role of Digital and Social Media Marketing:</strong><br>Digital marketing encompasses all marketing efforts that use electronic devices or the internet, including search engines, social media, email, websites, and mobile apps. Social media marketing uses platforms like Instagram, TikTok, LinkedIn, and YouTube to build brand awareness, engage audiences, drive traffic, and generate sales.<br><br><strong>Comparison with Traditional Marketing:</strong><br><br><table style="width:100%;border-collapse:collapse;margin:8px 0;font-size:0.9rem"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px 0">Dimension</th><th style="text-align:left;padding:8px 0">Traditional Marketing</th><th style="text-align:left;padding:8px 0">Digital Marketing</th></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Reach</strong></td><td style="padding:8px 0">Broad, mass audience (TV, radio, print)</td><td style="padding:8px 0">Global, targeted, niche audiences</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Cost</strong></td><td style="padding:8px 0">High fixed costs (airtime, print space)</td><td style="padding:8px 0">Lower entry cost; pay-per-click or pay-per-impression models</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Interactivity</strong></td><td style="padding:8px 0">One-way communication</td><td style="padding:8px 0">Two-way, real-time engagement</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Measurability</strong></td><td style="padding:8px 0">Difficult to measure ROI precisely</td><td style="padding:8px 0">Highly measurable (clicks, conversions, engagement rates, CPA, ROAS)</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Targeting</strong></td><td style="padding:8px 0">Demographic-based, less precise</td><td style="padding:8px 0">Behavioural, psychographic, retargeting, lookalike audiences</td></tr><tr><td style="padding:8px 0"><strong>Speed</strong></td><td style="padding:8px 0">Long lead times for production and placement</td><td style="padding:8px 0">Real-time publishing and rapid campaign adjustments</td></tr></table><br><strong>Advantages of Digital Marketing:</strong><br>• <strong>Precision targeting:</strong> Reach exactly the right audience based on behaviour, interests, and demographics.<br>• <strong>Cost efficiency:</strong> Small businesses can compete with large ones using targeted social ads.<br>• <strong>Real-time analytics:</strong> Instant feedback allows for rapid optimisation and A/B testing.<br>• <strong>Personalisation:</strong> Deliver customised content and offers to individual users.<br>• <strong>Viral potential:</strong> Compelling content can spread organically at minimal cost.<br><br><strong>Ethical Concerns and Risks:</strong><br>• <strong>Privacy invasion:</strong> Extensive data collection raises concerns about surveillance and consent (e.g., Cambridge Analytica scandal).<br>• <strong>Algorithmic bias:</strong> Targeting algorithms may reinforce stereotypes or exclude certain groups.<br>• <strong>Misinformation and fake reviews:</strong> Social media can spread false claims; fake reviews distort consumer choice.<br>• <strong>Addictive design:</strong> Platforms use persuasive design to maximise engagement, potentially harming mental health.<br>• <strong>Greenwashing and deceptive content:</strong> Brands may present misleading sustainability claims through polished social media content.<br>• <strong>Digital divide:</strong> Not all consumers have equal access to digital platforms, creating exclusion.<br><br><strong>Conclusion:</strong> Digital marketing is an essential component of modern marketing strategy, offering unprecedented targeting and measurement capabilities. However, marketers must navigate ethical responsibilities carefully, ensuring transparency, respecting privacy, and avoiding manipulative practices.</div></div>
+</div>
+
+</div>
+
+<script>
+/* MCQ interactivity */
+const mcqState = {};
+document.querySelectorAll('.mcq').forEach((el, idx) => {
+  const qid = 'q' + idx;
+  mcqState[qid] = { answered: false };
+  const options = el.querySelectorAll('.mcq-options li');
+  const answerDiv = el.querySelector('.mcq-answer');
+  const correctText = answerDiv ? answerDiv.textContent : '';
+  const correctLetter = correctText.match(/Answer:\s*([A-D])/i);
+  const correctIndex = correctLetter ? correctLetter[1].charCodeAt(0) - 65 : -1;
+
+  options.forEach((opt, oi) => {
+    opt.addEventListener('click', () => {
+      if (mcqState[qid].answered) return;
+      mcqState[qid].answered = true;
+      options.forEach(o => o.style.pointerEvents = 'none');
+      opt.classList.add(oi === correctIndex ? 'correct' : 'wrong');
+      if (oi !== correctIndex && correctIndex >= 0) options[correctIndex].classList.add('correct');
+      if (answerDiv) answerDiv.classList.add('show');
+    });
+  });
+
+  // Replace old toggle with nothing (answer shows on click)
+  const toggle = el.querySelector('.mcq-toggle');
+  if (toggle) toggle.style.display = 'none';
+});
+</script>
+</body>
+</html>
