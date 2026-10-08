@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNI — Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --bg-primary:#15100C;
+  --bg-secondary:#1C1510;
+  --bg-card:#231A14;
+  --bg-hover:#2E221A;
+  --bg-elevated:#3A2C22;
+  --text-primary:#F2E6D8;
+  --text-secondary:#BF9B7A;
+  --text-muted:#8C5B3E;
+  --text-faint:#593E2E;
+  --accent-cream:#F2E6D8;
+  --accent-tan:#BF9B7A;
+  --accent-rust:#8C5B3E;
+  --accent-espresso:#593E2E;
+  --accent-olive:#555934;
+  --border:rgba(191,155,122,0.10);
+  --border-light:rgba(191,155,122,0.18);
+  --font-serif:'Source Serif 4',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --shadow-card:0 4px 24px rgba(0,0,0,0.25);
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-sans);
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font-size:15px;
+  line-height:1.7;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;
+}
+
+/* Header */
+.header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 32px;
+  border-bottom:1px solid var(--border);
+  background:rgba(21,16,12,0.92);
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(20px) saturate(1.2);
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{
+  width:40px;height:40px;background:linear-gradient(135deg,var(--accent-tan),var(--accent-rust));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;box-shadow:0 0 30px rgba(191,155,122,0.08);
+}
+.logo-text h1{font-family:var(--font-serif);font-size:1.3rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em}
+.logo-text h1 em{font-style:italic;color:var(--accent-tan)}
+.logo-text span{font-size:0.75rem;color:var(--text-muted);letter-spacing:0.05em}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{
+  padding:8px 14px;border-radius:var(--radius-sm);text-decoration:none;
+  color:var(--text-muted);font-weight:500;font-size:0.8rem;
+  transition:all .3s ease;border:1px solid transparent;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--accent-tan);background:rgba(191,155,122,0.08);border-color:rgba(191,155,122,0.18)}
+.nav-links a i{margin-right:5px}
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--text-muted);text-decoration:none;font-size:0.85rem;
+  margin-bottom:20px;transition:color .2s;
+}
+.back-link:hover{color:var(--accent-tan)}
+
+/* Content */
+.content-wrap{max-width:860px;margin:0 auto;padding:24px 24px 80px}
+h1{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:8px}
+h2{font-family:var(--font-serif);font-size:1.35rem;color:var(--accent-tan);margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+h1+p{color:var(--text-muted);font-size:0.9rem;margin-bottom:32px}
+
+/* MCQ */
+.mcq{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.mcq:hover{border-color:var(--border-light)}
+.mcq-question{font-family:var(--font-serif);font-weight:600;margin-bottom:14px;color:var(--text-primary);font-size:1rem;letter-spacing:-0.01em;line-height:1.5}
+.mcq-options{list-style:none;margin:0;padding:0}
+.mcq-options li{
+  padding:10px 16px;margin:6px 0;background:var(--bg-secondary);border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .25s ease;border:1px solid transparent;
+  display:flex;align-items:center;gap:12px;font-size:0.86rem;color:var(--text-secondary);font-weight:300;
+}
+.mcq-options li::before{content:'○';color:var(--text-faint);font-size:1.1rem;transition:all .2s ease;flex-shrink:0}
+.mcq-options li:hover{background:rgba(191,155,122,0.06);border-color:var(--border-light)}
+.mcq-options li.selected{background:rgba(191,155,122,0.08);border-color:var(--accent-rust)}
+.mcq-options li.selected::before{content:'●';color:var(--accent-rust)}
+.mcq-options li.correct{background:rgba(85,89,52,0.10);border-color:var(--accent-olive)}
+.mcq-options li.correct::before{content:'✓';color:var(--accent-olive)}
+.mcq-options li.wrong{background:rgba(140,91,62,0.08);border-color:var(--accent-rust)}
+.mcq-options li.wrong::before{content:'✗';color:var(--accent-rust)}
+.mcq-answer{
+  display:none;margin-top:14px;padding:14px;
+  background:rgba(85,89,52,0.06);border-radius:var(--radius-sm);border-left:2px solid var(--accent-olive);
+  font-size:0.85rem;color:var(--text-secondary);line-height:1.6;
+}
+.mcq-answer.show{display:block}
+.mcq-answer strong{color:var(--accent-olive);font-size:0.85rem}
+.mcq-toggle{
+  color:var(--accent-tan);cursor:pointer;font-size:0.85rem;margin-top:12px;
+  display:inline-block;padding:6px 14px;background:var(--bg-hover);border-radius:var(--radius-sm);
+  transition:all .2s ease;font-weight:500;border:1px solid var(--border);
+}
+.mcq-toggle:hover{background:var(--bg-elevated);border-color:var(--border-light)}
+
+/* Card / Subjective */
+.card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.card:hover{border-color:var(--border-light);box-shadow:var(--shadow-card)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.card-title{font-family:var(--font-serif);font-weight:600;color:var(--accent-tan);font-size:1.05rem;letter-spacing:-0.01em;flex:1;min-width:200px}
+.card-tag{font-size:0.68rem;background:var(--bg-elevated);padding:4px 12px;border-radius:999px;color:var(--text-muted);border:1px solid var(--border);font-weight:500;letter-spacing:0.03em;text-transform:uppercase}
+.def{margin-top:12px;padding:14px;background:rgba(85,89,52,0.06);border-left:2px solid var(--accent-olive);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.def-term{font-family:var(--font-serif);font-weight:600;color:var(--accent-olive);font-size:1.1rem;margin-bottom:6px}
+.def-meaning{color:var(--text-secondary);font-weight:300;font-size:0.9rem;line-height:1.6}
+.def-meaning strong{color:var(--accent-tan)}
+
+/* Responsive */
+@media(max-width:640px){
+  .header{padding:12px 16px;flex-wrap:wrap;gap:8px}
+  .nav-links a{padding:6px 10px;font-size:0.75rem}
+  .content-wrap{padding:16px 16px 60px}
+  h1{font-size:1.6rem}
+  .card-header{flex-direction:column;align-items:flex-start}
+}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--accent-espresso);border-radius:3px}
+::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
+
+/* Print */
+@media print{
+  body::before{display:none}
+  .header{display:none!important}
+  .back-link{display:none}
+  body{background:#fff;color:#222;font-size:11pt}
+  .mcq,.card{page-break-inside:avoid;border-left-width:3px!important;background:#f9f9f9}
+  .mcq-answer{display:block!important}
+  .mcq-toggle{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">📚</div>
+    <div class="logo-text">
+      <h1>UNI <em>Study</em></h1>
+      <span>Exam Preparation</span>
+    </div>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+    <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+    <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+    <a href="study.html" class="active"><i class="fas fa-book"></i> Study</a>
+    <a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a>
+    <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+  </nav>
+</header>
+
+<div class="content-wrap">
+  <a href="study.html" class="back-link">← Back to Study Hub</a>
+
+<h1>ACW1020 Accounting in Business — Study Guide</h1>
+<p>Introductory accounting for non-accountants: financial statements, analysis, cost concepts, budgeting &amp; ESG.</p>
+
+<h2>Multiple Choice Questions</h2>
+
+<div class="mcq">
+<div class="mcq-question">Q1: The primary purpose of financial accounting is to:</div>
+<ul class="mcq-options"><li>A) provide information for internal managers to make operational decisions</li><li>B) provide information to external users for investment and credit decisions</li><li>C) calculate tax liabilities for the government</li><li>D) prepare budgets for the upcoming financial year</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>Financial accounting focuses on preparing general-purpose financial statements (Income Statement, Balance Sheet, Cash Flow Statement) for external users such as investors, creditors, lenders, and regulators. Managerial accounting (Option A) serves internal decision-making.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q2: Which of the following is NOT one of the three main financial statements?</div>
+<ul class="mcq-options"><li>A) Statement of Profit or Loss (Income Statement)</li><li>B) Statement of Financial Position (Balance Sheet)</li><li>C) Statement of Changes in Equity</li><li>D) Statement of Internal Controls</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: D</strong><br>The three main financial statements are: (1) Statement of Profit or Loss (Income Statement), (2) Statement of Financial Position (Balance Sheet), and (3) Statement of Cash Flows. The Statement of Changes in Equity is also a required financial statement under AASB 101, but "Statement of Internal Controls" is not a financial statement — it relates to corporate governance and audit processes.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q3: Under the accrual basis of accounting, revenue is recognised when:</div>
+<ul class="mcq-options"><li>A) cash is received from the customer</li><li>B) the performance obligation is satisfied</li><li>C) an invoice is sent to the customer</li><li>D) the goods are ordered by the customer</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>Under AASB 15 / IFRS 15, revenue is recognised when (or as) the entity satisfies a performance obligation by transferring control of goods or services to the customer. This is the core principle of the accrual basis, regardless of when cash is received.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q4: Which accounting concept requires that expenses be matched with the revenues they help generate in the same period?</div>
+<ul class="mcq-options"><li>A) Consistency concept</li><li>B) Matching principle</li><li>C) Going concern concept</li><li>D) Materiality concept</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>The matching principle (or accruals concept) requires that expenses be recognised in the same accounting period as the revenues they helped generate. This ensures that profit reflects the true economic performance of the period, not just cash flows.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q5: A company's current assets are $120,000 and current liabilities are $80,000. What is the current ratio?</div>
+<ul class="mcq-options"><li>A) 0.67</li><li>B) 1.00</li><li>C) 1.50</li><li>D) 2.00</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br>Current Ratio = Current Assets / Current Liabilities = $120,000 / $80,000 = 1.50. This ratio measures liquidity — the company's ability to meet short-term obligations. A ratio above 1.0 generally indicates adequate liquidity.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q6: Which of the following would be classified as a financing activity in the Statement of Cash Flows?</div>
+<ul class="mcq-options"><li>A) Payment of dividends to shareholders</li><li>B) Purchase of inventory from suppliers</li><li>C) Receipt of cash from customers</li><li>D) Payment of wages to employees</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: A</strong><br>Financing activities include transactions with owners (equity) and lenders (debt). Payment of dividends to shareholders is a financing outflow. Purchasing inventory (B), receiving cash from customers (C), and paying wages (D) are all operating activities.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q7: Return on Assets (ROA) is calculated as:</div>
+<ul class="mcq-options"><li>A) Net Profit / Total Equity</li><li>B) Net Profit / Total Assets</li><li>C) Gross Profit / Total Assets</li><li>D) Operating Profit / Current Assets</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>Return on Assets (ROA) = Net Profit (or Profit Before Tax) / Total Assets (or Average Total Assets). It measures how efficiently management uses the company's assets to generate profit. Option A describes Return on Equity (ROE).</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q8: In a manufacturing business, which of the following is NOT a product cost?</div>
+<ul class="mcq-options"><li>A) Direct materials used in production</li><li>B) Factory supervisor's salary</li><li>C) Sales commission paid to sales staff</li><li>D) Depreciation on factory equipment</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br>Product costs (inventoriable costs) include direct materials, direct labour, and manufacturing overhead (indirect costs like factory supervisor salary and factory equipment depreciation). Sales commissions are a period cost — they are expensed in the period incurred as a selling expense, not included in inventory valuation.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q9: A favourable variance in a static budget occurs when:</div>
+<ul class="mcq-options"><li>A) actual costs are higher than budgeted costs</li><li>B) actual revenues are lower than budgeted revenues</li><li>C) actual costs are lower than budgeted costs</li><li>D) actual output differs from budgeted output</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br>A favourable cost variance occurs when actual costs are lower than budgeted costs (or standard costs). An unfavourable variance occurs when actual costs exceed the budget. For revenues, the opposite applies — higher actual revenue is favourable.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q10: Which component of ESG (Environmental, Social, Governance) focuses on a company's carbon footprint and resource usage?</div>
+<ul class="mcq-options"><li>A) Social</li><li>B) Governance</li><li>C) Environmental</li><li>D) Economic</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: C</strong><br>The Environmental component of ESG focuses on a company's impact on the natural environment, including carbon emissions, energy usage, water consumption, waste management, and biodiversity. Social covers labour practices and community relations; Governance covers board structure, ethics, and transparency.</div>
+</div>
+
+<h2>Subjective Questions</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q1: Explain the difference between the cash basis and accrual basis of accounting, and discuss why AASB standards require the accrual basis for general purpose financial reporting.</span><span class="card-tag">Conceptual Framework / Accrual Accounting</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning">Under the <strong>cash basis</strong>, transactions are recorded only when cash is received or paid. Revenue is recognised upon cash receipt, and expenses are recognised upon cash payment. This method is simple but can distort financial performance, especially when cash flows and economic activity occur in different periods.<br><br>Under the <strong>accrual basis</strong>, transactions are recorded when they occur, regardless of when cash is exchanged. Revenue is recognised when performance obligations are satisfied (AASB 15), and expenses are recognised when incurred (matched to revenues or allocated systematically).<br><br>AASB standards require the accrual basis because it provides a more faithful representation of an entity's financial position and performance. It aligns with the Conceptual Framework's qualitative characteristics of relevance and faithful representation, ensuring that assets, liabilities, income, and expenses reflect the underlying economic substance rather than merely cash movements. This allows external users to compare performance across periods and entities on a consistent basis.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q2: Describe the structure and purpose of each of the three main financial statements (Statement of Profit or Loss, Statement of Financial Position, and Statement of Cash Flows), and explain how they are interrelated.</span><span class="card-tag">Financial Reporting / AASB 101</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Statement of Profit or Loss (Income Statement):</strong> Reports financial performance <em>over a period of time</em>. It shows revenues earned minus expenses incurred, resulting in profit or loss. It answers: "How profitable was the business?"<br><br><strong>Statement of Financial Position (Balance Sheet):</strong> Presents an entity's assets, liabilities, and equity at a <em>specific point in time</em>. It provides a snapshot of financial position and solvency. It answers: "What does the business own and owe?"<br><br><strong>Statement of Cash Flows:</strong> Reports cash inflows and outflows <em>over a period</em>, classified into operating, investing, and financing activities. It answers: "Where did cash come from and where did it go?"<br><br><strong>Interrelationships:</strong><br>• Profit from the Income Statement flows into Retained Earnings in the Balance Sheet (via the Statement of Changes in Equity).<br>• The cash balance at the end of the Cash Flow Statement equals the cash reported in the Balance Sheet.<br>• Depreciation in the Income Statement reduces the carrying amount of non-current assets in the Balance Sheet.<br>• Together, the three statements provide a comprehensive picture of profitability, financial position, and liquidity.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q3: Using the following data, calculate and interpret: (a) Gross Profit Margin, (b) Net Profit Margin, (c) Current Ratio, and (d) Debt-to-Assets Ratio. What do these ratios tell you about the company's performance and financial health?</span><span class="card-tag">Financial Analysis / Ratio Analysis</span></div>
+<div class="def"><div class="def-term">Data</div><div class="def-meaning">Revenue: $500,000 | Cost of Sales: $300,000 | Net Profit: $50,000 | Current Assets: $120,000 | Current Liabilities: $80,000 | Total Assets: $400,000 | Total Liabilities: $250,000</div></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>(a) Gross Profit Margin</strong> = (Revenue − Cost of Sales) / Revenue × 100<br>= ($500,000 − $300,000) / $500,000 × 100 = <strong>40%</strong><br>This indicates that for every dollar of sales, the company retains 40 cents after direct costs. This is a reasonable margin for many industries.<br><br><strong>(b) Net Profit Margin</strong> = Net Profit / Revenue × 100<br>= $50,000 / $500,000 × 100 = <strong>10%</strong><br>This shows the company's overall profitability after all expenses. A 10% net margin suggests the company controls its operating expenses effectively.<br><br><strong>(c) Current Ratio</strong> = Current Assets / Current Liabilities<br>= $120,000 / $80,000 = <strong>1.50</strong><br>This indicates the company has $1.50 in current assets for every $1.00 of current liabilities, suggesting adequate short-term liquidity. A ratio between 1.5 and 2.0 is generally considered healthy.<br><br><strong>(d) Debt-to-Assets Ratio</strong> = Total Liabilities / Total Assets × 100<br>= $250,000 / $400,000 × 100 = <strong>62.5%</strong><br>This indicates that 62.5% of the company's assets are financed by debt. While this provides leverage benefits, it also indicates moderate financial risk. Creditors may view this as approaching the higher end of comfortable leverage.<br><br><strong>Overall interpretation:</strong> The company is profitable (healthy margins) and liquid (adequate current ratio), but carries a relatively high debt load that warrants monitoring.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q4: Distinguish between fixed costs, variable costs, and mixed costs. Provide a real-world example of each from a retail business, and explain why understanding cost behaviour is essential for managerial decision-making.</span><span class="card-tag">Cost Behaviour / Managerial Accounting</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Fixed Costs:</strong> Costs that remain constant in total regardless of activity level within a relevant range. They do not change with production or sales volume.<br><em>Example:</em> Monthly rent for a retail store. Whether the store sells 100 or 1,000 items, the rent remains the same.<br><br><strong>Variable Costs:</strong> Costs that change in direct proportion to activity level. Total variable cost increases as output increases, but the cost per unit remains constant.<br><em>Example:</em> Cost of goods sold (inventory purchased for resale). Selling more units requires purchasing more inventory.<br><br><strong>Mixed Costs:</strong> Costs that contain both fixed and variable components.<br><em>Example:</em> Utility bills for a retail store — there is a fixed base charge plus a variable component based on electricity consumption.<br><br><strong>Importance for decision-making:</strong><br>• <strong>Break-even analysis:</strong> Understanding cost behaviour allows managers to calculate the sales volume needed to cover all costs.<br>• <strong>Pricing decisions:</strong> Variable costs help determine minimum acceptable prices; fixed costs inform long-term pricing strategy.<br>• <strong>Profit planning:</strong> Managers can forecast how changes in volume affect total costs and profit.<br>• <strong>Cost control:</strong> Identifying fixed vs. variable costs helps managers focus cost reduction efforts where they have most impact.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q5: Explain the purpose of budgeting in a business organisation. Describe the key components of a master budget and discuss how budgeting supports planning, control, and performance evaluation.</span><span class="card-tag">Budgeting / Managerial Accounting</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Purpose of Budgeting:</strong> A budget is a quantitative expression of a plan of action for a future period. It serves as a financial roadmap that translates strategic goals into operational targets, allocates resources efficiently, and provides a benchmark against which actual performance can be measured.<br><br><strong>Key Components of a Master Budget:</strong><br>1. <strong>Operating Budgets:</strong> Sales budget, production budget, direct materials budget, direct labour budget, manufacturing overhead budget, ending inventory budget, cost of goods sold budget, and selling &amp; administrative expense budget.<br>2. <strong>Financial Budgets:</strong> Cash budget, budgeted Statement of Profit or Loss, budgeted Statement of Financial Position, and budgeted Statement of Cash Flows.<br>3. <strong>Capital Expenditure Budget:</strong> Plans for long-term asset purchases.<br><br><strong>Planning:</strong> Budgeting forces managers to think ahead, anticipate problems, and coordinate activities across departments. It ensures resources are allocated to priorities that align with strategic objectives.<br><br><strong>Control:</strong> By comparing actual results to budgeted amounts (variance analysis), managers can identify deviations, investigate causes, and take corrective action before problems escalate.<br><br><strong>Performance Evaluation:</strong> Budgets provide objective benchmarks for evaluating manager and department performance. They help align incentives and identify areas of strength and weakness. However, budgets should be used carefully to avoid dysfunctional behaviour such as "budgetary slack" or sacrificing long-term goals to meet short-term targets.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q6: Define ESG (Environmental, Social, and Governance) reporting and explain why it has become increasingly important for businesses. Discuss how ESG factors can impact a company's financial performance and long-term sustainability.</span><span class="card-tag">ESG / Sustainability Reporting</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Definition:</strong> ESG reporting refers to the disclosure of information related to a company's environmental impact, social responsibilities, and governance practices. It goes beyond traditional financial reporting to capture how a company manages risks and opportunities related to sustainability and ethical conduct.<br><br><strong>Environmental (E):</strong> Climate change impact, carbon emissions, energy efficiency, water usage, waste management, pollution control, and biodiversity.<br><br><strong>Social (S):</strong> Labour practices, employee health and safety, diversity and inclusion, human rights, community engagement, customer privacy, and product safety.<br><br><strong>Governance (G):</strong> Board composition and independence, executive compensation, audit quality, shareholder rights, anti-corruption policies, and transparency.<br><br><strong>Why ESG has become important:</strong><br>• <strong>Investor demand:</strong> Institutional investors increasingly integrate ESG factors into investment decisions, recognising that sustainability risks are financial risks.<br>• <strong>Regulatory pressure:</strong> Governments and stock exchanges worldwide are mandating ESG disclosures (e.g., EU Taxonomy, SEC climate rules, ASX Corporate Governance Principles).<br>• <strong>Reputation and trust:</strong> Consumers, employees, and communities expect companies to act responsibly.<br>• <strong>Risk management:</strong> Climate change, supply chain disruptions, and social inequality pose material risks to long-term business viability.<br><br><strong>Impact on financial performance:</strong><br>• Companies with strong ESG practices often enjoy lower cost of capital, as they are perceived as lower risk.<br>• Operational efficiency gains from environmental initiatives (e.g., energy savings) directly improve profitability.<br>• Strong governance reduces the risk of fraud, fines, and reputational damage.<br>• Social factors such as employee satisfaction correlate with productivity and retention, reducing recruitment and training costs.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q7: A retail company has the following information for the year: Sales $800,000, Cost of Sales $480,000, Operating Expenses $200,000, Interest Expense $20,000, Tax Expense $30,000. Prepare a simplified Income Statement and calculate the company's operating profit margin and net profit margin. Interpret your results.</span><span class="card-tag">Financial Statements / Ratio Analysis</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Simplified Income Statement</strong><br><br><table style="width:100%;border-collapse:collapse;margin:8px 0;font-size:0.9rem"><tr><td>Sales Revenue</td><td style="text-align:right">$800,000</td></tr><tr><td style="padding-left:20px">Less: Cost of Sales</td><td style="text-align:right">($480,000)</td></tr><tr style="border-top:1px solid var(--border)"><td><strong>Gross Profit</strong></td><td style="text-align:right"><strong>$320,000</strong></td></tr><tr><td style="padding-left:20px">Less: Operating Expenses</td><td style="text-align:right">($200,000)</td></tr><tr style="border-top:1px solid var(--border)"><td><strong>Operating Profit (EBIT)</strong></td><td style="text-align:right"><strong>$120,000</strong></td></tr><tr><td style="padding-left:20px">Less: Interest Expense</td><td style="text-align:right">($20,000)</td></tr><tr style="border-top:1px solid var(--border)"><td>Profit Before Tax</td><td style="text-align:right">$100,000</td></tr><tr><td style="padding-left:20px">Less: Tax Expense</td><td style="text-align:right">($30,000)</td></tr><tr style="border-top:2px solid var(--border-light)"><td><strong>Net Profit</strong></td><td style="text-align:right"><strong>$70,000</strong></td></tr></table><br><strong>Operating Profit Margin</strong> = Operating Profit / Sales × 100 = $120,000 / $800,000 × 100 = <strong>15%</strong><br><br><strong>Net Profit Margin</strong> = Net Profit / Sales × 100 = $70,000 / $800,000 × 100 = <strong>8.75%</strong><br><br><strong>Interpretation:</strong> The company generates 15 cents of operating profit for every dollar of sales, which is a healthy operating margin for a retail business. After financing costs and taxes, the net profit margin is 8.75%, indicating that interest and tax expenses absorb approximately 6.25% of revenue. The gap between operating and net margin suggests moderate financial leverage (debt) and tax obligations. Overall, the company appears profitable with reasonable cost control.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q8: Compare and contrast financial accounting and management accounting on the following dimensions: primary users, regulatory requirements, time orientation, level of detail, and types of reports produced.</span><span class="card-tag">Financial vs Management Accounting</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><table style="width:100%;border-collapse:collapse;margin:8px 0;font-size:0.9rem"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px 0">Dimension</th><th style="text-align:left;padding:8px 0">Financial Accounting</th><th style="text-align:left;padding:8px 0">Management Accounting</th></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Primary Users</strong></td><td style="padding:8px 0">External: investors, creditors, regulators, tax authorities</td><td style="padding:8px 0">Internal: managers, executives, operational staff</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Regulatory Requirements</strong></td><td style="padding:8px 0">Mandatory; must comply with AASB/IFRS standards and Corporations Act</td><td style="padding:8px 0">Voluntary; no mandatory standards — driven by management needs</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Time Orientation</strong></td><td style="padding:8px 0">Historical: reports past performance for a defined period</td><td style="padding:8px 0">Forward-looking: focuses on forecasts, budgets, and future decisions</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Level of Detail</strong></td><td style="padding:8px 0">Aggregated: summarised at entity or segment level</td><td style="padding:8px 0">Detailed: product-level, department-level, project-level analysis</td></tr><tr><td style="padding:8px 0"><strong>Types of Reports</strong></td><td style="padding:8px 0">General-purpose financial statements (Income Statement, Balance Sheet, Cash Flow Statement)</td><td style="padding:8px 0">Special-purpose internal reports: budgets, variance reports, cost analyses, performance scorecards</td></tr></table><br><strong>Key Insight:</strong> Financial accounting provides a standardised, comparable snapshot for external stakeholders, while management accounting provides flexible, detailed, forward-looking information to support internal planning, control, and decision-making. Both are essential: financial accounting ensures accountability and transparency, while management accounting drives operational efficiency and strategic direction.</div></div>
+</div>
+
+</div>
+
+<script>
+/* MCQ interactivity */
+const mcqState = {};
+document.querySelectorAll('.mcq').forEach((el, idx) => {
+  const qid = 'q' + idx;
+  mcqState[qid] = { answered: false };
+  const options = el.querySelectorAll('.mcq-options li');
+  const answerDiv = el.querySelector('.mcq-answer');
+  const correctText = answerDiv ? answerDiv.textContent : '';
+  const correctLetter = correctText.match(/Answer:\s*([A-D])/i);
+  const correctIndex = correctLetter ? correctLetter[1].charCodeAt(0) - 65 : -1;
+
+  options.forEach((opt, oi) => {
+    opt.addEventListener('click', () => {
+      if (mcqState[qid].answered) return;
+      mcqState[qid].answered = true;
+      options.forEach(o => o.style.pointerEvents = 'none');
+      opt.classList.add(oi === correctIndex ? 'correct' : 'wrong');
+      if (oi !== correctIndex && correctIndex >= 0) options[correctIndex].classList.add('correct');
+      if (answerDiv) answerDiv.classList.add('show');
+    });
+  });
+
+  // Replace old toggle with nothing (answer shows on click)
+  const toggle = el.querySelector('.mcq-toggle');
+  if (toggle) toggle.style.display = 'none';
+});
+</script>
+</body>
+</html>
