@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNI — Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --bg-primary:#15100C;
+  --bg-secondary:#1C1510;
+  --bg-card:#231A14;
+  --bg-hover:#2E221A;
+  --bg-elevated:#3A2C22;
+  --text-primary:#F2E6D8;
+  --text-secondary:#BF9B7A;
+  --text-muted:#8C5B3E;
+  --text-faint:#593E2E;
+  --accent-cream:#F2E6D8;
+  --accent-tan:#BF9B7A;
+  --accent-rust:#8C5B3E;
+  --accent-espresso:#593E2E;
+  --accent-olive:#555934;
+  --border:rgba(191,155,122,0.10);
+  --border-light:rgba(191,155,122,0.18);
+  --font-serif:'Source Serif 4',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --shadow-card:0 4px 24px rgba(0,0,0,0.25);
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-sans);
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font-size:15px;
+  line-height:1.7;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;
+}
+.header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 32px;
+  border-bottom:1px solid var(--border);
+  background:rgba(21,16,12,0.92);
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(20px) saturate(1.2);
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{
+  width:40px;height:40px;background:linear-gradient(135deg,var(--accent-tan),var(--accent-rust));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;box-shadow:0 0 30px rgba(191,155,122,0.08);
+}
+.logo-text h1{font-family:var(--font-serif);font-size:1.3rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em}
+.logo-text h1 em{font-style:italic;color:var(--accent-tan)}
+.logo-text span{font-size:0.75rem;color:var(--text-muted);letter-spacing:0.05em}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{
+  padding:8px 14px;border-radius:var(--radius-sm);text-decoration:none;
+  color:var(--text-muted);font-weight:500;font-size:0.8rem;
+  transition:all .3s ease;border:1px solid transparent;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--accent-tan);background:rgba(191,155,122,0.08);border-color:rgba(191,155,122,0.18)}
+.nav-links a i{margin-right:5px}
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--text-muted);text-decoration:none;font-size:0.85rem;
+  margin-bottom:20px;transition:color .2s;
+}
+.back-link:hover{color:var(--accent-tan)}
+.content-wrap{max-width:860px;margin:0 auto;padding:24px 24px 80px}
+h1{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:8px}
+h2{font-family:var(--font-serif);font-size:1.35rem;color:var(--accent-tan);margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+h1+p{color:var(--text-muted);font-size:0.9rem;margin-bottom:32px}
+.mcq{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.mcq:hover{border-color:var(--border-light)}
+.mcq-question{font-family:var(--font-serif);font-weight:600;margin-bottom:14px;color:var(--text-primary);font-size:1rem;letter-spacing:-0.01em;line-height:1.5}
+.mcq-options{list-style:none;margin:0;padding:0}
+.mcq-options li{
+  padding:10px 16px;margin:6px 0;background:var(--bg-secondary);border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .25s ease;border:1px solid transparent;
+  display:flex;align-items:center;gap:12px;font-size:0.86rem;color:var(--text-secondary);font-weight:300;
+}
+.mcq-options li::before{content:'○';color:var(--text-faint);font-size:1.1rem;transition:all .2s ease;flex-shrink:0}
+.mcq-options li:hover{background:rgba(191,155,122,0.06);border-color:var(--border-light)}
+.mcq-options li.selected{background:rgba(191,155,122,0.08);border-color:var(--accent-rust)}
+.mcq-options li.selected::before{content:'●';color:var(--accent-rust)}
+.mcq-options li.correct{background:rgba(85,89,52,0.10);border-color:var(--accent-olive)}
+.mcq-options li.correct::before{content:'✓';color:var(--accent-olive)}
+.mcq-options li.wrong{background:rgba(140,91,62,0.08);border-color:var(--accent-rust)}
+.mcq-options li.wrong::before{content:'✗';color:var(--accent-rust)}
+.mcq-answer{
+  display:none;margin-top:14px;padding:14px;
+  background:rgba(85,89,52,0.06);border-radius:var(--radius-sm);border-left:2px solid var(--accent-olive);
+  font-size:0.85rem;color:var(--text-secondary);line-height:1.6;
+}
+.mcq-answer.show{display:block}
+.mcq-answer strong{color:var(--accent-olive);font-size:0.85rem}
+.mcq-toggle{
+  color:var(--accent-tan);cursor:pointer;font-size:0.85rem;margin-top:12px;
+  display:inline-block;padding:6px 14px;background:var(--bg-hover);border-radius:var(--radius-sm);
+  transition:all .2s ease;font-weight:500;border:1px solid var(--border);
+}
+.mcq-toggle:hover{background:var(--bg-elevated);border-color:var(--border-light)}
+.card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:22px;margin:16px 0;transition:all .35s ease;
+}
+.card:hover{border-color:var(--border-light);box-shadow:var(--shadow-card)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.card-title{font-family:var(--font-serif);font-weight:600;color:var(--accent-tan);font-size:1.05rem;letter-spacing:-0.01em;flex:1;min-width:200px}
+.card-tag{font-size:0.68rem;background:var(--bg-elevated);padding:4px 12px;border-radius:999px;color:var(--text-muted);border:1px solid var(--border);font-weight:500;letter-spacing:0.03em;text-transform:uppercase}
+.def{margin-top:12px;padding:14px;background:rgba(85,89,52,0.06);border-left:2px solid var(--accent-olive);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.def-term{font-family:var(--font-serif);font-weight:600;color:var(--accent-olive);font-size:1.1rem;margin-bottom:6px}
+.def-meaning{color:var(--text-secondary);font-weight:300;font-size:0.9rem;line-height:1.6}
+.def-meaning strong{color:var(--accent-tan)}
+@media(max-width:640px){
+  .header{padding:12px 16px;flex-wrap:wrap;gap:8px}
+  .nav-links a{padding:6px 10px;font-size:0.75rem}
+  .content-wrap{padding:16px 16px 60px}
+  h1{font-size:1.6rem}
+  .card-header{flex-direction:column;align-items:flex-start}
+}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--accent-espresso);border-radius:3px}
+::selection{background:rgba(191,155,122,0.2);color:var(--text-primary)}
+@media print{
+  body::before{display:none}
+  .header{display:none!important}
+  .back-link{display:none}
+  body{background:#fff;color:#222;font-size:11pt}
+  .mcq,.card{page-break-inside:avoid;border-left-width:3px!important;background:#f9f9f9}
+  .mcq-answer{display:block!important}
+  .mcq-toggle{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">📚</div>
+    <div class="logo-text">
+      <h1>UNI <em>Study</em></h1>
+      <span>Exam Preparation</span>
+    </div>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+    <a href="visual.html"><i class="fas fa-project-diagram"></i> Visual</a>
+    <a href="planner.html"><i class="fas fa-calendar-alt"></i> Planner</a>
+    <a href="study.html" class="active"><i class="fas fa-book"></i> Study</a>
+    <a href="assignments.html"><i class="fas fa-tasks"></i> Assignments</a>
+    <a href="exercise.html"><i class="fas fa-dumbbell"></i> Exercise</a>
+  </nav>
+</header>
+
+<div class="content-wrap">
+  <a href="study.html" class="back-link">← Back to Study Hub</a>
+
+<h1>ECW1101 Introductory Microeconomics — Study Guide</h1>
+<p>Consumer behaviour, demand &amp; supply, market efficiency, welfare, trade, public sector, firm behaviour, market structures &amp; labour markets.</p>
+
+<h2>Multiple Choice Questions</h2>
+
+<div class="mcq">
+<div class="mcq-question">Q1: The law of demand states that, ceteris paribus, as the price of a good increases:</div>
+<ul class="mcq-options"><li>A) the quantity demanded increases</li><li>B) the quantity demanded decreases</li><li>C) demand shifts to the right</li><li>D) supply shifts to the left</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>The <strong>law of demand</strong> states that, all else being equal (ceteris paribus), there is an inverse relationship between price and quantity demanded. As price rises, consumers are willing and able to buy less. This is represented as a movement along the demand curve, not a shift of the curve.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q2: Which of the following would cause a rightward shift in the supply curve for coffee beans?</div>
+<ul class="mcq-options"><li>A) An increase in the price of coffee beans</li><li>B) A decrease in the wages of coffee plantation workers</li><li>C) An increase in consumer preference for tea</li><li>D) A government tax on coffee exports</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>A decrease in input costs (wages) reduces production costs, making producers willing to supply more at every price — this shifts the <strong>supply curve rightward</strong>. Option A causes a movement along the supply curve. Option C affects demand, not supply. Option D (a tax) increases costs and shifts supply leftward.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q3: Consumer surplus is defined as:</div>
+<ul class="mcq-options"><li>A) the total amount consumers spend on a good</li><li>B) the difference between what consumers are willing to pay and what they actually pay</li><li>C) the profit earned by producers from selling a good</li><li>D) the difference between total revenue and total cost</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br><strong>Consumer surplus</strong> measures the economic welfare consumers receive. It is the area below the demand curve and above the market price, representing the difference between consumers' maximum willingness to pay and the actual price they pay. It is a key measure of market efficiency.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q4: If the price elasticity of demand for a product is −0.5, demand is:</div>
+<ul class="mcq-options"><li>A) perfectly elastic</li><li>B) elastic</li><li>C) unit elastic</li><li>D) inelastic</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: D</strong><br>When the absolute value of price elasticity of demand is <strong>less than 1</strong>, demand is <strong>inelastic</strong>. A value of −0.5 means a 10% price increase leads to only a 5% decrease in quantity demanded. Inelastic demand typically applies to necessities with few substitutes (e.g., petrol, essential medications).</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q5: In a perfectly competitive market, a firm maximises profit where:</div>
+<ul class="mcq-options"><li>A) price equals average total cost</li><li>B) marginal revenue equals marginal cost</li><li>C) total revenue equals total cost</li><li>D) average revenue equals average variable cost</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>The <strong>profit-maximising rule</strong> for any firm is to produce at the quantity where <strong>marginal revenue (MR) equals marginal cost (MC)</strong>. In perfect competition, MR equals price (P), so the condition is also P = MC. If MR > MC, the firm should produce more; if MR < MC, it should produce less.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q6: A natural monopoly exists when:</div>
+<ul class="mcq-options"><li>A) the government grants a single firm exclusive rights to produce</li><li>B) one firm can supply the entire market at a lower cost than two or more firms</li><li>C) a firm controls all natural resources needed for production</li><li>D) there are significant barriers to exit but not entry</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>A <strong>natural monopoly</strong> arises when economies of scale are so large that one firm can supply the entire market at a lower average cost than multiple firms. This typically occurs in industries with very high fixed costs and low marginal costs, such as water supply, electricity distribution, and rail infrastructure.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q7: The deadweight loss from a monopoly arises because:</div>
+<ul class="mcq-options"><li>A) the monopolist produces too much output at too low a price</li><li>B) the monopolist restricts output and charges a price above marginal cost</li><li>C) the monopolist earns zero economic profit in the long run</li><li>D) there are no barriers to entry in a monopoly market</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>A monopolist maximises profit by producing where MR = MC, which results in a <strong>lower quantity and higher price</strong> than the competitive equilibrium (where P = MC). This restriction of output creates <strong>deadweight loss</strong> — a loss of total surplus (consumer + producer surplus) that represents inefficiently low production from society's perspective.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q8: A price ceiling set below the equilibrium price will result in:</div>
+<ul class="mcq-options"><li>A) a surplus of the good</li><li>B) a shortage of the good</li><li>C) no change in market outcome</li><li>D) an increase in producer surplus</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>When a <strong>price ceiling</strong> is set <strong>below</strong> the equilibrium price, it is binding. At this artificially low price, quantity demanded exceeds quantity supplied, creating a <strong>shortage</strong>. Consumers want to buy more than producers are willing to sell at the capped price. This also typically reduces producer surplus and creates deadweight loss.</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q9: The marginal rate of substitution (MRS) represents:</div>
+<ul class="mcq-options"><li>A) the rate at which a consumer is willing to trade one good for another while maintaining the same level of utility</li><li>B) the slope of the production possibilities frontier</li><li>C) the change in total cost from producing one more unit</li><li>D) the ratio of input prices in production</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: A</strong><br>The <strong>marginal rate of substitution</strong> is the rate at which a consumer is willing to give up some amount of one good in exchange for another good while maintaining the same level of utility. It is represented by the slope of an indifference curve. At the consumer's optimal choice, MRS equals the price ratio (MRS = Px/Py).</div>
+</div>
+
+<div class="mcq">
+<div class="mcq-question">Q10: In the labour market, a firm's demand for labour is derived from:</div>
+<ul class="mcq-options"><li>A) the minimum wage legislation</li><li>B) the marginal revenue product of labour</li><li>C) the supply of workers in the economy</li><li>D) union bargaining power</li></ul>
+<span class="mcq-toggle">Show Answer</span>
+<div class="mcq-answer"><strong>Answer: B</strong><br>The demand for labour is a <strong>derived demand</strong> — it depends on the demand for the output that labour produces. A profit-maximising firm hires labour up to the point where the <strong>marginal revenue product of labour (MRPL)</strong> equals the wage rate. MRPL = marginal product of labour × marginal revenue from selling the output.</div>
+</div>
+
+<h2>Subjective Questions</h2>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q1: Explain the concept of demand and distinguish between a change in demand and a change in quantity demanded. Illustrate each with a properly labelled diagram and provide two real-world examples of factors that would shift the demand curve.</span><span class="card-tag">Demand Theory</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Demand</strong> refers to the quantity of a good or service that consumers are willing and able to purchase at various prices during a given period, ceteris paribus.<br><br><strong>Change in Quantity Demanded:</strong> A movement along the demand curve caused solely by a change in the good's own price. If price falls, quantity demanded rises (expansion of demand). If price rises, quantity demanded falls (contraction of demand).<br><br><strong>Change in Demand:</strong> A shift of the entire demand curve caused by changes in non-price determinants. A rightward shift indicates an increase in demand; a leftward shift indicates a decrease.<br><br><strong>Diagram explanation:</strong> Draw a standard demand curve (downward sloping). A movement along the curve (e.g., from point A to point B) represents a change in quantity demanded due to price change. A shift of the entire curve (e.g., D1 to D2) represents a change in demand.<br><br><strong>Factors shifting demand (examples):</strong><br>1. <strong>Income:</strong> If consumer incomes rise, demand for normal goods (e.g., restaurant meals) shifts rightward. For inferior goods (e.g., instant noodles), demand shifts leftward.<br>2. <strong>Prices of related goods:</strong> If the price of petrol rises, demand for electric vehicles shifts rightward (substitutes). If the price of coffee rises, demand for sugar might shift leftward (complements).</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q2: Define price elasticity of demand and explain its determinants. Calculate the price elasticity of demand when price rises from $10 to $12 and quantity demanded falls from 100 to 80 units. Classify the elasticity and discuss the implications for total revenue.</span><span class="card-tag">Elasticity</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Price Elasticity of Demand (PED)</strong> measures the responsiveness of quantity demanded to a change in price. Formula: PED = (% change in quantity demanded) / (% change in price).<br><br><strong>Determinants of PED:</strong><br>• <strong>Availability of substitutes:</strong> More substitutes → more elastic (e.g., specific brands of cereal).<br>• <strong>Necessity vs luxury:</strong> Necessities tend to be inelastic (e.g., insulin); luxuries tend to be elastic (e.g., designer handbags).<br>• <strong>Proportion of income:</strong> Goods that take a larger share of income tend to be more elastic.<br>• <strong>Time horizon:</strong> Demand becomes more elastic over time as consumers adjust behaviour.<br>• <strong>Definition of market:</strong> Broadly defined markets (food) are inelastic; narrow markets (organic avocados) are elastic.<br><br><strong>Calculation (midpoint method):</strong><br>%ΔQ = (80 − 100) / ((80+100)/2) × 100 = (−20/90) × 100 = <strong>−22.22%</strong><br>%ΔP = (12 − 10) / ((12+10)/2) × 100 = (2/11) × 100 = <strong>+18.18%</strong><br>PED = −22.22% / 18.18% = <strong>−1.22</strong> (or |1.22|)<br><br><strong>Classification:</strong> Demand is <strong>elastic</strong> (|PED| > 1).<br><br><strong>Implications for total revenue:</strong><br>• At P=$10, TR = $10 × 100 = <strong>$1,000</strong><br>• At P=$12, TR = $12 × 80 = <strong>$960</strong><br>When demand is elastic, a price <strong>increase</strong> reduces total revenue because the percentage drop in quantity demanded exceeds the percentage rise in price. Conversely, a price <strong>decrease</strong> would increase total revenue.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q3: Explain the concepts of consumer surplus and producer surplus. Using a supply and demand diagram, illustrate how total surplus is maximised in a perfectly competitive market. Then explain how a per-unit tax creates deadweight loss.</span><span class="card-tag">Market Efficiency / Welfare</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Consumer Surplus (CS):</strong> The difference between what consumers are willing to pay (shown by the demand curve) and what they actually pay (the market price). It is the area below the demand curve and above the price.<br><br><strong>Producer Surplus (PS):</strong> The difference between what producers receive (the market price) and their marginal cost of production (shown by the supply curve). It is the area above the supply curve and below the price.<br><br><strong>Total Surplus:</strong> CS + PS. In a perfectly competitive equilibrium, total surplus is maximised because the market produces every unit for which the marginal benefit (demand) exceeds the marginal cost (supply). The competitive equilibrium quantity (Qc, Pc) is allocatively efficient.<br><br><strong>Effect of a Per-Unit Tax:</strong><br>A per-unit tax drives a wedge between the price consumers pay (Pd) and the price producers receive (Ps). The quantity traded falls from Qc to Qt.<br>• Consumers lose surplus (higher price, lower quantity).<br>• Producers lose surplus (lower net price, lower quantity).<br>• Government gains tax revenue = tax × Qt.<br>• <strong>Deadweight loss (DWL):</strong> The reduction in total surplus that is not captured by tax revenue. It represents the value of mutually beneficial trades that no longer occur due to the tax. DWL is shown as the triangle between Qc and Qt, bounded by the demand and supply curves.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q4: Compare and contrast perfect competition and monopoly on the following dimensions: number of firms, type of product, barriers to entry, pricing power, long-run profit, and allocative efficiency. Use diagrams to support your answer.</span><span class="card-tag">Market Structures</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><table style="width:100%;border-collapse:collapse;margin:8px 0;font-size:0.9rem"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:8px 0">Dimension</th><th style="text-align:left;padding:8px 0">Perfect Competition</th><th style="text-align:left;padding:8px 0">Monopoly</th></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Number of firms</strong></td><td style="padding:8px 0">Many</td><td style="padding:8px 0">One</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Type of product</strong></td><td style="padding:8px 0">Homogeneous (identical)</td><td style="padding:8px 0">Unique, no close substitutes</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Barriers to entry</strong></td><td style="padding:8px 0">None</td><td style="padding:8px 0">High (legal, control of resources, economies of scale)</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Pricing power</strong></td><td style="padding:8px 0">None — price taker (P = MR = AR)</td><td style="padding:8px 0">Significant — price maker (P > MR)</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 0"><strong>Long-run profit</strong></td><td style="padding:8px 0">Zero economic profit (normal profit only)</td><td style="padding:8px 0">Can earn positive economic profit indefinitely</td></tr><tr><td style="padding:8px 0"><strong>Allocative efficiency</strong></td><td style="padding:8px 0">Yes — P = MC at equilibrium</td><td style="padding:8px 0">No — P > MC (underproduction, deadweight loss)</td></tr></table><br><strong>Diagram explanation:</strong><br>In perfect competition, the firm faces a horizontal demand curve at the market price. Equilibrium is where P = MC = minimum ATC in the long run.<br>In monopoly, the firm faces the downward-sloping market demand curve. MR lies below demand. Equilibrium is where MR = MC, yielding a higher price and lower quantity than perfect competition. The gap between P and MC creates deadweight loss.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q5: Explain the theory of consumer choice using indifference curves and budget constraints. Show how a consumer maximises utility and how this optimal choice changes when income increases or when the price of one good falls.</span><span class="card-tag">Consumer Theory</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Budget Constraint:</strong> Shows all combinations of two goods (X and Y) that a consumer can afford given income (I) and prices (Px, Py). Equation: Px·X + Py·Y = I. The slope is −Px/Py.<br><br><strong>Indifference Curves:</strong> Show combinations of X and Y that yield the same level of utility. They are downward sloping, convex to the origin (diminishing MRS), and do not intersect.<br><br><strong>Utility Maximisation:</strong> The consumer chooses the bundle on the highest attainable indifference curve that just touches the budget line. At this tangency point:<br><strong>MRS = Px / Py</strong> or equivalently <strong>MUx / Px = MUy / Py</strong>.<br><br><strong>Income Increase:</strong> The budget line shifts outward parallel. For normal goods, the consumer buys more of both (income effect). For inferior goods, consumption may fall as income rises.<br><br><strong>Price Fall (for good X):</strong> The budget line pivots outward along the X-axis. The consumer moves to a higher indifference curve. This change can be decomposed into:<br>• <strong>Substitution effect:</strong> X becomes relatively cheaper → buy more X, less Y (movement along the original indifference curve).<br>• <strong>Income effect:</strong> Real purchasing power increases → buy more of both if normal goods.<br>For normal goods, both effects reinforce each other. For Giffen goods (rare inferior goods), the income effect outweighs the substitution effect, leading to an upward-sloping demand curve.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q6: Discuss the welfare effects of international trade. Using the example of a small country that opens up to importing a good, explain the changes in consumer surplus, producer surplus, and total surplus. Who gains and who loses from free trade?</span><span class="card-tag">International Trade / Welfare</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning">When a small country opens to international trade and becomes an <strong>importer</strong> of a good, the domestic price falls to the world price (which the small country takes as given).<br><br><strong>Changes in Surplus:</strong><br>• <strong>Consumer Surplus:</strong> Increases. Consumers benefit from lower prices and greater quantity consumed. The gain is the area between the original price and the world price, out to the new quantity demanded.<br>• <strong>Producer Surplus:</strong> Decreases. Domestic producers receive a lower price and reduce output. The loss is the area between the original price and the world price, out to the new quantity supplied domestically.<br>• <strong>Total Surplus:</strong> Increases. The gain in consumer surplus exceeds the loss in producer surplus. The net gain is the <strong>triangle of trade gains</strong> — representing the value of imports that are produced more cheaply abroad than at home.<br><br><strong>Winners and Losers:</strong><br>• <strong>Winners:</strong> Consumers (lower prices, more choice), the government (if tariff revenue is collected), and workers in export industries.<br>• <strong>Losers:</strong> Domestic producers in the import-competing industry and their workers, who face lower prices and reduced output.<br><br><strong>Policy implication:</strong> While free trade increases total surplus, it creates distributional effects. Governments may use policies (retraining programmes, trade adjustment assistance) to compensate losers and build political support for open trade.</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q7: Explain the concept of externalities and why they lead to market failure. Distinguish between positive and negative externalities, and discuss at least two policy interventions the government can use to correct each type of externality.</span><span class="card-tag">Market Failure / Public Policy</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Externalities:</strong> Costs or benefits of production or consumption that affect third parties who are not directly involved in the market transaction. They cause <strong>market failure</strong> because private costs/benefits diverge from social costs/benefits, leading to inefficient resource allocation.<br><br><strong>Negative Externality (e.g., pollution):</strong><br>Social Cost = Private Cost + External Cost. The market overproduces because producers do not bear the full cost of their actions. Marginal Social Cost (MSC) > Marginal Private Cost (MPC).<br><br><strong>Policy interventions for negative externalities:</strong><br>1. <strong>Pigouvian taxes:</strong> A tax equal to the marginal external cost imposed on polluters. This internalises the externality, shifting MPC up to align with MSC and reducing output to the socially optimal level.<br>2. <strong>Cap-and-trade (emissions trading):</strong> The government sets a cap on total emissions and issues tradable permits. Firms with low abatement costs sell permits to firms with high abatement costs, achieving the reduction at minimum cost.<br><br><strong>Positive Externality (e.g., education, vaccination):</strong><br>Social Benefit = Private Benefit + External Benefit. The market underproduces because consumers do not capture the full benefit. Marginal Social Benefit (MSB) > Marginal Private Benefit (MPB).<br><br><strong>Policy interventions for positive externalities:</strong><br>1. <strong>Subsidies:</strong> A subsidy equal to the marginal external benefit lowers the private cost of consumption/production, shifting MPB up to align with MSB and increasing output to the socially optimal level. Example: government subsidies for university education.<br>2. <strong>Direct provision or regulation:</strong> The government can directly provide the good (e.g., public schools, public health campaigns) or mandate consumption (e.g., compulsory schooling laws, vaccination requirements).</div></div>
+</div>
+
+<div class="card">
+<div class="card-header"><span class="card-title">Q8: Explain how a firm in a perfectly competitive labour market decides how many workers to hire. Define marginal revenue product of labour (MRPL) and show, using a diagram, how the equilibrium wage and employment level are determined. Discuss how a minimum wage set above the equilibrium affects employment.</span><span class="card-tag">Labour Markets</span></div>
+<div class="def"><div class="def-term">Answer</div><div class="def-meaning"><strong>Derived Demand for Labour:</strong> A firm's demand for labour depends on the demand for the output it produces. A profit-maximising firm hires workers up to the point where the additional revenue generated by the last worker equals the additional cost of hiring them.<br><br><strong>Marginal Revenue Product of Labour (MRPL):</strong><br>MRPL = Marginal Product of Labour (MPL) × Marginal Revenue (MR)<br>In perfect competition, MR = P, so MRPL = MPL × P.<br>MRPL measures the additional revenue the firm earns from hiring one more unit of labour. Due to diminishing marginal returns, MPL (and thus MRPL) declines as more workers are hired.<br><br><strong>Profit-Maximising Rule:</strong> Hire labour up to the point where <strong>MRPL = Wage (W)</strong>. If MRPL > W, hiring another worker adds more to revenue than to cost → hire more. If MRPL < W, the last worker costs more than they generate → hire fewer.<br><br><strong>Equilibrium in the Labour Market:</strong> The market labour demand curve is the horizontal summation of individual firms' MRPL curves. The labour supply curve slopes upward. The intersection determines the equilibrium wage (W*) and employment level (L*).<br><br><strong>Effect of a Binding Minimum Wage (Wmin > W*):</strong><br>• Firms move up their MRPL curve — the quantity of labour demanded falls from L* to Ld.<br>• The quantity of labour supplied increases to Ls (more workers want jobs at the higher wage).<br>• Result: <strong>unemployment</strong> equal to Ls − Ld.<br>• Those who keep their jobs benefit (higher wage). Those who lose jobs or cannot find work are worse off.<br>• Some workers may be pushed into uncovered sectors or informal employment.</div></div>
+</div>
+
+</div>
+
+<script>
+const mcqState = {};
+document.querySelectorAll('.mcq').forEach((el, idx) => {
+  const qid = 'q' + idx;
+  mcqState[qid] = { answered: false };
+  const options = el.querySelectorAll('.mcq-options li');
+  const answerDiv = el.querySelector('.mcq-answer');
+  const correctText = answerDiv ? answerDiv.textContent : '';
+  const correctLetter = correctText.match(/Answer:\s*([A-D])/i);
+  const correctIndex = correctLetter ? correctLetter[1].charCodeAt(0) - 65 : -1;
+  options.forEach((opt, oi) => {
+    opt.addEventListener('click', () => {
+      if (mcqState[qid].answered) return;
+      mcqState[qid].answered = true;
+      options.forEach(o => o.style.pointerEvents = 'none');
+      opt.classList.add(oi === correctIndex ? 'correct' : 'wrong');
+      if (oi !== correctIndex && correctIndex >= 0) options[correctIndex].classList.add('correct');
+      if (answerDiv) answerDiv.classList.add('show');
+    });
+  });
+  const toggle = el.querySelector('.mcq-toggle');
+  if (toggle) toggle.style.display = 'none';
+});
+</script>
+</body>
+</html>
