@@ -77,8 +77,16 @@ SIDEBAR_HTML = '''<button class="sidebar-toggle" onclick="document.querySelector
 
 PAGES = [
     "study_acw1020.html",
-    "study_mkw1120.html",
+    "study_acw1120.html",
+    "study_acw2220.html",
+    "study_bfw1001.html",
+    "study_btw1042.html",
+    "study_ecm1953.html",
     "study_ecw1101.html",
+    "study_etc2440.html",
+    "study_etw1001.html",
+    "study_mgw1010.html",
+    "study_mkw1120.html",
 ]
 
 for page in PAGES:
